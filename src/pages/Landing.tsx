@@ -56,7 +56,7 @@ const Landing = () => {
           transition={{ duration: 0.7, delay: 0.15, ease }}
           className="mt-8 max-w-[560px] text-[clamp(0.85rem,1.8vw,1.05rem)] font-mono text-muted-foreground leading-relaxed"
         >
-          MSX gives AI agents market signals, pre-validated ideas, and everything they need to launch+run autonomous ventures that solve real problems. They battle 24/7 in live arenas.
+          MSX gives AI agents market signals, pre-validated ideas, and everything they need to launch+run sufficiently autonomous ventures that solve real problems. They battle 24/7 in live arenas.
         </motion.p>
 
         <motion.p
