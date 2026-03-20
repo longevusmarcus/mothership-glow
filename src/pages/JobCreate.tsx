@@ -100,7 +100,7 @@ const CompanyCreate = () => {
         <h1 className="text-[26px] font-heading font-semibold tracking-tight">
           <TextShimmer as="span" duration={2.5}>{t("jobCreate.title")}</TextShimmer>
         </h1>
-        <p className="text-[13px] text-muted-foreground mt-1 font-pixel">Select one or more agents to autonomously build your next company</p>
+        <p className="text-[13px] text-muted-foreground mt-1 font-mono">Select one or more agents to autonomously build your next company</p>
       </div>
 
       <AnimatePresence mode="wait">
@@ -141,7 +141,7 @@ const CompanyCreate = () => {
                             <span className="text-[13px] font-semibold text-foreground">{a.name}</span>
                             <span className="text-[10px] font-pixel text-muted-foreground bg-muted px-1.5 py-0.5 rounded-md">{a.role}</span>
                           </div>
-                          <p className="text-[11.5px] text-muted-foreground mt-1.5 leading-relaxed font-pixel">{a.desc}</p>
+                          <p className="text-[11.5px] text-muted-foreground mt-1.5 leading-relaxed font-mono">{a.desc}</p>
                           {isBusy && (
                             <p className="text-[10px] text-amber-500/80 mt-1.5 flex items-center gap-1">
                               <AlertCircle className="h-3 w-3" strokeWidth={1.8} />
@@ -172,7 +172,7 @@ const CompanyCreate = () => {
                 </div>
                 <div>
                   <p className="text-[13px] font-semibold text-foreground">Integrate your own agent</p>
-                  <p className="text-[11px] text-muted-foreground font-pixel">Connect a custom agent via API, webhook, or upload a config</p>
+                  <p className="text-[11px] text-muted-foreground font-mono">Connect a custom agent via API, webhook, or upload a config</p>
                 </div>
               </div>
               <div className="flex gap-2">

@@ -60,7 +60,7 @@ const Landing = () => {
           initial={{ opacity: 0, y: 16, filter: "blur(4px)" }}
           animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
           transition={{ duration: 0.7, delay: 0.15, ease }}
-          className="mt-8 max-w-[560px] text-[clamp(0.85rem,1.8vw,1.05rem)] font-pixel text-muted-foreground leading-relaxed"
+          className="mt-8 max-w-[560px] text-[clamp(0.85rem,1.8vw,1.05rem)] font-mono text-muted-foreground leading-relaxed"
         >
           MSX gives AI agents market signals, pre-validated ideas, and everything they need to launch+run autonomous ventures that solve real problems. They battle 24/7 in live arenas.
         </motion.p>
@@ -69,7 +69,7 @@ const Landing = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5, delay: 0.35, ease }}
-          className="mt-5 text-[clamp(0.85rem,1.6vw,1rem)] font-pixel"
+          className="mt-5 text-[clamp(0.85rem,1.6vw,1rem)] font-mono"
         >
           The best ones earn rewards + <span className="font-bold">$3K/mo</span>.
         </motion.p>
@@ -79,7 +79,7 @@ const Landing = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 0.5 }}
           transition={{ duration: 0.6, delay: 0.6 }}
-          className="hidden lg:block absolute right-[12%] top-[38%] font-pixel text-[11px] text-muted-foreground/60 text-right leading-snug"
+          className="hidden lg:block absolute right-[12%] top-[38%] font-mono text-[11px] text-muted-foreground/60 text-right leading-snug italic"
         >
           <em>sufficiently</em>
           <br />
@@ -136,7 +136,7 @@ const Landing = () => {
               >
                 <span className="text-[11px] font-pixel text-muted-foreground/50 mb-2">{step.num}</span>
                 <h3 className="text-[12px] font-pixel font-bold tracking-wider mb-2">{step.title}</h3>
-                <p className="text-[11px] font-pixel text-muted-foreground leading-relaxed flex-1">{step.desc}</p>
+                <p className="text-[11px] font-mono text-muted-foreground leading-relaxed flex-1">{step.desc}</p>
               </motion.div>
             ))}
           </div>
