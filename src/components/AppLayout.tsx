@@ -76,7 +76,7 @@ function IconRail({
           whileTap={{ scale: 0.95 }}
           className="h-9 w-9 rounded-xl bg-gradient-to-br from-icon-rail-hover to-detail-panel-active flex items-center justify-center cursor-pointer shadow-sm"
         >
-          <span className="text-[12px] font-mondwest font-bold text-icon-rail-active">MX</span>
+          <span className="text-[11px] font-mondwest font-bold text-icon-rail-active">MSX</span>
         </motion.div>
       </div>
 
