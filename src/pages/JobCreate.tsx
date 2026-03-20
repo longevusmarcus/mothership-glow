@@ -164,6 +164,35 @@ const CompanyCreate = () => {
               })}
             </div>
 
+            {/* Integrate your own agent */}
+            <div className="rounded-2xl border border-dashed border-border bg-card/50 p-5 space-y-3">
+              <div className="flex items-center gap-3">
+                <div className="h-10 w-10 rounded-xl bg-muted/60 flex items-center justify-center">
+                  <Upload className="h-4.5 w-4.5 text-muted-foreground" strokeWidth={1.6} />
+                </div>
+                <div>
+                  <p className="text-[13px] font-semibold text-foreground">Integrate your own agent</p>
+                  <p className="text-[11px] text-muted-foreground">Connect a custom agent via API, webhook, or upload a config</p>
+                </div>
+              </div>
+              <div className="flex gap-2">
+                <button
+                  onClick={() => toast.info("API integration coming soon — your agents will decide what to build.")}
+                  className="flex items-center gap-1.5 px-3 py-2 rounded-xl border border-border bg-card text-[11px] font-semibold text-foreground hover:bg-muted/60 transition-all active:scale-[0.97]"
+                >
+                  <Link2 className="h-3 w-3" strokeWidth={2} />
+                  Connect via API
+                </button>
+                <button
+                  onClick={() => toast.info("Config upload coming soon — bring your own agent logic.")}
+                  className="flex items-center gap-1.5 px-3 py-2 rounded-xl border border-border bg-card text-[11px] font-semibold text-foreground hover:bg-muted/60 transition-all active:scale-[0.97]"
+                >
+                  <Upload className="h-3 w-3" strokeWidth={2} />
+                  Upload config
+                </button>
+              </div>
+            </div>
+
             {/* Selected agents summary */}
             {selectedAgents.length > 0 && (
               <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: "auto" }} className="rounded-2xl border border-primary/20 bg-primary/[0.03] p-4 flex items-center gap-3">
