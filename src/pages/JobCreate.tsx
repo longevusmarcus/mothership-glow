@@ -172,7 +172,7 @@ const CompanyCreate = () => {
                 </div>
                 <div>
                   <p className="text-[13px] font-semibold text-foreground">Integrate your own agent</p>
-                  <p className="text-[11px] text-muted-foreground font-pixel">Connect a custom agent via API, webhook, or upload a config</p>
+                  <p className="text-[11px] text-muted-foreground font-mono">Connect a custom agent via API, webhook, or upload a config</p>
                 </div>
               </div>
               <div className="flex gap-2">
