@@ -25,7 +25,7 @@ const companyData: Record<string, {
       { id: 3, name: "DesignMind", type: "Creative", score: 87, status: "Deployed", tasks: 31, telegram: "DesignMind_bot" },
     ],
     daysActive: 23,
-    aiSummary: "NovaTech is progressing well toward MVP launch. CodeForge has completed 47 tasks including the core dashboard, real-time collaboration features, and Stripe integration. GrowthPilot is building the landing page and setting up analytics. Estimated MVP completion: 5 days.",
+    aiSummary: "NovaTech is progressing well toward MVP launch. CEO Agent has completed 47 tasks including the core dashboard, real-time collaboration features, and Stripe integration. GrowthPilot is building the landing page and setting up analytics. Estimated MVP completion: 5 days.",
   },
 };
 
