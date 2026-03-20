@@ -16,6 +16,8 @@ export default {
       fontFamily: {
         heading: ["'Lora'", "serif"],
         body: ["'Inter'", "sans-serif"],
+        pixel: ["'PPNeueBit'", "monospace"],
+        mondwest: ["'PPMondwest'", "Georgia", "serif"],
       },
       colors: {
         success: {
