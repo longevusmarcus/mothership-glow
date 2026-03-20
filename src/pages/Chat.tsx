@@ -303,8 +303,18 @@ function DeployingCard({ onDone }: { onDone: () => void }) {
 
 function DeployedCard() {
   const navigate = useNavigate();
+  const [showPlan, setShowPlan] = useState(false);
+  const planRef = useRef<HTMLDivElement>(null);
+
+  const handleClaim = () => {
+    setShowPlan(true);
+    setTimeout(() => {
+      planRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
+    }, 100);
+  };
+
   return (
-    <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, ease }} className="mt-2">
+    <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, ease }} className="mt-2 space-y-3">
       <div className="rounded-xl border border-primary/20 bg-primary/[0.03] p-4 space-y-3">
         <div className="flex items-center gap-3">
           <div className="h-10 w-10 rounded-xl bg-primary/10 flex items-center justify-center">
@@ -315,10 +325,46 @@ function DeployedCard() {
             <p className="text-[11px] text-muted-foreground">Your agents are now building autonomously</p>
           </div>
         </div>
-        <button onClick={() => navigate("/companies/1")} className="w-full h-9 rounded-xl border border-border bg-card text-[11px] font-semibold flex items-center justify-center gap-2 hover:bg-muted/60 transition-all active:scale-[0.97]">
-          View company dashboard <ArrowRight className="h-3 w-3" />
-        </button>
+        <div className="grid grid-cols-2 gap-2">
+          <button onClick={() => navigate("/companies/1")} className="h-9 rounded-xl border border-border bg-card text-[11px] font-semibold flex items-center justify-center gap-2 hover:bg-muted/60 transition-all active:scale-[0.97]">
+            View dashboard <ArrowRight className="h-3 w-3" />
+          </button>
+          <button onClick={handleClaim} className="h-9 rounded-xl bg-foreground text-background text-[11px] font-semibold flex items-center justify-center gap-2 hover:opacity-90 transition-all active:scale-[0.97]">
+            <CreditCard className="h-3 w-3" strokeWidth={1.8} />
+            Claim & own
+          </button>
+        </div>
       </div>
+
+      <AnimatePresence>
+        {showPlan && (
+          <motion.div ref={planRef} initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: "auto" }} exit={{ opacity: 0, height: 0 }} className="overflow-hidden">
+            <div className="rounded-xl border border-primary/25 bg-primary/[0.04] p-4 space-y-3">
+              <div className="flex items-center gap-2">
+                <Sparkles className="h-4 w-4 text-primary" strokeWidth={1.6} />
+                <p className="text-[13px] font-semibold">MSX Pro — $58/month</p>
+              </div>
+              <p className="text-[10px] text-muted-foreground leading-relaxed">
+                Claim full ownership of this company. Get custom domain, Stripe revenue collection, and full control.
+              </p>
+              <ul className="space-y-1.5 text-[11px] text-muted-foreground">
+                <li className="flex items-center gap-2"><Check className="h-3 w-3 text-primary shrink-0" strokeWidth={2.5} /> Full ownership & custom branding</li>
+                <li className="flex items-center gap-2"><Check className="h-3 w-3 text-primary shrink-0" strokeWidth={2.5} /> Stripe revenue collection</li>
+                <li className="flex items-center gap-2"><Check className="h-3 w-3 text-primary shrink-0" strokeWidth={2.5} /> Custom domain connection</li>
+                <li className="flex items-center gap-2"><Check className="h-3 w-3 text-primary shrink-0" strokeWidth={2.5} /> REST API & webhook access</li>
+                <li className="flex items-center gap-2"><Check className="h-3 w-3 text-primary shrink-0" strokeWidth={2.5} /> Priority agent orchestration</li>
+              </ul>
+              <button
+                onClick={() => toast.info("Payment flow coming soon — you'll be first in line.")}
+                className="w-full h-10 rounded-xl bg-foreground text-background text-[12px] font-semibold flex items-center justify-center gap-2 hover:opacity-90 transition-all active:scale-[0.97]"
+              >
+                <CreditCard className="h-3.5 w-3.5" strokeWidth={1.8} />
+                Subscribe to MSX Pro
+              </button>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </motion.div>
   );
 }
