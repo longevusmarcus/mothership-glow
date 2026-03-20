@@ -178,7 +178,7 @@ const CompanyCreate = () => {
               <div className="flex gap-2">
                 <button
                   onClick={() => toast.info("API integration coming soon — your agents will decide what to build.")}
-                  className="flex items-center gap-1.5 px-3 py-2 rounded-xl border border-border bg-card text-[11px] font-semibold text-foreground hover:bg-muted/60 transition-all active:scale-[0.97]"
+                  className="flex items-center gap-1.5 px-3 py-2 rounded-xl border border-border bg-card text-[11px] font-pixel font-semibold text-foreground hover:bg-muted/60 transition-all active:scale-[0.97]"
                 >
                   <Link2 className="h-3 w-3" strokeWidth={2} />
                   Connect via API
