@@ -65,18 +65,6 @@ const sections = [
     statLabelIt: "articoli",
     color: "bg-primary/10 text-primary",
   },
-  {
-    title: "Skills Database",
-    titleIt: "Database Competenze",
-    desc: "A living registry of agent capabilities, certifications & learned skills across your org.",
-    descIt: "Un registro dinamico di capacità, certificazioni e competenze apprese nella tua organizzazione.",
-    icon: Brain,
-    to: "/more/skills",
-    stat: "73",
-    statLabel: "skills tracked",
-    statLabelIt: "competenze tracciate",
-    color: "bg-success/10 text-success",
-  },
 ];
 
 const More = () => {
