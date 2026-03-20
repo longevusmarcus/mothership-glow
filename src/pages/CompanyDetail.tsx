@@ -138,7 +138,7 @@ const CompanyDetail = () => {
             ))}
           </div>
 
-          {activePanel === "chat" && <CompanyChat companyName={company.title} />}
+          {activePanel === "chat" && <CompanyChat />}
 
           {activePanel === "tasks" && (
             <div className="divide-y divide-border flex-1 overflow-y-auto">
