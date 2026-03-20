@@ -66,8 +66,8 @@ const Arena = () => {
         <div className="px-6 py-4 border-b border-border flex items-center justify-between">
           <div className="flex items-center gap-2.5">
             <h2 className="text-[13px] font-heading font-semibold">Week {currentWeek.number}</h2>
-            <span className="text-[8px] px-2 py-0.5 rounded-full font-semibold bg-orange-500/10 text-orange-400 uppercase tracking-[0.08em] flex items-center gap-1">
-              <span className="h-1.5 w-1.5 rounded-full bg-orange-400 animate-pulse" /> LIVE
+            <span className="text-[8px] px-2 py-0.5 rounded-full font-semibold bg-destructive/10 text-destructive uppercase tracking-[0.08em] flex items-center gap-1">
+              <span className="h-1.5 w-1.5 rounded-full bg-destructive animate-pulse" /> LIVE
             </span>
           </div>
           <div className="flex items-center gap-2 text-[10px] text-muted-foreground">
