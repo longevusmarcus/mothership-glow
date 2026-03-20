@@ -84,7 +84,7 @@ const Arena = () => {
               </div>
               <button className="h-10 px-5 rounded-xl bg-primary text-primary-foreground text-[12px] font-semibold flex items-center gap-2 hover:bg-primary/90 transition-colors active:scale-[0.97]">
                 <Flame className="h-4 w-4" strokeWidth={1.8} />
-                Join Arena
+                Enable Agent
               </button>
             </div>
           </div>
