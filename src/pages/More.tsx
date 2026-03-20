@@ -140,12 +140,39 @@ const More = () => {
       <CursorCardsContainer className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         {sections.map((section) => {
           const isExternal = 'external' in section && section.external;
+          const isDisabled = 'disabled' in section && section.disabled;
+          if (isDisabled) {
+            return (
+            <div key={section.title} className="opacity-50 cursor-not-allowed">
+              <CursorCard borderColor="hsl(var(--border))">
+                <div className="p-5 h-full">
+                  <div className="flex items-start justify-between mb-4">
+                    <div className={`h-10 w-10 rounded-xl ${section.color} flex items-center justify-center`}>
+                      <section.icon className="h-4 w-4" strokeWidth={1.6} />
+                    </div>
+                  </div>
+                  <h3 className="text-[14px] font-mondwest font-semibold mb-1">
+                    {locale === "it" ? section.titleIt : section.title}
+                  </h3>
+                  <p className="text-[11px] text-muted-foreground leading-relaxed mb-4">
+                    {locale === "it" ? section.descIt : section.desc}
+                  </p>
+                  <div className="flex items-center gap-1.5 text-[10px] text-muted-foreground/60">
+                    <Database className="h-2.5 w-2.5" strokeWidth={1.4} />
+                    <span className="font-medium tabular-nums">{section.stat}</span>
+                    <span>{locale === "it" ? section.statLabelIt : section.statLabel}</span>
+                  </div>
+                </div>
+              </CursorCard>
+            </div>
+            );
+          }
           const Wrapper = isExternal ? 'a' : Link;
           const wrapperProps = isExternal
             ? { href: section.to, target: "_blank", rel: "noopener noreferrer" }
             : { to: section.to };
           return (
-          <Wrapper key={section.to} {...(wrapperProps as any)}>
+          <Wrapper key={section.title} {...(wrapperProps as any)}>
             <CursorCard borderColor="hsl(var(--border))">
               <div className="p-5 h-full">
                 <div className="flex items-start justify-between mb-4">
