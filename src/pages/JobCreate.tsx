@@ -285,7 +285,7 @@ const CompanyCreate = () => {
               </div>
               <div>
                 <p className="text-[15px] font-semibold text-foreground">Company deployed successfully</p>
-                <p className="text-[12px] text-muted-foreground mt-0.5">{selectedAgents.length} agent{selectedAgents.length > 1 ? "s" : ""} built everything from 847 signals and 23 validated ideas</p>
+                <p className="text-[12px] text-muted-foreground mt-0.5">{selectedAgents.length} agent{selectedAgents.length > 1 ? "s" : ""} built everything from 847 signals and 750 validated ideas</p>
               </div>
             </div>
 
