@@ -18,7 +18,7 @@ import Signals from "./pages/Signals";
 import Ideas from "./pages/Ideas";
 import PersonalOS from "./pages/PersonalOS";
 import Arena from "./pages/Arena";
-import AppStore from "./pages/AppStore";
+
 import Analytics from "./pages/Analytics";
 import Settings from "./pages/Settings";
 import NotFound from "./pages/NotFound";
@@ -46,7 +46,7 @@ const App = () => (
             <Route path="/more/ideas" element={<AppLayout><Ideas /></AppLayout>} />
             <Route path="/more/personal-os" element={<AppLayout><PersonalOS /></AppLayout>} />
             <Route path="/more/arena" element={<AppLayout><Arena /></AppLayout>} />
-            <Route path="/store" element={<AppLayout><AppStore /></AppLayout>} />
+            
             <Route path="/analytics" element={<AppLayout><Analytics /></AppLayout>} />
             <Route path="/settings" element={<AppLayout><Settings /></AppLayout>} />
             <Route path="*" element={<NotFound />} />
