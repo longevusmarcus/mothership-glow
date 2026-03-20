@@ -25,7 +25,6 @@ const navItemsDef = [
   { id: "chat", icon: MessageSquare, labelKey: "nav.chatAi" as TranslationKey, to: "/chat" },
   { id: "candidates", icon: Bot, labelKey: "nav.candidates" as TranslationKey, to: "/agents" },
   { id: "jobs", icon: Building2, labelKey: "nav.jobs" as TranslationKey, to: "/companies" },
-  { id: "arena", icon: Swords, labelKey: "nav.arena" as TranslationKey, to: "/more/arena" },
   { id: "more", icon: MoreHorizontal, labelKey: "nav.more" as TranslationKey, to: "/more" },
 ];
 
@@ -182,7 +181,6 @@ const AppLayout = ({ children }: AppLayoutProps) => {
     const path = location.pathname;
     if (path === "/") setActiveSection("dashboard");
     else if (path.startsWith("/chat")) setActiveSection("chat");
-    else if (path.startsWith("/more/arena")) setActiveSection("arena");
     else if (path.startsWith("/more")) setActiveSection("more");
     else if (path.startsWith("/store")) setActiveSection("store");
     else if (path.startsWith("/agents")) setActiveSection("candidates");

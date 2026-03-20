@@ -31,8 +31,8 @@ const sections = [
     external: true,
   },
   {
-    title: "Hackathons",
-    titleIt: "Hackathon",
+    title: "Arena",
+    titleIt: "Arena",
     desc: "Weekly challenges, competitions & prizes. Build micro-SaaS products and compete with other builders.",
     descIt: "Sfide settimanali, competizioni e premi. Costruisci micro-SaaS e competi con altri builder.",
     icon: Swords,
@@ -42,6 +42,19 @@ const sections = [
     statLabelIt: "esterno",
     color: "bg-accent text-accent-foreground",
     external: true,
+  },
+  {
+    title: "Hackathons (soon)",
+    titleIt: "Hackathon (presto)",
+    desc: "Live hackathon events with real-time leaderboards, team formation & prize pools.",
+    descIt: "Eventi hackathon live con classifiche in tempo reale, formazione team e montepremi.",
+    icon: Swords,
+    to: "#",
+    stat: "—",
+    statLabel: "coming soon",
+    statLabelIt: "in arrivo",
+    color: "bg-muted-foreground/10 text-muted-foreground",
+    disabled: true,
   },
   {
     title: "Signals",
@@ -68,16 +81,17 @@ const sections = [
     color: "bg-success/10 text-success",
   },
   {
-    title: "Personal OS",
-    titleIt: "OS Personale",
+    title: "Personal OS (soon)",
+    titleIt: "OS Personale (presto)",
     desc: "Your private knowledge base — links, notes, docs & ideas that train your agents.",
     descIt: "Il tuo spazio privato — link, note, documenti e idee che addestrano i tuoi agenti.",
     icon: FolderOpen,
-    to: "/more/personal-os",
-    stat: "8",
-    statLabel: "items saved",
-    statLabelIt: "elementi salvati",
-    color: "bg-accent text-accent-foreground",
+    to: "#",
+    stat: "—",
+    statLabel: "coming soon",
+    statLabelIt: "in arrivo",
+    color: "bg-muted-foreground/10 text-muted-foreground",
+    disabled: true,
   },
   {
     title: "Technical Docs",
@@ -126,12 +140,39 @@ const More = () => {
       <CursorCardsContainer className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         {sections.map((section) => {
           const isExternal = 'external' in section && section.external;
+          const isDisabled = 'disabled' in section && section.disabled;
+          if (isDisabled) {
+            return (
+            <div key={section.title} className="opacity-50 cursor-not-allowed">
+              <CursorCard borderColor="hsl(var(--border))">
+                <div className="p-5 h-full">
+                  <div className="flex items-start justify-between mb-4">
+                    <div className={`h-10 w-10 rounded-xl ${section.color} flex items-center justify-center`}>
+                      <section.icon className="h-4 w-4" strokeWidth={1.6} />
+                    </div>
+                  </div>
+                  <h3 className="text-[14px] font-mondwest font-semibold mb-1">
+                    {locale === "it" ? section.titleIt : section.title}
+                  </h3>
+                  <p className="text-[11px] text-muted-foreground leading-relaxed mb-4">
+                    {locale === "it" ? section.descIt : section.desc}
+                  </p>
+                  <div className="flex items-center gap-1.5 text-[10px] text-muted-foreground/60">
+                    <Database className="h-2.5 w-2.5" strokeWidth={1.4} />
+                    <span className="font-medium tabular-nums">{section.stat}</span>
+                    <span>{locale === "it" ? section.statLabelIt : section.statLabel}</span>
+                  </div>
+                </div>
+              </CursorCard>
+            </div>
+            );
+          }
           const Wrapper = isExternal ? 'a' : Link;
           const wrapperProps = isExternal
             ? { href: section.to, target: "_blank", rel: "noopener noreferrer" }
             : { to: section.to };
           return (
-          <Wrapper key={section.to} {...(wrapperProps as any)}>
+          <Wrapper key={section.title} {...(wrapperProps as any)}>
             <CursorCard borderColor="hsl(var(--border))">
               <div className="p-5 h-full">
                 <div className="flex items-start justify-between mb-4">
