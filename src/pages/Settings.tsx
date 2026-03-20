@@ -219,9 +219,8 @@ function IntegrationsTab({ locale }: { locale: string }) {
     { name: "GitHub", desc: "Source code repositories", descIt: "Repository codice sorgente", status: "connected", icon: "🐙" },
     { name: "Vercel", desc: "Hosting & deployments", descIt: "Hosting e deploy", status: "connected", icon: "▲" },
     { name: "Stripe", desc: "Payments & subscriptions", descIt: "Pagamenti e abbonamenti", status: "connected", icon: "💳" },
-    { name: "OpenAI", desc: "AI models & embeddings", descIt: "Modelli AI ed embeddings", status: "connected", icon: "🤖" },
-    { name: "Slack", desc: "Team notifications", descIt: "Notifiche team", status: "disconnected", icon: "💬" },
-    { name: "Linear", desc: "Issue tracking & project management", descIt: "Issue tracking e gestione progetti", status: "disconnected", icon: "📐" },
+    { name: "Codex", desc: "AI code generation & reasoning", descIt: "Generazione codice AI e ragionamento", status: "connected", icon: "🧠" },
+    { name: "Claude", desc: "AI assistant & analysis", descIt: "Assistente AI e analisi", status: "disconnected", icon: "🤖" },
   ];
 
   return (
