@@ -34,11 +34,13 @@ const Dashboard = () => {
   const greetingKey: TranslationKey = hour < 12 ? "dashboard.greeting.morning" : hour < 18 ? "dashboard.greeting.afternoon" : "dashboard.greeting.evening";
   const dateStr = now.toLocaleDateString(locale === "en" ? "en-US" : "it-IT", { weekday: "long", day: "numeric", month: "long", year: "numeric" });
 
-  const stats = [
+   const stats = [
     { labelKey: "dashboard.stat.activeAgents" as TranslationKey, value: "12", change: "+3", up: true, icon: Bot, href: "/agents" },
     { labelKey: "dashboard.stat.companiesBuilt" as TranslationKey, value: "6", change: "+2", up: true, icon: Building2, href: "/companies" },
-    { labelKey: "dashboard.stat.apiSkills" as TranslationKey, value: "34", change: "+8", up: true, icon: Zap, href: "/settings" },
-    { labelKey: "dashboard.stat.tasksCompleted" as TranslationKey, value: "847", change: "+124", up: true, icon: TrendingUp, href: "/analytics" },
+    { labelKey: "dashboard.stat.tasksCompleted" as TranslationKey, value: "847", change: "+124", up: true, icon: TrendingUp, href: "/" },
+    { label: "Total Visitors", value: "24.3K", change: "+18%", up: true, icon: Users, href: "/" },
+    { label: "Revenue", value: "$12,840", change: "+$3,200", up: true, icon: DollarSign, href: "/" },
+    { label: "Page Views", value: "89.1K", change: "+24%", up: true, icon: Eye, href: "/" },
   ];
 
   const recentAgents = [
