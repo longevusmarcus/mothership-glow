@@ -26,7 +26,6 @@ const tabs = [
   { id: "integrations", label: "Integrations", labelIt: "Integrazioni", icon: PlugZap },
   { id: "subscription", label: "Subscription", labelIt: "Abbonamento", icon: CreditCard },
   { id: "ai", label: "AI Config", labelIt: "AI Config", icon: () => <AiIcon className="text-muted-foreground" size={16} /> },
-  { id: "ai", label: "AI Config", labelIt: "AI Config", icon: () => <AiIcon className="text-muted-foreground" size={16} /> },
 ];
 
 /* ======================== Budget Tab ======================== */
@@ -412,7 +411,7 @@ const Settings = () => {
                 <div className="flex items-center gap-3">
                   <AiIcon className="text-muted-foreground" size={20} />
                   <div>
-                    <p className="text-[13px] font-medium">MothershipX AI</p>
+                    <p className="text-[13px] font-medium">MSX AI</p>
                     <p className="text-[11px] text-muted-foreground">{t("settings.ai.subtitle")}</p>
                   </div>
                   <div className="ml-auto h-[22px] w-[40px] rounded-full bg-primary relative cursor-pointer">
