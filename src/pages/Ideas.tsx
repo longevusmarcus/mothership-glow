@@ -79,7 +79,7 @@ const Ideas = () => {
             <Lightbulb className="h-5 w-5 text-green-400" strokeWidth={1.6} />
             {locale === "it" ? "Idee" : "Ideas"}
           </h1>
-          <p className="text-[12px] text-muted-foreground mt-0.5">
+          <p className="text-[12px] text-muted-foreground mt-0.5 font-mono">
             {locale === "it" ? "~1.000 nuove idee al mese generate dall'AI" : "~1,000 new ideas per month AI-generated from signals"}
           </p>
         </div>

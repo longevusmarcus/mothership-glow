@@ -27,7 +27,7 @@ const Companies = () => {
       <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3">
         <div>
           <h1 className="text-[28px] sm:text-[34px] font-mondwest font-semibold tracking-tight"><TextShimmer as="span" duration={2.5}>{t("jobs.title")}</TextShimmer></h1>
-          <p className="text-[13px] text-muted-foreground mt-1">
+          <p className="text-[13px] text-muted-foreground mt-1 font-mono">
             {companies.filter(c => c.status === "Attiva").length} {t("jobs.activePositions")}
           </p>
         </div>
@@ -54,7 +54,7 @@ const Companies = () => {
               <div className="flex items-start justify-between mb-3">
                 <div>
                   <h3 className="text-[15px] font-mondwest font-semibold group-hover:text-foreground/80 transition-colors">{company.title}</h3>
-                  <p className="text-[11px] text-muted-foreground mt-0.5 uppercase font-medium tracking-wider">{company.department} · {company.type}</p>
+                  <p className="text-[11px] text-muted-foreground mt-0.5 uppercase font-medium tracking-wider font-mono">{company.department} · {company.type}</p>
                 </div>
                 <span className={`text-[10px] px-2.5 py-1 rounded-lg font-semibold shrink-0 ${company.status === "Attiva" ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground"}`}>
                   {company.status === "Attiva" ? t("jobs.active") : t("jobs.paused")}

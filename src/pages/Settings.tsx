@@ -44,7 +44,7 @@ function BudgetTab({ locale }: { locale: string }) {
         <h2 className="text-[13px] font-mondwest font-semibold">
           {locale === "it" ? "Budget Aziendale" : "Company Budget"}
         </h2>
-        <p className="text-[11px] text-muted-foreground mt-0.5">
+        <p className="text-[11px] text-muted-foreground mt-0.5 font-mono">
           {locale === "it" ? "Alimenta VM hosting, token AI e servizi" : "Powers VM hosting, AI tokens, and services"}
         </p>
       </div>
@@ -408,7 +408,7 @@ const Settings = () => {
             <div className="space-y-5">
               <div className="flex items-center justify-between">
                 <h2 className="text-[13px] font-mondwest font-semibold">{t("settings.team.title")}</h2>
-                <button className="px-4 py-2 bg-primary text-primary-foreground rounded-xl text-[12px] font-body font-medium hover:opacity-90 transition-all shadow-sm">
+                <button className="px-4 py-2 bg-primary text-primary-foreground rounded-xl text-[12px] font-mono font-medium hover:opacity-90 transition-all shadow-sm">
                   {t("settings.team.invite")}
                 </button>
               </div>
@@ -416,7 +416,7 @@ const Settings = () => {
                 {teamMembers.map(m => (
                   <div key={m.email} className="px-6 py-4 flex items-center gap-4">
                     <div className="h-10 w-10 rounded-xl bg-accent/60 flex items-center justify-center shrink-0">
-                      <span className="text-[11px] font-body font-semibold text-foreground/50">{m.name.split(" ").map(n => n[0]).join("")}</span>
+                      <span className="text-[11px] font-mono font-semibold text-foreground/50">{m.name.split(" ").map(n => n[0]).join("")}</span>
                     </div>
                     <div className="flex-1 min-w-0">
                       <p className="text-[13px] font-medium">{m.name}</p>

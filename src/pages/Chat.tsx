@@ -420,7 +420,7 @@ const Chat = () => {
                         <AiIcon size={16} className="text-muted-foreground" />
                       </div>
                     )}
-                    <div className={`${msg.action ? "max-w-[90%]" : "max-w-[80%]"} rounded-2xl px-4 py-3 text-[13px] font-body leading-relaxed ${msg.role === "user" ? "bg-primary text-primary-foreground" : "bg-card border border-border text-foreground"}`}>
+                    <div className={`${msg.action ? "max-w-[90%]" : "max-w-[80%]"} rounded-2xl px-4 py-3 text-[13px] font-mono leading-relaxed ${msg.role === "user" ? "bg-primary text-primary-foreground" : "bg-card border border-border text-foreground"}`}>
                       {msg.content}
                       {renderMessageExtras(msg)}
                       <p className={`text-[10px] mt-2 ${msg.role === "user" ? "text-primary-foreground/50" : "text-muted-foreground/50"}`}>
@@ -442,7 +442,7 @@ const Chat = () => {
                   </div>
                   <div className="bg-card border border-border rounded-2xl px-4 py-3 flex items-center gap-2">
                     <Loader2 className="h-3.5 w-3.5 text-muted-foreground animate-spin" />
-                    <span className="text-[12px] text-muted-foreground font-body">{t("chat.thinking")}</span>
+                    <span className="text-[12px] text-muted-foreground font-mono">{t("chat.thinking")}</span>
                   </div>
                 </motion.div>
               )}

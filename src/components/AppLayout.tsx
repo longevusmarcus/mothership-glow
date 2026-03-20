@@ -49,7 +49,7 @@ function IconTooltip({ children, label }: { children: React.ReactNode; label: st
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -4 }}
             transition={{ duration: 0.15 }}
-            className="absolute left-full ml-2 top-1/2 -translate-y-1/2 z-[300] px-2.5 py-1 rounded-lg bg-foreground text-background text-[11px] font-body font-medium whitespace-nowrap shadow-lg pointer-events-none"
+            className="absolute left-full ml-2 top-1/2 -translate-y-1/2 z-[300] px-2.5 py-1 rounded-lg bg-foreground text-background text-[11px] font-mono font-medium whitespace-nowrap shadow-lg pointer-events-none"
           >
             {label}
             <div className="absolute right-full top-1/2 -translate-y-1/2 border-4 border-transparent border-r-foreground" />
@@ -154,7 +154,7 @@ function IconRail({
           whileHover={{ scale: 1.1 }}
           className="h-8 w-8 rounded-full bg-gradient-to-br from-detail-panel-border to-icon-rail-hover flex items-center justify-center mt-2 cursor-pointer ring-2 ring-transparent hover:ring-icon-rail-foreground/20 transition-all"
         >
-          <span className="text-[10px] font-body font-semibold text-icon-rail-foreground">OP</span>
+          <span className="text-[10px] font-mono font-semibold text-icon-rail-foreground">OP</span>
         </motion.div>
       </div>
     </div>
@@ -254,7 +254,7 @@ const AppLayout = ({ children }: AppLayoutProps) => {
           <div className="flex items-center gap-1.5 ml-auto shrink-0">
             <button onClick={() => setLocale(locale === "it" ? "en" : "it")} className="h-8 px-2 rounded-xl flex items-center justify-center gap-1.5 text-muted-foreground hover:text-foreground hover:bg-muted/60 transition-all" title={locale === "it" ? "Switch to English" : "Passa all'italiano"}>
               <Languages className="h-3.5 w-3.5" strokeWidth={1.6} />
-              <span className="text-[10px] font-body font-bold uppercase tracking-wider">{locale === "it" ? "EN" : "IT"}</span>
+              <span className="text-[10px] font-mono font-bold uppercase tracking-wider">{locale === "it" ? "EN" : "IT"}</span>
             </button>
 
             <button onClick={toggleDark} className="h-8 w-8 rounded-xl flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-muted/60 transition-all" title={dark ? t("theme.light") : t("theme.dark")}>
@@ -292,7 +292,7 @@ const AppLayout = ({ children }: AppLayoutProps) => {
                       ))}
                     </div>
                     <div className="px-4 py-2 border-t border-border">
-                      <button className="text-[11px] font-body font-medium text-muted-foreground hover:text-foreground transition-colors w-full text-center">{t("notif.viewAll")}</button>
+                      <button className="text-[11px] font-mono font-medium text-muted-foreground hover:text-foreground transition-colors w-full text-center">{t("notif.viewAll")}</button>
                     </div>
                   </motion.div>
                 )}
@@ -300,7 +300,7 @@ const AppLayout = ({ children }: AppLayoutProps) => {
             </div>
 
             <div className="h-8 w-8 rounded-xl bg-accent flex items-center justify-center ml-1">
-              <span className="text-[10px] font-body font-semibold text-foreground/60 tracking-wide">OP</span>
+              <span className="text-[10px] font-mono font-semibold text-foreground/60 tracking-wide">OP</span>
             </div>
           </div>
         </header>

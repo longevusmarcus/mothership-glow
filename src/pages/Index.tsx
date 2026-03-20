@@ -89,7 +89,7 @@ const Dashboard = () => {
     <div className="space-y-8">
       <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3">
         <div>
-          <p className="text-[12px] text-muted-foreground font-medium capitalize tracking-wide">{dateStr}</p>
+          <p className="text-[12px] text-muted-foreground font-medium capitalize tracking-wide font-mono">{dateStr}</p>
           <h1 className="text-[28px] sm:text-[34px] font-mondwest font-semibold tracking-tight mt-1">
             <TextShimmer as="span" duration={2.5}>{`${t(greetingKey)}, Operator`}</TextShimmer>
           </h1>
@@ -108,7 +108,7 @@ const Dashboard = () => {
                   <div className="h-10 w-10 rounded-xl bg-muted/70 flex items-center justify-center">
                     <stat.icon className="h-4 w-4 text-muted-foreground" strokeWidth={1.6} />
                   </div>
-                  <span className={`text-[11px] font-body font-semibold flex items-center gap-0.5 ${stat.up ? "text-success" : "text-destructive"}`}>
+                  <span className={`text-[11px] font-mono font-semibold flex items-center gap-0.5 ${stat.up ? "text-success" : "text-destructive"}`}>
                     {stat.up ? <ArrowUpRight className="h-3 w-3" /> : <ArrowDownRight className="h-3 w-3" />}
                     {stat.change}
                   </span>
@@ -134,7 +134,7 @@ const Dashboard = () => {
             {aiInsights.map((insight, i) => (
               <CursorCard key={i} illuminationColor="hsl(var(--foreground) / 0.04)" primaryHue="hsl(var(--foreground) / 0.12)" secondaryHue="hsl(var(--foreground) / 0.04)" borderColor="hsl(var(--border))">
                 <div className="p-4 flex flex-col justify-between gap-4 min-h-[100px]">
-                  <p className="text-[12.5px] leading-[1.6] text-foreground/75 font-body">{t(insight.textKey)}</p>
+                  <p className="text-[12.5px] leading-[1.6] text-foreground/75 font-mono">{t(insight.textKey)}</p>
                   <Link to={insight.href} className="text-[10.5px] font-medium text-muted-foreground hover:text-foreground transition-colors self-start flex items-center gap-1.5 group">
                     <Zap className="h-3 w-3 group-hover:scale-110 transition-transform" strokeWidth={1.8} /> {t(insight.actionKey)}
                   </Link>

@@ -70,7 +70,7 @@ const Analytics = () => {
       <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3">
         <div>
           <h1 className="text-[28px] sm:text-[34px] font-mondwest font-semibold tracking-tight"><TextShimmer as="span" duration={2.5}>{t("analytics.title")}</TextShimmer></h1>
-          <p className="text-[13px] text-muted-foreground mt-1">{t("analytics.subtitle")}</p>
+          <p className="text-[13px] text-muted-foreground mt-1 font-mono">{t("analytics.subtitle")}</p>
         </div>
         <CleanMotionBackground className="bg-card border border-border rounded-xl p-1" hoverable={false} defaultKey={period} onChange={(key) => key && setPeriod(key)}>
           {["1m", "3m", "6m", "1y"].map(p => (
@@ -85,7 +85,7 @@ const Analytics = () => {
           <div className="h-6 w-6 rounded-lg bg-muted flex items-center justify-center"><AiIcon className="text-muted-foreground" size={13} /></div>
           <h2 className="text-[13px] font-mondwest font-semibold text-foreground/80">{t("analytics.aiSummary")}</h2>
         </div>
-        <p className="text-[13px] text-foreground/70 leading-relaxed">
+        <p className="text-[13px] text-foreground/70 leading-relaxed font-mono">
           {locale === "it"
             ? <>Revenue in crescita del <strong className="text-foreground">34%</strong> questo trimestre. NovaTech guida con <strong className="text-foreground">$4,280</strong> totali. Il traffico organico è la fonte principale (<strong className="text-foreground">41%</strong> dei visitatori). Suggerimento: scala gli agenti Growth su FinFlow per accelerare la conversione.</>
             : <>Revenue is up <strong className="text-foreground">34%</strong> this quarter. NovaTech leads with <strong className="text-foreground">$4,280</strong> total. Organic search is the top source (<strong className="text-foreground">41%</strong> of visitors). Recommendation: scale Growth agents on FinFlow to accelerate conversion.</>
@@ -104,7 +104,7 @@ const Analytics = () => {
               <span className="text-[10px] font-semibold text-success">{m.trend}</span>
             </div>
             <p className="text-[28px] font-mondwest font-semibold tracking-tight leading-none tabular-nums">{m.value}</p>
-            <p className="text-[11px] text-muted-foreground mt-1.5 font-medium">{m.label}</p>
+            <p className="text-[11px] text-muted-foreground mt-1.5 font-medium font-mono">{m.label}</p>
           </div>
         ))}
       </div>
