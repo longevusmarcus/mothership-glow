@@ -1,4 +1,4 @@
-import { Bot, Building2, Zap, TrendingUp, ArrowUpRight, ArrowDownRight, Bell, ChevronRight } from "lucide-react";
+import { Bot, Building2, Zap, TrendingUp, ArrowUpRight, ArrowDownRight, Bell, ChevronRight, Users, DollarSign, Eye } from "lucide-react";
 import AiIcon from "@/components/AiIcon";
 import { InteractiveHoverButton } from "@/components/ui/interactive-hover-button";
 import { TextShimmer } from "@/components/ui/text-shimmer";
@@ -34,11 +34,13 @@ const Dashboard = () => {
   const greetingKey: TranslationKey = hour < 12 ? "dashboard.greeting.morning" : hour < 18 ? "dashboard.greeting.afternoon" : "dashboard.greeting.evening";
   const dateStr = now.toLocaleDateString(locale === "en" ? "en-US" : "it-IT", { weekday: "long", day: "numeric", month: "long", year: "numeric" });
 
-  const stats = [
+   const stats = [
     { labelKey: "dashboard.stat.activeAgents" as TranslationKey, value: "12", change: "+3", up: true, icon: Bot, href: "/agents" },
     { labelKey: "dashboard.stat.companiesBuilt" as TranslationKey, value: "6", change: "+2", up: true, icon: Building2, href: "/companies" },
-    { labelKey: "dashboard.stat.apiSkills" as TranslationKey, value: "34", change: "+8", up: true, icon: Zap, href: "/settings" },
-    { labelKey: "dashboard.stat.tasksCompleted" as TranslationKey, value: "847", change: "+124", up: true, icon: TrendingUp, href: "/analytics" },
+    { labelKey: "dashboard.stat.tasksCompleted" as TranslationKey, value: "847", change: "+124", up: true, icon: TrendingUp, href: "/" },
+    { label: "Total Visitors", value: "24.3K", change: "+18%", up: true, icon: Users, href: "/" },
+    { label: "Revenue", value: "$12,840", change: "+$3,200", up: true, icon: DollarSign, href: "/" },
+    { label: "Page Views", value: "89.1K", change: "+24%", up: true, icon: Eye, href: "/" },
   ];
 
   const recentAgents = [
@@ -99,7 +101,7 @@ const Dashboard = () => {
         </Link>
       </div>
 
-      <CursorCardsContainer className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+      <CursorCardsContainer className="grid grid-cols-2 lg:grid-cols-3 gap-4">
         {stats.map((stat) => (
           <Link key={stat.labelKey} to={stat.href}>
             <CursorCard borderColor="hsl(var(--border))">
@@ -114,7 +116,7 @@ const Dashboard = () => {
                   </span>
                 </div>
                 <p className="text-[30px] font-mondwest font-semibold tracking-tight leading-none">{stat.value}</p>
-                <p className="text-[11px] text-muted-foreground mt-1.5 font-medium">{t(stat.labelKey)}</p>
+                <p className="text-[11px] text-muted-foreground mt-1.5 font-medium">{"labelKey" in stat ? t(stat.labelKey as TranslationKey) : (stat as any).label}</p>
               </div>
             </CursorCard>
           </Link>

@@ -7,7 +7,6 @@ import {
   BookOpen,
   MoreHorizontal,
   ShoppingBag,
-  BarChart3,
   Swords,
   Settings,
   LogOut,
@@ -27,7 +26,6 @@ const navItemsDef = [
   { id: "candidates", icon: Bot, labelKey: "nav.candidates" as TranslationKey, to: "/agents" },
   { id: "jobs", icon: Building2, labelKey: "nav.jobs" as TranslationKey, to: "/companies" },
   { id: "arena", icon: Swords, labelKey: "nav.arena" as TranslationKey, to: "/more/arena" },
-  { id: "analytics", icon: BarChart3, labelKey: "nav.analytics" as TranslationKey, to: "/analytics" },
   { id: "more", icon: MoreHorizontal, labelKey: "nav.more" as TranslationKey, to: "/more" },
 ];
 
@@ -189,7 +187,6 @@ const AppLayout = ({ children }: AppLayoutProps) => {
     else if (path.startsWith("/store")) setActiveSection("store");
     else if (path.startsWith("/agents")) setActiveSection("candidates");
     else if (path.startsWith("/companies")) setActiveSection("jobs");
-    else if (path.startsWith("/analytics")) setActiveSection("analytics");
     else if (path.startsWith("/settings")) setActiveSection("settings");
   }, [location.pathname]);
 
