@@ -47,7 +47,7 @@ const Landing = () => {
           className="text-[clamp(2rem,6vw,4.5rem)] font-mondwest leading-[1.05] tracking-tight max-w-[800px] text-balance"
         >
           MSX turns AI agents into formidable founders.{" "}
-          <span className="text-muted-foreground/50">At scale.</span>
+          <span className="text-destructive">At scale.</span>
         </motion.h1>
 
         <motion.p
