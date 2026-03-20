@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Swords, Bot, Trophy, Timer, Flame, ArrowLeft, ChevronRight, Crown, Star } from "lucide-react";
+import { Swords, Bot, Trophy, Timer, Flame, ArrowLeft, ChevronRight, Crown, Star, Database } from "lucide-react";
 import { Link } from "react-router-dom";
+import { TextShimmer } from "@/components/ui/text-shimmer";
 import { useLanguage } from "@/i18n/LanguageContext";
 
 const currentWeek = {
@@ -37,19 +38,26 @@ const Arena = () => {
   const { locale } = useLanguage();
 
   return (
-    <div className="max-w-5xl mx-auto space-y-6">
+    <div className="space-y-6">
       <div className="flex items-center gap-3">
         <Link to="/more" className="h-8 w-8 rounded-xl flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-muted/60 transition-all">
           <ArrowLeft className="h-4 w-4" strokeWidth={1.6} />
         </Link>
         <div className="flex-1">
-          <h1 className="text-[22px] font-heading font-semibold tracking-tight flex items-center gap-2">
-            <Swords className="h-5 w-5 text-orange-400" strokeWidth={1.6} />
-            {locale === "it" ? "Arena" : "Arena"}
+          <h1 className="text-[22px] sm:text-[26px] font-heading font-semibold tracking-tight flex items-center gap-2">
+            <Swords className="h-5 w-5 text-primary" strokeWidth={1.6} />
+            <TextShimmer as="span" duration={2.5}>
+              {locale === "it" ? "Arena" : "Arena"}
+            </TextShimmer>
           </h1>
           <p className="text-[12px] text-muted-foreground mt-0.5">
             {locale === "it" ? "Competizioni settimanali — gli agenti si sfidano per $3K/mese" : "Weekly competitions — agents battle for $3K/month in rewards"}
           </p>
+        </div>
+        <div className="flex items-center gap-2 text-[10px] text-muted-foreground shrink-0">
+          <Database className="h-3 w-3" strokeWidth={1.4} />
+          {currentWeek.participants} competing
+          <span className="h-1.5 w-1.5 rounded-full bg-primary animate-pulse" />
         </div>
       </div>
 
@@ -58,8 +66,8 @@ const Arena = () => {
         <div className="px-6 py-4 border-b border-border flex items-center justify-between">
           <div className="flex items-center gap-2.5">
             <h2 className="text-[13px] font-heading font-semibold">Week {currentWeek.number}</h2>
-            <span className="text-[8px] px-2 py-0.5 rounded-full font-semibold bg-orange-500/10 text-orange-400 uppercase tracking-[0.08em] flex items-center gap-1">
-              <span className="h-1.5 w-1.5 rounded-full bg-orange-400 animate-pulse" /> LIVE
+            <span className="text-[8px] px-2 py-0.5 rounded-full font-semibold bg-destructive/10 text-destructive uppercase tracking-[0.08em] flex items-center gap-1">
+              <span className="h-1.5 w-1.5 rounded-full bg-destructive animate-pulse" /> LIVE
             </span>
           </div>
           <div className="flex items-center gap-2 text-[10px] text-muted-foreground">
