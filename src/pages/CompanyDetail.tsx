@@ -217,17 +217,17 @@ const CompanyDetail = () => {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
         {/* Main panel — tabbed: Chat / Tasks / Deploys */}
         <div className="lg:col-span-2 bg-card rounded-2xl card-static overflow-hidden flex flex-col min-h-[500px]">
-          <div className="flex items-center border-b border-border">
+          <div className="flex items-center border-b border-border overflow-x-auto scrollbar-hide">
              {([
               { id: "chat" as const, label: "Agent Chat", icon: MessageSquare },
               { id: "tasks" as const, label: "Task Log", icon: CheckCircle2 },
-              { id: "docs" as const, label: "Documents", icon: FileText },
-              { id: "deploys" as const, label: "Deploy Previews", icon: Eye },
+              { id: "docs" as const, label: "Docs", icon: FileText },
+              { id: "deploys" as const, label: "Deploys", icon: Eye },
             ]).map(tab => (
               <button
                 key={tab.id}
                 onClick={() => setActivePanel(tab.id)}
-                className={`flex items-center gap-2 px-5 py-3.5 text-[12px] font-medium transition-all border-b-2 ${
+                className={`flex items-center gap-1.5 px-3.5 py-3.5 text-[11px] font-medium transition-all border-b-2 whitespace-nowrap shrink-0 ${
                   activePanel === tab.id
                     ? "border-foreground text-foreground"
                     : "border-transparent text-muted-foreground hover:text-foreground"
