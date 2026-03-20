@@ -18,7 +18,7 @@ import Signals from "./pages/Signals";
 import Ideas from "./pages/Ideas";
 import PersonalOS from "./pages/PersonalOS";
 import Arena from "./pages/Arena";
-
+import Landing from "./pages/Landing";
 import Analytics from "./pages/Analytics";
 import Settings from "./pages/Settings";
 import NotFound from "./pages/NotFound";
@@ -34,6 +34,7 @@ const App = () => (
         <BrowserRouter>
           <ScrollToTop />
           <Routes>
+            <Route path="/landing" element={<Landing />} />
             <Route path="/" element={<AppLayout><Index /></AppLayout>} />
             <Route path="/agents" element={<AppLayout><Agents /></AppLayout>} />
             <Route path="/agents/:id" element={<AppLayout><AgentDetail /></AppLayout>} />
