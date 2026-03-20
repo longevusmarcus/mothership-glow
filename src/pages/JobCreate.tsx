@@ -1,4 +1,4 @@
-import { ArrowLeft, Bot, Brain, Code, Loader2, Rocket, Zap, Check, Radio, TrendingUp, Lightbulb, Database, Globe, ChevronRight } from "lucide-react";
+import { ArrowLeft, Bot, Brain, Code, Loader2, Rocket, Zap, Check, Radio, TrendingUp, Lightbulb, Database, Globe, ChevronRight, Plus, AlertCircle } from "lucide-react";
 import AiIcon from "@/components/AiIcon";
 import { TextShimmer } from "@/components/ui/text-shimmer";
 import { Link, useNavigate } from "react-router-dom";
@@ -7,18 +7,20 @@ import { useLanguage } from "@/i18n/LanguageContext";
 import { toast } from "sonner";
 import { motion, AnimatePresence } from "framer-motion";
 
-const agents = [
-  { id: "codeforge", name: "CodeForge", role: "Full-Stack Builder", icon: Code, color: "hsl(var(--chart-1))", desc: "Builds MVPs end-to-end from signals. Deploys landing pages, backends, and payment flows autonomously." },
-  { id: "growthpilot", name: "GrowthPilot", role: "Growth & Distribution", icon: TrendingUp, color: "hsl(var(--chart-2))", desc: "Analyzes market signals, sets up acquisition channels, and runs initial traction experiments." },
-  { id: "visionarch", name: "VisionArch", role: "Product Strategist", icon: Brain, color: "hsl(var(--chart-3))", desc: "Synthesizes ideas and signals into a coherent product strategy with roadmap and positioning." },
-  { id: "dataweaver", name: "DataWeaver", role: "Data & Integrations", icon: Database, color: "hsl(var(--chart-4))", desc: "Connects APIs, scrapes data sources, and builds automated pipelines from signal databases." },
+type Agent = {
+  id: string; name: string; role: string; icon: any; color: string; desc: string;
+  status: "available" | "busy";
+  busyOn?: string;
+};
+
+const agents: Agent[] = [
+  { id: "codeforge", name: "CodeForge", role: "Full-Stack Builder", icon: Code, color: "hsl(var(--chart-1))", desc: "Builds MVPs end-to-end from signals. Deploys landing pages, backends, and payment flows autonomously.", status: "available" },
+  { id: "growthpilot", name: "GrowthPilot", role: "Growth & Distribution", icon: TrendingUp, color: "hsl(var(--chart-2))", desc: "Analyzes market signals, sets up acquisition channels, and runs initial traction experiments.", status: "available" },
+  { id: "visionarch", name: "VisionArch", role: "Product Strategist", icon: Brain, color: "hsl(var(--chart-3))", desc: "Synthesizes ideas and signals into a coherent product strategy with roadmap and positioning.", status: "busy", busyOn: "NovaTech" },
+  { id: "dataweaver", name: "DataWeaver", role: "Data & Integrations", icon: Database, color: "hsl(var(--chart-4))", desc: "Connects APIs, scrapes data sources, and builds automated pipelines from signal databases.", status: "available" },
 ];
 
-type DeployStep = {
-  label: string;
-  detail: string;
-  duration: number;
-};
+type DeployStep = { label: string; detail: string; duration: number; agentId?: string };
 
 const deploySteps: DeployStep[] = [
   { label: "Scanning signals database", detail: "Analyzing 847 market signals from last 30 days...", duration: 2200 },
@@ -35,15 +37,32 @@ const deploySteps: DeployStep[] = [
 const CompanyCreate = () => {
   const { t } = useLanguage();
   const navigate = useNavigate();
-  const [selectedAgent, setSelectedAgent] = useState<string | null>(null);
+  const [selectedAgents, setSelectedAgents] = useState<string[]>([]);
   const [step, setStep] = useState<"select" | "deploying" | "done">("select");
   const [currentDeployStep, setCurrentDeployStep] = useState(0);
   const [completedSteps, setCompletedSteps] = useState<number[]>([]);
   const [generatedCompany, setGeneratedCompany] = useState<{ name: string; type: string; market: string; mrr: string } | null>(null);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
+  const toggleAgent = (id: string) => {
+    const agent = agents.find(a => a.id === id);
+    if (agent?.status === "busy") {
+      toast.error(`${agent.name} is busy on ${agent.busyOn}. Spawn a new instance instead.`);
+      return;
+    }
+    setSelectedAgents(prev =>
+      prev.includes(id) ? prev.filter(a => a !== id) : [...prev, id]
+    );
+  };
+
+  const spawnNewAgent = (baseAgent: Agent) => {
+    toast.success(`New ${baseAgent.name} instance spawned and selected!`);
+    const newId = `${baseAgent.id}-new-${Date.now()}`;
+    setSelectedAgents(prev => [...prev, newId]);
+  };
+
   const startDeploy = () => {
-    if (!selectedAgent) return;
+    if (selectedAgents.length === 0) return;
     setStep("deploying");
     setCurrentDeployStep(0);
     setCompletedSteps([]);
@@ -66,8 +85,10 @@ const CompanyCreate = () => {
 
   useEffect(() => () => { if (timerRef.current) clearTimeout(timerRef.current); }, []);
 
-  const agent = agents.find(a => a.id === selectedAgent);
-  const progress = step === "done" ? 100 : step === "deploying" ? Math.round(((completedSteps.length) / deploySteps.length) * 100) : 0;
+  const selectedAgentObjects = agents.filter(a => selectedAgents.some(id => id.startsWith(a.id)));
+  const progress = step === "done" ? 100 : step === "deploying" ? Math.round((completedSteps.length / deploySteps.length) * 100) : 0;
+
+  const agentNames = selectedAgentObjects.map(a => a.name).join(", ");
 
   return (
     <div className="max-w-3xl mx-auto space-y-6">
@@ -79,7 +100,7 @@ const CompanyCreate = () => {
         <h1 className="text-[26px] font-heading font-semibold tracking-tight">
           <TextShimmer as="span" duration={2.5}>{t("jobCreate.title")}</TextShimmer>
         </h1>
-        <p className="text-[13px] text-muted-foreground mt-1">Select an agent to autonomously build your next company from signals &amp; ideas</p>
+        <p className="text-[13px] text-muted-foreground mt-1">Select one or more agents to autonomously build your next company</p>
       </div>
 
       <AnimatePresence mode="wait">
@@ -89,31 +110,80 @@ const CompanyCreate = () => {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {agents.map(a => {
                 const Icon = a.icon;
-                const selected = selectedAgent === a.id;
+                const isBusy = a.status === "busy";
+                const selected = selectedAgents.some(id => id.startsWith(a.id));
                 return (
-                  <button key={a.id} onClick={() => setSelectedAgent(a.id)}
-                    className={`relative text-left p-5 rounded-2xl border transition-all duration-200 group ${selected ? "border-primary/40 bg-primary/[0.04] shadow-[0_2px_12px_-4px_hsl(var(--primary)/0.15)]" : "border-border bg-card hover:border-border/80 hover:shadow-[0_2px_8px_-4px_hsl(var(--foreground)/0.06)]"}`}>
-                    {selected && <div className="absolute top-3 right-3"><Check className="h-4 w-4 text-primary" strokeWidth={2} /></div>}
-                    <div className="flex items-start gap-3.5">
-                      <div className="h-10 w-10 rounded-xl flex items-center justify-center shrink-0" style={{ background: `${a.color}15` }}>
-                        <Icon className="h-4.5 w-4.5" style={{ color: a.color }} strokeWidth={1.6} />
-                      </div>
-                      <div className="min-w-0">
-                        <div className="flex items-center gap-2">
-                          <span className="text-[13px] font-semibold text-foreground">{a.name}</span>
-                          <span className="text-[10px] font-medium text-muted-foreground bg-muted px-1.5 py-0.5 rounded-md">{a.role}</span>
+                  <div key={a.id} className="relative">
+                    <button onClick={() => toggleAgent(a.id)}
+                      className={`relative w-full text-left p-5 rounded-2xl border transition-all duration-200 group ${
+                        isBusy
+                          ? "border-border/60 bg-muted/30 opacity-70"
+                          : selected
+                            ? "border-primary/40 bg-primary/[0.04] shadow-[0_2px_12px_-4px_hsl(var(--primary)/0.15)]"
+                            : "border-border bg-card hover:border-border/80 hover:shadow-[0_2px_8px_-4px_hsl(var(--foreground)/0.06)]"
+                      }`}>
+                      {selected && !isBusy && <div className="absolute top-3 right-3"><Check className="h-4 w-4 text-primary" strokeWidth={2} /></div>}
+                      {isBusy && (
+                        <div className="absolute top-3 right-3 flex items-center gap-1">
+                          <span className="relative flex h-2 w-2">
+                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75" />
+                            <span className="relative inline-flex rounded-full h-2 w-2 bg-amber-500" />
+                          </span>
+                          <span className="text-[9px] font-semibold text-amber-500">Busy</span>
                         </div>
-                        <p className="text-[11.5px] text-muted-foreground mt-1.5 leading-relaxed">{a.desc}</p>
+                      )}
+                      <div className="flex items-start gap-3.5">
+                        <div className="h-10 w-10 rounded-xl flex items-center justify-center shrink-0" style={{ background: `${a.color}15` }}>
+                          <Icon className="h-4.5 w-4.5" style={{ color: a.color }} strokeWidth={1.6} />
+                        </div>
+                        <div className="min-w-0">
+                          <div className="flex items-center gap-2 flex-wrap">
+                            <span className="text-[13px] font-semibold text-foreground">{a.name}</span>
+                            <span className="text-[10px] font-medium text-muted-foreground bg-muted px-1.5 py-0.5 rounded-md">{a.role}</span>
+                          </div>
+                          <p className="text-[11.5px] text-muted-foreground mt-1.5 leading-relaxed">{a.desc}</p>
+                          {isBusy && (
+                            <p className="text-[10px] text-amber-500/80 mt-1.5 flex items-center gap-1">
+                              <AlertCircle className="h-3 w-3" strokeWidth={1.8} />
+                              Working on {a.busyOn}
+                            </p>
+                          )}
+                        </div>
                       </div>
-                    </div>
-                  </button>
+                    </button>
+                    {/* Spawn new instance button for busy agents */}
+                    {isBusy && (
+                      <button onClick={() => spawnNewAgent(a)}
+                        className="absolute -bottom-2 left-1/2 -translate-x-1/2 flex items-center gap-1.5 px-3 py-1.5 bg-card border border-border rounded-xl text-[10px] font-semibold text-foreground hover:bg-muted transition-all shadow-sm active:scale-[0.97]">
+                        <Plus className="h-3 w-3" strokeWidth={2} />
+                        Spawn new instance
+                      </button>
+                    )}
+                  </div>
                 );
               })}
             </div>
 
-            {/* Signal + Idea sources preview */}
+            {/* Selected agents summary */}
+            {selectedAgents.length > 0 && (
+              <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: "auto" }} className="rounded-2xl border border-primary/20 bg-primary/[0.03] p-4 flex items-center gap-3">
+                <div className="flex -space-x-2">
+                  {selectedAgentObjects.slice(0, 4).map(a => (
+                    <div key={a.id} className="h-8 w-8 rounded-lg flex items-center justify-center border-2 border-background" style={{ background: `${a.color}20` }}>
+                      <a.icon className="h-3.5 w-3.5" style={{ color: a.color }} strokeWidth={1.6} />
+                    </div>
+                  ))}
+                </div>
+                <div className="flex-1 min-w-0">
+                  <p className="text-[12px] font-semibold text-foreground">{selectedAgents.length} agent{selectedAgents.length > 1 ? "s" : ""} selected</p>
+                  <p className="text-[10px] text-muted-foreground truncate">{agentNames}</p>
+                </div>
+              </motion.div>
+            )}
+
+            {/* Data sources */}
             <div className="rounded-2xl border border-border bg-card p-5 space-y-3">
-              <p className="text-[10px] font-semibold text-muted-foreground tracking-wider uppercase">Data sources the agent will use</p>
+              <p className="text-[10px] font-semibold text-muted-foreground tracking-wider uppercase">Data sources agents will use</p>
               <div className="grid grid-cols-3 gap-3">
                 {[
                   { icon: Radio, label: "Signals", count: "847", sub: "last 30 days" },
@@ -137,10 +207,10 @@ const CompanyCreate = () => {
             {/* Deploy button */}
             <div className="flex justify-end gap-2.5 pt-2">
               <Link to="/companies" className="px-4 py-2.5 text-[12px] font-body font-medium text-muted-foreground hover:text-foreground transition-colors">{t("jobCreate.cancel")}</Link>
-              <button onClick={startDeploy} disabled={!selectedAgent}
+              <button onClick={startDeploy} disabled={selectedAgents.length === 0}
                 className="flex items-center gap-2 px-5 py-2.5 bg-primary text-primary-foreground rounded-xl text-[12px] font-semibold hover:opacity-90 transition-all disabled:opacity-30 disabled:cursor-not-allowed active:scale-[0.97]">
                 <Rocket className="h-3.5 w-3.5" strokeWidth={1.8} />
-                Deploy with {agent?.name ?? "Agent"}
+                Deploy with {selectedAgents.length} agent{selectedAgents.length !== 1 ? "s" : ""}
               </button>
             </div>
           </motion.div>
@@ -148,19 +218,21 @@ const CompanyCreate = () => {
 
         {step === "deploying" && (
           <motion.div key="deploying" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -12 }} transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }} className="space-y-5">
-            {/* Agent header */}
-            {agent && (
-              <div className="flex items-center gap-3 p-4 rounded-2xl border border-primary/20 bg-primary/[0.03]">
-                <div className="h-10 w-10 rounded-xl flex items-center justify-center" style={{ background: `${agent.color}15` }}>
-                  <agent.icon className="h-4.5 w-4.5" style={{ color: agent.color }} strokeWidth={1.6} />
-                </div>
-                <div className="flex-1 min-w-0">
-                  <p className="text-[13px] font-semibold text-foreground">{agent.name} is building your company</p>
-                  <p className="text-[11px] text-muted-foreground">Autonomous deployment in progress...</p>
-                </div>
-                <Loader2 className="h-4 w-4 text-primary animate-spin shrink-0" />
+            {/* Agents header */}
+            <div className="flex items-center gap-3 p-4 rounded-2xl border border-primary/20 bg-primary/[0.03]">
+              <div className="flex -space-x-2">
+                {selectedAgentObjects.slice(0, 4).map(a => (
+                  <div key={a.id} className="h-9 w-9 rounded-xl flex items-center justify-center border-2 border-background" style={{ background: `${a.color}20` }}>
+                    <a.icon className="h-4 w-4" style={{ color: a.color }} strokeWidth={1.6} />
+                  </div>
+                ))}
               </div>
-            )}
+              <div className="flex-1 min-w-0">
+                <p className="text-[13px] font-semibold text-foreground">{selectedAgents.length} agent{selectedAgents.length > 1 ? "s" : ""} building your company</p>
+                <p className="text-[11px] text-muted-foreground">Autonomous deployment in progress...</p>
+              </div>
+              <Loader2 className="h-4 w-4 text-primary animate-spin shrink-0" />
+            </div>
 
             {/* Progress bar */}
             <div className="space-y-2">
@@ -178,6 +250,8 @@ const CompanyCreate = () => {
               {deploySteps.map((s, i) => {
                 const done = completedSteps.includes(i);
                 const active = currentDeployStep === i && !done;
+                // Assign steps to agents round-robin
+                const assignedAgent = selectedAgentObjects[i % selectedAgentObjects.length];
                 return (
                   <motion.div key={i} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: i * 0.05 }}
                     className={`flex items-center gap-3 px-5 py-3 transition-colors ${active ? "bg-primary/[0.03]" : ""}`}>
@@ -185,7 +259,14 @@ const CompanyCreate = () => {
                       {done ? <Check className="h-4 w-4 text-primary" strokeWidth={2.2} /> : active ? <Loader2 className="h-4 w-4 text-primary animate-spin" /> : <div className="h-4 w-4 rounded-full border border-border" />}
                     </div>
                     <div className="flex-1 min-w-0">
-                      <p className={`text-[12px] font-medium ${done ? "text-foreground" : active ? "text-foreground" : "text-muted-foreground/50"}`}>{s.label}</p>
+                      <div className="flex items-center gap-2">
+                        <p className={`text-[12px] font-medium ${done ? "text-foreground" : active ? "text-foreground" : "text-muted-foreground/50"}`}>{s.label}</p>
+                        {assignedAgent && (done || active) && (
+                          <span className="text-[9px] font-semibold px-1.5 py-0.5 rounded-md" style={{ background: `${assignedAgent.color}15`, color: assignedAgent.color }}>
+                            {assignedAgent.name}
+                          </span>
+                        )}
+                      </div>
                       {active && <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-[11px] text-muted-foreground mt-0.5">{s.detail}</motion.p>}
                     </div>
                   </motion.div>
@@ -204,8 +285,21 @@ const CompanyCreate = () => {
               </div>
               <div>
                 <p className="text-[15px] font-semibold text-foreground">Company deployed successfully</p>
-                <p className="text-[12px] text-muted-foreground mt-0.5">{agent?.name} built everything from 847 signals and 23 validated ideas</p>
+                <p className="text-[12px] text-muted-foreground mt-0.5">{selectedAgents.length} agent{selectedAgents.length > 1 ? "s" : ""} built everything from 847 signals and 23 validated ideas</p>
               </div>
+            </div>
+
+            {/* Agents that worked */}
+            <div className="flex flex-wrap gap-2">
+              {selectedAgentObjects.map(a => (
+                <div key={a.id} className="flex items-center gap-2 px-3 py-1.5 rounded-xl border border-border bg-card text-[11px] font-medium">
+                  <div className="h-5 w-5 rounded-md flex items-center justify-center" style={{ background: `${a.color}15` }}>
+                    <a.icon className="h-3 w-3" style={{ color: a.color }} strokeWidth={1.6} />
+                  </div>
+                  {a.name}
+                  <Check className="h-3 w-3 text-primary" strokeWidth={2.5} />
+                </div>
+              ))}
             </div>
 
             {/* Generated company summary */}
@@ -247,7 +341,7 @@ const CompanyCreate = () => {
 
             {/* Actions */}
             <div className="flex justify-end gap-2.5">
-              <button onClick={() => { setStep("select"); setSelectedAgent(null); setGeneratedCompany(null); }}
+              <button onClick={() => { setStep("select"); setSelectedAgents([]); setGeneratedCompany(null); }}
                 className="px-4 py-2.5 text-[12px] font-medium text-muted-foreground hover:text-foreground transition-colors">
                 Deploy another
               </button>
