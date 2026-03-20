@@ -138,7 +138,7 @@ const AgentDetail = () => {
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <h1 className="text-[22px] font-mondwest font-semibold tracking-tight"><TextShimmer as="span" duration={2.5}>{agent.name}</TextShimmer></h1>
+                <h1 className="text-[28px] sm:text-[34px] font-mondwest font-semibold tracking-tight"><TextShimmer as="span" duration={2.5}>{agent.name}</TextShimmer></h1>
                 <AiIcon className="text-muted-foreground" size={16} />
               </div>
               <p className="text-[13px] text-muted-foreground">{agent.role}</p>

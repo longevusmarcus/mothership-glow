@@ -41,7 +41,7 @@ const Arena = () => {
     <div className="space-y-6">
       <div className="flex items-center gap-3">
         <div className="flex-1">
-          <h1 className="text-[22px] sm:text-[26px] font-mondwest font-semibold tracking-tight flex items-center gap-2">
+          <h1 className="text-[28px] sm:text-[34px] font-mondwest font-semibold tracking-tight flex items-center gap-2">
             <Swords className="h-5 w-5 text-primary" strokeWidth={1.6} />
             <TextShimmer as="span" duration={2.5}>
               {locale === "it" ? "Arena" : "Arena"}
