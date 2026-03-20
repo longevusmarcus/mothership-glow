@@ -56,9 +56,6 @@ const Chat = () => {
     <div className="flex flex-col h-[calc(100vh-theme(spacing.16)-theme(spacing.20))] max-w-2xl mx-auto">
       {isEmpty ? (
         <div className="flex-1 flex flex-col items-center justify-center px-4">
-          <div className="h-12 w-12 rounded-2xl bg-muted flex items-center justify-center mb-4">
-            <AiIcon size={22} className="text-muted-foreground" />
-          </div>
           <h1 className="text-[20px] font-heading font-semibold tracking-tight mb-1">
             <TextShimmer as="span" duration={2.5}>{t("chat.assistantTitle")}</TextShimmer>
           </h1>
@@ -68,7 +65,11 @@ const Chat = () => {
               : "Deploy agents, assign tasks, check status — ask me anything"}
           </p>
 
-          <div className="flex flex-wrap justify-center gap-2 mb-8 max-w-lg">
+          <div className="w-full max-w-lg">
+            <PromptInputBox placeholder={t("chat.placeholder")} onSend={handleSend} isLoading={isLoading} />
+          </div>
+
+          <div className="flex flex-wrap justify-center gap-2 mt-6 max-w-lg">
             {quickActions.map((action, i) => (
               <motion.button
                 key={action.label}
@@ -82,10 +83,6 @@ const Chat = () => {
                 {locale === "it" ? action.labelIt : action.label}
               </motion.button>
             ))}
-          </div>
-
-          <div className="w-full max-w-lg">
-            <PromptInputBox placeholder={t("chat.placeholder")} onSend={handleSend} isLoading={isLoading} />
           </div>
         </div>
       ) : (
