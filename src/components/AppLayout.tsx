@@ -24,7 +24,7 @@ const navItemsDef = [
   { id: "dashboard", icon: LayoutDashboard, labelKey: "nav.dashboard" as TranslationKey, to: "/" },
   { id: "chat", icon: MessageSquare, labelKey: "nav.chatAi" as TranslationKey, to: "/chat" },
   { id: "candidates", icon: Bot, labelKey: "nav.candidates" as TranslationKey, to: "/agents" },
-  { id: "jobs", icon: Rocket, labelKey: "nav.jobs" as TranslationKey, to: "/companies" },
+  { id: "jobs", icon: Building2, labelKey: "nav.jobs" as TranslationKey, to: "/companies" },
   { id: "analytics", icon: BarChart3, labelKey: "nav.analytics" as TranslationKey, to: "/analytics" },
   { id: "more", icon: MoreHorizontal, labelKey: "nav.more" as TranslationKey, to: "/more" },
 ];
