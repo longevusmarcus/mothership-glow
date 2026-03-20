@@ -141,7 +141,7 @@ const CompanyCreate = () => {
                             <span className="text-[13px] font-semibold text-foreground">{a.name}</span>
                             <span className="text-[10px] font-pixel text-muted-foreground bg-muted px-1.5 py-0.5 rounded-md">{a.role}</span>
                           </div>
-                          <p className="text-[11.5px] text-muted-foreground mt-1.5 leading-relaxed font-pixel">{a.desc}</p>
+                          <p className="text-[11.5px] text-muted-foreground mt-1.5 leading-relaxed font-mono">{a.desc}</p>
                           {isBusy && (
                             <p className="text-[10px] text-amber-500/80 mt-1.5 flex items-center gap-1">
                               <AlertCircle className="h-3 w-3" strokeWidth={1.8} />
