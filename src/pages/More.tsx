@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Radio, Lightbulb, FolderOpen, ChevronRight, Database, FileText, PenLine, Activity, Tv, Swords } from "lucide-react";
+import { Radio, Lightbulb, ChevronRight, Database, FileText, PenLine, Activity, Tv, Swords } from "lucide-react";
 import { TextShimmer } from "@/components/ui/text-shimmer";
 import { CursorCardsContainer, CursorCard } from "@/components/ui/cursor-cards";
 import { useLanguage } from "@/i18n/LanguageContext";
@@ -97,19 +97,6 @@ const sections = [
     desc: "Live hackathon events with real-time leaderboards, team formation & prize pools.",
     descIt: "Eventi hackathon live con classifiche in tempo reale, formazione team e montepremi.",
     icon: Swords,
-    to: "#",
-    stat: "—",
-    statLabel: "coming soon",
-    statLabelIt: "in arrivo",
-    color: "bg-muted-foreground/10 text-muted-foreground",
-    disabled: true,
-  },
-  {
-    title: "Personal OS (soon)",
-    titleIt: "OS Personale (presto)",
-    desc: "Your private knowledge base — links, notes, docs & ideas that train your agents.",
-    descIt: "Il tuo spazio privato — link, note, documenti e idee che addestrano i tuoi agenti.",
-    icon: FolderOpen,
     to: "#",
     stat: "—",
     statLabel: "coming soon",

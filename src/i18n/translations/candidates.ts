@@ -1,5 +1,5 @@
 export const translationsCandidates = {
-  "candidates.title": { it: "Agenti", en: "Agents" },
+  "candidates.title": { it: "I tuoi Agenti", en: "Your Agents" },
   "candidates.inDatabase": { it: "agenti nel sistema", en: "agents in the system" },
   "candidates.list": { it: "Lista", en: "List" },
   "candidates.kanban": { it: "Kanban", en: "Kanban" },

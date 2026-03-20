@@ -16,7 +16,7 @@ import Chat from "./pages/Chat";
 import More from "./pages/More";
 import Signals from "./pages/Signals";
 import Ideas from "./pages/Ideas";
-import PersonalOS from "./pages/PersonalOS";
+
 import Arena from "./pages/Arena";
 import Live from "./pages/Live";
 import Landing from "./pages/Landing";
@@ -46,7 +46,7 @@ const App = () => (
             <Route path="/more" element={<AppLayout><More /></AppLayout>} />
             <Route path="/more/signals" element={<AppLayout><Signals /></AppLayout>} />
             <Route path="/more/ideas" element={<AppLayout><Ideas /></AppLayout>} />
-            <Route path="/more/personal-os" element={<AppLayout><PersonalOS /></AppLayout>} />
+            
             <Route path="/more/arena" element={<AppLayout><Arena /></AppLayout>} /> {/* kept as fallback */}
             <Route path="/more/live" element={<AppLayout><Live /></AppLayout>} />
             
