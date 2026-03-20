@@ -85,7 +85,7 @@ const More = () => {
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="text-[22px] sm:text-[26px] font-mondwest font-semibold tracking-tight">
+        <h1 className="text-[28px] sm:text-[34px] font-mondwest font-semibold tracking-tight">
           <TextShimmer as="span" duration={2.5}>
             {locale === "it" ? "Esplora" : "Explore"}
           </TextShimmer>

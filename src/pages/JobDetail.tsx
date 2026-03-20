@@ -164,7 +164,7 @@ const CompanyDetail = () => {
         <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
           <div>
             <div className="flex flex-wrap items-center gap-3 mb-1">
-              <h1 className="text-[18px] sm:text-[22px] font-mondwest font-semibold tracking-tight"><TextShimmer as="span" duration={2.5}>{company.title}</TextShimmer></h1>
+              <h1 className="text-[22px] sm:text-[28px] font-mondwest font-semibold tracking-tight"><TextShimmer as="span" duration={2.5}>{company.title}</TextShimmer></h1>
               <span className={`text-[10px] px-2.5 py-1 rounded-lg font-semibold ${company.status === "Attiva" ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground"}`}>
                 {company.status === "Attiva" ? t("jobs.active") : t("jobs.paused")}
               </span>

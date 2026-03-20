@@ -69,7 +69,7 @@ const Analytics = () => {
     <div className="space-y-8">
       <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3">
         <div>
-          <h1 className="text-[22px] sm:text-[26px] font-mondwest font-semibold tracking-tight"><TextShimmer as="span" duration={2.5}>{t("analytics.title")}</TextShimmer></h1>
+          <h1 className="text-[28px] sm:text-[34px] font-mondwest font-semibold tracking-tight"><TextShimmer as="span" duration={2.5}>{t("analytics.title")}</TextShimmer></h1>
           <p className="text-[13px] text-muted-foreground mt-1">{t("analytics.subtitle")}</p>
         </div>
         <CleanMotionBackground className="bg-card border border-border rounded-xl p-1" hoverable={false} defaultKey={period} onChange={(key) => key && setPeriod(key)}>

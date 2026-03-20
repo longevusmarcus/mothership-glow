@@ -75,7 +75,7 @@ const Ideas = () => {
           <ArrowLeft className="h-4 w-4" strokeWidth={1.6} />
         </Link>
         <div className="flex-1">
-          <h1 className="text-[22px] font-mondwest font-semibold tracking-tight flex items-center gap-2">
+          <h1 className="text-[28px] sm:text-[34px] font-mondwest font-semibold tracking-tight flex items-center gap-2">
             <Lightbulb className="h-5 w-5 text-green-400" strokeWidth={1.6} />
             {locale === "it" ? "Idee" : "Ideas"}
           </h1>
