@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from "react";
+import { toast } from "sonner";
 import { PromptInputBox } from "@/components/ui/ai-prompt-box";
 import AiIcon from "@/components/AiIcon";
 import { TextShimmer } from "@/components/ui/text-shimmer";
