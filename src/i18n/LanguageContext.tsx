@@ -12,7 +12,7 @@ const LanguageContext = createContext<LanguageContextType | null>(null);
 export const LanguageProvider = ({ children }: { children: ReactNode }) => {
   const [locale, setLocaleState] = useState<Locale>(() => {
     const saved = localStorage.getItem("locale");
-    return (saved === "en" || saved === "it") ? saved : "it";
+    return (saved === "en" || saved === "it") ? saved : "en";
   });
 
   const setLocale = useCallback((l: Locale) => {
