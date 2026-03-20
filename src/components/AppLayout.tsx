@@ -184,6 +184,7 @@ const AppLayout = ({ children }: AppLayoutProps) => {
     const path = location.pathname;
     if (path === "/") setActiveSection("dashboard");
     else if (path.startsWith("/chat")) setActiveSection("chat");
+    else if (path.startsWith("/more/arena")) setActiveSection("arena");
     else if (path.startsWith("/more")) setActiveSection("more");
     else if (path.startsWith("/store")) setActiveSection("store");
     else if (path.startsWith("/agents")) setActiveSection("candidates");
