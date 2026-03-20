@@ -120,6 +120,54 @@ export const mxProFeatures = [
   "Priority agent orchestration",
 ];
 
+// ── Deploy steps (CompanyCreate detailed) ──
+
+export interface DeployStep {
+  label: string;
+  detail: string;
+  duration: number;
+}
+
+export const companyDeploySteps: DeployStep[] = [
+  { label: "Scanning signals database", detail: "Analyzing 847 market signals from last 30 days...", duration: 2200 },
+  { label: "Cross-referencing ideas", detail: "Matching 750 validated ideas with current trends...", duration: 1800 },
+  { label: "Generating business model", detail: "Building revenue model, pricing, and unit economics...", duration: 2400 },
+  { label: "Designing tech architecture", detail: "Selecting stack: React, Supabase, Stripe, Resend...", duration: 1600 },
+  { label: "Creating landing page", detail: "Deploying hero, features, pricing sections...", duration: 2000 },
+  { label: "Setting up backend", detail: "Provisioning database, auth, and API routes...", duration: 1800 },
+  { label: "Configuring payments", detail: "Integrating Stripe checkout and billing portal...", duration: 1400 },
+  { label: "Running pre-launch checks", detail: "Testing flows, performance, and security...", duration: 1200 },
+  { label: "Deploying to production", detail: "Publishing to global CDN with SSL...", duration: 1600 },
+];
+
+// ── Agents with status (CompanyCreate) ──
+
+export interface CreateAgent extends AgentDef {
+  status: "available" | "busy";
+  busyOn?: string;
+}
+
+export const createAgents: CreateAgent[] = deployableAgents.map((a, i) => ({
+  ...a,
+  desc: [
+    "Builds MVPs end-to-end from signals. Deploys landing pages, backends, and payment flows autonomously.",
+    "Analyzes market signals, sets up acquisition channels, and runs initial traction experiments.",
+    "Synthesizes ideas and signals into a coherent product strategy with roadmap and positioning.",
+    "Connects APIs, scrapes data sources, and builds automated pipelines from signal databases.",
+  ][i],
+  status: i === 2 ? ("busy" as const) : ("available" as const),
+  ...(i === 2 ? { busyOn: "NovaTech" } : {}),
+}));
+
+// ── Stage colors (shared across Agents, AgentDetail, Dashboard) ──
+
+export const stageColors: Record<string, string> = {
+  Screening: "bg-muted text-muted-foreground",
+  Colloquio: "bg-accent text-accent-foreground",
+  Shortlist: "bg-secondary text-secondary-foreground",
+  Placement: "bg-primary text-primary-foreground",
+};
+
 // ── Utilities ──
 
 export function shuffleAndPick<T>(arr: T[], count: number): T[] {

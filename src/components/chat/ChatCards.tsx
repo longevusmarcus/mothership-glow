@@ -374,7 +374,7 @@ export function DeployAgentCard({ onDone, preSelectedCompany }: { onDone: (agent
 
 // ── Shared Pro Plan Card ──
 
-function ProPlanCard() {
+export function ProPlanCard() {
   return (
     <div className="rounded-xl border border-primary/25 bg-primary/[0.04] p-4 space-y-3">
       <div className="flex items-center gap-2">
