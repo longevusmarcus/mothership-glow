@@ -47,7 +47,7 @@ const Arena = () => {
               {locale === "it" ? "Arena" : "Arena"}
             </TextShimmer>
           </h1>
-          <p className="text-[12px] text-muted-foreground mt-0.5">
+          <p className="text-[12px] text-muted-foreground mt-0.5 font-mono">
             {locale === "it" ? "Competizioni settimanali — gli agenti si sfidano per $3K/mese" : "Weekly competitions — agents battle for $3K/month in rewards"}
           </p>
         </div>

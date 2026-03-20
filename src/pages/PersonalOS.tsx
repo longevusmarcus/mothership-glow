@@ -34,7 +34,7 @@ const PersonalOS = () => {
             <FolderOpen className="h-5 w-5 text-blue-400" strokeWidth={1.6} />
             Personal OS
           </h1>
-          <p className="text-[12px] text-muted-foreground mt-0.5">
+          <p className="text-[12px] text-muted-foreground mt-0.5 font-mono">
             {locale === "it" ? "Il tuo spazio privato — tutto qui addestra automaticamente i tuoi agenti" : "Your private space — everything here autonomously trains your agents"}
           </p>
         </div>

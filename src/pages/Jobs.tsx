@@ -54,7 +54,7 @@ const Companies = () => {
               <div className="flex items-start justify-between mb-3">
                 <div>
                   <h3 className="text-[15px] font-mondwest font-semibold group-hover:text-foreground/80 transition-colors">{company.title}</h3>
-                  <p className="text-[11px] text-muted-foreground mt-0.5 uppercase font-medium tracking-wider">{company.department} · {company.type}</p>
+                  <p className="text-[11px] text-muted-foreground mt-0.5 uppercase font-medium tracking-wider font-mono">{company.department} · {company.type}</p>
                 </div>
                 <span className={`text-[10px] px-2.5 py-1 rounded-lg font-semibold shrink-0 ${company.status === "Attiva" ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground"}`}>
                   {company.status === "Attiva" ? t("jobs.active") : t("jobs.paused")}

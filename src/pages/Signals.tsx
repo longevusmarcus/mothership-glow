@@ -86,7 +86,7 @@ const Signals = () => {
             <Radio className="h-5 w-5 text-primary" strokeWidth={1.6} />
             {locale === "it" ? "Segnali" : "Signals"}
           </h1>
-          <p className="text-[12px] text-muted-foreground mt-0.5">
+          <p className="text-[12px] text-muted-foreground mt-0.5 font-mono">
             {locale === "it" ? "~200 nuovi segnali a settimana da 13 fonti" : "~200 new signals per week from 13 sources"}
           </p>
         </div>

@@ -104,7 +104,7 @@ const Analytics = () => {
               <span className="text-[10px] font-semibold text-success">{m.trend}</span>
             </div>
             <p className="text-[28px] font-mondwest font-semibold tracking-tight leading-none tabular-nums">{m.value}</p>
-            <p className="text-[11px] text-muted-foreground mt-1.5 font-medium">{m.label}</p>
+            <p className="text-[11px] text-muted-foreground mt-1.5 font-medium font-mono">{m.label}</p>
           </div>
         ))}
       </div>

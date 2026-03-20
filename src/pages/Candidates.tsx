@@ -82,7 +82,7 @@ const Agents = () => {
           <h1 className="text-[28px] sm:text-[34px] font-mondwest font-semibold tracking-tight">
             <TextShimmer as="span" duration={2.5}>{t("candidates.title")}</TextShimmer>
           </h1>
-          <p className="text-[13px] text-muted-foreground mt-1">
+          <p className="text-[13px] text-muted-foreground mt-1 font-mono">
             {agents.length} {t("candidates.inDatabase")}
           </p>
         </div>

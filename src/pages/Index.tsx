@@ -89,7 +89,7 @@ const Dashboard = () => {
     <div className="space-y-8">
       <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3">
         <div>
-          <p className="text-[12px] text-muted-foreground font-medium capitalize tracking-wide">{dateStr}</p>
+          <p className="text-[12px] text-muted-foreground font-medium capitalize tracking-wide font-mono">{dateStr}</p>
           <h1 className="text-[28px] sm:text-[34px] font-mondwest font-semibold tracking-tight mt-1">
             <TextShimmer as="span" duration={2.5}>{`${t(greetingKey)}, Operator`}</TextShimmer>
           </h1>

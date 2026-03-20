@@ -44,7 +44,7 @@ function BudgetTab({ locale }: { locale: string }) {
         <h2 className="text-[13px] font-mondwest font-semibold">
           {locale === "it" ? "Budget Aziendale" : "Company Budget"}
         </h2>
-        <p className="text-[11px] text-muted-foreground mt-0.5">
+        <p className="text-[11px] text-muted-foreground mt-0.5 font-mono">
           {locale === "it" ? "Alimenta VM hosting, token AI e servizi" : "Powers VM hosting, AI tokens, and services"}
         </p>
       </div>
