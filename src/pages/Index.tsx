@@ -101,7 +101,7 @@ const Dashboard = () => {
         </Link>
       </div>
 
-      <CursorCardsContainer className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+      <CursorCardsContainer className="grid grid-cols-2 lg:grid-cols-3 gap-4">
         {stats.map((stat) => (
           <Link key={stat.labelKey} to={stat.href}>
             <CursorCard borderColor="hsl(var(--border))">
