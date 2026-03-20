@@ -132,8 +132,8 @@ const More = () => {
         </h1>
         <p className="text-[13px] text-muted-foreground mt-1">
           {locale === "it"
-            ? "Segnali, idee, il tuo OS personale e l'arena di competizione"
-            : "Signals, ideas, your personal OS, and the competition arena"}
+            ? "Esplora l'intero ecosistema MSX"
+            : "Explore the whole MSX ecosystem"}
         </p>
       </div>
 
