@@ -264,7 +264,10 @@ const Dashboard = () => {
                         <p className="text-[12px] font-medium truncate">{c.title}</p>
                         <p className="text-[10px] text-muted-foreground">{c.agents} {t("dashboard.agentsLabel")} · {c.days}{t("dashboard.daysLabel")}</p>
                       </div>
-                      <span className="text-[10px] font-semibold text-success">{c.trend}</span>
+                       <div className="flex items-center gap-2 shrink-0">
+                         <span className="text-[11px] font-mondwest font-semibold tabular-nums">{c.revenue}</span>
+                         <span className="text-[10px] font-semibold text-success">{c.trend}</span>
+                       </div>
                     </Link>
                   ))}
                 </div>
