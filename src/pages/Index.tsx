@@ -116,7 +116,7 @@ const Dashboard = () => {
                   </span>
                 </div>
                 <p className="text-[30px] font-mondwest font-semibold tracking-tight leading-none">{stat.value}</p>
-                <p className="text-[11px] text-muted-foreground mt-1.5 font-medium">{t(stat.labelKey)}</p>
+                <p className="text-[11px] text-muted-foreground mt-1.5 font-medium">{"labelKey" in stat ? t(stat.labelKey as TranslationKey) : (stat as any).label}</p>
               </div>
             </CursorCard>
           </Link>
