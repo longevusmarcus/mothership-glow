@@ -1,4 +1,4 @@
-import { Bot, Building2, Zap, TrendingUp, ArrowUpRight, ArrowDownRight, Bell, ChevronRight, Swords, Trophy, Timer, Flame } from "lucide-react";
+import { Bot, Building2, Zap, TrendingUp, ArrowUpRight, ArrowDownRight, Bell, ChevronRight } from "lucide-react";
 import AiIcon from "@/components/AiIcon";
 import { InteractiveHoverButton } from "@/components/ui/interactive-hover-button";
 import { TextShimmer } from "@/components/ui/text-shimmer";
