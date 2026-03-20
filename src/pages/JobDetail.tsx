@@ -161,7 +161,7 @@ const CompanyDetail = () => {
   const { id } = useParams();
   const { t, locale } = useLanguage();
   const company = companyData[id || "1"] || defaultCompany;
-  const [activePanel, setActivePanel] = useState<"chat" | "tasks" | "deploys">("chat");
+  const [activePanel, setActivePanel] = useState<"chat" | "tasks" | "docs" | "deploys">("chat");
 
   return (
     <div className="space-y-6">
