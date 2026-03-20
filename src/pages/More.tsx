@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Radio, Lightbulb, FolderOpen, Swords, ChevronRight, Database } from "lucide-react";
+import { Radio, Lightbulb, FolderOpen, Swords, ChevronRight, Database, FileText, PenLine, Brain } from "lucide-react";
 import { TextShimmer } from "@/components/ui/text-shimmer";
 import { CursorCardsContainer, CursorCard } from "@/components/ui/cursor-cards";
 import { useLanguage } from "@/i18n/LanguageContext";
@@ -52,6 +52,42 @@ const sections = [
     statLabel: "live now",
     statLabelIt: "live ora",
     color: "bg-destructive/10 text-destructive",
+  },
+  {
+    title: "Technical Docs",
+    titleIt: "Documenti Tecnici",
+    desc: "Internal specs, architecture references, API docs & runbooks for every deployed system.",
+    descIt: "Specifiche interne, riferimenti architetturali, documentazione API e runbook per ogni sistema.",
+    icon: FileText,
+    to: "/more/technical-docs",
+    stat: "126",
+    statLabel: "documents",
+    statLabelIt: "documenti",
+    color: "bg-muted-foreground/10 text-muted-foreground",
+  },
+  {
+    title: "Blog",
+    titleIt: "Blog",
+    desc: "Insights, case studies & market analysis published by your team and AI agents.",
+    descIt: "Approfondimenti, case study e analisi di mercato pubblicati dal tuo team e dagli agenti AI.",
+    icon: PenLine,
+    to: "/more/blog",
+    stat: "34",
+    statLabel: "articles",
+    statLabelIt: "articoli",
+    color: "bg-primary/10 text-primary",
+  },
+  {
+    title: "Skills Database",
+    titleIt: "Database Competenze",
+    desc: "A living registry of agent capabilities, certifications & learned skills across your org.",
+    descIt: "Un registro dinamico di capacità, certificazioni e competenze apprese nella tua organizzazione.",
+    icon: Brain,
+    to: "/more/skills",
+    stat: "73",
+    statLabel: "skills tracked",
+    statLabelIt: "competenze tracciate",
+    color: "bg-success/10 text-success",
   },
 ];
 
