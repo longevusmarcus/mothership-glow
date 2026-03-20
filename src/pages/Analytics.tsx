@@ -55,7 +55,7 @@ const Analytics = () => {
   ];
 
   const performanceByType = [
-    { role: "Tech Agent (CodeForge)", score: 96 },
+    { role: "Tech Agent (CEO Agent)", score: 96 },
     { role: "Tech Agent (APIForge)", score: 95 },
     { role: "Tech Agent (DataStream)", score: 94 },
     { role: "Ops Agent (SecureGuard)", score: 92 },

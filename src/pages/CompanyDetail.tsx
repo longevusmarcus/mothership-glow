@@ -19,25 +19,25 @@ const companyData: Record<string, {
     description: "AI-powered project management platform for remote teams.",
     stack: ["React/TypeScript", "Node.js", "Supabase", "Stripe", "Vercel", "OpenAI API"],
     agents: [
-      { id: 1, name: "CodeForge", type: "Tech", score: 96, status: "Active", tasks: 47, telegram: "CodeForge_bot" },
+      { id: 1, name: "CEO Agent", type: "Tech", score: 96, status: "Active", tasks: 47, telegram: "CEOAgent_bot" },
       { id: 2, name: "GrowthPilot", type: "Growth", score: 91, status: "Active", tasks: 23, telegram: "GrowthPilot_bot" },
       { id: 6, name: "MarketBot", type: "Growth", score: 88, status: "Active", tasks: 15, telegram: "MarketBot_agent" },
       { id: 3, name: "DesignMind", type: "Creative", score: 87, status: "Deployed", tasks: 31, telegram: "DesignMind_bot" },
     ],
     daysActive: 23,
-    aiSummary: "NovaTech is progressing well toward MVP launch. CodeForge has completed 47 tasks including the core dashboard, real-time collaboration features, and Stripe integration. GrowthPilot is building the landing page and setting up analytics. Estimated MVP completion: 5 days.",
+    aiSummary: "NovaTech is progressing well toward MVP launch. CEO Agent has completed 47 tasks including the core dashboard, real-time collaboration features, and Stripe integration. GrowthPilot is building the landing page and setting up analytics. Estimated MVP completion: 5 days.",
   },
 };
 
 const defaultCompany = companyData["1"];
 
 const taskLog = [
-  { agent: "CodeForge", task: "Implemented real-time collaboration WebSocket layer", time: "2h ago", status: "done" as const },
-  { agent: "CodeForge", task: "Integrated Stripe checkout + subscription management", time: "5h ago", status: "done" as const },
+  { agent: "CEO Agent", task: "Implemented real-time collaboration WebSocket layer", time: "2h ago", status: "done" as const },
+  { agent: "CEO Agent", task: "Integrated Stripe checkout + subscription management", time: "5h ago", status: "done" as const },
   { agent: "GrowthPilot", task: "Landing page v2 with A/B test variants", time: "8h ago", status: "done" as const },
   { agent: "DesignMind", task: "Dashboard UI redesign — dark mode + responsive", time: "1d ago", status: "done" as const },
   { agent: "MarketBot", task: "SEO meta tags + Open Graph for all pages", time: "1d ago", status: "done" as const },
-  { agent: "CodeForge", task: "Setting up CI/CD pipeline with GitHub Actions", time: "now", status: "in_progress" as const },
+  { agent: "CEO Agent", task: "Setting up CI/CD pipeline with GitHub Actions", time: "now", status: "in_progress" as const },
   { agent: "GrowthPilot", task: "Google Analytics 4 + conversion tracking", time: "now", status: "in_progress" as const },
 ];
 
@@ -46,13 +46,13 @@ const companyDocuments = [
   { name: "Market Research — SaaS PM Tools", type: "Market Research", agent: "MarketBot", time: "2d ago", size: "18.7 KB", status: "final" as const },
   { name: "Competitive Analysis Report", type: "Market Research", agent: "MarketBot", time: "3d ago", size: "12.1 KB", status: "final" as const },
   { name: "Go-To-Market Strategy v2", type: "Strategy", agent: "GrowthPilot", time: "4d ago", size: "8.3 KB", status: "draft" as const },
-  { name: "Technical Architecture Doc", type: "Technical", agent: "CodeForge", time: "5d ago", size: "6.9 KB", status: "final" as const },
+  { name: "Technical Architecture Doc", type: "Technical", agent: "CEO Agent", time: "5d ago", size: "6.9 KB", status: "final" as const },
   { name: "Brand Guidelines & Tone", type: "Branding", agent: "DesignMind", time: "6d ago", size: "4.1 KB", status: "final" as const },
   { name: "Revenue Model & Projections", type: "Financial", agent: "GrowthPilot", time: "1w ago", size: "9.5 KB", status: "draft" as const },
 ];
 
 const deployPreviews = [
-  { name: "Dashboard v3.2", url: "novatech-dash.vercel.app", agent: "CodeForge", time: "2h ago", status: "live" },
+  { name: "Dashboard v3.2", url: "novatech-dash.vercel.app", agent: "CEO Agent", time: "2h ago", status: "live" },
   { name: "Landing Page v2", url: "novatech.com", agent: "GrowthPilot", time: "8h ago", status: "live" },
   { name: "Onboarding Flow", url: "novatech-onboard.vercel.app", agent: "DesignMind", time: "1d ago", status: "preview" },
 ];

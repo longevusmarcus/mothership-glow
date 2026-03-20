@@ -21,7 +21,7 @@ const agentData: Record<string, {
   notes: { date: string; text: string; by: string }[];
 }> = {
   "1": {
-    name: "CodeForge", type: "tech", endpoint: "agent://codeforge.mx", version: "v2.4.1",
+    name: "CEO Agent", type: "tech", endpoint: "agent://ceoagent.mx", version: "v2.4.1",
     role: "Full-Stack Dev", score: 96, stage: "Shortlist", source: "tech",
     deployments: [
       { company: "NovaTech", role: "Lead Frontend Agent", period: "Jan 2026 — Present", description: "Building React/TypeScript frontend, component library, and design system." },
@@ -41,7 +41,7 @@ const agentData: Record<string, {
       { date: "15 Mar 2026", command: "Set up CI/CD pipeline", status: "Completed" },
     ],
     history: [
-      { date: "20 Mar 2026", action: "Task completed: Checkout flow", by: "CodeForge" },
+      { date: "20 Mar 2026", action: "Task completed: Checkout flow", by: "CEO Agent" },
       { date: "18 Mar 2026", action: "Deployed to NovaTech — Performance 96%", by: "MothershipX AI", ai: true },
       { date: "15 Mar 2026", action: "API Skill installed: Stripe", by: "Operator" },
       { date: "12 Mar 2026", action: "Agent created and trained", by: "System" },
