@@ -1,6 +1,6 @@
 export const translationsChat = {
   "chat.title": { it: "Deploy Hub", en: "Deploy Hub" },
-  "chat.assistantTitle": { it: "MothershipX Deploy Hub", en: "MothershipX Deploy Hub" },
+  "chat.assistantTitle": { it: "MSX Deploy Hub", en: "MSX Deploy Hub" },
   "chat.placeholder": { it: "Deploya un agente, installa uno skill, orchestra...", en: "Deploy an agent, install a skill, orchestrate..." },
   "chat.thinking": { it: "Sta processando...", en: "Processing..." },
 
