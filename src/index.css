@@ -15,8 +15,8 @@
     --popover: 0 0% 100%;
     --popover-foreground: 220 15% 8%;
 
-    --primary: 0 72% 42%;
-    --primary-foreground: 0 0% 98%;
+    --primary: 220 15% 15%;
+    --primary-foreground: 40 20% 98%;
 
     --secondary: 38 25% 95%;
     --secondary-foreground: 220 10% 35%;
@@ -36,24 +36,24 @@
     --warning: 38 92% 50%;
     --warning-foreground: 220 15% 8%;
 
-    --ai: 0 72% 50%;
+    --ai: 217 91% 53%;
     --ai-foreground: 0 0% 100%;
-    --ai-muted: 0 60% 96%;
+    --ai-muted: 213 80% 96%;
 
     --border: 40 12% 91%;
     --input: 40 10% 89%;
-    --ring: 0 72% 42%;
+    --ring: 220 14% 38%;
 
     --radius: 0.75rem;
 
     --sidebar-background: 0 0% 100%;
     --sidebar-foreground: 220 8% 46%;
-    --sidebar-primary: 0 72% 42%;
-    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-primary: 220 15% 15%;
+    --sidebar-primary-foreground: 40 20% 98%;
     --sidebar-accent: 38 25% 95%;
     --sidebar-accent-foreground: 220 15% 15%;
     --sidebar-border: 40 12% 93%;
-    --sidebar-ring: 0 72% 42%;
+    --sidebar-ring: 220 15% 15%;
 
     --icon-rail-bg: 220 15% 8%;
     --icon-rail-foreground: 220 8% 65%;
@@ -83,8 +83,8 @@
     --card-foreground: 40 10% 92%;
     --popover: 220 12% 8%;
     --popover-foreground: 40 10% 92%;
-    --primary: 0 65% 55%;
-    --primary-foreground: 0 0% 98%;
+    --primary: 40 10% 92%;
+    --primary-foreground: 220 12% 6%;
     --secondary: 220 10% 12%;
     --secondary-foreground: 40 8% 75%;
     --muted: 220 10% 12%;
@@ -93,20 +93,20 @@
     --accent-foreground: 40 10% 92%;
     --destructive: 0 55% 40%;
     --destructive-foreground: 40 10% 92%;
-    --ai: 0 65% 60%;
+    --ai: 213 80% 70%;
     --ai-foreground: 0 0% 100%;
-    --ai-muted: 0 40% 14%;
+    --ai-muted: 217 40% 14%;
     --border: 220 10% 14%;
     --input: 220 10% 14%;
-    --ring: 0 65% 55%;
+    --ring: 40 8% 75%;
     --sidebar-background: 220 12% 7%;
     --sidebar-foreground: 220 8% 55%;
-    --sidebar-primary: 0 65% 55%;
-    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-primary: 40 10% 92%;
+    --sidebar-primary-foreground: 220 12% 6%;
     --sidebar-accent: 220 10% 11%;
     --sidebar-accent-foreground: 40 10% 92%;
     --sidebar-border: 220 10% 12%;
-    --sidebar-ring: 0 65% 55%;
+    --sidebar-ring: 40 8% 75%;
 
     --icon-rail-bg: 220 15% 6%;
     --icon-rail-foreground: 220 8% 55%;
