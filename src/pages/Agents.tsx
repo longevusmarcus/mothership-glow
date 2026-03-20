@@ -183,36 +183,30 @@ const Agents = () => {
                           </Link>
                         </td>
                         <td className="px-4 py-3.5 text-[12px] text-muted-foreground">{a.role}</td>
-                        <td className="px-4 py-3.5">
-                          <Link to={`/companies/${agents.indexOf(a) < 4 ? 1 : 2}`} className="text-[12px] text-muted-foreground hover:text-foreground transition-colors flex items-center gap-1">
-                            <Building2 className="h-3 w-3" strokeWidth={1.6} /> {a.jobPosition}
-                          </Link>
-                        </td>
-                        <td className="px-4 py-3.5">
-                          {a.source && typeMeta[a.source] && (
-                            <span className={`inline-flex items-center gap-1 text-[10px] px-2 py-0.5 rounded-md font-semibold ${typeMeta[a.source].color}`}>
-                              {typeMeta[a.source].icon} {typeMeta[a.source].label}
-                            </span>
-                          )}
-                        </td>
-                        <td className="px-4 py-3.5">
-                          <div className="flex flex-wrap gap-1">
-                            {a.skills.slice(0, 3).map(s => (
-                              <span key={s} className="text-[9px] px-1.5 py-0.5 rounded bg-muted text-muted-foreground font-medium">{s}</span>
-                            ))}
-                            {a.skills.length > 3 && (
-                              <span className="text-[9px] px-1.5 py-0.5 rounded bg-muted text-muted-foreground/50 font-medium">+{a.skills.length - 3}</span>
-                            )}
-                          </div>
-                        </td>
-                        <td className="px-4 py-3.5">
-                          <span className={`text-[10px] font-semibold px-2.5 py-1 rounded-lg ${statusColors[a.stage]}`}>
-                            {statusDisplayName(a.stage)}
-                          </span>
-                        </td>
-                        <td className="px-4 py-3.5 text-right">
-                          <span className="text-[14px] font-mondwest font-semibold tabular-nums">{a.score}%</span>
-                        </td>
+                         <td className="px-4 py-3.5">
+                           <Link to={`/companies/${agents.indexOf(a) < 4 ? 1 : 2}`} className="text-[12px] text-muted-foreground hover:text-foreground transition-colors flex items-center gap-1">
+                             <Building2 className="h-3 w-3" strokeWidth={1.6} /> {a.jobPosition}
+                           </Link>
+                         </td>
+                         <td className="px-4 py-3.5">
+                           <a
+                             href={`https://t.me/${a.telegram}`}
+                             target="_blank"
+                             rel="noopener noreferrer"
+                             className="inline-flex items-center gap-1.5 text-[11px] text-muted-foreground hover:text-[#0088cc] transition-colors font-medium"
+                           >
+                             <Send className="h-3 w-3" strokeWidth={1.6} />
+                             Chat
+                           </a>
+                         </td>
+                         <td className="px-4 py-3.5">
+                           <span className={`text-[10px] font-semibold px-2.5 py-1 rounded-lg ${statusColors[a.stage]}`}>
+                             {statusDisplayName(a.stage)}
+                           </span>
+                         </td>
+                         <td className="px-4 py-3.5 text-right">
+                           <span className="text-[14px] font-mondwest font-semibold tabular-nums">{a.score}%</span>
+                         </td>
                       </tr>
                     ))}
                   </tbody>
