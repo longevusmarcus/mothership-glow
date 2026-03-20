@@ -4,7 +4,7 @@ import { PromptInputBox } from "@/components/ui/ai-prompt-box";
 import AiIcon from "@/components/AiIcon";
 import { TextShimmer } from "@/components/ui/text-shimmer";
 import { motion, AnimatePresence } from "framer-motion";
-import { User, Loader2, Rocket, Zap, Building2, PlugZap, Bot, BarChart3, Radio, Lightbulb, ChevronRight, Check, Upload, Link2, Code, TrendingUp, Brain, Database, ArrowRight, Sparkles, Lock, CreditCard } from "lucide-react";
+import { User, Loader2, Rocket, Zap, Building2, PlugZap, Bot, BarChart3, Radio, Lightbulb, ChevronRight, Check, Upload, Link2, Code, TrendingUp, Brain, Database, ArrowRight, Sparkles, Lock, CreditCard, RefreshCw } from "lucide-react";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { useNavigate } from "react-router-dom";
 import type { TranslationKey } from "@/i18n/translations";
@@ -21,22 +21,45 @@ const responseKeys: TranslationKey[] = [
   "chat.response.1", "chat.response.2", "chat.response.3", "chat.response.4", "chat.response.5",
 ];
 
-// Mock signals data
-const topSignals = [
+// Large signal pool — shuffled on refresh
+const allSignals = [
   { title: "Invoice automation for freelancers", source: "TikTok", score: 94, pain: "Manual process wastes 6+ hours per week" },
   { title: "AI meal prep for dietary restrictions", source: "Reddit", score: 91, pain: "No personalized solution exists at scale" },
   { title: "Contractor payment splitting", source: "Twitter/X", score: 88, pain: "Financial coordination causes conflicts" },
   { title: "Subscription fatigue manager", source: "ProductHunt", score: 86, pain: "Average user overspends $200+/mo unknowingly" },
   { title: "AI resume screening for SMBs", source: "LinkedIn", score: 84, pain: "Small teams can't afford enterprise solutions" },
+  { title: "Pet telehealth platform", source: "Reddit", score: 82, pain: "Rural pet owners drive 2+ hours for vet visits" },
+  { title: "Creator royalty tracker", source: "Twitter/X", score: 80, pain: "Musicians lose 30% of earnings to bad accounting" },
+  { title: "Micro-SaaS for HOA management", source: "Facebook", score: 79, pain: "HOAs still use spreadsheets and paper" },
+  { title: "AI-powered lease review", source: "TikTok", score: 77, pain: "Tenants sign unfair leases without legal help" },
+  { title: "Inventory forecasting for DTC brands", source: "Shopify", score: 75, pain: "Overstock/understock costs 15-25% of revenue" },
+  { title: "Automated GDPR compliance checker", source: "HackerNews", score: 73, pain: "SMBs can't afford compliance consultants" },
+  { title: "AI fitness coach for seniors", source: "Reddit", score: 71, pain: "Generic fitness apps ignore age-related needs" },
+  { title: "Freelancer tax estimator", source: "Twitter/X", score: 90, pain: "Quarterly taxes surprise 80% of freelancers" },
+  { title: "AI customer support for Shopify", source: "ProductHunt", score: 87, pain: "Small stores can't afford 24/7 support agents" },
+  { title: "Niche job board aggregator", source: "LinkedIn", score: 83, pain: "Specialized roles are buried on general platforms" },
 ];
 
-// Mock ideas data
-const topIdeas = [
+// Large ideas pool
+const allIdeas = [
   { title: "SplitPay — Contractor payment automation", revenue: "$4.2K MRR proven", tam: "$2.1B", competitors: 3, confidence: 92 },
   { title: "MealMind — AI dietary meal planner", revenue: "$1.8K MRR proven", tam: "$890M", competitors: 7, confidence: 87 },
   { title: "InvoiceFlow — Freelancer billing autopilot", revenue: "$6.1K MRR proven", tam: "$3.4B", competitors: 5, confidence: 95 },
   { title: "SubTrack — Subscription spend optimizer", revenue: "$2.3K MRR proven", tam: "$1.2B", competitors: 4, confidence: 83 },
+  { title: "PetVet — Telehealth for pets", revenue: "$3.1K MRR proven", tam: "$1.8B", competitors: 2, confidence: 89 },
+  { title: "RoyaltyAI — Creator earnings tracker", revenue: "$1.5K MRR proven", tam: "$670M", competitors: 3, confidence: 81 },
+  { title: "HOAHub — Community management SaaS", revenue: "$2.8K MRR proven", tam: "$950M", competitors: 6, confidence: 78 },
+  { title: "LeaseGuard — AI lease review tool", revenue: "$900 MRR proven", tam: "$1.4B", competitors: 2, confidence: 85 },
+  { title: "StockSense — DTC inventory forecaster", revenue: "$5.4K MRR proven", tam: "$2.7B", competitors: 4, confidence: 91 },
+  { title: "TaxPilot — Freelancer tax automation", revenue: "$7.2K MRR proven", tam: "$4.1B", competitors: 8, confidence: 93 },
+  { title: "SupportBot — AI support for Shopify", revenue: "$3.6K MRR proven", tam: "$2.3B", competitors: 5, confidence: 88 },
+  { title: "NicheJobs — Specialized job aggregator", revenue: "$1.1K MRR proven", tam: "$560M", competitors: 3, confidence: 76 },
 ];
+
+function shuffleAndPick<T>(arr: T[], count: number): T[] {
+  const shuffled = [...arr].sort(() => Math.random() - 0.5);
+  return shuffled.slice(0, count);
+}
 
 const agents = [
   { id: "codeforge", name: "CodeForge", role: "Full-Stack Builder", icon: Code, color: "hsl(var(--chart-1))", desc: "Builds MVPs end-to-end. Deploys landing pages, backends, and payment flows." },
@@ -61,13 +84,30 @@ const ease = [0.16, 1, 0.3, 1] as const;
 
 function SignalsCard({ onSelect }: { onSelect: (title: string) => void }) {
   const [selected, setSelected] = useState<string[]>([]);
+  const [signals, setSignals] = useState(() => shuffleAndPick(allSignals, 5));
+  const [refreshing, setRefreshing] = useState(false);
   const toggle = (t: string) => setSelected(prev => prev.includes(t) ? prev.filter(x => x !== t) : [...prev, t]);
+
+  const refresh = () => {
+    setRefreshing(true);
+    setTimeout(() => {
+      setSignals(shuffleAndPick(allSignals, 5));
+      setSelected([]);
+      setRefreshing(false);
+    }, 400);
+  };
 
   return (
     <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, ease }} className="space-y-2 mt-2">
-      <p className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider">Top signals this week</p>
+      <div className="flex items-center justify-between">
+        <p className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider">Top signals this week</p>
+        <button onClick={refresh} className="flex items-center gap-1 text-[10px] text-muted-foreground hover:text-foreground transition-colors active:scale-95">
+          <RefreshCw className={`h-3 w-3 ${refreshing ? "animate-spin" : ""}`} strokeWidth={1.8} />
+          Refresh
+        </button>
+      </div>
       <div className="space-y-1.5">
-        {topSignals.map((s, i) => (
+        {signals.map((s, i) => (
           <motion.button
             key={s.title}
             initial={{ opacity: 0, x: -8 }}
@@ -106,11 +146,28 @@ function SignalsCard({ onSelect }: { onSelect: (title: string) => void }) {
 }
 
 function IdeasCard({ onSelect }: { onSelect: (idea: string) => void }) {
+  const [ideas, setIdeas] = useState(() => shuffleAndPick(allIdeas, 4));
+  const [refreshing, setRefreshing] = useState(false);
+
+  const refresh = () => {
+    setRefreshing(true);
+    setTimeout(() => {
+      setIdeas(shuffleAndPick(allIdeas, 4));
+      setRefreshing(false);
+    }, 400);
+  };
+
   return (
     <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, ease }} className="space-y-2 mt-2">
-      <p className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider">Pre-validated ideas</p>
+      <div className="flex items-center justify-between">
+        <p className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider">Pre-validated ideas</p>
+        <button onClick={refresh} className="flex items-center gap-1 text-[10px] text-muted-foreground hover:text-foreground transition-colors active:scale-95">
+          <RefreshCw className={`h-3 w-3 ${refreshing ? "animate-spin" : ""}`} strokeWidth={1.8} />
+          Refresh
+        </button>
+      </div>
       <div className="space-y-1.5">
-        {topIdeas.map((idea, i) => (
+        {ideas.map((idea, i) => (
           <motion.button
             key={idea.title}
             initial={{ opacity: 0, x: -8 }}
