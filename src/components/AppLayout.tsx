@@ -7,7 +7,6 @@ import {
   BookOpen,
   MoreHorizontal,
   ShoppingBag,
-  BarChart3,
   Swords,
   Settings,
   LogOut,
