@@ -6,7 +6,7 @@ import { TextShimmer } from "@/components/ui/text-shimmer";
 import { motion, AnimatePresence } from "framer-motion";
 import { User, Loader2, Rocket, Zap, Building2, PlugZap, Bot, BarChart3, Radio, Lightbulb, ChevronRight, Check, Upload, Link2, Code, TrendingUp, Brain, Database, ArrowRight, Sparkles, Lock, CreditCard, RefreshCw } from "lucide-react";
 import { useLanguage } from "@/i18n/LanguageContext";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import type { TranslationKey } from "@/i18n/translations";
 
 interface ChatMessage {
@@ -403,22 +403,23 @@ function ApiDocsPaywall() {
 
 // Mock existing companies
 const existingCompanies = [
+  { id: "1", name: "NovaTech", type: "SaaS B2B", agents: 4 },
   { id: "novapay", name: "NovaPay", type: "SaaS B2B", agents: 2 },
   { id: "mealmind", name: "MealMind", type: "Consumer App", agents: 1 },
   { id: "splitpay", name: "SplitPay", type: "Fintech", agents: 3 },
 ];
 
-function DeployAgentCard({ onDone }: { onDone: (agentNames: string, target: string) => void }) {
+function DeployAgentCard({ onDone, preSelectedCompany }: { onDone: (agentNames: string, target: string) => void; preSelectedCompany?: { id: string; name: string; type: string; agents: number } | null }) {
   const [selectedAgents, setSelectedAgents] = useState<string[]>([]);
-  const [target, setTarget] = useState<"existing" | "new" | null>(null);
-  const [selectedCompany, setSelectedCompany] = useState<string | null>(null);
+  const [target, setTarget] = useState<"existing" | "new" | null>(preSelectedCompany ? "existing" : null);
+  const [selectedCompany, setSelectedCompany] = useState<string | null>(preSelectedCompany?.id || null);
   const toggleAgent = (id: string) => setSelectedAgents(prev => prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id]);
 
   const canDeploy = selectedAgents.length > 0 && (target === "new" || (target === "existing" && selectedCompany));
 
   const handleDeploy = () => {
     const names = selectedAgents.map(id => agents.find(a => a.id === id)?.name || id).join(", ");
-    const targetLabel = target === "new" ? "a new company" : existingCompanies.find(c => c.id === selectedCompany)?.name || "company";
+    const targetLabel = target === "new" ? "a new company" : (existingCompanies.find(c => c.id === selectedCompany)?.name || preSelectedCompany?.name || "company");
     onDone(names, targetLabel);
   };
 
@@ -538,12 +539,36 @@ const quickActions = [
 const Chat = () => {
   const { t, locale } = useLanguage();
   const navigate = useNavigate();
+  const location = useLocation();
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const [deployToCompany, setDeployToCompany] = useState<{ id: string; name: string; type: string; agents: number } | null>(null);
+  const hasAutoTriggered = useRef(false);
 
   const scrollToBottom = () => { messagesEndRef.current?.scrollIntoView({ behavior: "smooth" }); };
   useEffect(() => { scrollToBottom(); }, [messages]);
+
+  // Auto-trigger deploy agent flow when navigating from a company
+  useEffect(() => {
+    const state = location.state as { deployToCompany?: { id: string; name: string; type: string; agents: number } } | null;
+    if (state?.deployToCompany && !hasAutoTriggered.current) {
+      hasAutoTriggered.current = true;
+      setDeployToCompany(state.deployToCompany);
+      // Clear the state so refresh doesn't re-trigger
+      window.history.replaceState({}, document.title);
+      // Auto-send the deploy message
+      setTimeout(() => {
+        const company = state.deployToCompany!;
+        const userMessage: ChatMessage = { id: crypto.randomUUID(), role: "user", content: `Deploy agents to ${company.name}`, timestamp: new Date() };
+        setMessages(prev => [...prev, userMessage]);
+        setIsLoading(true);
+        setTimeout(() => {
+          addAssistant(`Let's deploy agents to ${company.name} (${company.type}). Pick which agents you want to activate — they'll be assigned directly to ${company.name}.`, "deploy_agent_flow");
+        }, 800);
+      }, 300);
+    }
+  }, [location.state]);
 
   const addAssistant = (content: string, action?: ChatMessage["action"]) => {
     const msg: ChatMessage = { id: crypto.randomUUID(), role: "assistant", content, timestamp: new Date(), action };
@@ -642,7 +667,7 @@ const Chat = () => {
       case "deploying": return <DeployingCard onDone={handleDeployDone} />;
       case "deployed": return <DeployedCard />;
       case "show_api_docs": return <ApiDocsPaywall />;
-      case "deploy_agent_flow": return <DeployAgentCard onDone={handleDeployAgentDone} />;
+      case "deploy_agent_flow": return <DeployAgentCard onDone={handleDeployAgentDone} preSelectedCompany={deployToCompany} />;
       default: return null;
     }
   };
