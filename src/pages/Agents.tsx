@@ -1,4 +1,4 @@
-import { Search, Bot, Zap, Building2, List, KanbanSquare } from "lucide-react";
+import { Search, Bot, Zap, Building2, List, KanbanSquare, Send } from "lucide-react";
 import AiIcon from "@/components/AiIcon";
 import { InteractiveHoverButton } from "@/components/ui/interactive-hover-button";
 import { TextShimmer } from "@/components/ui/text-shimmer";
@@ -21,25 +21,25 @@ const typeMeta: Record<string, { label: string; color: string; icon: string }> =
 
 const agents = [
   { id: 1, name: "CodeForge", role: "Full-Stack Dev", score: 96, stage: "Shortlist", aiParsed: true, jobPosition: "NovaTech", source: "tech",
-    skills: ["React", "TypeScript", "Node.js", "PostgreSQL"], company: "NovaTech", location: "Cloud" },
+    skills: ["React", "TypeScript", "Node.js", "PostgreSQL"], company: "NovaTech", location: "Cloud", telegram: "CodeForge_MSX_bot" },
   { id: 2, name: "GrowthPilot", role: "SEO & Content", score: 91, stage: "Colloquio", aiParsed: true, jobPosition: "NovaTech", source: "growth",
-    skills: ["SEO", "Content Strategy", "Analytics", "A/B Testing"], company: "NovaTech", location: "Cloud" },
+    skills: ["SEO", "Content Strategy", "Analytics", "A/B Testing"], company: "NovaTech", location: "Cloud", telegram: "GrowthPilot_MSX_bot" },
   { id: 3, name: "DesignMind", role: "UI/UX Design", score: 87, stage: "Shortlist", aiParsed: false, jobPosition: "HealthAI", source: "creative",
-    skills: ["Figma", "Design Systems", "Prototyping"], company: "HealthAI", location: "Cloud" },
+    skills: ["Figma", "Design Systems", "Prototyping"], company: "HealthAI", location: "Cloud", telegram: "DesignMind_MSX_bot" },
   { id: 4, name: "DataStream", role: "Data Pipeline", score: 94, stage: "Placement", aiParsed: true, jobPosition: "DataPulse", source: "tech",
-    skills: ["Python", "SQL", "Spark", "Airflow"], company: "DataPulse", location: "Cloud" },
+    skills: ["Python", "SQL", "Spark", "Airflow"], company: "DataPulse", location: "Cloud", telegram: "DataStream_MSX_bot" },
   { id: 5, name: "OpsEngine", role: "DevOps & CI/CD", score: 89, stage: "Screening", aiParsed: false, jobPosition: "FinFlow", source: "ops",
-    skills: ["Docker", "Kubernetes", "Terraform", "AWS"], company: "FinFlow", location: "Cloud" },
+    skills: ["Docker", "Kubernetes", "Terraform", "AWS"], company: "FinFlow", location: "Cloud", telegram: "OpsEngine_MSX_bot" },
   { id: 6, name: "MarketBot", role: "Paid Ads & Social", score: 88, stage: "Colloquio", aiParsed: true, jobPosition: "NovaTech", source: "growth",
-    skills: ["Google Ads", "Meta Ads", "Analytics", "Copywriting"], company: "NovaTech", location: "Cloud" },
+    skills: ["Google Ads", "Meta Ads", "Analytics", "Copywriting"], company: "NovaTech", location: "Cloud", telegram: "MarketBot_MSX_bot" },
   { id: 7, name: "SecureGuard", role: "Security Audit", score: 92, stage: "Shortlist", aiParsed: true, jobPosition: "FinFlow", source: "ops",
-    skills: ["Penetration Testing", "OWASP", "Compliance", "Monitoring"], company: "FinFlow", location: "Cloud" },
+    skills: ["Penetration Testing", "OWASP", "Compliance", "Monitoring"], company: "FinFlow", location: "Cloud", telegram: "SecureGuard_MSX_bot" },
   { id: 8, name: "ContentCraft", role: "Copywriting", score: 83, stage: "Screening", aiParsed: false, jobPosition: "HealthAI", source: "creative",
-    skills: ["Blog Writing", "Email Copy", "Brand Voice", "Social Media"], company: "HealthAI", location: "Cloud" },
+    skills: ["Blog Writing", "Email Copy", "Brand Voice", "Social Media"], company: "HealthAI", location: "Cloud", telegram: "ContentCraft_MSX_bot" },
   { id: 9, name: "APIForge", role: "Backend & APIs", score: 95, stage: "Placement", aiParsed: true, jobPosition: "DataPulse", source: "tech",
-    skills: ["REST", "GraphQL", "Microservices", "Redis"], company: "DataPulse", location: "Cloud" },
+    skills: ["REST", "GraphQL", "Microservices", "Redis"], company: "DataPulse", location: "Cloud", telegram: "APIForge_MSX_bot" },
   { id: 10, name: "FinOps", role: "Billing & Payments", score: 90, stage: "Colloquio", aiParsed: true, jobPosition: "FinFlow", source: "ops",
-    skills: ["Stripe", "Billing Logic", "Reconciliation", "Compliance"], company: "FinFlow", location: "Cloud" },
+    skills: ["Stripe", "Billing Logic", "Reconciliation", "Compliance"], company: "FinFlow", location: "Cloud", telegram: "FinOps_MSX_bot" },
 ];
 
 const statusColors: Record<string, string> = {
@@ -157,15 +157,14 @@ const Agents = () => {
               <div className="overflow-x-auto">
                 <table className="w-full text-left">
                   <thead>
-                    <tr className="border-b border-border text-[10px] font-semibold text-muted-foreground uppercase tracking-wider">
-                      <th className="px-5 py-3">{t("candidates.th.name")}</th>
-                      <th className="px-4 py-3">{t("candidates.th.role")}</th>
-                      <th className="px-4 py-3">{t("candidates.th.position")}</th>
-                      <th className="px-4 py-3">{t("candidates.th.source")}</th>
-                      <th className="px-4 py-3">{t("candidates.th.skills")}</th>
-                      <th className="px-4 py-3">{t("candidates.th.stage")}</th>
-                      <th className="px-4 py-3 text-right">{t("candidates.th.aiScore")}</th>
-                    </tr>
+                     <tr className="border-b border-border text-[10px] font-semibold text-muted-foreground uppercase tracking-wider">
+                       <th className="px-5 py-3">{t("candidates.th.name")}</th>
+                       <th className="px-4 py-3">{t("candidates.th.role")}</th>
+                       <th className="px-4 py-3">{t("candidates.th.position")}</th>
+                       <th className="px-4 py-3">Telegram</th>
+                       <th className="px-4 py-3">{t("candidates.th.stage")}</th>
+                       <th className="px-4 py-3 text-right">{t("candidates.th.aiScore")}</th>
+                     </tr>
                   </thead>
                   <tbody className="divide-y divide-border">
                     {filtered.map((a) => (
@@ -184,36 +183,30 @@ const Agents = () => {
                           </Link>
                         </td>
                         <td className="px-4 py-3.5 text-[12px] text-muted-foreground">{a.role}</td>
-                        <td className="px-4 py-3.5">
-                          <Link to={`/companies/${agents.indexOf(a) < 4 ? 1 : 2}`} className="text-[12px] text-muted-foreground hover:text-foreground transition-colors flex items-center gap-1">
-                            <Building2 className="h-3 w-3" strokeWidth={1.6} /> {a.jobPosition}
-                          </Link>
-                        </td>
-                        <td className="px-4 py-3.5">
-                          {a.source && typeMeta[a.source] && (
-                            <span className={`inline-flex items-center gap-1 text-[10px] px-2 py-0.5 rounded-md font-semibold ${typeMeta[a.source].color}`}>
-                              {typeMeta[a.source].icon} {typeMeta[a.source].label}
-                            </span>
-                          )}
-                        </td>
-                        <td className="px-4 py-3.5">
-                          <div className="flex flex-wrap gap-1">
-                            {a.skills.slice(0, 3).map(s => (
-                              <span key={s} className="text-[9px] px-1.5 py-0.5 rounded bg-muted text-muted-foreground font-medium">{s}</span>
-                            ))}
-                            {a.skills.length > 3 && (
-                              <span className="text-[9px] px-1.5 py-0.5 rounded bg-muted text-muted-foreground/50 font-medium">+{a.skills.length - 3}</span>
-                            )}
-                          </div>
-                        </td>
-                        <td className="px-4 py-3.5">
-                          <span className={`text-[10px] font-semibold px-2.5 py-1 rounded-lg ${statusColors[a.stage]}`}>
-                            {statusDisplayName(a.stage)}
-                          </span>
-                        </td>
-                        <td className="px-4 py-3.5 text-right">
-                          <span className="text-[14px] font-mondwest font-semibold tabular-nums">{a.score}%</span>
-                        </td>
+                         <td className="px-4 py-3.5">
+                           <Link to={`/companies/${agents.indexOf(a) < 4 ? 1 : 2}`} className="text-[12px] text-muted-foreground hover:text-foreground transition-colors flex items-center gap-1">
+                             <Building2 className="h-3 w-3" strokeWidth={1.6} /> {a.jobPosition}
+                           </Link>
+                         </td>
+                         <td className="px-4 py-3.5">
+                           <a
+                             href={`https://t.me/${a.telegram}`}
+                             target="_blank"
+                             rel="noopener noreferrer"
+                             className="inline-flex items-center gap-1.5 text-[11px] text-muted-foreground hover:text-[#0088cc] transition-colors font-medium"
+                           >
+                             <Send className="h-3 w-3" strokeWidth={1.6} />
+                             Chat
+                           </a>
+                         </td>
+                         <td className="px-4 py-3.5">
+                           <span className={`text-[10px] font-semibold px-2.5 py-1 rounded-lg ${statusColors[a.stage]}`}>
+                             {statusDisplayName(a.stage)}
+                           </span>
+                         </td>
+                         <td className="px-4 py-3.5 text-right">
+                           <span className="text-[14px] font-mondwest font-semibold tabular-nums">{a.score}%</span>
+                         </td>
                       </tr>
                     ))}
                   </tbody>
