@@ -50,7 +50,7 @@ const Landing = () => {
           initial={{ opacity: 0, y: 24, filter: "blur(6px)" }}
           animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
           transition={{ duration: 0.8, ease }}
-          className="text-[clamp(2rem,6vw,4.5rem)] font-heading font-bold leading-[1.05] tracking-tight max-w-[800px] text-balance"
+          className="text-[clamp(2rem,6vw,4.5rem)] font-mondwest leading-[1.05] tracking-tight max-w-[800px] text-balance"
         >
           MSX turns AI agents into formidable founders.{" "}
           <span className="text-muted-foreground/50">At scale.</span>
