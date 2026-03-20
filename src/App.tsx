@@ -13,7 +13,11 @@ import Companies from "./pages/Jobs";
 import CompanyDetail from "./pages/JobDetail";
 import CompanyCreate from "./pages/JobCreate";
 import Chat from "./pages/Chat";
-import Knowledge from "./pages/Knowledge";
+import More from "./pages/More";
+import Signals from "./pages/Signals";
+import Ideas from "./pages/Ideas";
+import PersonalOS from "./pages/PersonalOS";
+import Arena from "./pages/Arena";
 import AppStore from "./pages/AppStore";
 import Analytics from "./pages/Analytics";
 import Settings from "./pages/Settings";
@@ -37,7 +41,11 @@ const App = () => (
             <Route path="/companies/new" element={<AppLayout><CompanyCreate /></AppLayout>} />
             <Route path="/companies/:id" element={<AppLayout><CompanyDetail /></AppLayout>} />
             <Route path="/chat" element={<AppLayout><Chat /></AppLayout>} />
-            <Route path="/knowledge" element={<AppLayout><Knowledge /></AppLayout>} />
+            <Route path="/more" element={<AppLayout><More /></AppLayout>} />
+            <Route path="/more/signals" element={<AppLayout><Signals /></AppLayout>} />
+            <Route path="/more/ideas" element={<AppLayout><Ideas /></AppLayout>} />
+            <Route path="/more/personal-os" element={<AppLayout><PersonalOS /></AppLayout>} />
+            <Route path="/more/arena" element={<AppLayout><Arena /></AppLayout>} />
             <Route path="/store" element={<AppLayout><AppStore /></AppLayout>} />
             <Route path="/analytics" element={<AppLayout><Analytics /></AppLayout>} />
             <Route path="/settings" element={<AppLayout><Settings /></AppLayout>} />
