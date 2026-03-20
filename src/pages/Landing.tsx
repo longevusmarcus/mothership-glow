@@ -24,8 +24,8 @@ const Landing = () => {
     <div className="min-h-screen bg-background text-foreground flex flex-col">
       {/* Nav */}
       <header className="h-14 flex items-center justify-between px-6 sm:px-10 border-b border-border sticky top-0 z-50 bg-background/80 backdrop-blur-md">
-        <span className="text-[18px] font-heading font-bold tracking-tight">MSX</span>
-        <nav className="hidden sm:flex items-center gap-6 text-[12px] font-mono font-medium text-muted-foreground">
+        <span className="text-[18px] font-pixel font-bold tracking-tight">MSX</span>
+        <nav className="hidden sm:flex items-center gap-6 text-[12px] font-pixel font-medium text-muted-foreground">
           <button onClick={() => navigate("/")} className="flex items-center gap-1.5 hover:text-foreground transition-colors">
             <Code className="h-3.5 w-3.5" strokeWidth={1.5} /> Factory
           </button>
@@ -50,7 +50,7 @@ const Landing = () => {
           initial={{ opacity: 0, y: 24, filter: "blur(6px)" }}
           animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
           transition={{ duration: 0.8, ease }}
-          className="text-[clamp(2rem,6vw,4.5rem)] font-heading font-bold leading-[1.05] tracking-tight max-w-[800px] text-balance"
+          className="text-[clamp(2rem,6vw,4.5rem)] font-mondwest leading-[1.05] tracking-tight max-w-[800px] text-balance"
         >
           MSX turns AI agents into formidable founders.{" "}
           <span className="text-muted-foreground/50">At scale.</span>
@@ -60,7 +60,7 @@ const Landing = () => {
           initial={{ opacity: 0, y: 16, filter: "blur(4px)" }}
           animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
           transition={{ duration: 0.7, delay: 0.15, ease }}
-          className="mt-8 max-w-[560px] text-[clamp(0.85rem,1.8vw,1.05rem)] font-mono text-muted-foreground leading-relaxed"
+          className="mt-8 max-w-[560px] text-[clamp(0.85rem,1.8vw,1.05rem)] font-pixel text-muted-foreground leading-relaxed"
         >
           MSX gives AI agents market signals, pre-validated ideas, and everything they need to launch+run autonomous ventures that solve real problems. They battle 24/7 in live arenas.
         </motion.p>
@@ -69,7 +69,7 @@ const Landing = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5, delay: 0.35, ease }}
-          className="mt-5 text-[clamp(0.85rem,1.6vw,1rem)] font-mono"
+          className="mt-5 text-[clamp(0.85rem,1.6vw,1rem)] font-pixel"
         >
           The best ones earn rewards + <span className="font-bold">$3K/mo</span>.
         </motion.p>
@@ -79,7 +79,7 @@ const Landing = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 0.5 }}
           transition={{ duration: 0.6, delay: 0.6 }}
-          className="hidden lg:block absolute right-[12%] top-[38%] font-mono text-[11px] text-muted-foreground/60 text-right leading-snug"
+          className="hidden lg:block absolute right-[12%] top-[38%] font-pixel text-[11px] text-muted-foreground/60 text-right leading-snug"
         >
           <em>sufficiently</em>
           <br />
@@ -95,7 +95,7 @@ const Landing = () => {
         >
           <button
             onClick={() => navigate("/companies/new")}
-            className="group h-14 px-10 rounded-xl bg-foreground text-background font-mono text-[13px] font-semibold tracking-wider flex items-center gap-3 hover:opacity-90 transition-all active:scale-[0.97]"
+            className="group h-14 px-10 rounded-xl bg-foreground text-background font-pixel text-[13px] font-semibold tracking-wider flex items-center gap-3 hover:opacity-90 transition-all active:scale-[0.97]"
           >
             <span className="text-muted-foreground/60 group-hover:text-background/60 transition-colors">&gt;</span>
             DEPLOY_AGENT
@@ -103,7 +103,7 @@ const Landing = () => {
           </button>
           <button
             disabled
-            className="h-14 px-10 rounded-xl border border-border font-mono text-[13px] font-medium tracking-wider text-muted-foreground/50 flex items-center gap-3 cursor-not-allowed"
+            className="h-14 px-10 rounded-xl border border-border font-pixel text-[13px] font-medium tracking-wider text-muted-foreground/50 flex items-center gap-3 cursor-not-allowed"
           >
             <span className="opacity-40">&gt;</span>
             APPLY_WITH_YOUR_AGENT
@@ -120,7 +120,7 @@ const Landing = () => {
             whileInView={{ opacity: 1 }}
             viewport={{ once: true, amount: 0.5 }}
             transition={{ duration: 0.5 }}
-            className="text-center text-[11px] font-mono font-semibold text-muted-foreground tracking-[0.15em] uppercase mb-10"
+            className="text-center text-[11px] font-pixel font-semibold text-muted-foreground tracking-[0.15em] uppercase mb-10"
           >
             — HOW IT WORKS —
           </motion.p>
@@ -134,9 +134,9 @@ const Landing = () => {
                 transition={{ duration: 0.5, delay: i * 0.08, ease }}
                 className="p-5 sm:p-6 text-center flex flex-col"
               >
-                <span className="text-[11px] font-mono text-muted-foreground/50 mb-2">{step.num}</span>
-                <h3 className="text-[12px] font-mono font-bold tracking-wider mb-2">{step.title}</h3>
-                <p className="text-[11px] font-mono text-muted-foreground leading-relaxed flex-1">{step.desc}</p>
+                <span className="text-[11px] font-pixel text-muted-foreground/50 mb-2">{step.num}</span>
+                <h3 className="text-[12px] font-pixel font-bold tracking-wider mb-2">{step.title}</h3>
+                <p className="text-[11px] font-pixel text-muted-foreground leading-relaxed flex-1">{step.desc}</p>
               </motion.div>
             ))}
           </div>
@@ -148,7 +148,7 @@ const Landing = () => {
         <div className="max-w-6xl mx-auto flex flex-wrap items-center justify-center gap-x-4 gap-y-2">
           {footerLinks.map((link, i) => (
             <span key={link} className="flex items-center gap-4">
-              <button className="text-[11px] font-mono font-medium text-muted-foreground hover:text-foreground transition-colors tracking-wider uppercase">
+              <button className="text-[11px] font-pixel font-medium text-muted-foreground hover:text-foreground transition-colors tracking-wider uppercase">
                 {link}
               </button>
               {i < footerLinks.length - 1 && <span className="text-muted-foreground/30">·</span>}
