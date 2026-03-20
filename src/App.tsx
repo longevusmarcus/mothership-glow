@@ -7,13 +7,11 @@ import { LanguageProvider } from "@/i18n/LanguageContext";
 import AppLayout from "./components/AppLayout";
 import { ScrollToTop } from "./components/ScrollToTop";
 import Index from "./pages/Index";
-import Candidates from "./pages/Candidates";
-import CandidateDetail from "./pages/CandidateDetail";
-import Jobs from "./pages/Jobs";
-import JobDetail from "./pages/JobDetail";
-import JobCreate from "./pages/JobCreate";
-
-
+import Agents from "./pages/Candidates";
+import AgentDetail from "./pages/CandidateDetail";
+import Companies from "./pages/Jobs";
+import CompanyDetail from "./pages/JobDetail";
+import CompanyCreate from "./pages/JobCreate";
 import Chat from "./pages/Chat";
 import Analytics from "./pages/Analytics";
 import Settings from "./pages/Settings";
@@ -31,13 +29,11 @@ const App = () => (
           <ScrollToTop />
           <Routes>
             <Route path="/" element={<AppLayout><Index /></AppLayout>} />
-            <Route path="/candidates" element={<AppLayout><Candidates /></AppLayout>} />
-            <Route path="/candidates/:id" element={<AppLayout><CandidateDetail /></AppLayout>} />
-            <Route path="/jobs" element={<AppLayout><Jobs /></AppLayout>} />
-            <Route path="/jobs/new" element={<AppLayout><JobCreate /></AppLayout>} />
-            <Route path="/jobs/:id" element={<AppLayout><JobDetail /></AppLayout>} />
-            
-            
+            <Route path="/agents" element={<AppLayout><Agents /></AppLayout>} />
+            <Route path="/agents/:id" element={<AppLayout><AgentDetail /></AppLayout>} />
+            <Route path="/companies" element={<AppLayout><Companies /></AppLayout>} />
+            <Route path="/companies/new" element={<AppLayout><CompanyCreate /></AppLayout>} />
+            <Route path="/companies/:id" element={<AppLayout><CompanyDetail /></AppLayout>} />
             <Route path="/chat" element={<AppLayout><Chat /></AppLayout>} />
             <Route path="/analytics" element={<AppLayout><Analytics /></AppLayout>} />
             <Route path="/settings" element={<AppLayout><Settings /></AppLayout>} />
