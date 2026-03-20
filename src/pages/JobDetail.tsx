@@ -98,7 +98,7 @@ function CompanyChat({ companyName }: { companyName: string }) {
   };
 
   return (
-    <div className="flex flex-col h-[360px]">
+    <div className="flex flex-col flex-1 min-h-0">
       <div className="flex-1 overflow-y-auto px-4 py-3 space-y-3">
         {messages.map(msg => (
           <motion.div key={msg.id} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className={`flex gap-2.5 ${msg.role === "user" ? "justify-end" : ""}`}>
@@ -206,7 +206,7 @@ const CompanyDetail = () => {
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
         {/* Main panel — tabbed: Chat / Tasks / Deploys */}
-        <div className="lg:col-span-2 bg-card rounded-2xl card-static overflow-hidden">
+        <div className="lg:col-span-2 bg-card rounded-2xl card-static overflow-hidden flex flex-col min-h-[500px]">
           <div className="flex items-center border-b border-border">
             {([
               { id: "chat" as const, label: "Agent Chat", icon: MessageSquare },
@@ -231,7 +231,7 @@ const CompanyDetail = () => {
           {activePanel === "chat" && <CompanyChat companyName={company.title} />}
 
           {activePanel === "tasks" && (
-            <div className="divide-y divide-border max-h-[360px] overflow-y-auto">
+            <div className="divide-y divide-border flex-1 overflow-y-auto">
               {taskLog.map((task, i) => (
                 <motion.div key={i} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: i * 0.03 }} className="px-5 py-3.5 flex items-start gap-3">
                   <div className={`h-7 w-7 rounded-lg flex items-center justify-center shrink-0 mt-0.5 ${task.status === "done" ? "bg-success/10" : "bg-primary/10"}`}>
@@ -257,7 +257,7 @@ const CompanyDetail = () => {
           )}
 
           {activePanel === "deploys" && (
-            <div className="divide-y divide-border max-h-[360px] overflow-y-auto">
+            <div className="divide-y divide-border flex-1 overflow-y-auto">
               {deployPreviews.map((deploy, i) => (
                 <motion.div key={i} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: i * 0.05 }} className="px-5 py-4 flex items-center gap-4">
                   <div className={`h-9 w-9 rounded-xl flex items-center justify-center shrink-0 ${deploy.status === "live" ? "bg-success/10" : "bg-muted"}`}>
