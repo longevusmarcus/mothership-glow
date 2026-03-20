@@ -5,6 +5,7 @@ import {
   Building2,
   Rocket,
   BookOpen,
+  MoreHorizontal,
   ShoppingBag,
   BarChart3,
   Settings,
@@ -22,7 +23,7 @@ import type { TranslationKey } from "@/i18n/translations";
 const navItemsDef = [
   { id: "dashboard", icon: LayoutDashboard, labelKey: "nav.dashboard" as TranslationKey, to: "/" },
   { id: "chat", icon: Rocket, labelKey: "nav.chatAi" as TranslationKey, to: "/chat" },
-  { id: "knowledge", icon: BookOpen, labelKey: "nav.knowledge" as TranslationKey, to: "/knowledge" },
+  { id: "more", icon: MoreHorizontal, labelKey: "nav.more" as TranslationKey, to: "/more" },
   { id: "store", icon: ShoppingBag, labelKey: "nav.store" as TranslationKey, to: "/store" },
   { id: "candidates", icon: Bot, labelKey: "nav.candidates" as TranslationKey, to: "/agents" },
   { id: "jobs", icon: Building2, labelKey: "nav.jobs" as TranslationKey, to: "/companies" },
@@ -182,7 +183,7 @@ const AppLayout = ({ children }: AppLayoutProps) => {
     const path = location.pathname;
     if (path === "/") setActiveSection("dashboard");
     else if (path.startsWith("/chat")) setActiveSection("chat");
-    else if (path.startsWith("/knowledge")) setActiveSection("knowledge");
+    else if (path.startsWith("/more")) setActiveSection("more");
     else if (path.startsWith("/store")) setActiveSection("store");
     else if (path.startsWith("/agents")) setActiveSection("candidates");
     else if (path.startsWith("/companies")) setActiveSection("jobs");
