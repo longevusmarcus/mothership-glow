@@ -1,4 +1,4 @@
-import { ArrowLeft, Bot, Brain, Code, Loader2, Rocket, Zap, Check, Radio, TrendingUp, Lightbulb, Database, Globe, ChevronRight, Plus, AlertCircle } from "lucide-react";
+import { ArrowLeft, Bot, Brain, Code, Loader2, Rocket, Zap, Check, Radio, TrendingUp, Lightbulb, Database, Globe, ChevronRight, Plus, AlertCircle, Upload, Link2 } from "lucide-react";
 import AiIcon from "@/components/AiIcon";
 import { TextShimmer } from "@/components/ui/text-shimmer";
 import { Link, useNavigate } from "react-router-dom";
@@ -24,7 +24,7 @@ type DeployStep = { label: string; detail: string; duration: number; agentId?: s
 
 const deploySteps: DeployStep[] = [
   { label: "Scanning signals database", detail: "Analyzing 847 market signals from last 30 days...", duration: 2200 },
-  { label: "Cross-referencing ideas", detail: "Matching 23 validated ideas with current trends...", duration: 1800 },
+  { label: "Cross-referencing ideas", detail: "Matching 750 validated ideas with current trends...", duration: 1800 },
   { label: "Generating business model", detail: "Building revenue model, pricing, and unit economics...", duration: 2400 },
   { label: "Designing tech architecture", detail: "Selecting stack: React, Supabase, Stripe, Resend...", duration: 1600 },
   { label: "Creating landing page", detail: "Deploying hero, features, pricing sections...", duration: 2000 },
@@ -164,6 +164,35 @@ const CompanyCreate = () => {
               })}
             </div>
 
+            {/* Integrate your own agent */}
+            <div className="rounded-2xl border border-dashed border-border bg-card/50 p-5 space-y-3">
+              <div className="flex items-center gap-3">
+                <div className="h-10 w-10 rounded-xl bg-muted/60 flex items-center justify-center">
+                  <Upload className="h-4.5 w-4.5 text-muted-foreground" strokeWidth={1.6} />
+                </div>
+                <div>
+                  <p className="text-[13px] font-semibold text-foreground">Integrate your own agent</p>
+                  <p className="text-[11px] text-muted-foreground">Connect a custom agent via API, webhook, or upload a config</p>
+                </div>
+              </div>
+              <div className="flex gap-2">
+                <button
+                  onClick={() => toast.info("API integration coming soon — your agents will decide what to build.")}
+                  className="flex items-center gap-1.5 px-3 py-2 rounded-xl border border-border bg-card text-[11px] font-semibold text-foreground hover:bg-muted/60 transition-all active:scale-[0.97]"
+                >
+                  <Link2 className="h-3 w-3" strokeWidth={2} />
+                  Connect via API
+                </button>
+                <button
+                  onClick={() => toast.info("Config upload coming soon — bring your own agent logic.")}
+                  className="flex items-center gap-1.5 px-3 py-2 rounded-xl border border-border bg-card text-[11px] font-semibold text-foreground hover:bg-muted/60 transition-all active:scale-[0.97]"
+                >
+                  <Upload className="h-3 w-3" strokeWidth={2} />
+                  Upload config
+                </button>
+              </div>
+            </div>
+
             {/* Selected agents summary */}
             {selectedAgents.length > 0 && (
               <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: "auto" }} className="rounded-2xl border border-primary/20 bg-primary/[0.03] p-4 flex items-center gap-3">
@@ -187,7 +216,7 @@ const CompanyCreate = () => {
               <div className="grid grid-cols-3 gap-3">
                 {[
                   { icon: Radio, label: "Signals", count: "847", sub: "last 30 days" },
-                  { icon: Lightbulb, label: "Ideas", count: "23", sub: "validated" },
+                  { icon: Lightbulb, label: "Ideas", count: "750", sub: "validated" },
                   { icon: Globe, label: "Markets", count: "12", sub: "tracked" },
                 ].map(s => (
                   <div key={s.label} className="flex items-center gap-3 p-3 rounded-xl bg-muted/40">
@@ -285,7 +314,7 @@ const CompanyCreate = () => {
               </div>
               <div>
                 <p className="text-[15px] font-semibold text-foreground">Company deployed successfully</p>
-                <p className="text-[12px] text-muted-foreground mt-0.5">{selectedAgents.length} agent{selectedAgents.length > 1 ? "s" : ""} built everything from 847 signals and 23 validated ideas</p>
+                <p className="text-[12px] text-muted-foreground mt-0.5">{selectedAgents.length} agent{selectedAgents.length > 1 ? "s" : ""} built everything from 847 signals and 750 validated ideas</p>
               </div>
             </div>
 
