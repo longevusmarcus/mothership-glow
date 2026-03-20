@@ -4,6 +4,7 @@ import {
   Bot,
   Building2,
   Rocket,
+  BookOpen,
   BarChart3,
   Settings,
   LogOut,
