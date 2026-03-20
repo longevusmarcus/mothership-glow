@@ -13,6 +13,7 @@ import Companies from "./pages/Jobs";
 import CompanyDetail from "./pages/JobDetail";
 import CompanyCreate from "./pages/JobCreate";
 import Chat from "./pages/Chat";
+import Knowledge from "./pages/Knowledge";
 import Analytics from "./pages/Analytics";
 import Settings from "./pages/Settings";
 import NotFound from "./pages/NotFound";
