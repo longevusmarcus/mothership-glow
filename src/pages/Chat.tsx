@@ -419,7 +419,7 @@ function DeployAgentCard({ onDone, preSelectedCompany }: { onDone: (agentNames: 
 
   const handleDeploy = () => {
     const names = selectedAgents.map(id => agents.find(a => a.id === id)?.name || id).join(", ");
-    const targetLabel = target === "new" ? "a new company" : existingCompanies.find(c => c.id === selectedCompany)?.name || "company";
+    const targetLabel = target === "new" ? "a new company" : (existingCompanies.find(c => c.id === selectedCompany)?.name || preSelectedCompany?.name || "company");
     onDone(names, targetLabel);
   };
 
