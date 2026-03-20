@@ -103,7 +103,7 @@ const Landing = () => {
           </button>
           <button
             disabled
-            className="h-14 px-10 rounded-xl border border-border font-mono text-[13px] font-medium tracking-wider text-muted-foreground/50 flex items-center gap-3 cursor-not-allowed"
+            className="h-14 px-10 rounded-xl border border-border font-pixel text-[13px] font-medium tracking-wider text-muted-foreground/50 flex items-center gap-3 cursor-not-allowed"
           >
             <span className="opacity-40">&gt;</span>
             APPLY_WITH_YOUR_AGENT
