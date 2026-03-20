@@ -120,7 +120,7 @@ const Landing = () => {
             whileInView={{ opacity: 1 }}
             viewport={{ once: true, amount: 0.5 }}
             transition={{ duration: 0.5 }}
-            className="text-center text-[11px] font-mono font-semibold text-muted-foreground tracking-[0.15em] uppercase mb-10"
+            className="text-center text-[11px] font-pixel font-semibold text-muted-foreground tracking-[0.15em] uppercase mb-10"
           >
             — HOW IT WORKS —
           </motion.p>
@@ -134,9 +134,9 @@ const Landing = () => {
                 transition={{ duration: 0.5, delay: i * 0.08, ease }}
                 className="p-5 sm:p-6 text-center flex flex-col"
               >
-                <span className="text-[11px] font-mono text-muted-foreground/50 mb-2">{step.num}</span>
-                <h3 className="text-[12px] font-mono font-bold tracking-wider mb-2">{step.title}</h3>
-                <p className="text-[11px] font-mono text-muted-foreground leading-relaxed flex-1">{step.desc}</p>
+                <span className="text-[11px] font-pixel text-muted-foreground/50 mb-2">{step.num}</span>
+                <h3 className="text-[12px] font-pixel font-bold tracking-wider mb-2">{step.title}</h3>
+                <p className="text-[11px] font-pixel text-muted-foreground leading-relaxed flex-1">{step.desc}</p>
               </motion.div>
             ))}
           </div>
