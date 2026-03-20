@@ -224,9 +224,9 @@ const CompanyCreate = () => {
                     <div>
                       <div className="flex items-baseline gap-1.5">
                         <span className="text-[15px] font-semibold text-foreground tabular-nums">{s.count}</span>
-                        <span className="text-[10px] text-muted-foreground">{s.label}</span>
+                        <span className="text-[10px] text-muted-foreground font-pixel">{s.label}</span>
                       </div>
-                      <p className="text-[10px] text-muted-foreground/60">{s.sub}</p>
+                      <p className="text-[10px] text-muted-foreground/60 font-pixel">{s.sub}</p>
                     </div>
                   </div>
                 ))}
