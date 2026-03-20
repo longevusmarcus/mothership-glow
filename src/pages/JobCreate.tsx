@@ -235,13 +235,12 @@ const CompanyCreate = () => {
 
             {/* Deploy button */}
             <div className="flex justify-end gap-3 pt-2">
-              <Link to="/companies" className="h-14 px-10 rounded-xl border border-border font-pixel text-[13px] font-medium tracking-wider text-muted-foreground flex items-center gap-3 hover:text-foreground transition-all active:scale-[0.97]">
-                {t("jobCreate.cancel")}
+              <Link to="/companies" className="h-12 px-8 rounded-none border border-border/60 font-mono text-[12px] font-medium tracking-widest text-muted-foreground/60 flex items-center justify-center hover:text-foreground hover:border-border transition-all active:scale-[0.97] uppercase">
+                cancel
               </Link>
               <button onClick={startDeploy} disabled={selectedAgents.length === 0}
-                className="group h-14 px-10 rounded-xl bg-foreground text-background font-pixel text-[13px] font-semibold tracking-wider flex items-center gap-3 hover:opacity-90 transition-all disabled:opacity-30 disabled:cursor-not-allowed active:scale-[0.97]">
-                <Rocket className="h-4 w-4 opacity-60" strokeWidth={1.6} />
-                Deploy with {selectedAgents.length} agent{selectedAgents.length !== 1 ? "s" : ""}
+                className="h-12 px-8 rounded-none bg-foreground text-background font-mono text-[12px] font-medium tracking-widest flex items-center justify-center hover:opacity-90 transition-all disabled:opacity-20 disabled:cursor-not-allowed active:scale-[0.97] uppercase">
+                deploy_{selectedAgents.length}_agent{selectedAgents.length !== 1 ? "s" : ""}
               </button>
             </div>
           </motion.div>
