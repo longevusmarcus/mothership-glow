@@ -13,6 +13,7 @@ import Companies from "./pages/Jobs";
 import CompanyDetail from "./pages/JobDetail";
 import CompanyCreate from "./pages/JobCreate";
 import Chat from "./pages/Chat";
+import Knowledge from "./pages/Knowledge";
 import Analytics from "./pages/Analytics";
 import Settings from "./pages/Settings";
 import NotFound from "./pages/NotFound";
@@ -35,6 +36,7 @@ const App = () => (
             <Route path="/companies/new" element={<AppLayout><CompanyCreate /></AppLayout>} />
             <Route path="/companies/:id" element={<AppLayout><CompanyDetail /></AppLayout>} />
             <Route path="/chat" element={<AppLayout><Chat /></AppLayout>} />
+            <Route path="/knowledge" element={<AppLayout><Knowledge /></AppLayout>} />
             <Route path="/analytics" element={<AppLayout><Analytics /></AppLayout>} />
             <Route path="/settings" element={<AppLayout><Settings /></AppLayout>} />
             <Route path="*" element={<NotFound />} />
