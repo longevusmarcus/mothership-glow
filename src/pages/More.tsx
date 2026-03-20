@@ -124,8 +124,14 @@ const More = () => {
       </div>
 
       <CursorCardsContainer className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        {sections.map((section) => (
-          <Link key={section.to} to={section.to}>
+        {sections.map((section) => {
+          const isExternal = 'external' in section && section.external;
+          const Wrapper = isExternal ? 'a' : Link;
+          const wrapperProps = isExternal
+            ? { href: section.to, target: "_blank", rel: "noopener noreferrer" }
+            : { to: section.to };
+          return (
+          <Wrapper key={section.to} {...(wrapperProps as any)}>
             <CursorCard borderColor="hsl(var(--border))">
               <div className="p-5 h-full">
                 <div className="flex items-start justify-between mb-4">
