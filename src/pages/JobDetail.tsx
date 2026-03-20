@@ -206,7 +206,7 @@ const CompanyDetail = () => {
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
         {/* Main panel — tabbed: Chat / Tasks / Deploys */}
-        <div className="lg:col-span-2 bg-card rounded-2xl card-static overflow-hidden">
+        <div className="lg:col-span-2 bg-card rounded-2xl card-static overflow-hidden flex flex-col min-h-[500px]">
           <div className="flex items-center border-b border-border">
             {([
               { id: "chat" as const, label: "Agent Chat", icon: MessageSquare },
