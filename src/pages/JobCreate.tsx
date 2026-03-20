@@ -100,7 +100,7 @@ const CompanyCreate = () => {
         <h1 className="text-[26px] font-heading font-semibold tracking-tight">
           <TextShimmer as="span" duration={2.5}>{t("jobCreate.title")}</TextShimmer>
         </h1>
-        <p className="text-[13px] text-muted-foreground mt-1 font-pixel">Select one or more agents to autonomously build your next company</p>
+        <p className="text-[13px] text-muted-foreground mt-1 font-mono">Select one or more agents to autonomously build your next company</p>
       </div>
 
       <AnimatePresence mode="wait">
