@@ -44,14 +44,18 @@ function ClaimCompanyPaywall({ onDeployAnother }: { onDeployAnother: () => void 
 const CompanyCreate = () => {
   const { t } = useLanguage();
   const navigate = useNavigate();
-  const [selectedAgents, setSelectedAgents] = useState<string[]>([]);
+  const [selectedAgents, setSelectedAgents] = useState<string[]>([createAgents[0].id]);
+  const [agentName, setAgentName] = useState(createAgents[0].name);
   const [step, setStep] = useState<"select" | "deploying" | "done">("select");
   const [currentDeployStep, setCurrentDeployStep] = useState(0);
   const [completedSteps, setCompletedSteps] = useState<number[]>([]);
   const [generatedCompany, setGeneratedCompany] = useState<{ name: string; type: string; market: string; mrr: string } | null>(null);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
+  const coreAgentId = createAgents[0].id;
+
   const toggleAgent = (id: string) => {
+    if (id === coreAgentId) return; // core agent is compulsory
     const agent = createAgents.find(a => a.id === id);
     if (agent?.status === "busy") {
       toast.error(`${agent.name} is busy on ${agent.busyOn}. Spawn a new instance instead.`);
@@ -113,16 +117,24 @@ const CompanyCreate = () => {
               {createAgents.map(a => {
                 const Icon = a.icon;
                 const isBusy = a.status === "busy";
+                const isCore = a.id === coreAgentId;
                 const selected = selectedAgents.some(id => id.startsWith(a.id));
                 return (
                   <div key={a.id} className="relative pb-2">
                     <button onClick={() => toggleAgent(a.id)}
                       className={`relative w-full h-full text-left p-5 rounded-2xl border transition-all duration-200 group ${
-                        isBusy ? "border-border/60 bg-muted/30 opacity-70"
+                        isCore ? "border-primary/40 bg-primary/[0.04] shadow-[0_2px_12px_-4px_hsl(var(--primary)/0.15)] cursor-default"
+                        : isBusy ? "border-border/60 bg-muted/30 opacity-70"
                         : selected ? "border-primary/40 bg-primary/[0.04] shadow-[0_2px_12px_-4px_hsl(var(--primary)/0.15)]"
                         : "border-border bg-card hover:border-border/80 hover:shadow-[0_2px_8px_-4px_hsl(var(--foreground)/0.06)]"
                       }`}>
-                      {selected && !isBusy && <div className="absolute top-3 right-3"><Check className="h-4 w-4 text-primary" strokeWidth={2} /></div>}
+                      {isCore && (
+                        <div className="absolute top-3 right-3 flex items-center gap-1.5">
+                          <span className="text-[9px] font-semibold text-primary bg-primary/10 px-1.5 py-0.5 rounded-md">Required</span>
+                          <Check className="h-4 w-4 text-primary" strokeWidth={2} />
+                        </div>
+                      )}
+                      {!isCore && selected && !isBusy && <div className="absolute top-3 right-3"><Check className="h-4 w-4 text-primary" strokeWidth={2} /></div>}
                       {isBusy && (
                         <div className="absolute top-3 right-3 flex items-center gap-1">
                           <span className="relative flex h-2 w-2">
@@ -178,6 +190,21 @@ const CompanyCreate = () => {
               </button>
             </div>
 
+            {/* Name your coding agent */}
+            <div className="rounded-2xl border border-border bg-card p-5 space-y-3">
+              <div className="flex items-center gap-2">
+                <Bot className="h-4 w-4 text-muted-foreground" strokeWidth={1.6} />
+                <p className="text-[12px] font-semibold text-foreground">Name your coding agent</p>
+              </div>
+              <p className="text-[11px] text-muted-foreground font-mono">Choose a custom name for your core coding agent</p>
+              <input
+                value={agentName}
+                onChange={e => setAgentName(e.target.value)}
+                placeholder="e.g. CodeForge, BuildBot, Archon..."
+                className="w-full px-3.5 py-2.5 bg-background border border-border rounded-xl text-[13px] font-mono placeholder:text-muted-foreground/40 focus:outline-none focus:ring-1 focus:ring-ring/15 transition-all"
+              />
+            </div>
+
             {/* Selected agents summary */}
             {selectedAgents.length > 0 && (
               <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: "auto" }} className="rounded-2xl border border-primary/20 bg-primary/[0.03] p-4 flex items-center gap-3">
@@ -190,7 +217,7 @@ const CompanyCreate = () => {
                 </div>
                 <div className="flex-1 min-w-0">
                   <p className="text-[12px] font-semibold text-foreground">{selectedAgents.length} agent{selectedAgents.length > 1 ? "s" : ""} selected</p>
-                  <p className="text-[10px] text-muted-foreground truncate">{agentNames}</p>
+                  <p className="text-[10px] text-muted-foreground truncate">{agentName}{selectedAgentObjects.length > 1 ? `, ${selectedAgentObjects.slice(1).map(a => a.name).join(", ")}` : ""}</p>
                 </div>
               </motion.div>
             )}
@@ -346,7 +373,7 @@ const CompanyCreate = () => {
               </div>
             </div>
 
-            <ClaimCompanyPaywall onDeployAnother={() => { setStep("select"); setSelectedAgents([]); setGeneratedCompany(null); }} />
+            <ClaimCompanyPaywall onDeployAnother={() => { setStep("select"); setSelectedAgents([coreAgentId]); setAgentName(createAgents[0].name); setGeneratedCompany(null); }} />
           </motion.div>
         )}
       </AnimatePresence>
