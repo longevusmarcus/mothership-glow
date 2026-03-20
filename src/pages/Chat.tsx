@@ -3,7 +3,7 @@ import { PromptInputBox } from "@/components/ui/ai-prompt-box";
 import AiIcon from "@/components/AiIcon";
 import { TextShimmer } from "@/components/ui/text-shimmer";
 import { motion, AnimatePresence } from "framer-motion";
-import { User, Loader2 } from "lucide-react";
+import { User, Loader2, Rocket, Zap, Building2, PlugZap, Bot, BarChart3 } from "lucide-react";
 import { useLanguage } from "@/i18n/LanguageContext";
 import type { TranslationKey } from "@/i18n/translations";
 
@@ -16,6 +16,15 @@ interface ChatMessage {
 
 const responseKeys: TranslationKey[] = [
   "chat.response.1", "chat.response.2", "chat.response.3", "chat.response.4", "chat.response.5",
+];
+
+const quickActions = [
+  { icon: Rocket, label: "Deploy new agent", labelIt: "Deploy nuovo agente", prompt: "Deploy a new agent on my active company" },
+  { icon: Bot, label: "Agent types", labelIt: "Tipi di agente", prompt: "Show me all available agent types and their capabilities" },
+  { icon: Zap, label: "Install skills", labelIt: "Installa skills", prompt: "Show available API skills I can install on my agents" },
+  { icon: Building2, label: "Company status", labelIt: "Status aziende", prompt: "Show the status of all my active companies" },
+  { icon: PlugZap, label: "Integrate external agent", labelIt: "Integra agente esterno", prompt: "I want to integrate an external agent into my workspace" },
+  { icon: BarChart3, label: "Performance report", labelIt: "Report performance", prompt: "Give me a performance report across all agents and companies" },
 ];
 
 const Chat = () => {
@@ -58,6 +67,23 @@ const Chat = () => {
               ? "Deploy agenti, assegna task, controlla lo status — chiedimi qualsiasi cosa"
               : "Deploy agents, assign tasks, check status — ask me anything"}
           </p>
+
+          <div className="flex flex-wrap justify-center gap-2 mb-8 max-w-lg">
+            {quickActions.map((action, i) => (
+              <motion.button
+                key={action.label}
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.1 + i * 0.05, duration: 0.3 }}
+                onClick={() => handleSend(action.prompt)}
+                className="flex items-center gap-2 px-3 py-2 rounded-xl bg-card border border-border text-[11px] font-medium text-muted-foreground hover:text-foreground hover:border-foreground/15 hover:bg-muted/30 transition-all active:scale-[0.97]"
+              >
+                <action.icon className="h-3.5 w-3.5" strokeWidth={1.6} />
+                {locale === "it" ? action.labelIt : action.label}
+              </motion.button>
+            ))}
+          </div>
+
           <div className="w-full max-w-lg">
             <PromptInputBox placeholder={t("chat.placeholder")} onSend={handleSend} isLoading={isLoading} />
           </div>
