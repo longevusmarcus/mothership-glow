@@ -403,6 +403,7 @@ const Settings = () => {
           {activeTab === "agents" && <AgentSetupTab locale={locale} />}
           {activeTab === "integrations" && <IntegrationsTab locale={locale} />}
           {activeTab === "subscription" && <SubscriptionTab locale={locale} />}
+          {activeTab === "personal-os" && <PersonalOSTab locale={locale} />}
 
 
           {activeTab === "ai" && (

@@ -1,5 +1,5 @@
 export const translationsJobs = {
-  "jobs.title": { it: "Aziende", en: "Companies" },
+  "jobs.title": { it: "Le tue Aziende", en: "Your Companies" },
   "jobs.activePositions": { it: "aziende attive", en: "active companies" },
   "jobs.newPosition": { it: "Nuova Azienda", en: "New Company" },
   "jobs.all": { it: "Tutte", en: "All" },
