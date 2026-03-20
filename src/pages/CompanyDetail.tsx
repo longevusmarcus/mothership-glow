@@ -243,18 +243,25 @@ const CompanyDetail = () => {
             </div>
             <div className="divide-y divide-border">
               {company.agents.map(a => (
-                <Link key={a.id} to={`/agents/${a.id}`} className="px-5 py-3 hover:bg-muted/20 transition-all block">
+                <div key={a.id} className="px-5 py-3 hover:bg-muted/20 transition-all">
                   <div className="flex items-center gap-3">
-                    <div className="h-8 w-8 rounded-lg bg-accent/60 flex items-center justify-center shrink-0">
+                    <Link to={`/agents/${a.id}`} className="h-8 w-8 rounded-lg bg-accent/60 flex items-center justify-center shrink-0">
                       <Bot className="h-3.5 w-3.5 text-foreground/50" strokeWidth={1.6} />
-                    </div>
-                    <div className="flex-1 min-w-0">
+                    </Link>
+                    <Link to={`/agents/${a.id}`} className="flex-1 min-w-0">
                       <p className="text-[12px] font-medium truncate">{a.name}</p>
                       <p className="text-[10px] text-muted-foreground">{a.type} · {a.tasks} tasks</p>
-                    </div>
-                    <span className="text-[13px] font-mondwest font-semibold tabular-nums">{a.score}%</span>
+                    </Link>
+                    <span className="text-[13px] font-mondwest font-semibold tabular-nums mr-2">{a.score}%</span>
+                    {a.telegram && (
+                      <a href={`https://t.me/${a.telegram}`} target="_blank" rel="noopener noreferrer"
+                        className="h-7 w-7 rounded-lg bg-[#26A5E4]/10 flex items-center justify-center shrink-0 hover:bg-[#26A5E4]/20 transition-colors"
+                        title={`Chat on Telegram`}>
+                        <Send className="h-3 w-3 text-[#26A5E4]" strokeWidth={1.6} />
+                      </a>
+                    )}
                   </div>
-                </Link>
+                </div>
               ))}
             </div>
           </div>
