@@ -1,0 +1,182 @@
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 40 15% 99%;
+    --foreground: 220 15% 8%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 220 15% 8%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 15% 8%;
+
+    --primary: 220 15% 15%;
+    --primary-foreground: 40 20% 98%;
+
+    --secondary: 38 25% 95%;
+    --secondary-foreground: 220 10% 35%;
+
+    --muted: 40 15% 95%;
+    --muted-foreground: 220 8% 52%;
+
+    --accent: 38 30% 92%;
+    --accent-foreground: 220 12% 30%;
+
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 98%;
+
+    --success: 152 60% 38%;
+    --success-foreground: 0 0% 98%;
+
+    --warning: 38 92% 50%;
+    --warning-foreground: 220 15% 8%;
+
+    --ai: 217 91% 53%;
+    --ai-foreground: 0 0% 100%;
+    --ai-muted: 213 80% 96%;
+
+    --border: 40 12% 91%;
+    --input: 40 10% 89%;
+    --ring: 220 14% 38%;
+
+    --radius: 0.75rem;
+
+    --sidebar-background: 0 0% 100%;
+    --sidebar-foreground: 220 8% 46%;
+    --sidebar-primary: 220 15% 15%;
+    --sidebar-primary-foreground: 40 20% 98%;
+    --sidebar-accent: 38 25% 95%;
+    --sidebar-accent-foreground: 220 15% 15%;
+    --sidebar-border: 40 12% 93%;
+    --sidebar-ring: 220 15% 15%;
+
+    --icon-rail-bg: 220 15% 8%;
+    --icon-rail-foreground: 220 8% 65%;
+    --icon-rail-active: 40 10% 92%;
+    --icon-rail-hover: 220 12% 14%;
+    --detail-panel-bg: 220 14% 11%;
+    --detail-panel-foreground: 220 8% 72%;
+    --detail-panel-border: 220 10% 16%;
+    --detail-panel-active: 220 10% 16%;
+    --detail-panel-section: 220 8% 45%;
+
+    --primary-hover: hsl(40 15% 85% / 0.5);
+
+    --font-heading: 'Lora', serif;
+    --font-body: 'Inter', sans-serif;
+
+    --shadow-xs: 0 1px 2px 0 hsl(220 15% 15% / 0.02);
+    --shadow-sm: 0 1px 3px 0 hsl(220 15% 15% / 0.04), 0 1px 2px -1px hsl(220 15% 15% / 0.03);
+    --shadow-md: 0 4px 12px -2px hsl(220 15% 15% / 0.06), 0 2px 4px -2px hsl(220 15% 15% / 0.03);
+    --shadow-lg: 0 12px 32px -4px hsl(220 15% 15% / 0.08), 0 4px 8px -2px hsl(220 15% 15% / 0.03);
+  }
+
+  .dark {
+    --background: 220 12% 6%;
+    --foreground: 40 10% 92%;
+    --card: 220 12% 8%;
+    --card-foreground: 40 10% 92%;
+    --popover: 220 12% 8%;
+    --popover-foreground: 40 10% 92%;
+    --primary: 40 10% 92%;
+    --primary-foreground: 220 12% 6%;
+    --secondary: 220 10% 12%;
+    --secondary-foreground: 40 8% 75%;
+    --muted: 220 10% 12%;
+    --muted-foreground: 220 8% 50%;
+    --accent: 220 10% 14%;
+    --accent-foreground: 40 10% 92%;
+    --destructive: 0 55% 40%;
+    --destructive-foreground: 40 10% 92%;
+    --ai: 213 80% 70%;
+    --ai-foreground: 0 0% 100%;
+    --ai-muted: 217 40% 14%;
+    --border: 220 10% 14%;
+    --input: 220 10% 14%;
+    --ring: 40 8% 75%;
+    --sidebar-background: 220 12% 7%;
+    --sidebar-foreground: 220 8% 55%;
+    --sidebar-primary: 40 10% 92%;
+    --sidebar-primary-foreground: 220 12% 6%;
+    --sidebar-accent: 220 10% 11%;
+    --sidebar-accent-foreground: 40 10% 92%;
+    --sidebar-border: 220 10% 12%;
+    --sidebar-ring: 40 8% 75%;
+
+    --icon-rail-bg: 220 15% 6%;
+    --icon-rail-foreground: 220 8% 55%;
+    --icon-rail-active: 40 10% 88%;
+    --icon-rail-hover: 220 12% 12%;
+    --detail-panel-bg: 220 14% 9%;
+    --detail-panel-foreground: 220 8% 65%;
+    --detail-panel-border: 220 10% 14%;
+    --detail-panel-active: 220 10% 14%;
+    --detail-panel-section: 220 8% 40%;
+
+    --primary-hover: hsl(220 10% 20% / 0.3);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-body antialiased;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+    letter-spacing: -0.02em;
+  }
+}
+
+@layer utilities {
+  .card-elevated {
+    box-shadow: var(--shadow-sm);
+    border: 1px solid hsl(var(--border));
+    transition: box-shadow 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
+  }
+
+  .card-elevated:hover {
+    box-shadow: var(--shadow-md);
+    border-color: hsl(var(--border) / 0.6);
+    transform: translateY(-1px);
+  }
+
+  .card-static {
+    box-shadow: var(--shadow-xs);
+    border: 1px solid hsl(var(--border));
+  }
+
+  .ai-glow {
+    background: linear-gradient(135deg, hsl(var(--ai) / 0.08), hsl(var(--ai) / 0.03));
+    border: 1px solid hsl(var(--ai) / 0.12);
+  }
+
+  .ai-badge {
+    background: hsl(var(--ai));
+    color: white;
+    font-size: 9px;
+    padding: 2px 8px;
+    border-radius: 999px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  .glass {
+    background: hsl(var(--card) / 0.7);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+}

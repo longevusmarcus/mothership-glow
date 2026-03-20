@@ -1,0 +1,88 @@
+export const translationsCandidates = {
+  "candidates.title": { it: "Candidati", en: "Candidates" },
+  "candidates.inDatabase": { it: "candidati nel database", en: "candidates in database" },
+  "candidates.list": { it: "Lista", en: "List" },
+  "candidates.kanban": { it: "Kanban", en: "Kanban" },
+  "candidates.uploadCv": { it: "Carica CV", en: "Upload CV" },
+  "candidates.aiAnalysis": { it: "Analisi AI", en: "AI Analysis" },
+  "candidates.searchPlaceholder": { it: "Cerca per nome, ruolo, competenze...", en: "Search by name, role, skills..." },
+  "candidates.allPositions": { it: "Tutte le posizioni", en: "All positions" },
+  "candidates.allSources": { it: "Tutte le fonti", en: "All sources" },
+  "candidates.all": { it: "Tutti", en: "All" },
+  "candidates.close": { it: "Chiudi", en: "Close" },
+  "candidates.backToCandidates": { it: "Torna ai candidati", en: "Back to candidates" },
+
+  // Table headers
+  "candidates.th.name": { it: "Nome", en: "Name" },
+  "candidates.th.company": { it: "Azienda", en: "Company" },
+  "candidates.th.role": { it: "Ruolo", en: "Role" },
+  "candidates.th.position": { it: "Posizione", en: "Position" },
+  "candidates.th.source": { it: "Fonte", en: "Source" },
+  "candidates.th.url": { it: "URL", en: "URL" },
+  "candidates.th.roleMatch": { it: "Ruolo ✓", en: "Role ✓" },
+  "candidates.th.locationMatch": { it: "Sede ✓", en: "Location ✓" },
+  "candidates.th.skillsMatch": { it: "Skills ✓", en: "Skills ✓" },
+  "candidates.th.stage": { it: "Fase", en: "Stage" },
+  "candidates.th.aiScore": { it: "AI Score", en: "AI Score" },
+  "candidates.th.skills": { it: "Competenze", en: "Skills" },
+
+  // Side panel
+  "candidates.matchCriteria": { it: "Criteri di Match", en: "Match Criteria" },
+  "candidates.matchRole": { it: "Ruolo attuale corrispondente", en: "Current role match" },
+  "candidates.matchSkills": { it: "Competenze richieste", en: "Required skills" },
+  "candidates.source": { it: "Fonte", en: "Source" },
+  "candidates.stage": { it: "Fase", en: "Stage" },
+  "candidates.experience": { it: "Esperienza", en: "Experience" },
+  "candidates.pastEmployers": { it: "Aziende Precedenti", en: "Previous Companies" },
+  "candidates.education": { it: "Formazione", en: "Education" },
+  "candidates.skills": { it: "Competenze", en: "Skills" },
+  "candidates.viewFullProfile": { it: "Vedi Profilo Completo", en: "View Full Profile" },
+  "candidates.sourceDirect": { it: "Diretto", en: "Direct" },
+  "candidates.locationLabel": { it: "Sede", en: "Location" },
+
+  // Upload modal
+  "candidates.uploadTitle": { it: "Carica CV per Parsing AI", en: "Upload CV for AI Parsing" },
+  "candidates.appliedPosition": { it: "Posizione applicata", en: "Applied position" },
+  "candidates.selectPosition": { it: "Seleziona la posizione...", en: "Select position..." },
+  "candidates.dragDrop": { it: "Trascina i CV qui o clicca per selezionare", en: "Drag CVs here or click to select" },
+  "candidates.fileFormats": { it: "PDF, DOCX — Max 10MB per file", en: "PDF, DOCX — Max 10MB per file" },
+  "candidates.bulkSupported": { it: "Upload multiplo supportato", en: "Bulk upload supported" },
+  "candidates.aiAutoExtract": { it: "L'AI estrarrà automaticamente tutti i dati", en: "AI will automatically extract all data" },
+  "candidates.filesSelected": { it: "file selezionati", en: "files selected" },
+  "candidates.removeAll": { it: "Rimuovi tutti", en: "Remove all" },
+  "candidates.startParsing": { it: "Avvia Parsing AI su", en: "Start AI Parsing on" },
+  "candidates.selectFirst": { it: "Seleziona prima la posizione per abilitare il caricamento", en: "Select a position first to enable upload" },
+
+  // Parsing steps
+  "candidates.parsing.reading": { it: "Lettura documento", en: "Reading document" },
+  "candidates.parsing.personal": { it: "Estrazione dati anagrafici", en: "Extracting personal data" },
+  "candidates.parsing.experience": { it: "Analisi esperienze lavorative", en: "Analyzing work experience" },
+  "candidates.parsing.skills": { it: "Identificazione competenze tecniche", en: "Identifying technical skills" },
+  "candidates.parsing.education": { it: "Rilevamento titoli di studio", en: "Detecting education" },
+  "candidates.parsing.languages": { it: "Estrazione lingue e certificazioni", en: "Extracting languages and certifications" },
+  "candidates.parsing.normalizing": { it: "Normalizzazione dati", en: "Normalizing data" },
+  "candidates.parsing.scoring": { it: "Calcolo score di compatibilità", en: "Calculating compatibility score" },
+  "candidates.parsing.inProgress": { it: "Parsing AI in corso...", en: "AI Parsing in progress..." },
+  "candidates.parsing.complete": { it: "Parsing Completato", en: "Parsing Complete" },
+  "candidates.parsing.cvAnalyzed": { it: "CV Analizzati", en: "CVs Analyzed" },
+  "candidates.parsing.completed": { it: "completato", en: "completed" },
+
+  // Parsed result
+  "candidates.parsed.contact": { it: "Contatto", en: "Contact" },
+  "candidates.parsed.education": { it: "Formazione", en: "Education" },
+  "candidates.parsed.extractedSkills": { it: "Competenze Estratte", en: "Extracted Skills" },
+  "candidates.parsed.bulkSummary": { it: "Riepilogo Bulk Upload", en: "Bulk Upload Summary" },
+  "candidates.parsed.saveCandidates": { it: "Salva Candidati", en: "Save Candidates" },
+  "candidates.parsed.saveCandidate": { it: "Salva Candidato", en: "Save Candidate" },
+  "candidates.parsed.savedSuccess": { it: "salvati con successo", en: "saved successfully" },
+  "candidates.parsed.savedSingleSuccess": { it: "salvato con successo", en: "saved successfully" },
+
+  // AI Analysis modal
+  "candidates.analysis.title": { it: "Analisi AI Database", en: "AI Database Analysis" },
+
+  // Stage translations
+  "stage.screening": { it: "Screening", en: "Screening" },
+  "stage.interview": { it: "Colloquio", en: "Interview" },
+  "stage.shortlist": { it: "Shortlist", en: "Shortlist" },
+  "stage.placement": { it: "Placement", en: "Placement" },
+} as const;

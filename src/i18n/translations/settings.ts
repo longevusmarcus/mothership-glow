@@ -1,0 +1,91 @@
+export const translationsSettings = {
+  "settings.title": { it: "Impostazioni", en: "Settings" },
+  "settings.subtitle": { it: "Gestisci team, ruoli, knowledge base e configurazione AI", en: "Manage team, roles, knowledge base and AI configuration" },
+
+  // Tabs
+  "settings.tab.team": { it: "Team", en: "Team" },
+  "settings.tab.roles": { it: "Ruoli", en: "Roles" },
+  "settings.tab.email": { it: "Template Email", en: "Email Templates" },
+  "settings.tab.knowledge": { it: "Knowledge Base", en: "Knowledge Base" },
+  "settings.tab.ai": { it: "AI Config", en: "AI Config" },
+
+  // Team
+  "settings.team.title": { it: "Membri del Team", en: "Team Members" },
+  "settings.team.invite": { it: "Invita Membro", en: "Invite Member" },
+  "settings.team.status.active": { it: "Attivo", en: "Active" },
+  "settings.team.status.invited": { it: "Invitato", en: "Invited" },
+
+  // Roles
+  "settings.roles.title": { it: "Gestione Ruoli", en: "Role Management" },
+  "settings.roles.admin.desc": { it: "Accesso completo a tutte le funzionalità, gestione utenti e configurazione.", en: "Full access to all features, user management and configuration." },
+  "settings.roles.recruiter.desc": { it: "Gestione candidati, posizioni e pipeline di selezione.", en: "Manage candidates, positions and selection pipeline." },
+  "settings.roles.viewer.desc": { it: "Accesso in sola lettura a candidati e posizioni.", en: "Read-only access to candidates and positions." },
+  // Admin perms
+  "settings.perm.teamMgmt": { it: "Gestione team", en: "Team management" },
+  "settings.perm.config": { it: "Configurazione", en: "Configuration" },
+  "settings.perm.crudCandidates": { it: "CRUD candidati", en: "CRUD candidates" },
+  "settings.perm.crudPositions": { it: "CRUD posizioni", en: "CRUD positions" },
+  "settings.perm.analytics": { it: "Analytics", en: "Analytics" },
+  "settings.perm.aiConfig": { it: "AI Config", en: "AI Config" },
+  "settings.perm.knowledgeBase": { it: "Knowledge Base", en: "Knowledge Base" },
+  // Recruiter perms
+  "settings.perm.pipeline": { it: "Pipeline", en: "Pipeline" },
+  "settings.perm.communications": { it: "Comunicazioni", en: "Communications" },
+  "settings.perm.aiSearch": { it: "AI Search", en: "AI Search" },
+  // Viewer perms
+  "settings.perm.viewCandidates": { it: "Visualizza candidati", en: "View candidates" },
+  "settings.perm.viewPositions": { it: "Visualizza posizioni", en: "View positions" },
+  "settings.perm.viewAnalytics": { it: "Visualizza analytics", en: "View analytics" },
+  "settings.perm.readKB": { it: "Leggi Knowledge Base", en: "Read Knowledge Base" },
+
+  // Email templates
+  "settings.email.title": { it: "Template Email", en: "Email Templates" },
+  "settings.email.new": { it: "Nuovo Template", en: "New Template" },
+  "settings.email.confirmReceipt": { it: "Conferma ricezione candidatura", en: "Application receipt confirmation" },
+  "settings.email.confirmReceipt.subject": { it: "Abbiamo ricevuto la tua candidatura", en: "We received your application" },
+  "settings.email.interviewInvite": { it: "Invito colloquio", en: "Interview invitation" },
+  "settings.email.interviewInvite.subject": { it: "Ti invitiamo a un colloquio", en: "We invite you to an interview" },
+  "settings.email.docRequest": { it: "Richiesta documentazione", en: "Documentation request" },
+  "settings.email.docRequest.subject": { it: "Richiesta documenti aggiuntivi", en: "Additional documents request" },
+  "settings.email.positiveOutcome": { it: "Esito positivo", en: "Positive outcome" },
+  "settings.email.positiveOutcome.subject": { it: "Congratulazioni!", en: "Congratulations!" },
+  "settings.email.negativeOutcome": { it: "Esito negativo", en: "Negative outcome" },
+  "settings.email.negativeOutcome.subject": { it: "Aggiornamento sulla tua candidatura", en: "Update on your application" },
+
+  // Knowledge Base
+  "settings.kb.articles": { it: "articoli", en: "articles" },
+  "settings.kb.published": { it: "pubblicati", en: "published" },
+  "settings.kb.newArticle": { it: "Nuovo Articolo", en: "New Article" },
+  "settings.kb.editArticle": { it: "Modifica Articolo", en: "Edit Article" },
+  "settings.kb.searchPlaceholder": { it: "Cerca articoli, tag...", en: "Search articles, tags..." },
+  "settings.kb.all": { it: "Tutti", en: "All" },
+  "settings.kb.title": { it: "Titolo", en: "Title" },
+  "settings.kb.titlePlaceholder": { it: "Titolo dell'articolo...", en: "Article title..." },
+  "settings.kb.category": { it: "Categoria", en: "Category" },
+  "settings.kb.status": { it: "Stato", en: "Status" },
+  "settings.kb.draft": { it: "Bozza", en: "Draft" },
+  "settings.kb.publishedStatus": { it: "Pubblicato", en: "Published" },
+  "settings.kb.tags": { it: "Tag (separati da virgola)", en: "Tags (comma separated)" },
+  "settings.kb.tagsPlaceholder": { it: "es: colloquio, tecnico, guida", en: "e.g.: interview, technical, guide" },
+  "settings.kb.content": { it: "Contenuto", en: "Content" },
+  "settings.kb.contentPlaceholder": { it: "Scrivi il contenuto dell'articolo... (supporta Markdown)", en: "Write article content... (supports Markdown)" },
+  "settings.kb.cancel": { it: "Annulla", en: "Cancel" },
+  "settings.kb.createArticle": { it: "Crea Articolo", en: "Create Article" },
+  "settings.kb.saveChanges": { it: "Salva Modifiche", en: "Save Changes" },
+  "settings.kb.noResults": { it: "Nessun articolo trovato", en: "No articles found" },
+  "settings.kb.empty": { it: "Nessun articolo nella knowledge base", en: "No articles in the knowledge base" },
+  "settings.kb.createFirst": { it: "Crea il primo articolo", en: "Create the first article" },
+  "settings.kb.updated": { it: "Aggiornato", en: "Updated" },
+
+  // AI Config
+  "settings.ai.title": { it: "Configurazione AI", en: "AI Configuration" },
+  "settings.ai.subtitle": { it: "Parsing CV, matching, ranking e suggerimenti automatici", en: "CV parsing, matching, ranking and automatic suggestions" },
+  "settings.ai.autoParsing": { it: "Parsing automatico CV", en: "Automatic CV parsing" },
+  "settings.ai.autoParsingDesc": { it: "Estrai automaticamente dati dai CV caricati", en: "Automatically extract data from uploaded CVs" },
+  "settings.ai.autoMatching": { it: "Auto-matching candidati", en: "Auto-matching candidates" },
+  "settings.ai.autoMatchingDesc": { it: "Calcola score di compatibilità per ogni posizione", en: "Calculate compatibility score for each position" },
+  "settings.ai.emailSuggestions": { it: "Suggerimenti email AI", en: "AI email suggestions" },
+  "settings.ai.emailSuggestionsDesc": { it: "Genera contenuti email personalizzati", en: "Generate personalized email content" },
+  "settings.ai.weeklyReport": { it: "Report AI settimanale", en: "Weekly AI report" },
+  "settings.ai.weeklyReportDesc": { it: "Riepilogo automatico delle attività di recruiting", en: "Automatic summary of recruiting activities" },
+} as const;
