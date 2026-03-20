@@ -25,7 +25,7 @@ const tabs = [
   { id: "agents", label: "Agent Setup", labelIt: "Setup Agenti", icon: Bot },
   { id: "integrations", label: "Integrations", labelIt: "Integrazioni", icon: PlugZap },
   { id: "subscription", label: "Subscription", labelIt: "Abbonamento", icon: CreditCard },
-  { id: "team", label: "Team", labelIt: "Team", icon: Users },
+  { id: "ai", label: "AI Config", labelIt: "AI Config", icon: () => <AiIcon className="text-muted-foreground" size={16} /> },
   { id: "ai", label: "AI Config", labelIt: "AI Config", icon: () => <AiIcon className="text-muted-foreground" size={16} /> },
 ];
 
