@@ -1,4 +1,4 @@
-import { ArrowLeft, Globe, Clock, Bot, Building2, Edit, Archive, Target, Rocket, MessageSquare, CheckCircle2, ExternalLink, Send, Loader2, Eye } from "lucide-react";
+import { ArrowLeft, Globe, Clock, Bot, Building2, Edit, Archive, Target, Rocket, MessageSquare, CheckCircle2, ExternalLink, Send, Loader2, Eye, FileText, Download } from "lucide-react";
 import AiIcon from "@/components/AiIcon";
 import { TextShimmer } from "@/components/ui/text-shimmer";
 import { Link, useParams } from "react-router-dom";
