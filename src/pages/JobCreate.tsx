@@ -1,4 +1,4 @@
-import { ArrowLeft, Bot, Brain, Code, Loader2, Rocket, Zap, Check, Radio, TrendingUp, Lightbulb, Database, Globe, ChevronRight, Plus, AlertCircle } from "lucide-react";
+import { ArrowLeft, Bot, Brain, Code, Loader2, Rocket, Zap, Check, Radio, TrendingUp, Lightbulb, Database, Globe, ChevronRight, Plus, AlertCircle, Upload, Link2 } from "lucide-react";
 import AiIcon from "@/components/AiIcon";
 import { TextShimmer } from "@/components/ui/text-shimmer";
 import { Link, useNavigate } from "react-router-dom";
