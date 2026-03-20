@@ -2,16 +2,10 @@ import { ArrowLeft, Bot, Zap, Building2, Activity, Terminal, StickyNote, Chevron
 import AiIcon from "@/components/AiIcon";
 import { TextShimmer } from "@/components/ui/text-shimmer";
 import { Link, useParams } from "react-router-dom";
-import { useState, useCallback } from "react";
+import { useState } from "react";
 import { useLanguage } from "@/i18n/LanguageContext";
 import type { TranslationKey } from "@/i18n/translations";
-
-const typeMeta: Record<string, { label: string; color: string; icon: string }> = {
-  tech: { label: "Tech", color: "bg-[#0A66C2]/10 text-[#0A66C2]", icon: "⚡" },
-  growth: { label: "Growth", color: "bg-[#0CAA41]/10 text-[#0CAA41]", icon: "📈" },
-  ops: { label: "Ops", color: "bg-[#FF6340]/10 text-[#FF6340]", icon: "⚙️" },
-  creative: { label: "Creative", color: "bg-[#8B5CF6]/10 text-[#8B5CF6]", icon: "🎨" },
-};
+import { typeMeta } from "@/data/constants";
 
 const agentData: Record<string, {
   name: string; type: string; endpoint: string; version: string; role: string; score: number; stage: string;
