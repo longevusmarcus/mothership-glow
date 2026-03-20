@@ -13,7 +13,7 @@ const steps = [
 ];
 
 const footerLinks = [
-  "About", "MSX Program", "Agents", "Battles", "Shows", "FAQ", "Blog", "Roadmap", "Terms", "Privacy", "Contact",
+  "About", "MSX Program", "Agents", "FAQ", "Blog", "Roadmap", "Terms", "Privacy", "Contact",
 ];
 
 const ease = [0.16, 1, 0.3, 1] as const;
