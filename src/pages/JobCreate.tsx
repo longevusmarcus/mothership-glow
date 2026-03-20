@@ -154,7 +154,7 @@ const CompanyCreate = () => {
                     {/* Spawn new instance button for busy agents */}
                     {isBusy && (
                       <button onClick={() => spawnNewAgent(a)}
-                        className="absolute -bottom-2 left-1/2 -translate-x-1/2 flex items-center gap-1.5 px-3 py-1.5 bg-card border border-border rounded-xl text-[10px] font-semibold text-foreground hover:bg-muted transition-all shadow-sm active:scale-[0.97]">
+                        className="absolute -bottom-2 left-1/2 -translate-x-1/2 flex items-center gap-1.5 px-3 py-1.5 bg-card border border-border rounded-xl text-[10px] font-pixel font-semibold text-foreground hover:bg-muted transition-all shadow-sm active:scale-[0.97]">
                         <Plus className="h-3 w-3" strokeWidth={2} />
                         Spawn new instance
                       </button>
