@@ -37,7 +37,7 @@ const taskLog = [
   { agent: "GrowthPilot", task: "Landing page v2 with A/B test variants", time: "8h ago", status: "done" as const },
   { agent: "DesignMind", task: "Dashboard UI redesign — dark mode + responsive", time: "1d ago", status: "done" as const },
   { agent: "MarketBot", task: "SEO meta tags + Open Graph for all pages", time: "1d ago", status: "done" as const },
-  { agent: "CodeForge", task: "Setting up CI/CD pipeline with GitHub Actions", time: "now", status: "in_progress" as const },
+  { agent: "CEO Agent", task: "Setting up CI/CD pipeline with GitHub Actions", time: "now", status: "in_progress" as const },
   { agent: "GrowthPilot", task: "Google Analytics 4 + conversion tracking", time: "now", status: "in_progress" as const },
 ];
 
