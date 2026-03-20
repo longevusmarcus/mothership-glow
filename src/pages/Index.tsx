@@ -1,4 +1,4 @@
-import { Briefcase, Users, Clock, TrendingUp, ArrowUpRight, ArrowDownRight, Bell, ChevronRight, Zap } from "lucide-react";
+import { Bot, Building2, Zap, TrendingUp, ArrowUpRight, ArrowDownRight, Bell, ChevronRight } from "lucide-react";
 import AiIcon from "@/components/AiIcon";
 import { InteractiveHoverButton } from "@/components/ui/interactive-hover-button";
 import { TextShimmer } from "@/components/ui/text-shimmer";
@@ -7,11 +7,11 @@ import { Link, useSearchParams } from "react-router-dom";
 import { useLanguage } from "@/i18n/LanguageContext";
 import type { TranslationKey } from "@/i18n/translations";
 
-const stageColors: Record<string, string> = {
-  Screening: "bg-muted text-muted-foreground",
-  Colloquio: "bg-accent text-accent-foreground",
-  Shortlist: "bg-secondary text-secondary-foreground",
-  Placement: "bg-primary text-primary-foreground",
+const statusColors: Record<string, string> = {
+  Training: "bg-muted text-muted-foreground",
+  Deployed: "bg-accent text-accent-foreground",
+  Active: "bg-secondary text-secondary-foreground",
+  Integrated: "bg-primary text-primary-foreground",
 };
 
 const Dashboard = () => {
@@ -24,31 +24,31 @@ const Dashboard = () => {
   const dateStr = now.toLocaleDateString(locale === "en" ? "en-US" : "it-IT", { weekday: "long", day: "numeric", month: "long", year: "numeric" });
 
   const stats = [
-    { labelKey: "dashboard.stat.openPositions" as TranslationKey, value: "12", change: "+3", up: true, icon: Briefcase, href: "/jobs" },
-    { labelKey: "dashboard.stat.totalCandidates" as TranslationKey, value: "847", change: "+24", up: true, icon: Users, href: "/candidates" },
-    { labelKey: "dashboard.stat.avgTime" as TranslationKey, value: locale === "en" ? "18d" : "18g", change: locale === "en" ? "-2d" : "-2g", up: true, icon: Clock, href: "/analytics" },
-    { labelKey: "dashboard.stat.conversion" as TranslationKey, value: "23%", change: "-1%", up: false, icon: TrendingUp, href: "/analytics" },
+    { labelKey: "dashboard.stat.activeAgents" as TranslationKey, value: "12", change: "+3", up: true, icon: Bot, href: "/agents" },
+    { labelKey: "dashboard.stat.companiesBuilt" as TranslationKey, value: "6", change: "+2", up: true, icon: Building2, href: "/companies" },
+    { labelKey: "dashboard.stat.apiSkills" as TranslationKey, value: "34", change: "+8", up: true, icon: Zap, href: "/settings" },
+    { labelKey: "dashboard.stat.tasksCompleted" as TranslationKey, value: "847", change: "+124", up: true, icon: TrendingUp, href: "/analytics" },
   ];
 
-  const recentCandidates = [
-    { id: 1, name: "Marco Rossi", role: "Frontend Developer", score: 92, stage: "Colloquio", aiMatch: true },
-    { id: 2, name: "Laura Bianchi", role: "Product Manager", score: 87, stage: "Screening", aiMatch: true },
-    { id: 3, name: "Alessandro Verdi", role: "UX Designer", score: 78, stage: "Shortlist", aiMatch: false },
-    { id: 4, name: "Giulia Neri", role: "Backend Developer", score: 95, stage: "Colloquio", aiMatch: true },
-    { id: 5, name: "Francesco Russo", role: "Data Analyst", score: 71, stage: "Screening", aiMatch: false },
+  const recentAgents = [
+    { id: 1, name: "CodeForge", type: "Tech Agent", score: 96, status: "Active", aiMatch: true },
+    { id: 2, name: "GrowthPilot", type: "Growth Agent", score: 91, status: "Deployed", aiMatch: true },
+    { id: 3, name: "DesignMind", type: "Creative Agent", score: 87, status: "Active", aiMatch: false },
+    { id: 4, name: "DataStream", type: "Tech Agent", score: 94, status: "Integrated", aiMatch: true },
+    { id: 5, name: "OpsEngine", type: "Ops Agent", score: 89, status: "Training", aiMatch: false },
   ];
 
-  const activeJobs = [
-    { id: 1, title: "Senior Frontend Developer", candidates: 34, days: 12, trend: "+5" },
-    { id: 2, title: "Product Manager", candidates: 28, days: 8, trend: "+3" },
-    { id: 3, title: "UX/UI Designer", candidates: 19, days: 15, trend: "+1" },
-    { id: 4, title: "Backend Engineer", candidates: 42, days: 5, trend: "+8" },
+  const activeCompanies = [
+    { id: 1, title: "NovaTech", agents: 4, days: 23, trend: "+12 tasks" },
+    { id: 2, title: "FinFlow", agents: 3, days: 15, trend: "+8 tasks" },
+    { id: 3, title: "HealthAI", agents: 2, days: 8, trend: "+5 tasks" },
+    { id: 4, title: "DataPulse", agents: 3, days: 31, trend: "+18 tasks" },
   ];
 
   const aiInsights = [
-    { textKey: "dashboard.insight.1" as TranslationKey, actionKey: "dashboard.insight.action.1" as TranslationKey, href: "/jobs/1" },
-    { textKey: "dashboard.insight.2" as TranslationKey, actionKey: "dashboard.insight.action.2" as TranslationKey, href: "/analytics" },
-    { textKey: "dashboard.insight.3" as TranslationKey, actionKey: "dashboard.insight.action.3" as TranslationKey, href: "/candidates" },
+    { textKey: "dashboard.insight.1" as TranslationKey, actionKey: "dashboard.insight.action.1" as TranslationKey, href: "/agents" },
+    { textKey: "dashboard.insight.2" as TranslationKey, actionKey: "dashboard.insight.action.2" as TranslationKey, href: "/companies/1" },
+    { textKey: "dashboard.insight.3" as TranslationKey, actionKey: "dashboard.insight.action.3" as TranslationKey, href: "/chat" },
   ];
 
   const notifications = [
@@ -58,38 +58,36 @@ const Dashboard = () => {
   ];
 
   const pipelineStages = [
-    { stageKey: "stage.screening" as TranslationKey, count: 45, pct: 100 },
-    { stageKey: "stage.interview" as TranslationKey, count: 18, pct: 40 },
-    { stageKey: "stage.shortlist" as TranslationKey, count: 8, pct: 18 },
-    { stageKey: "stage.placement" as TranslationKey, count: 3, pct: 7 },
+    { stageKey: "stage.screening" as TranslationKey, count: 5, pct: 100 },
+    { stageKey: "stage.interview" as TranslationKey, count: 8, pct: 80 },
+    { stageKey: "stage.shortlist" as TranslationKey, count: 12, pct: 60 },
+    { stageKey: "stage.placement" as TranslationKey, count: 3, pct: 15 },
   ];
 
-  const stageDisplayName = (stage: string) => {
+  const statusDisplayName = (status: string) => {
     const map: Record<string, TranslationKey> = {
-      Screening: "stage.screening",
-      Colloquio: "stage.interview",
-      Shortlist: "stage.shortlist",
-      Placement: "stage.placement",
+      Training: "stage.screening",
+      Deployed: "stage.interview",
+      Active: "stage.shortlist",
+      Integrated: "stage.placement",
     };
-    return map[stage] ? t(map[stage]) : stage;
+    return map[status] ? t(map[status]) : status;
   };
 
   return (
     <div className="space-y-8">
-      {/* Greeting */}
       <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3">
         <div>
           <p className="text-[12px] text-muted-foreground font-medium capitalize tracking-wide">{dateStr}</p>
           <h1 className="text-[22px] sm:text-[28px] font-heading font-semibold tracking-tight mt-1">
-            <TextShimmer as="span" duration={2.5}>{`${t(greetingKey)}, Recruiter`}</TextShimmer>
+            <TextShimmer as="span" duration={2.5}>{`${t(greetingKey)}, Operator`}</TextShimmer>
           </h1>
         </div>
-        <Link to="/jobs/new" className="w-full sm:w-auto">
-          <InteractiveHoverButton className="w-full sm:w-auto" text={t("dashboard.newPosition")} icon={<Briefcase className="h-3.5 w-3.5" strokeWidth={1.6} />} />
+        <Link to="/companies/new" className="w-full sm:w-auto">
+          <InteractiveHoverButton className="w-full sm:w-auto" text={t("dashboard.newCompany")} icon={<Building2 className="h-3.5 w-3.5" strokeWidth={1.6} />} />
         </Link>
       </div>
 
-      {/* Stats — clickable */}
       <CursorCardsContainer className="grid grid-cols-2 lg:grid-cols-4 gap-4">
         {stats.map((stat) => (
           <Link key={stat.labelKey} to={stat.href}>
@@ -112,7 +110,6 @@ const Dashboard = () => {
         ))}
       </CursorCardsContainer>
 
-      {/* AI Insights — overview only */}
       {view !== "summary" && (
         <div className="rounded-2xl p-6 border border-border bg-gradient-to-br from-muted/50 via-transparent to-muted/30">
           <div className="flex items-center gap-2.5 mb-5">
@@ -137,41 +134,40 @@ const Dashboard = () => {
         </div>
       )}
 
-      {/* Summary view */}
       {view === "summary" && (
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
           <div className="bg-card rounded-2xl card-static overflow-hidden">
             <div className="px-6 py-4 border-b border-border flex items-center justify-between">
               <h2 className="text-[13px] font-heading font-semibold">{t("dashboard.pipelineSummary")}</h2>
-              <Link to="/candidates" className="text-[11px] text-muted-foreground hover:text-foreground transition-colors font-medium">{t("dashboard.viewAllShort")}</Link>
+              <Link to="/agents" className="text-[11px] text-muted-foreground hover:text-foreground transition-colors font-medium">{t("dashboard.viewAllShort")}</Link>
             </div>
             <div className="p-6 space-y-4">
               {pipelineStages.map((s) => (
-                <Link key={s.stageKey} to={`/candidates?status=${s.stageKey === "stage.screening" ? "valutazione" : s.stageKey === "stage.placement" ? "assunti" : t(s.stageKey).toLowerCase()}`} className="block hover:bg-muted/20 -mx-2 px-2 py-1 rounded-lg transition-all">
+                <div key={s.stageKey} className="block hover:bg-muted/20 -mx-2 px-2 py-1 rounded-lg transition-all">
                   <div className="flex justify-between mb-1.5">
                     <span className="text-[13px] font-medium">{t(s.stageKey)}</span>
-                    <span className="text-[11px] text-muted-foreground">{s.count} {t("dashboard.candidatesLabel")}</span>
+                    <span className="text-[11px] text-muted-foreground">{s.count} {t("dashboard.agentsLabel")}</span>
                   </div>
                   <div className="h-1.5 rounded-full bg-muted overflow-hidden">
                     <div className="h-full bg-accent rounded-full" style={{ width: `${s.pct}%` }} />
                   </div>
-                </Link>
+                </div>
               ))}
             </div>
           </div>
           <div className="bg-card rounded-2xl card-static overflow-hidden">
             <div className="px-6 py-4 border-b border-border flex items-center justify-between">
-              <h2 className="text-[13px] font-heading font-semibold">{t("dashboard.activePositions")}</h2>
-              <Link to="/jobs" className="text-[11px] text-muted-foreground hover:text-foreground transition-colors font-medium">{t("dashboard.allPositions")}</Link>
+              <h2 className="text-[13px] font-heading font-semibold">{t("dashboard.activeCompanies")}</h2>
+              <Link to="/companies" className="text-[11px] text-muted-foreground hover:text-foreground transition-colors font-medium">{t("dashboard.allCompanies")}</Link>
             </div>
             <div className="divide-y divide-border">
-              {activeJobs.map((job) => (
-                <Link key={job.id} to={`/jobs/${job.id}`} className="px-6 py-3.5 flex items-center gap-3 hover:bg-muted/30 transition-all block">
+              {activeCompanies.map((c) => (
+                <Link key={c.id} to={`/companies/${c.id}`} className="px-6 py-3.5 flex items-center gap-3 hover:bg-muted/30 transition-all block">
                   <div className="flex-1">
-                    <p className="text-[13px] font-medium">{job.title}</p>
-                    <p className="text-[10px] text-muted-foreground">{job.candidates} {t("dashboard.candidatesLabel")} · {job.days}{t("dashboard.daysLabel")} {t("dashboard.daysOpenLabel")}</p>
+                    <p className="text-[13px] font-medium">{c.title}</p>
+                    <p className="text-[10px] text-muted-foreground">{c.agents} {t("dashboard.agentsLabel")} · {c.days}{t("dashboard.daysLabel")} {t("dashboard.daysActiveLabel")}</p>
                   </div>
-                  <span className="text-[10px] font-semibold text-success">{job.trend}</span>
+                  <span className="text-[10px] font-semibold text-success">{c.trend}</span>
                 </Link>
               ))}
             </div>
@@ -179,38 +175,35 @@ const Dashboard = () => {
         </div>
       )}
 
-      {/* Main content — overview only */}
       {view !== "summary" && (
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
           <CursorCardsContainer className="lg:col-span-2">
             <CursorCard borderColor="hsl(var(--border))">
               <div className="overflow-hidden">
                 <div className="px-6 py-4 border-b border-border flex items-center justify-between">
-                  <h2 className="text-[13px] font-heading font-semibold">{t("dashboard.recentCandidates")}</h2>
-                  <Link to="/candidates" className="text-[11px] text-muted-foreground hover:text-foreground flex items-center gap-1 transition-colors font-medium">
+                  <h2 className="text-[13px] font-heading font-semibold">{t("dashboard.recentAgents")}</h2>
+                  <Link to="/agents" className="text-[11px] text-muted-foreground hover:text-foreground flex items-center gap-1 transition-colors font-medium">
                     {t("dashboard.viewAll")} <ChevronRight className="h-3 w-3" />
                   </Link>
                 </div>
                 <div className="divide-y divide-border">
-                  {recentCandidates.map((c) => (
-                    <Link key={c.id} to={`/candidates/${c.id}`} className="px-6 py-3.5 flex items-center gap-4 hover:bg-muted/30 transition-all duration-200 block">
+                  {recentAgents.map((a) => (
+                    <Link key={a.id} to={`/agents/${a.id}`} className="px-6 py-3.5 flex items-center gap-4 hover:bg-muted/30 transition-all duration-200 block">
                       <div className="h-10 w-10 rounded-xl bg-accent/60 flex items-center justify-center shrink-0">
-                        <span className="text-[11px] font-body font-semibold text-foreground/50">
-                          {c.name.split(" ").map((n) => n[0]).join("")}
-                        </span>
+                        <Bot className="h-4 w-4 text-foreground/50" strokeWidth={1.6} />
                       </div>
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-2">
-                          <p className="text-[13px] font-medium">{c.name}</p>
-                          {c.aiMatch && <AiIcon className="text-muted-foreground animate-pulse-ai" size={12} />}
+                          <p className="text-[13px] font-medium">{a.name}</p>
+                          {a.aiMatch && <AiIcon className="text-muted-foreground animate-pulse-ai" size={12} />}
                         </div>
-                        <p className="text-[11px] text-muted-foreground">{c.role}</p>
+                        <p className="text-[11px] text-muted-foreground">{a.type}</p>
                       </div>
-                      <span className={`text-[10px] font-semibold px-2.5 py-1 rounded-lg ${stageColors[c.stage]}`}>
-                        {stageDisplayName(c.stage)}
+                      <span className={`text-[10px] font-semibold px-2.5 py-1 rounded-lg ${statusColors[a.status]}`}>
+                        {statusDisplayName(a.status)}
                       </span>
                       <span className="text-[15px] font-heading font-semibold tabular-nums w-12 text-right">
-                        {c.score}%
+                        {a.score}%
                       </span>
                     </Link>
                   ))}
@@ -245,17 +238,17 @@ const Dashboard = () => {
             <CursorCard borderColor="hsl(var(--border))">
               <div className="overflow-hidden">
                 <div className="px-5 py-3.5 border-b border-border flex items-center justify-between">
-                  <h2 className="text-[13px] font-heading font-semibold">{t("dashboard.activePositions")}</h2>
-                  <Link to="/jobs" className="text-[11px] text-muted-foreground hover:text-foreground transition-colors font-medium">{t("dashboard.allPositions")}</Link>
+                  <h2 className="text-[13px] font-heading font-semibold">{t("dashboard.activeCompanies")}</h2>
+                  <Link to="/companies" className="text-[11px] text-muted-foreground hover:text-foreground transition-colors font-medium">{t("dashboard.allCompanies")}</Link>
                 </div>
                 <div className="divide-y divide-border">
-                  {activeJobs.map((job) => (
-                    <Link key={job.id} to={`/jobs/${job.id}`} className="px-5 py-3 flex items-center gap-3 hover:bg-muted/30 transition-all duration-200 block">
+                  {activeCompanies.map((c) => (
+                    <Link key={c.id} to={`/companies/${c.id}`} className="px-5 py-3 flex items-center gap-3 hover:bg-muted/30 transition-all duration-200 block">
                       <div className="flex-1 min-w-0">
-                        <p className="text-[12px] font-medium truncate">{job.title}</p>
-                        <p className="text-[10px] text-muted-foreground">{job.candidates} {t("dashboard.candidatesLabel")} · {job.days}{t("dashboard.daysLabel")}</p>
+                        <p className="text-[12px] font-medium truncate">{c.title}</p>
+                        <p className="text-[10px] text-muted-foreground">{c.agents} {t("dashboard.agentsLabel")} · {c.days}{t("dashboard.daysLabel")}</p>
                       </div>
-                      <span className="text-[10px] font-semibold text-success">{job.trend}</span>
+                      <span className="text-[10px] font-semibold text-success">{c.trend}</span>
                     </Link>
                   ))}
                 </div>

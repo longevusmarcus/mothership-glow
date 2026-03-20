@@ -1,46 +1,39 @@
 export const translationsAnalytics = {
   "analytics.title": { it: "Analytics", en: "Analytics" },
-  "analytics.subtitle": { it: "Panoramica metriche di recruiting", en: "Recruiting metrics overview" },
+  "analytics.subtitle": { it: "Performance agenti e aziende", en: "Agent and company performance" },
 
-  // Metrics
-  "analytics.closedPositions": { it: "Posizioni Chiuse", en: "Closed Positions" },
-  "analytics.processedCandidates": { it: "Candidati Processati", en: "Processed Candidates" },
-  "analytics.avgCloseTime": { it: "Tempo Medio Chiusura", en: "Avg Close Time" },
-  "analytics.conversionRate": { it: "Tasso Conversione", en: "Conversion Rate" },
+  "analytics.closedPositions": { it: "Aziende Lanciate", en: "Companies Launched" },
+  "analytics.processedCandidates": { it: "Task Completati", en: "Tasks Completed" },
+  "analytics.avgCloseTime": { it: "Tempo Medio Deploy", en: "Avg Deploy Time" },
+  "analytics.conversionRate": { it: "Tasso Successo", en: "Success Rate" },
   "analytics.lastMonth": { it: "Ultimo mese", en: "Last month" },
   "analytics.avg3Months": { it: "Media 3 mesi", en: "3 month avg" },
 
-  // Sources
-  "analytics.website": { it: "Sito Web", en: "Website" },
+  "analytics.website": { it: "API Skills", en: "API Skills" },
   "analytics.other": { it: "Altro", en: "Other" },
 
-  // Sections
-  "analytics.candidatesPerMonth": { it: "Candidati per Mese", en: "Candidates per Month" },
-  "analytics.acquisitionSources": { it: "Fonti di Acquisizione", en: "Acquisition Sources" },
-  "analytics.conversionFunnel": { it: "Funnel di Conversione", en: "Conversion Funnel" },
-  "analytics.avgTimeByRole": { it: "Tempo Medio per Ruolo", en: "Avg Time by Role" },
+  "analytics.candidatesPerMonth": { it: "Task per Mese", en: "Tasks per Month" },
+  "analytics.acquisitionSources": { it: "Distribuzione Agenti", en: "Agent Distribution" },
+  "analytics.conversionFunnel": { it: "Funnel Aziende", en: "Company Funnel" },
+  "analytics.avgTimeByRole": { it: "Performance per Tipo Agente", en: "Performance by Agent Type" },
   "analytics.aiSummary": { it: "Riepilogo AI", en: "AI Summary" },
 
-  // Chart labels
-  "analytics.candidates": { it: "Candidati", en: "Candidates" },
-  "analytics.hired": { it: "Assunti", en: "Hired" },
+  "analytics.candidates": { it: "Task", en: "Tasks" },
+  "analytics.hired": { it: "Completati", en: "Completed" },
 
-  // Funnel stages
-  "analytics.funnel.received": { it: "Candidature Ricevute", en: "Applications Received" },
-  "analytics.funnel.aiScreening": { it: "Screening AI", en: "AI Screening" },
-  "analytics.funnel.interview": { it: "Colloquio", en: "Interview" },
-  "analytics.funnel.shortlist": { it: "Shortlist", en: "Shortlist" },
-  "analytics.funnel.placement": { it: "Placement", en: "Placement" },
+  "analytics.funnel.received": { it: "Idee Generate", en: "Ideas Generated" },
+  "analytics.funnel.aiScreening": { it: "MVP in Sviluppo", en: "MVPs in Development" },
+  "analytics.funnel.interview": { it: "Beta Testing", en: "Beta Testing" },
+  "analytics.funnel.shortlist": { it: "Growth Phase", en: "Growth Phase" },
+  "analytics.funnel.placement": { it: "Revenue", en: "Revenue" },
 
-  // AI Summary text
-  "analytics.aiSummaryText.timeReduced": { it: "Il tempo medio di chiusura si è ridotto del", en: "The average close time has decreased by" },
+  "analytics.aiSummaryText.timeReduced": { it: "Il tempo medio di deploy si è ridotto del", en: "The average deploy time has decreased by" },
   "analytics.aiSummaryText.comparedToQuarter": { it: "rispetto al trimestre precedente.", en: "compared to the previous quarter." },
-  "analytics.aiSummaryText.linkedinMain": { it: "LinkedIn resta la fonte principale con il", en: "LinkedIn remains the main source with" },
-  "analytics.aiSummaryText.ofCandidates": { it: "dei candidati.", en: "of candidates." },
-  "analytics.aiSummaryText.conversionImproved": { it: "Il tasso di conversione screening→colloquio è migliorato di", en: "The screening→interview conversion rate has improved by" },
+  "analytics.aiSummaryText.linkedinMain": { it: "Gli agenti Tech restano i più utilizzati con il", en: "Tech agents remain the most used with" },
+  "analytics.aiSummaryText.ofCandidates": { it: "dei task totali.", en: "of total tasks." },
+  "analytics.aiSummaryText.conversionImproved": { it: "Il tasso di successo idea→revenue è migliorato di", en: "The idea→revenue success rate has improved by" },
   "analytics.aiSummaryText.percentagePoints": { it: "punti percentuali", en: "percentage points" },
 
-  // Months
   "analytics.month.oct": { it: "Ott", en: "Oct" },
   "analytics.month.nov": { it: "Nov", en: "Nov" },
   "analytics.month.dec": { it: "Dic", en: "Dec" },
