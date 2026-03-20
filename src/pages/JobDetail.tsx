@@ -1,4 +1,4 @@
-import { ArrowLeft, Globe, Clock, Bot, Building2, Edit, Archive, Target, Rocket, MessageSquare, CheckCircle2, ExternalLink, Send, Loader2, Eye } from "lucide-react";
+import { ArrowLeft, Globe, Clock, Bot, Building2, Edit, Archive, Target, Rocket, MessageSquare, CheckCircle2, ExternalLink, Send, Loader2, Eye, FileText, Download } from "lucide-react";
 import AiIcon from "@/components/AiIcon";
 import { TextShimmer } from "@/components/ui/text-shimmer";
 import { Link, useParams } from "react-router-dom";
@@ -39,6 +39,16 @@ const taskLog = [
   { agent: "MarketBot", task: "SEO meta tags + Open Graph for all pages", time: "1d ago", status: "done" as const },
   { agent: "CodeForge", task: "Setting up CI/CD pipeline with GitHub Actions", time: "now", status: "in_progress" as const },
   { agent: "GrowthPilot", task: "Google Analytics 4 + conversion tracking", time: "now", status: "in_progress" as const },
+];
+
+const companyDocuments = [
+  { name: "Company Mission & Vision", type: "Mission", agent: "GrowthPilot", time: "1d ago", size: "2.4 KB", status: "final" as const },
+  { name: "Market Research — SaaS PM Tools", type: "Market Research", agent: "MarketBot", time: "2d ago", size: "18.7 KB", status: "final" as const },
+  { name: "Competitive Analysis Report", type: "Market Research", agent: "MarketBot", time: "3d ago", size: "12.1 KB", status: "final" as const },
+  { name: "Go-To-Market Strategy v2", type: "Strategy", agent: "GrowthPilot", time: "4d ago", size: "8.3 KB", status: "draft" as const },
+  { name: "Technical Architecture Doc", type: "Technical", agent: "CodeForge", time: "5d ago", size: "6.9 KB", status: "final" as const },
+  { name: "Brand Guidelines & Tone", type: "Branding", agent: "DesignMind", time: "6d ago", size: "4.1 KB", status: "final" as const },
+  { name: "Revenue Model & Projections", type: "Financial", agent: "GrowthPilot", time: "1w ago", size: "9.5 KB", status: "draft" as const },
 ];
 
 const deployPreviews = [
@@ -151,7 +161,7 @@ const CompanyDetail = () => {
   const { id } = useParams();
   const { t, locale } = useLanguage();
   const company = companyData[id || "1"] || defaultCompany;
-  const [activePanel, setActivePanel] = useState<"chat" | "tasks" | "deploys">("chat");
+  const [activePanel, setActivePanel] = useState<"chat" | "tasks" | "docs" | "deploys">("chat");
 
   return (
     <div className="space-y-6">
@@ -208,9 +218,10 @@ const CompanyDetail = () => {
         {/* Main panel — tabbed: Chat / Tasks / Deploys */}
         <div className="lg:col-span-2 bg-card rounded-2xl card-static overflow-hidden flex flex-col min-h-[500px]">
           <div className="flex items-center border-b border-border">
-            {([
+             {([
               { id: "chat" as const, label: "Agent Chat", icon: MessageSquare },
               { id: "tasks" as const, label: "Task Log", icon: CheckCircle2 },
+              { id: "docs" as const, label: "Documents", icon: FileText },
               { id: "deploys" as const, label: "Deploy Previews", icon: Eye },
             ]).map(tab => (
               <button
@@ -251,6 +262,35 @@ const CompanyDetail = () => {
                   <span className={`text-[9px] px-2 py-0.5 rounded-lg font-semibold shrink-0 ${task.status === "done" ? "bg-success/10 text-success" : "bg-primary/10 text-primary"}`}>
                     {task.status === "done" ? "Done" : "In Progress"}
                   </span>
+                </motion.div>
+              ))}
+            </div>
+          )}
+
+          {activePanel === "docs" && (
+            <div className="divide-y divide-border flex-1 overflow-y-auto">
+              {companyDocuments.map((doc, i) => (
+                <motion.div key={i} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: i * 0.04 }} className="px-5 py-3.5 flex items-center gap-3 hover:bg-muted/20 transition-all">
+                  <div className="h-9 w-9 rounded-xl bg-muted flex items-center justify-center shrink-0">
+                    <FileText className="h-4 w-4 text-muted-foreground" strokeWidth={1.4} />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <p className="text-[12px] font-medium leading-snug truncate">{doc.name}</p>
+                    <div className="flex items-center gap-2 mt-0.5">
+                      <span className="text-[10px] text-muted-foreground font-medium">{doc.agent}</span>
+                      <span className="text-[9px] text-muted-foreground/40">·</span>
+                      <span className="text-[10px] text-muted-foreground/50">{doc.time}</span>
+                      <span className="text-[9px] text-muted-foreground/40">·</span>
+                      <span className="text-[10px] text-muted-foreground/50">{doc.size}</span>
+                    </div>
+                  </div>
+                  <span className="text-[9px] px-2 py-0.5 rounded-lg font-semibold bg-muted text-muted-foreground uppercase tracking-wider">{doc.type}</span>
+                  <span className={`text-[9px] px-2 py-0.5 rounded-lg font-semibold shrink-0 ${doc.status === "final" ? "bg-success/10 text-success" : "bg-primary/10 text-primary"}`}>
+                    {doc.status === "final" ? "Final" : "Draft"}
+                  </span>
+                  <button className="text-muted-foreground hover:text-foreground transition-colors shrink-0">
+                    <Download className="h-3.5 w-3.5" strokeWidth={1.6} />
+                  </button>
                 </motion.div>
               ))}
             </div>
