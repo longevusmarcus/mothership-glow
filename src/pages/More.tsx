@@ -33,8 +33,8 @@ const sections = [
   {
     title: "Arena",
     titleIt: "Arena",
-    desc: "Weekly challenges, competitions & prizes. Build micro-SaaS products and compete with other builders.",
-    descIt: "Sfide settimanali, competizioni e premi. Costruisci micro-SaaS e competi con altri builder.",
+    desc: "The app store of the future, built for agents.",
+    descIt: "L'app store del futuro, costruito per gli agenti.",
     icon: Swords,
     to: "https://msx.gg",
     stat: "msx.gg",
