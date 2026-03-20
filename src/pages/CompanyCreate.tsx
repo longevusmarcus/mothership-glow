@@ -253,22 +253,22 @@ const CompanyCreate = () => {
             )}
 
             {/* Data sources */}
-            <div className="rounded-2xl border border-border bg-card p-5 space-y-3">
-              <p className="text-[10px] font-pixel font-semibold text-muted-foreground tracking-wider uppercase">Data sources agents will use</p>
-              <div className="grid grid-cols-3 gap-3">
+            <div className="rounded-2xl border border-border bg-card p-6 space-y-4">
+              <p className="text-[12px] font-pixel font-semibold text-muted-foreground tracking-wider uppercase">Data sources agents will use</p>
+              <div className="grid grid-cols-3 gap-4">
                 {[
                   { icon: Radio, label: "Signals", count: "847", sub: "last 30 days" },
                   { icon: Lightbulb, label: "Ideas", count: "750", sub: "validated" },
                   { icon: Globe, label: "Markets", count: "12", sub: "tracked" },
                 ].map(s => (
-                  <div key={s.label} className="flex items-center gap-3 p-3 rounded-xl bg-muted/40">
-                    <s.icon className="h-4 w-4 text-muted-foreground shrink-0" strokeWidth={1.5} />
+                  <div key={s.label} className="flex items-center gap-4 p-5 rounded-xl bg-muted/40">
+                    <s.icon className="h-6 w-6 text-muted-foreground shrink-0" strokeWidth={1.5} />
                     <div>
-                      <div className="flex items-baseline gap-1.5">
-                        <span className="text-[15px] font-semibold text-foreground tabular-nums">{s.count}</span>
-                        <span className="text-[10px] text-muted-foreground font-pixel">{s.label}</span>
+                      <div className="flex items-baseline gap-2">
+                        <span className="text-[22px] font-semibold text-foreground tabular-nums">{s.count}</span>
+                        <span className="text-[12px] text-muted-foreground font-pixel">{s.label}</span>
                       </div>
-                      <p className="text-[10px] text-muted-foreground/60 font-pixel">{s.sub}</p>
+                      <p className="text-[11px] text-muted-foreground/60 font-pixel">{s.sub}</p>
                     </div>
                   </div>
                 ))}
