@@ -21,6 +21,7 @@ import type { TranslationKey } from "@/i18n/translations";
 const navItemsDef = [
   { id: "dashboard", icon: LayoutDashboard, labelKey: "nav.dashboard" as TranslationKey, to: "/" },
   { id: "chat", icon: Rocket, labelKey: "nav.chatAi" as TranslationKey, to: "/chat" },
+  { id: "knowledge", icon: BookOpen, labelKey: "nav.knowledge" as TranslationKey, to: "/knowledge" },
   { id: "candidates", icon: Bot, labelKey: "nav.candidates" as TranslationKey, to: "/agents" },
   { id: "jobs", icon: Building2, labelKey: "nav.jobs" as TranslationKey, to: "/companies" },
   { id: "analytics", icon: BarChart3, labelKey: "nav.analytics" as TranslationKey, to: "/analytics" },
