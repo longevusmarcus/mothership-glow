@@ -8,7 +8,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useLanguage } from "@/i18n/LanguageContext";
-import AgentsKanban from "@/components/candidates/CandidatesKanban";
+import AgentsKanban from "@/components/agents/AgentsKanban";
 
 const agentTypes = ["Tech Agent", "Growth Agent", "Ops Agent", "Creative Agent"];
 

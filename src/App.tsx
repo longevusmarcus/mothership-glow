@@ -6,12 +6,12 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { LanguageProvider } from "@/i18n/LanguageContext";
 import AppLayout from "./components/AppLayout";
 import { ScrollToTop } from "./components/ScrollToTop";
-import Index from "./pages/Index";
-import Agents from "./pages/Candidates";
-import AgentDetail from "./pages/CandidateDetail";
-import Companies from "./pages/Jobs";
-import CompanyDetail from "./pages/JobDetail";
-import CompanyCreate from "./pages/JobCreate";
+import Dashboard from "./pages/Dashboard";
+import Agents from "./pages/Agents";
+import AgentDetail from "./pages/AgentDetail";
+import Companies from "./pages/Companies";
+import CompanyDetail from "./pages/CompanyDetail";
+import CompanyCreate from "./pages/CompanyCreate";
 import Chat from "./pages/Chat";
 import More from "./pages/More";
 import Signals from "./pages/Signals";
@@ -36,7 +36,7 @@ const App = () => (
           <ScrollToTop />
           <Routes>
             <Route path="/landing" element={<Landing />} />
-            <Route path="/" element={<AppLayout><Index /></AppLayout>} />
+            <Route path="/" element={<AppLayout><Dashboard /></AppLayout>} />
             <Route path="/agents" element={<AppLayout><Agents /></AppLayout>} />
             <Route path="/agents/:id" element={<AppLayout><AgentDetail /></AppLayout>} />
             <Route path="/companies" element={<AppLayout><Companies /></AppLayout>} />
