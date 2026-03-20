@@ -19,7 +19,7 @@ import Ideas from "./pages/Ideas";
 import PersonalOS from "./pages/PersonalOS";
 import Arena from "./pages/Arena";
 import Landing from "./pages/Landing";
-import Analytics from "./pages/Analytics";
+
 import Settings from "./pages/Settings";
 import NotFound from "./pages/NotFound";
 
