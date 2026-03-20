@@ -71,13 +71,9 @@ function IconRail({
   return (
     <div className="w-[56px] bg-icon-rail flex flex-col items-center py-4 shrink-0 border-r border-detail-panel-border/50">
       <div className="mb-5">
-        <motion.div
-          whileHover={{ scale: 1.08 }}
-          whileTap={{ scale: 0.95 }}
-          className="h-9 w-9 rounded-xl bg-gradient-to-br from-icon-rail-hover to-detail-panel-active flex items-center justify-center cursor-pointer shadow-sm"
-        >
-          <span className="text-[11px] font-mondwest font-bold text-icon-rail-active">MSX</span>
-        </motion.div>
+        <div className="h-9 w-9 flex items-center justify-center cursor-pointer">
+          <span className="text-[14px] font-mondwest font-bold text-icon-rail-active">MSX</span>
+        </div>
       </div>
 
       <div className="w-6 h-px bg-detail-panel-border mb-3" />
