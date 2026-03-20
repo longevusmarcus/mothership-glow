@@ -1,9 +1,10 @@
 import { useState, useRef, useEffect } from "react";
+import { toast } from "sonner";
 import { PromptInputBox } from "@/components/ui/ai-prompt-box";
 import AiIcon from "@/components/AiIcon";
 import { TextShimmer } from "@/components/ui/text-shimmer";
 import { motion, AnimatePresence } from "framer-motion";
-import { User, Loader2, Rocket, Zap, Building2, PlugZap, Bot, BarChart3, Radio, Lightbulb, ChevronRight, Check, Upload, Link2, Code, TrendingUp, Brain, Database, ArrowRight, Sparkles } from "lucide-react";
+import { User, Loader2, Rocket, Zap, Building2, PlugZap, Bot, BarChart3, Radio, Lightbulb, ChevronRight, Check, Upload, Link2, Code, TrendingUp, Brain, Database, ArrowRight, Sparkles, Lock, CreditCard } from "lucide-react";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { useNavigate } from "react-router-dom";
 import type { TranslationKey } from "@/i18n/translations";
@@ -13,7 +14,7 @@ interface ChatMessage {
   role: "user" | "assistant";
   content: string;
   timestamp: Date;
-  action?: "show_signals" | "show_ideas" | "pick_agent" | "deploying" | "deployed";
+  action?: "show_signals" | "show_ideas" | "pick_agent" | "deploying" | "deployed" | "show_api_docs";
 }
 
 const responseKeys: TranslationKey[] = [
@@ -265,6 +266,84 @@ function DeployedCard() {
   );
 }
 
+function ApiDocsPaywall() {
+  const [showUpgrade, setShowUpgrade] = useState(false);
+
+  return (
+    <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, ease }} className="space-y-3 mt-2">
+      <p className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider">REST API Access</p>
+
+      {/* Visible preview */}
+      <div className="rounded-xl border border-border bg-background p-3 space-y-2">
+        <div className="flex items-center gap-2 text-[11px] font-mono text-muted-foreground">
+          <span className="text-primary font-semibold">POST</span> /api/v1/agents/register
+        </div>
+        <p className="text-[10px] text-muted-foreground">Register your custom agent with MSX orchestration layer.</p>
+      </div>
+
+      {/* Blurred content */}
+      <div className="relative rounded-xl border border-border bg-background overflow-hidden">
+        <div className="p-3 space-y-3 blur-[6px] select-none pointer-events-none" aria-hidden>
+          <div className="space-y-1.5 text-[11px] font-mono text-muted-foreground">
+            <p><span className="text-primary font-semibold">GET</span> /api/v1/agents/:id/status</p>
+            <p><span className="text-primary font-semibold">POST</span> /api/v1/agents/:id/tasks</p>
+            <p><span className="text-primary font-semibold">PUT</span> /api/v1/agents/:id/config</p>
+            <p><span className="text-primary font-semibold">DELETE</span> /api/v1/agents/:id</p>
+          </div>
+          <div className="border-t border-border pt-2 space-y-1">
+            <p className="text-[10px] font-semibold">Authentication</p>
+            <p className="text-[10px] text-muted-foreground">Bearer token via X-MSX-Key header. Generate keys in Settings → API.</p>
+          </div>
+          <div className="border-t border-border pt-2 space-y-1">
+            <p className="text-[10px] font-semibold">Webhook Events</p>
+            <p className="text-[10px] text-muted-foreground">agent.task.completed, agent.error, agent.deployed — configure in Settings → Webhooks.</p>
+          </div>
+          <div className="border-t border-border pt-2 space-y-1">
+            <p className="text-[10px] font-semibold">Rate Limits</p>
+            <p className="text-[10px] text-muted-foreground">1,000 req/min per agent. Burst up to 2,500. Contact us for enterprise limits.</p>
+          </div>
+        </div>
+
+        {/* Overlay */}
+        <div className="absolute inset-0 flex flex-col items-center justify-center bg-background/60 backdrop-blur-[1px]">
+          <Lock className="h-5 w-5 text-muted-foreground mb-2" strokeWidth={1.5} />
+          <p className="text-[12px] font-semibold mb-1">Unlock Full API Access</p>
+          <p className="text-[10px] text-muted-foreground mb-3">Endpoints, auth, webhooks & SDK</p>
+          <button
+            onClick={() => setShowUpgrade(true)}
+            className="flex items-center gap-2 px-4 py-2 rounded-xl bg-foreground text-background text-[11px] font-semibold hover:opacity-90 transition-all active:scale-[0.97]"
+          >
+            <CreditCard className="h-3.5 w-3.5" strokeWidth={1.8} />
+            Upgrade — $58/mo
+          </button>
+        </div>
+      </div>
+
+      {showUpgrade && (
+        <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="rounded-xl border border-primary/25 bg-primary/[0.04] p-4 space-y-3">
+          <div className="flex items-center gap-2">
+            <Sparkles className="h-4 w-4 text-primary" strokeWidth={1.6} />
+            <p className="text-[13px] font-semibold">MSX Pro — $58/month</p>
+          </div>
+          <ul className="space-y-1.5 text-[11px] text-muted-foreground">
+            <li className="flex items-center gap-2"><Check className="h-3 w-3 text-primary shrink-0" strokeWidth={2.5} /> Full REST API access & SDK</li>
+            <li className="flex items-center gap-2"><Check className="h-3 w-3 text-primary shrink-0" strokeWidth={2.5} /> Custom agent integration</li>
+            <li className="flex items-center gap-2"><Check className="h-3 w-3 text-primary shrink-0" strokeWidth={2.5} /> Webhook event streaming</li>
+            <li className="flex items-center gap-2"><Check className="h-3 w-3 text-primary shrink-0" strokeWidth={2.5} /> Priority agent orchestration</li>
+            <li className="flex items-center gap-2"><Check className="h-3 w-3 text-primary shrink-0" strokeWidth={2.5} /> Claim & own deployed companies</li>
+          </ul>
+          <button
+            onClick={() => toast.info("Payment flow coming soon — you'll be first in line.")}
+            className="w-full h-10 rounded-xl bg-foreground text-background text-[12px] font-semibold flex items-center justify-center gap-2 hover:opacity-90 transition-all active:scale-[0.97]"
+          >
+            Subscribe to MSX Pro
+          </button>
+        </motion.div>
+      )}
+    </motion.div>
+  );
+}
+
 // ---------- Main Chat component ----------
 
 const quickActions = [
@@ -355,10 +434,10 @@ const Chat = () => {
   };
 
   const handleIntegrate = () => {
-    const userMsg: ChatMessage = { id: crypto.randomUUID(), role: "user", content: "I want to connect my own agent", timestamp: new Date() };
+    const userMsg: ChatMessage = { id: crypto.randomUUID(), role: "user", content: "I want to integrate my own agent", timestamp: new Date() };
     setMessages(prev => [...prev, userMsg]);
     setIsLoading(true);
-    setTimeout(() => addAssistant("Agent integration is coming soon. For now, you can deploy with our built-in agents — they'll coordinate with your systems via API once connected."), 800);
+    setTimeout(() => addAssistant("Here's everything you need to connect your agent via REST API. Unlock full access with the MSX Pro plan.", "show_api_docs"), 800);
   };
 
   const isEmpty = messages.length === 0;
@@ -371,6 +450,7 @@ const Chat = () => {
       case "pick_agent": return <AgentPickerCard onDeploy={handleDeploy} onIntegrate={handleIntegrate} />;
       case "deploying": return <DeployingCard onDone={handleDeployDone} />;
       case "deployed": return <DeployedCard />;
+      case "show_api_docs": return <ApiDocsPaywall />;
       default: return null;
     }
   };
