@@ -25,7 +25,7 @@ const tabs = [
   { id: "agents", label: "Agent Setup", labelIt: "Setup Agenti", icon: Bot },
   { id: "integrations", label: "Integrations", labelIt: "Integrazioni", icon: PlugZap },
   { id: "subscription", label: "Subscription", labelIt: "Abbonamento", icon: CreditCard },
-  { id: "team", label: "Team", labelIt: "Team", icon: Users },
+  { id: "ai", label: "AI Config", labelIt: "AI Config", icon: () => <AiIcon className="text-muted-foreground" size={16} /> },
   { id: "ai", label: "AI Config", labelIt: "AI Config", icon: () => <AiIcon className="text-muted-foreground" size={16} /> },
 ];
 
@@ -403,33 +403,6 @@ const Settings = () => {
           {activeTab === "integrations" && <IntegrationsTab locale={locale} />}
           {activeTab === "subscription" && <SubscriptionTab locale={locale} />}
 
-          {activeTab === "team" && (
-            <div className="space-y-5">
-              <div className="flex items-center justify-between">
-                <h2 className="text-[13px] font-mondwest font-semibold">{t("settings.team.title")}</h2>
-                <button className="px-4 py-2 bg-primary text-primary-foreground rounded-xl text-[12px] font-mono font-medium hover:opacity-90 transition-all shadow-sm">
-                  {t("settings.team.invite")}
-                </button>
-              </div>
-              <div className="bg-card rounded-2xl card-static divide-y divide-border overflow-hidden">
-                {teamMembers.map(m => (
-                  <div key={m.email} className="px-6 py-4 flex items-center gap-4">
-                    <div className="h-10 w-10 rounded-xl bg-accent/60 flex items-center justify-center shrink-0">
-                      <span className="text-[11px] font-mono font-semibold text-foreground/50">{m.name.split(" ").map(n => n[0]).join("")}</span>
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <p className="text-[13px] font-medium">{m.name}</p>
-                      <p className="text-[11px] text-muted-foreground">{m.email}</p>
-                    </div>
-                    <span className={`text-[10px] px-2.5 py-1 rounded-lg font-semibold ${roleColors[m.role]}`}>{m.role}</span>
-                    <span className={`text-[11px] ${m.status === "Active" ? "text-success font-medium" : "text-muted-foreground"}`}>
-                      {m.status}
-                    </span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
 
           {activeTab === "ai" && (
             <div className="space-y-5">
