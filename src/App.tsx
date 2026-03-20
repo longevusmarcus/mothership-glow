@@ -48,7 +48,7 @@ const App = () => (
             <Route path="/more/personal-os" element={<AppLayout><PersonalOS /></AppLayout>} />
             <Route path="/more/arena" element={<AppLayout><Arena /></AppLayout>} />
             
-            <Route path="/analytics" element={<AppLayout><Analytics /></AppLayout>} />
+            
             <Route path="/settings" element={<AppLayout><Settings /></AppLayout>} />
             <Route path="*" element={<NotFound />} />
           </Routes>
