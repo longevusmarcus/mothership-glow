@@ -157,15 +157,14 @@ const Agents = () => {
               <div className="overflow-x-auto">
                 <table className="w-full text-left">
                   <thead>
-                    <tr className="border-b border-border text-[10px] font-semibold text-muted-foreground uppercase tracking-wider">
-                      <th className="px-5 py-3">{t("candidates.th.name")}</th>
-                      <th className="px-4 py-3">{t("candidates.th.role")}</th>
-                      <th className="px-4 py-3">{t("candidates.th.position")}</th>
-                      <th className="px-4 py-3">{t("candidates.th.source")}</th>
-                      <th className="px-4 py-3">{t("candidates.th.skills")}</th>
-                      <th className="px-4 py-3">{t("candidates.th.stage")}</th>
-                      <th className="px-4 py-3 text-right">{t("candidates.th.aiScore")}</th>
-                    </tr>
+                     <tr className="border-b border-border text-[10px] font-semibold text-muted-foreground uppercase tracking-wider">
+                       <th className="px-5 py-3">{t("candidates.th.name")}</th>
+                       <th className="px-4 py-3">{t("candidates.th.role")}</th>
+                       <th className="px-4 py-3">{t("candidates.th.position")}</th>
+                       <th className="px-4 py-3">Telegram</th>
+                       <th className="px-4 py-3">{t("candidates.th.stage")}</th>
+                       <th className="px-4 py-3 text-right">{t("candidates.th.aiScore")}</th>
+                     </tr>
                   </thead>
                   <tbody className="divide-y divide-border">
                     {filtered.map((a) => (
