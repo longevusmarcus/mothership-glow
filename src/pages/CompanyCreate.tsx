@@ -117,16 +117,24 @@ const CompanyCreate = () => {
               {createAgents.map(a => {
                 const Icon = a.icon;
                 const isBusy = a.status === "busy";
+                const isCore = a.id === coreAgentId;
                 const selected = selectedAgents.some(id => id.startsWith(a.id));
                 return (
                   <div key={a.id} className="relative pb-2">
                     <button onClick={() => toggleAgent(a.id)}
                       className={`relative w-full h-full text-left p-5 rounded-2xl border transition-all duration-200 group ${
-                        isBusy ? "border-border/60 bg-muted/30 opacity-70"
+                        isCore ? "border-primary/40 bg-primary/[0.04] shadow-[0_2px_12px_-4px_hsl(var(--primary)/0.15)] cursor-default"
+                        : isBusy ? "border-border/60 bg-muted/30 opacity-70"
                         : selected ? "border-primary/40 bg-primary/[0.04] shadow-[0_2px_12px_-4px_hsl(var(--primary)/0.15)]"
                         : "border-border bg-card hover:border-border/80 hover:shadow-[0_2px_8px_-4px_hsl(var(--foreground)/0.06)]"
                       }`}>
-                      {selected && !isBusy && <div className="absolute top-3 right-3"><Check className="h-4 w-4 text-primary" strokeWidth={2} /></div>}
+                      {isCore && (
+                        <div className="absolute top-3 right-3 flex items-center gap-1.5">
+                          <span className="text-[9px] font-semibold text-primary bg-primary/10 px-1.5 py-0.5 rounded-md">Required</span>
+                          <Check className="h-4 w-4 text-primary" strokeWidth={2} />
+                        </div>
+                      )}
+                      {!isCore && selected && !isBusy && <div className="absolute top-3 right-3"><Check className="h-4 w-4 text-primary" strokeWidth={2} /></div>}
                       {isBusy && (
                         <div className="absolute top-3 right-3 flex items-center gap-1">
                           <span className="relative flex h-2 w-2">
