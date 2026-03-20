@@ -518,6 +518,11 @@ const Chat = () => {
       return;
     }
 
+    if (lower.includes("deploy") && lower.includes("agent") && (lower.includes("company") || lower.includes("assign") || !lower.includes("azienda"))) {
+      setTimeout(() => addAssistant("Let's deploy your agents. Pick which agents you want to activate and where to assign them — an existing company or a brand new one.", "deploy_agent_flow"), 800);
+      return;
+    }
+
     if (lower.includes("integrate") && lower.includes("agent")) {
       setTimeout(() => addAssistant("Let's get your agent connected. Choose from our agents or integrate your own — you can mix both.", "pick_agent"), 800);
       return;
