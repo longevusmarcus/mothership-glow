@@ -25,7 +25,7 @@ const Landing = () => {
       {/* Nav */}
       <header className="h-14 flex items-center justify-between px-6 sm:px-10 border-b border-border sticky top-0 z-50 bg-background/80 backdrop-blur-md">
         <span className="text-[18px] font-pixel font-bold tracking-tight">MSX</span>
-        <nav className="hidden sm:flex items-center gap-6 text-[12px] font-mono font-medium text-muted-foreground">
+        <nav className="hidden sm:flex items-center gap-6 text-[12px] font-pixel font-medium text-muted-foreground">
           <button onClick={() => navigate("/")} className="flex items-center gap-1.5 hover:text-foreground transition-colors">
             <Code className="h-3.5 w-3.5" strokeWidth={1.5} /> Factory
           </button>
