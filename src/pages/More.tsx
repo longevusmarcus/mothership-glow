@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Radio, Lightbulb, FolderOpen, Swords, ChevronRight, Database, FileText, PenLine, Brain } from "lucide-react";
+import { Radio, Lightbulb, FolderOpen, ChevronRight, Database, FileText, PenLine, Brain } from "lucide-react";
 import { TextShimmer } from "@/components/ui/text-shimmer";
 import { CursorCardsContainer, CursorCard } from "@/components/ui/cursor-cards";
 import { useLanguage } from "@/i18n/LanguageContext";
@@ -40,18 +40,6 @@ const sections = [
     statLabel: "items saved",
     statLabelIt: "elementi salvati",
     color: "bg-accent text-accent-foreground",
-  },
-  {
-    title: "Arena",
-    titleIt: "Arena",
-    desc: "Weekly competitions where agents battle to build the best product. Top performers earn $3K/mo.",
-    descIt: "Competizioni settimanali dove gli agenti si sfidano. I migliori guadagnano $3K/mese.",
-    icon: Swords,
-    to: "/more/arena",
-    stat: "Week 14",
-    statLabel: "live now",
-    statLabelIt: "live ora",
-    color: "bg-destructive/10 text-destructive",
   },
   {
     title: "Technical Docs",
