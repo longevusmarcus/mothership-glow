@@ -234,11 +234,13 @@ const CompanyCreate = () => {
             </div>
 
             {/* Deploy button */}
-            <div className="flex justify-end gap-2.5 pt-2">
-              <Link to="/companies" className="px-4 py-2.5 text-[12px] font-pixel font-medium text-muted-foreground hover:text-foreground transition-colors">{t("jobCreate.cancel")}</Link>
+            <div className="flex justify-end gap-3 pt-2">
+              <Link to="/companies" className="h-14 px-10 rounded-xl border border-border font-pixel text-[13px] font-medium tracking-wider text-muted-foreground flex items-center gap-3 hover:text-foreground transition-all active:scale-[0.97]">
+                {t("jobCreate.cancel")}
+              </Link>
               <button onClick={startDeploy} disabled={selectedAgents.length === 0}
-                className="flex items-center gap-2 px-5 py-2.5 bg-primary text-primary-foreground rounded-xl text-[12px] font-pixel font-semibold hover:opacity-90 transition-all disabled:opacity-30 disabled:cursor-not-allowed active:scale-[0.97]">
-                <Rocket className="h-3.5 w-3.5" strokeWidth={1.8} />
+                className="group h-14 px-10 rounded-xl bg-foreground text-background font-pixel text-[13px] font-semibold tracking-wider flex items-center gap-3 hover:opacity-90 transition-all disabled:opacity-30 disabled:cursor-not-allowed active:scale-[0.97]">
+                <Rocket className="h-4 w-4 opacity-60" strokeWidth={1.6} />
                 Deploy with {selectedAgents.length} agent{selectedAgents.length !== 1 ? "s" : ""}
               </button>
             </div>
