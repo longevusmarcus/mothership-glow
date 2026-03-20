@@ -6,7 +6,7 @@ import { TextShimmer } from "@/components/ui/text-shimmer";
 import { motion, AnimatePresence } from "framer-motion";
 import { User, Loader2, Rocket, Zap, Building2, PlugZap, Bot, BarChart3, Radio, Lightbulb, ChevronRight, Check, Upload, Link2, Code, TrendingUp, Brain, Database, ArrowRight, Sparkles, Lock, CreditCard, RefreshCw } from "lucide-react";
 import { useLanguage } from "@/i18n/LanguageContext";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import type { TranslationKey } from "@/i18n/translations";
 
 interface ChatMessage {
