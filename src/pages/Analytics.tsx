@@ -116,16 +116,13 @@ const Analytics = () => {
           <h2 className="text-[13px] font-heading font-semibold mb-8">{locale === "it" ? "Task per Mese" : "Tasks per Month"}</h2>
           <div className="flex items-end gap-4 h-48">
             {monthlyData.map(d => {
-              const barH = (d.tasks / maxTasks) * 140;
-              const completedH = (d.completed / maxTasks) * 140;
+              const totalH = (d.tasks / maxTasks) * 160;
+              const completedPct = (d.completed / d.tasks) * 100;
               return (
                 <div key={d.month} className="flex-1 flex flex-col items-center gap-2 group">
                   <span className="text-[10px] text-muted-foreground/60 font-medium tabular-nums group-hover:text-foreground/80 transition-colors">{d.tasks}</span>
-                  <div className="w-full flex flex-col gap-1.5">
-                    <div className="w-full rounded-xl bg-primary/[0.12] border border-primary/20 transition-all duration-300 group-hover:border-primary/35 relative overflow-hidden" style={{ height: `${barH}px` }}>
-                      <div className="absolute inset-0 bg-gradient-to-t from-primary/[0.15] to-primary/[0.04]" />
-                    </div>
-                    <div className="w-full rounded-lg bg-accent/70 border border-accent-foreground/10 transition-all duration-300 group-hover:bg-accent" style={{ height: `${Math.max(completedH, 6)}px` }} />
+                  <div className="w-full rounded-xl bg-muted/50 border border-border transition-all duration-300 group-hover:border-border/80 relative overflow-hidden" style={{ height: `${totalH}px` }}>
+                    <div className="absolute bottom-0 left-0 right-0 bg-primary/20 border-t border-primary/30 transition-all" style={{ height: `${completedPct}%` }} />
                   </div>
                   <span className="text-[10px] text-muted-foreground font-medium mt-1">{d.month}</span>
                 </div>
@@ -134,10 +131,10 @@ const Analytics = () => {
           </div>
           <div className="flex items-center gap-5 mt-6">
             <span className="flex items-center gap-2 text-[10px] text-muted-foreground font-medium">
-              <span className="h-2.5 w-2.5 rounded-md bg-primary/[0.12] border border-primary/20" /> {locale === "it" ? "Task" : "Tasks"}
+              <span className="h-2.5 w-2.5 rounded-md bg-muted/50 border border-border" /> {locale === "it" ? "Task Totali" : "Total Tasks"}
             </span>
             <span className="flex items-center gap-2 text-[10px] text-muted-foreground font-medium">
-              <span className="h-2.5 w-2.5 rounded-md bg-accent/70 border border-accent-foreground/10" /> {locale === "it" ? "Completati" : "Completed"}
+              <span className="h-2.5 w-2.5 rounded-md bg-primary/20" /> {locale === "it" ? "Completati" : "Completed"}
             </span>
           </div>
         </div>
