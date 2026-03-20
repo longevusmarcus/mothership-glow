@@ -18,6 +18,7 @@ import Signals from "./pages/Signals";
 import Ideas from "./pages/Ideas";
 import PersonalOS from "./pages/PersonalOS";
 import Arena from "./pages/Arena";
+import Live from "./pages/Live";
 import Landing from "./pages/Landing";
 
 import Settings from "./pages/Settings";
