@@ -2,7 +2,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import {
   LayoutDashboard,
   Bot,
-  Building2,
+  MessageSquare,
   Rocket,
   BookOpen,
   MoreHorizontal,
