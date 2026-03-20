@@ -66,12 +66,6 @@ const agentData: Record<string, {
 
 const defaultAgent = agentData["1"];
 
-const stageColors: Record<string, string> = {
-  Screening: "bg-muted text-muted-foreground",
-  Colloquio: "bg-accent text-accent-foreground",
-  Shortlist: "bg-secondary text-secondary-foreground",
-  Placement: "bg-primary text-primary-foreground",
-};
 
 const stageOptions = ["Screening", "Colloquio", "Shortlist", "Placement"];
 
