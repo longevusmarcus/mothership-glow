@@ -197,30 +197,23 @@ const Dashboard = () => {
             <CursorCard borderColor="hsl(var(--border))">
               <div className="overflow-hidden">
                 <div className="px-6 py-4 border-b border-border flex items-center justify-between">
-                  <h2 className="text-[13px] font-mondwest font-semibold">{t("dashboard.recentAgents")}</h2>
-                  <Link to="/agents" className="text-[11px] text-muted-foreground hover:text-foreground flex items-center gap-1 transition-colors font-medium">
-                    {t("dashboard.viewAll")} <ChevronRight className="h-3 w-3" />
+                  <h2 className="text-[13px] font-mondwest font-semibold">{t("dashboard.activeCompanies")}</h2>
+                  <Link to="/companies" className="text-[11px] text-muted-foreground hover:text-foreground flex items-center gap-1 transition-colors font-medium">
+                    {t("dashboard.allCompanies")} <ChevronRight className="h-3 w-3" />
                   </Link>
                 </div>
                 <div className="divide-y divide-border">
-                  {recentAgents.map((a) => (
-                    <Link key={a.id} to={`/agents/${a.id}`} className="px-6 py-3.5 flex items-center gap-4 hover:bg-muted/30 transition-all duration-200 block">
+                  {activeCompanies.map((c) => (
+                    <Link key={c.id} to={`/companies/${c.id}`} className="px-6 py-3.5 flex items-center gap-4 hover:bg-muted/30 transition-all duration-200 block">
                       <div className="h-10 w-10 rounded-xl bg-accent/60 flex items-center justify-center shrink-0">
-                        <Bot className="h-4 w-4 text-foreground/50" strokeWidth={1.6} />
+                        <Building2 className="h-4 w-4 text-foreground/50" strokeWidth={1.6} />
                       </div>
                       <div className="flex-1 min-w-0">
-                        <div className="flex items-center gap-2">
-                          <p className="text-[13px] font-medium">{a.name}</p>
-                          {a.aiMatch && <AiIcon className="text-muted-foreground animate-pulse-ai" size={12} />}
-                        </div>
-                        <p className="text-[11px] text-muted-foreground">{a.type}</p>
+                        <p className="text-[13px] font-medium">{c.title}</p>
+                        <p className="text-[11px] text-muted-foreground">{c.agents} {t("dashboard.agentsLabel")} · {c.days}{t("dashboard.daysLabel")} {t("dashboard.daysActiveLabel")}</p>
                       </div>
-                      <span className={`text-[10px] font-semibold px-2.5 py-1 rounded-lg ${statusColors[a.status]}`}>
-                        {statusDisplayName(a.status)}
-                      </span>
-                      <span className="text-[15px] font-mondwest font-semibold tabular-nums w-12 text-right">
-                        {a.score}%
-                      </span>
+                      <span className="text-[15px] font-mondwest font-semibold tabular-nums">{c.revenue}</span>
+                      <span className="text-[10px] font-semibold text-success">{c.trend}</span>
                     </Link>
                   ))}
                 </div>
@@ -254,20 +247,17 @@ const Dashboard = () => {
             <CursorCard borderColor="hsl(var(--border))">
               <div className="overflow-hidden">
                 <div className="px-5 py-3.5 border-b border-border flex items-center justify-between">
-                  <h2 className="text-[13px] font-mondwest font-semibold">{t("dashboard.activeCompanies")}</h2>
-                  <Link to="/companies" className="text-[11px] text-muted-foreground hover:text-foreground transition-colors font-medium">{t("dashboard.allCompanies")}</Link>
+                  <h2 className="text-[13px] font-mondwest font-semibold">{t("dashboard.recentAgents")}</h2>
+                  <Link to="/agents" className="text-[11px] text-muted-foreground hover:text-foreground transition-colors font-medium">{t("dashboard.viewAll")}</Link>
                 </div>
                 <div className="divide-y divide-border">
-                  {activeCompanies.map((c) => (
-                    <Link key={c.id} to={`/companies/${c.id}`} className="px-5 py-3 flex items-center gap-3 hover:bg-muted/30 transition-all duration-200 block">
+                  {recentAgents.slice(0, 4).map((a) => (
+                    <Link key={a.id} to={`/agents/${a.id}`} className="px-5 py-3 flex items-center gap-3 hover:bg-muted/30 transition-all duration-200 block">
                       <div className="flex-1 min-w-0">
-                        <p className="text-[12px] font-medium truncate">{c.title}</p>
-                        <p className="text-[10px] text-muted-foreground">{c.agents} {t("dashboard.agentsLabel")} · {c.days}{t("dashboard.daysLabel")}</p>
+                        <p className="text-[12px] font-medium truncate">{a.name}</p>
+                        <p className="text-[10px] text-muted-foreground">{a.type}</p>
                       </div>
-                       <div className="flex items-center gap-2 shrink-0">
-                         <span className="text-[11px] font-mondwest font-semibold tabular-nums">{c.revenue}</span>
-                         <span className="text-[10px] font-semibold text-success">{c.trend}</span>
-                       </div>
+                      <span className="text-[13px] font-mondwest font-semibold tabular-nums">{a.score}%</span>
                     </Link>
                   ))}
                 </div>
