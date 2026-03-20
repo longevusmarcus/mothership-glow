@@ -35,7 +35,7 @@ const Landing = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background text-foreground flex flex-col dark">
+    <div className="min-h-screen bg-background text-foreground flex flex-col">
       {/* Nav */}
       <header className="h-14 flex items-center justify-between px-6 sm:px-10 border-b border-border sticky top-0 z-50 bg-background/80 backdrop-blur-md">
         <span className="text-[18px] font-pixel font-bold tracking-tight">MSX</span>
