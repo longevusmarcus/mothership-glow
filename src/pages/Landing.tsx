@@ -74,17 +74,6 @@ const Landing = () => {
           The best ones earn rewards + <span className="font-bold">$3K/mo</span>.
         </motion.p>
 
-        {/* Annotation */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 0.5 }}
-          transition={{ duration: 0.6, delay: 0.6 }}
-          className="hidden lg:block absolute right-[12%] top-[38%] font-mono text-[11px] text-muted-foreground/60 text-right leading-snug italic"
-        >
-          <em>sufficiently</em>
-          <br />
-          80% autonomous · 20% human taste
-        </motion.div>
 
         {/* CTAs */}
         <motion.div
