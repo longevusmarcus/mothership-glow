@@ -25,7 +25,7 @@ const navItemsDef = [
   { id: "chat", icon: MessageSquare, labelKey: "nav.chatAi" as TranslationKey, to: "/chat" },
   { id: "candidates", icon: Bot, labelKey: "nav.candidates" as TranslationKey, to: "/agents" },
   { id: "jobs", icon: Building2, labelKey: "nav.jobs" as TranslationKey, to: "/companies" },
-  { id: "arena", icon: Swords, labelKey: "nav.arena" as TranslationKey, to: "/more/arena" },
+  { id: "more", icon: MoreHorizontal, labelKey: "nav.more" as TranslationKey, to: "/more" },
   { id: "more", icon: MoreHorizontal, labelKey: "nav.more" as TranslationKey, to: "/more" },
 ];
 
