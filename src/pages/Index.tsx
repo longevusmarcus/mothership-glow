@@ -1,4 +1,4 @@
-import { Bot, Building2, Zap, TrendingUp, ArrowUpRight, ArrowDownRight, Bell, ChevronRight, Swords, Trophy, Timer, Flame } from "lucide-react";
+import { Bot, Building2, Zap, TrendingUp, ArrowUpRight, ArrowDownRight, Bell, ChevronRight } from "lucide-react";
 import AiIcon from "@/components/AiIcon";
 import { InteractiveHoverButton } from "@/components/ui/interactive-hover-button";
 import { TextShimmer } from "@/components/ui/text-shimmer";
@@ -45,19 +45,6 @@ const Dashboard = () => {
     { id: 4, title: "DataPulse", agents: 3, days: 31, trend: "+18 tasks" },
   ];
 
-  const arenaWeek = {
-    challenge: "Build a micro-SaaS that solves invoice pain for freelancers",
-    endsIn: "2d 14h 32m",
-    prize: "$3,000",
-    participants: 23,
-    topAgents: [
-      { rank: 1, name: "CodeForge-7x", type: "Tech", score: 94, revenue: "$4,280/mo", wins: 12, badge: "🥇" },
-      { rank: 2, name: "GrowthPulse-3k", type: "Growth", score: 89, revenue: "$3,120/mo", wins: 9, badge: "🥈" },
-      { rank: 3, name: "FinOps-v9", type: "Ops", score: 86, revenue: "$2,870/mo", wins: 7, badge: "🥉" },
-      { rank: 4, name: "AutoBot-5k", type: "Tech", score: 82, revenue: "$2,340/mo", wins: 5, badge: "4" },
-      { rank: 5, name: "VibeAgent-1x", type: "Creative", score: 78, revenue: "$1,890/mo", wins: 3, badge: "5" },
-    ],
-  };
   const aiInsights = [
     { textKey: "dashboard.insight.1" as TranslationKey, actionKey: "dashboard.insight.action.1" as TranslationKey, href: "/agents" },
     { textKey: "dashboard.insight.2" as TranslationKey, actionKey: "dashboard.insight.action.2" as TranslationKey, href: "/companies/1" },
@@ -271,66 +258,6 @@ const Dashboard = () => {
         </div>
       )}
 
-      {/* Live Arena */}
-      <div className="bg-card rounded-2xl border border-border overflow-hidden">
-        <div className="px-6 py-4 border-b border-border flex items-center justify-between">
-          <div className="flex items-center gap-2.5">
-            <Swords className="h-4 w-4 text-muted-foreground" strokeWidth={1.6} />
-            <h2 className="text-[13px] font-heading font-semibold">{locale === "it" ? "Arena Live" : "Live Arena"}</h2>
-            <span className="text-[8px] px-2 py-0.5 rounded-full font-semibold bg-primary/10 text-primary uppercase tracking-[0.08em] flex items-center gap-1">
-              <span className="h-1.5 w-1.5 rounded-full bg-primary animate-pulse" /> {locale === "it" ? "Settimana 14" : "Week 14"}
-            </span>
-          </div>
-          <div className="flex items-center gap-2 text-[10px] text-muted-foreground">
-            <Timer className="h-3 w-3" strokeWidth={1.4} /> {arenaWeek.endsIn}
-          </div>
-        </div>
-
-        <div className="p-6">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-5 p-4 rounded-xl bg-muted/30 border border-border">
-            <div>
-              <p className="text-[10px] text-muted-foreground uppercase tracking-wider font-semibold mb-1">{locale === "it" ? "Sfida Settimanale" : "Weekly Challenge"}</p>
-              <p className="text-[13px] font-medium">{arenaWeek.challenge}</p>
-            </div>
-            <div className="flex items-center gap-4 shrink-0">
-              <div className="text-right">
-                <p className="text-[18px] font-heading font-bold text-primary">{arenaWeek.prize}</p>
-                <p className="text-[9px] text-muted-foreground">{arenaWeek.participants} {locale === "it" ? "partecipanti" : "participants"}</p>
-              </div>
-              <button className="h-9 px-4 rounded-xl bg-primary text-primary-foreground text-[11px] font-semibold flex items-center gap-1.5 hover:bg-primary/90 transition-colors active:scale-[0.97]">
-                <Flame className="h-3.5 w-3.5" strokeWidth={1.8} />
-                {locale === "it" ? "Unisciti" : "Join Arena"}
-              </button>
-            </div>
-          </div>
-
-          <div className="space-y-1">
-            {arenaWeek.topAgents.map((agent, i) => (
-              <div key={agent.rank} className="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-muted/20 transition-all">
-                <span className={`text-[14px] w-6 text-center ${agent.rank <= 3 ? "" : "text-muted-foreground text-[12px] font-medium"}`}>
-                  {agent.rank <= 3 ? agent.badge : agent.badge}
-                </span>
-                <div className="h-8 w-8 rounded-lg bg-muted flex items-center justify-center shrink-0">
-                  <Bot className="h-3.5 w-3.5 text-muted-foreground" strokeWidth={1.4} />
-                </div>
-                <div className="flex-1 min-w-0">
-                  <div className="flex items-center gap-2">
-                    <p className="text-[12px] font-medium truncate">{agent.name}</p>
-                    <span className="text-[9px] px-1.5 py-0.5 rounded-full bg-muted text-muted-foreground">{agent.type}</span>
-                  </div>
-                  <p className="text-[10px] text-muted-foreground">{agent.wins} wins · {agent.revenue}</p>
-                </div>
-                <div className="flex items-center gap-2 shrink-0">
-                  <div className="h-1.5 w-16 rounded-full bg-muted overflow-hidden">
-                    <div className="h-full rounded-full bg-primary/50" style={{ width: `${agent.score}%` }} />
-                  </div>
-                  <span className="text-[12px] font-heading font-semibold tabular-nums w-8 text-right">{agent.score}</span>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
     </div>
   );
 };
