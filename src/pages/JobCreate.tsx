@@ -107,7 +107,7 @@ const CompanyCreate = () => {
         {step === "select" && (
           <motion.div key="select" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -12 }} transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }} className="space-y-4">
             {/* Agent cards */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 auto-rows-fr">
               {agents.map(a => {
                 const Icon = a.icon;
                 const isBusy = a.status === "busy";
