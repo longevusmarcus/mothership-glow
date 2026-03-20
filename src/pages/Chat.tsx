@@ -371,6 +371,7 @@ const Chat = () => {
       case "pick_agent": return <AgentPickerCard onDeploy={handleDeploy} onIntegrate={handleIntegrate} />;
       case "deploying": return <DeployingCard onDone={handleDeployDone} />;
       case "deployed": return <DeployedCard />;
+      case "show_api_docs": return <ApiDocsPaywall />;
       default: return null;
     }
   };
