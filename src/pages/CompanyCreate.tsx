@@ -44,14 +44,18 @@ function ClaimCompanyPaywall({ onDeployAnother }: { onDeployAnother: () => void 
 const CompanyCreate = () => {
   const { t } = useLanguage();
   const navigate = useNavigate();
-  const [selectedAgents, setSelectedAgents] = useState<string[]>([]);
+  const [selectedAgents, setSelectedAgents] = useState<string[]>([createAgents[0].id]);
+  const [agentName, setAgentName] = useState(createAgents[0].name);
   const [step, setStep] = useState<"select" | "deploying" | "done">("select");
   const [currentDeployStep, setCurrentDeployStep] = useState(0);
   const [completedSteps, setCompletedSteps] = useState<number[]>([]);
   const [generatedCompany, setGeneratedCompany] = useState<{ name: string; type: string; market: string; mrr: string } | null>(null);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
+  const coreAgentId = createAgents[0].id;
+
   const toggleAgent = (id: string) => {
+    if (id === coreAgentId) return; // core agent is compulsory
     const agent = createAgents.find(a => a.id === id);
     if (agent?.status === "busy") {
       toast.error(`${agent.name} is busy on ${agent.busyOn}. Spawn a new instance instead.`);
