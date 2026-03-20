@@ -212,7 +212,7 @@ const CompanyCreate = () => {
 
             {/* Data sources */}
             <div className="rounded-2xl border border-border bg-card p-5 space-y-3">
-              <p className="text-[10px] font-semibold text-muted-foreground tracking-wider uppercase">Data sources agents will use</p>
+              <p className="text-[10px] font-pixel font-semibold text-muted-foreground tracking-wider uppercase">Data sources agents will use</p>
               <div className="grid grid-cols-3 gap-3">
                 {[
                   { icon: Radio, label: "Signals", count: "847", sub: "last 30 days" },
