@@ -267,6 +267,35 @@ const CompanyDetail = () => {
             </div>
           )}
 
+          {activePanel === "docs" && (
+            <div className="divide-y divide-border flex-1 overflow-y-auto">
+              {companyDocuments.map((doc, i) => (
+                <motion.div key={i} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: i * 0.04 }} className="px-5 py-3.5 flex items-center gap-3 hover:bg-muted/20 transition-all">
+                  <div className="h-9 w-9 rounded-xl bg-muted flex items-center justify-center shrink-0">
+                    <FileText className="h-4 w-4 text-muted-foreground" strokeWidth={1.4} />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <p className="text-[12px] font-medium leading-snug truncate">{doc.name}</p>
+                    <div className="flex items-center gap-2 mt-0.5">
+                      <span className="text-[10px] text-muted-foreground font-medium">{doc.agent}</span>
+                      <span className="text-[9px] text-muted-foreground/40">·</span>
+                      <span className="text-[10px] text-muted-foreground/50">{doc.time}</span>
+                      <span className="text-[9px] text-muted-foreground/40">·</span>
+                      <span className="text-[10px] text-muted-foreground/50">{doc.size}</span>
+                    </div>
+                  </div>
+                  <span className="text-[9px] px-2 py-0.5 rounded-lg font-semibold bg-muted text-muted-foreground uppercase tracking-wider">{doc.type}</span>
+                  <span className={`text-[9px] px-2 py-0.5 rounded-lg font-semibold shrink-0 ${doc.status === "final" ? "bg-success/10 text-success" : "bg-primary/10 text-primary"}`}>
+                    {doc.status === "final" ? "Final" : "Draft"}
+                  </span>
+                  <button className="text-muted-foreground hover:text-foreground transition-colors shrink-0">
+                    <Download className="h-3.5 w-3.5" strokeWidth={1.6} />
+                  </button>
+                </motion.div>
+              ))}
+            </div>
+          )}
+
           {activePanel === "deploys" && (
             <div className="divide-y divide-border flex-1 overflow-y-auto">
               {deployPreviews.map((deploy, i) => (
