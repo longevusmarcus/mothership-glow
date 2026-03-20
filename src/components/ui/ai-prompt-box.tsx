@@ -327,8 +327,8 @@ const PromptInput = React.forwardRef<HTMLDivElement, PromptInputProps>(
           <div
             ref={ref}
             className={cn(
-              "rounded-3xl border border-foreground/8 bg-card p-2 shadow-[0_0_24px_-4px_hsl(var(--foreground)/0.09),0_0_64px_-12px_hsl(var(--foreground)/0.07)] transition-all duration-500",
-              "focus-within:shadow-[0_0_32px_-4px_hsl(var(--foreground)/0.15),0_0_90px_-12px_hsl(var(--foreground)/0.10)] focus-within:border-foreground/18",
+              "rounded-3xl border border-foreground/8 bg-card p-2 shadow-[0_0_24px_-4px_hsl(0_70%_50%/0.12),0_0_64px_-12px_hsl(0_70%_50%/0.08)] transition-all duration-500",
+              "focus-within:shadow-[0_0_32px_-4px_hsl(0_70%_50%/0.22),0_0_90px_-12px_hsl(0_70%_50%/0.14)] focus-within:border-[hsl(0_70%_50%/0.25)]",
               isLoading && "border-destructive/70",
               className
             )}
