@@ -79,7 +79,7 @@ function IconRail({
           whileTap={{ scale: 0.95 }}
           className="h-9 w-9 rounded-xl bg-gradient-to-br from-icon-rail-hover to-detail-panel-active flex items-center justify-center cursor-pointer shadow-sm"
         >
-          <span className="text-[12px] font-heading font-bold text-icon-rail-active">MX</span>
+          <span className="text-[12px] font-mondwest font-bold text-icon-rail-active">MX</span>
         </motion.div>
       </div>
 
@@ -275,7 +275,7 @@ const AppLayout = ({ children }: AppLayoutProps) => {
                     className="absolute right-0 top-full mt-2 w-80 bg-card border border-border rounded-2xl shadow-xl overflow-hidden z-[200]"
                   >
                     <div className="px-4 py-3 border-b border-border flex items-center justify-between">
-                      <span className="text-[12px] font-heading font-semibold">{t("notif.title")}</span>
+                      <span className="text-[12px] font-mondwest font-semibold">{t("notif.title")}</span>
                       {unreadCount > 0 && <span className="text-[9px] px-2 py-0.5 rounded-full bg-muted text-muted-foreground font-semibold">{unreadCount} {t("notif.new")}</span>}
                     </div>
                     <div className="max-h-64 overflow-y-auto divide-y divide-border">

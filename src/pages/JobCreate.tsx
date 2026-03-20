@@ -97,7 +97,7 @@ const CompanyCreate = () => {
       </Link>
 
       <div>
-        <h1 className="text-[26px] font-heading font-semibold tracking-tight">
+        <h1 className="text-[26px] font-mondwest font-semibold tracking-tight">
           <TextShimmer as="span" duration={2.5}>{t("jobCreate.title")}</TextShimmer>
         </h1>
         <p className="text-[13px] text-muted-foreground mt-1 font-mono">Select one or more agents to autonomously build your next company</p>
@@ -336,7 +336,7 @@ const CompanyCreate = () => {
               <div className="flex items-center gap-3">
                 <div className="h-12 w-12 rounded-2xl bg-gradient-to-br from-primary/20 to-primary/5 flex items-center justify-center text-[18px] font-bold text-primary">N</div>
                 <div>
-                  <h2 className="text-[18px] font-heading font-semibold text-foreground">{generatedCompany.name}</h2>
+                  <h2 className="text-[18px] font-mondwest font-semibold text-foreground">{generatedCompany.name}</h2>
                   <p className="text-[12px] text-muted-foreground">{generatedCompany.type} · {generatedCompany.market}</p>
                 </div>
               </div>

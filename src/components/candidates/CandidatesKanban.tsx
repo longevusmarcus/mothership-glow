@@ -71,7 +71,7 @@ const AgentsKanban = ({ candidates }: AgentsKanbanProps) => {
             <div className="flex items-center justify-between mb-4 px-1">
               <div className="flex items-center gap-2">
                 <div className={`h-2 w-2 rounded-full ${stage.color}`} />
-                <h3 className="text-[12px] font-heading font-semibold">{t(stage.labelKey)}</h3>
+                <h3 className="text-[12px] font-mondwest font-semibold">{t(stage.labelKey)}</h3>
               </div>
               <span className="text-[10px] text-muted-foreground bg-card px-2 py-0.5 rounded-full font-semibold">{stageAgents.length}</span>
             </div>
@@ -105,7 +105,7 @@ const AgentsKanban = ({ candidates }: AgentsKanbanProps) => {
                       <div className="h-1.5 flex-1 rounded-full bg-muted overflow-hidden mr-3">
                         <div className="h-full bg-ai/25 rounded-full transition-all" style={{ width: `${a.score}%` }} />
                       </div>
-                      <span className="text-[12px] font-heading font-semibold tabular-nums">{a.score}%</span>
+                      <span className="text-[12px] font-mondwest font-semibold tabular-nums">{a.score}%</span>
                     </div>
                   </div>
                 </CursorCard>

@@ -100,7 +100,7 @@ export const PublishDialog = ({ open, onOpenChange, jobTitle }: PublishDialogPro
       <DialogContent className="sm:max-w-[480px] rounded-2xl p-0 overflow-hidden border-border">
         <div className="p-6 pb-0">
           <DialogHeader>
-            <DialogTitle className="text-[16px] font-heading font-semibold tracking-tight">
+            <DialogTitle className="text-[16px] font-mondwest font-semibold tracking-tight">
               {t("publish.title")}
             </DialogTitle>
             <DialogDescription className="text-[12px] text-muted-foreground mt-1">
@@ -130,7 +130,7 @@ export const PublishDialog = ({ open, onOpenChange, jobTitle }: PublishDialogPro
                 `}
               >
                 <div className="h-9 w-9 rounded-lg bg-muted flex items-center justify-center shrink-0">
-                  <span className="text-[10px] font-heading font-bold text-muted-foreground">{p.icon}</span>
+                  <span className="text-[10px] font-mondwest font-bold text-muted-foreground">{p.icon}</span>
                 </div>
 
                 <div className="flex-1 min-w-0">

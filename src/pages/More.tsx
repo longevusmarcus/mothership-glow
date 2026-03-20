@@ -85,7 +85,7 @@ const More = () => {
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="text-[22px] sm:text-[26px] font-heading font-semibold tracking-tight">
+        <h1 className="text-[22px] sm:text-[26px] font-mondwest font-semibold tracking-tight">
           <TextShimmer as="span" duration={2.5}>
             {locale === "it" ? "Esplora" : "Explore"}
           </TextShimmer>
@@ -108,7 +108,7 @@ const More = () => {
                   </div>
                   <ChevronRight className="h-4 w-4 text-muted-foreground/30 group-hover:text-foreground/50 transition-colors" />
                 </div>
-                <h3 className="text-[14px] font-heading font-semibold mb-1">
+                <h3 className="text-[14px] font-mondwest font-semibold mb-1">
                   {locale === "it" ? section.titleIt : section.title}
                 </h3>
                 <p className="text-[11px] text-muted-foreground leading-relaxed mb-4">

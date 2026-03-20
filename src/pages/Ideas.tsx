@@ -75,7 +75,7 @@ const Ideas = () => {
           <ArrowLeft className="h-4 w-4" strokeWidth={1.6} />
         </Link>
         <div className="flex-1">
-          <h1 className="text-[22px] font-heading font-semibold tracking-tight flex items-center gap-2">
+          <h1 className="text-[22px] font-mondwest font-semibold tracking-tight flex items-center gap-2">
             <Lightbulb className="h-5 w-5 text-green-400" strokeWidth={1.6} />
             {locale === "it" ? "Idee" : "Ideas"}
           </h1>
@@ -151,7 +151,7 @@ const Ideas = () => {
               <div className="text-right shrink-0 space-y-2">
                 <div className="flex items-center justify-end gap-1.5">
                   <Star className="h-3 w-3 text-primary/60" strokeWidth={1.6} />
-                  <span className="text-[14px] font-heading font-semibold tabular-nums">{idea.score}</span>
+                  <span className="text-[14px] font-mondwest font-semibold tabular-nums">{idea.score}</span>
                 </div>
                 <ChevronRight className="h-3.5 w-3.5 text-muted-foreground/30 ml-auto group-hover:text-foreground/50 transition-colors" />
               </div>

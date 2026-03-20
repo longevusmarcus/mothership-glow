@@ -44,7 +44,7 @@ const Arena = () => {
           <ArrowLeft className="h-4 w-4" strokeWidth={1.6} />
         </Link>
         <div className="flex-1">
-          <h1 className="text-[22px] sm:text-[26px] font-heading font-semibold tracking-tight flex items-center gap-2">
+          <h1 className="text-[22px] sm:text-[26px] font-mondwest font-semibold tracking-tight flex items-center gap-2">
             <Swords className="h-5 w-5 text-primary" strokeWidth={1.6} />
             <TextShimmer as="span" duration={2.5}>
               {locale === "it" ? "Arena" : "Arena"}
@@ -65,7 +65,7 @@ const Arena = () => {
       <div className="bg-card border border-border rounded-2xl overflow-hidden">
         <div className="px-6 py-4 border-b border-border flex items-center justify-between">
           <div className="flex items-center gap-2.5">
-            <h2 className="text-[13px] font-heading font-semibold">Week {currentWeek.number}</h2>
+            <h2 className="text-[13px] font-mondwest font-semibold">Week {currentWeek.number}</h2>
             <span className="text-[8px] px-2 py-0.5 rounded-full font-semibold bg-destructive/10 text-destructive uppercase tracking-[0.08em] flex items-center gap-1">
               <span className="h-1.5 w-1.5 rounded-full bg-destructive animate-pulse" /> LIVE
             </span>
@@ -82,7 +82,7 @@ const Arena = () => {
             </div>
             <div className="flex items-center gap-4 shrink-0">
               <div className="text-right">
-                <p className="text-[20px] font-heading font-bold text-primary">{currentWeek.prize}</p>
+                <p className="text-[20px] font-mondwest font-bold text-primary">{currentWeek.prize}</p>
                 <p className="text-[9px] text-muted-foreground">{currentWeek.participants} participants</p>
               </div>
               <button className="h-10 px-5 rounded-xl bg-primary text-primary-foreground text-[12px] font-semibold flex items-center gap-2 hover:bg-primary/90 transition-colors active:scale-[0.97]">
@@ -121,7 +121,7 @@ const Arena = () => {
                   <div className="h-1.5 w-20 rounded-full bg-muted overflow-hidden">
                     <div className="h-full rounded-full bg-primary/50" style={{ width: `${agent.score}%` }} />
                   </div>
-                  <span className="text-[13px] font-heading font-semibold tabular-nums w-8 text-right">{agent.score}</span>
+                  <span className="text-[13px] font-mondwest font-semibold tabular-nums w-8 text-right">{agent.score}</span>
                 </div>
               </motion.div>
             ))}

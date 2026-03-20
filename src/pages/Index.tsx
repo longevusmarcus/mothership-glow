@@ -90,7 +90,7 @@ const Dashboard = () => {
       <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3">
         <div>
           <p className="text-[12px] text-muted-foreground font-medium capitalize tracking-wide">{dateStr}</p>
-          <h1 className="text-[22px] sm:text-[28px] font-heading font-semibold tracking-tight mt-1">
+          <h1 className="text-[22px] sm:text-[28px] font-mondwest font-semibold tracking-tight mt-1">
             <TextShimmer as="span" duration={2.5}>{`${t(greetingKey)}, Operator`}</TextShimmer>
           </h1>
         </div>
@@ -113,7 +113,7 @@ const Dashboard = () => {
                     {stat.change}
                   </span>
                 </div>
-                <p className="text-[30px] font-heading font-semibold tracking-tight leading-none">{stat.value}</p>
+                <p className="text-[30px] font-mondwest font-semibold tracking-tight leading-none">{stat.value}</p>
                 <p className="text-[11px] text-muted-foreground mt-1.5 font-medium">{t(stat.labelKey)}</p>
               </div>
             </CursorCard>
@@ -127,7 +127,7 @@ const Dashboard = () => {
             <div className="h-6 w-6 rounded-lg bg-muted flex items-center justify-center">
               <AiIcon className="text-muted-foreground" size={13} />
             </div>
-            <h2 className="text-[13px] font-heading font-semibold text-foreground">{t("dashboard.aiInsights")}</h2>
+            <h2 className="text-[13px] font-mondwest font-semibold text-foreground">{t("dashboard.aiInsights")}</h2>
             <span className="text-[8px] px-2 py-0.5 rounded-full font-semibold bg-muted text-muted-foreground uppercase tracking-[0.08em] border border-border">Live</span>
           </div>
           <CursorCardsContainer className="grid grid-cols-1 md:grid-cols-3 gap-3">
@@ -149,7 +149,7 @@ const Dashboard = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
           <div className="bg-card rounded-2xl card-static overflow-hidden">
             <div className="px-6 py-4 border-b border-border flex items-center justify-between">
-              <h2 className="text-[13px] font-heading font-semibold">{t("dashboard.pipelineSummary")}</h2>
+              <h2 className="text-[13px] font-mondwest font-semibold">{t("dashboard.pipelineSummary")}</h2>
               <Link to="/agents" className="text-[11px] text-muted-foreground hover:text-foreground transition-colors font-medium">{t("dashboard.viewAllShort")}</Link>
             </div>
             <div className="p-6 space-y-4">
@@ -168,7 +168,7 @@ const Dashboard = () => {
           </div>
           <div className="bg-card rounded-2xl card-static overflow-hidden">
             <div className="px-6 py-4 border-b border-border flex items-center justify-between">
-              <h2 className="text-[13px] font-heading font-semibold">{t("dashboard.activeCompanies")}</h2>
+              <h2 className="text-[13px] font-mondwest font-semibold">{t("dashboard.activeCompanies")}</h2>
               <Link to="/companies" className="text-[11px] text-muted-foreground hover:text-foreground transition-colors font-medium">{t("dashboard.allCompanies")}</Link>
             </div>
             <div className="divide-y divide-border">
@@ -192,7 +192,7 @@ const Dashboard = () => {
             <CursorCard borderColor="hsl(var(--border))">
               <div className="overflow-hidden">
                 <div className="px-6 py-4 border-b border-border flex items-center justify-between">
-                  <h2 className="text-[13px] font-heading font-semibold">{t("dashboard.recentAgents")}</h2>
+                  <h2 className="text-[13px] font-mondwest font-semibold">{t("dashboard.recentAgents")}</h2>
                   <Link to="/agents" className="text-[11px] text-muted-foreground hover:text-foreground flex items-center gap-1 transition-colors font-medium">
                     {t("dashboard.viewAll")} <ChevronRight className="h-3 w-3" />
                   </Link>
@@ -213,7 +213,7 @@ const Dashboard = () => {
                       <span className={`text-[10px] font-semibold px-2.5 py-1 rounded-lg ${statusColors[a.status]}`}>
                         {statusDisplayName(a.status)}
                       </span>
-                      <span className="text-[15px] font-heading font-semibold tabular-nums w-12 text-right">
+                      <span className="text-[15px] font-mondwest font-semibold tabular-nums w-12 text-right">
                         {a.score}%
                       </span>
                     </Link>
@@ -228,7 +228,7 @@ const Dashboard = () => {
               <div className="overflow-hidden">
                 <div className="px-5 py-3.5 border-b border-border flex items-center gap-2">
                   <Bell className="h-3.5 w-3.5 text-muted-foreground" strokeWidth={1.6} />
-                  <h2 className="text-[13px] font-heading font-semibold">{t("dashboard.notifications")}</h2>
+                  <h2 className="text-[13px] font-mondwest font-semibold">{t("dashboard.notifications")}</h2>
                 </div>
                 <div className="divide-y divide-border">
                   {notifications.map((n, i) => (
@@ -249,7 +249,7 @@ const Dashboard = () => {
             <CursorCard borderColor="hsl(var(--border))">
               <div className="overflow-hidden">
                 <div className="px-5 py-3.5 border-b border-border flex items-center justify-between">
-                  <h2 className="text-[13px] font-heading font-semibold">{t("dashboard.activeCompanies")}</h2>
+                  <h2 className="text-[13px] font-mondwest font-semibold">{t("dashboard.activeCompanies")}</h2>
                   <Link to="/companies" className="text-[11px] text-muted-foreground hover:text-foreground transition-colors font-medium">{t("dashboard.allCompanies")}</Link>
                 </div>
                 <div className="divide-y divide-border">
