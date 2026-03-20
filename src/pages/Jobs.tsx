@@ -27,7 +27,7 @@ const Companies = () => {
       <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3">
         <div>
           <h1 className="text-[28px] sm:text-[34px] font-mondwest font-semibold tracking-tight"><TextShimmer as="span" duration={2.5}>{t("jobs.title")}</TextShimmer></h1>
-          <p className="text-[13px] text-muted-foreground mt-1">
+          <p className="text-[13px] text-muted-foreground mt-1 font-mono">
             {companies.filter(c => c.status === "Attiva").length} {t("jobs.activePositions")}
           </p>
         </div>
