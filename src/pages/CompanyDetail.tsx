@@ -19,7 +19,7 @@ const companyData: Record<string, {
     description: "AI-powered project management platform for remote teams.",
     stack: ["React/TypeScript", "Node.js", "Supabase", "Stripe", "Vercel", "OpenAI API"],
     agents: [
-      { id: 1, name: "CodeForge", type: "Tech", score: 96, status: "Active", tasks: 47, telegram: "CodeForge_bot" },
+      { id: 1, name: "CEO Agent", type: "Tech", score: 96, status: "Active", tasks: 47, telegram: "CEOAgent_bot" },
       { id: 2, name: "GrowthPilot", type: "Growth", score: 91, status: "Active", tasks: 23, telegram: "GrowthPilot_bot" },
       { id: 6, name: "MarketBot", type: "Growth", score: 88, status: "Active", tasks: 15, telegram: "MarketBot_agent" },
       { id: 3, name: "DesignMind", type: "Creative", score: 87, status: "Deployed", tasks: 31, telegram: "DesignMind_bot" },
