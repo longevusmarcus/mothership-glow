@@ -34,6 +34,58 @@ const deploySteps: DeployStep[] = [
   { label: "Deploying to production", detail: "Publishing to global CDN with SSL...", duration: 1600 },
 ];
 
+function ClaimCompanyPaywall({ onDeployAnother }: { onDeployAnother: () => void }) {
+  const [showPlan, setShowPlan] = useState(false);
+
+  return (
+    <div className="space-y-3">
+      {!showPlan ? (
+        <div className="flex justify-end gap-2.5">
+          <button onClick={onDeployAnother}
+            className="px-4 py-2.5 text-[12px] font-medium text-muted-foreground hover:text-foreground transition-colors">
+            Deploy another
+          </button>
+          <button onClick={() => setShowPlan(true)}
+            className="flex items-center gap-2 px-5 py-2.5 bg-foreground text-background rounded-xl text-[12px] font-semibold hover:opacity-90 transition-all active:scale-[0.97]">
+            <Lock className="h-3.5 w-3.5" strokeWidth={1.8} />
+            Claim company
+          </button>
+        </div>
+      ) : (
+        <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="rounded-2xl border border-primary/25 bg-primary/[0.04] p-5 space-y-4">
+          <div className="flex items-center gap-3">
+            <div className="h-10 w-10 rounded-xl bg-primary/10 flex items-center justify-center">
+              <Sparkles className="h-4.5 w-4.5 text-primary" strokeWidth={1.6} />
+            </div>
+            <div>
+              <p className="text-[15px] font-semibold">Claim this company — $58/mo</p>
+              <p className="text-[11px] text-muted-foreground">Own it, control it, scale it</p>
+            </div>
+          </div>
+          <ul className="space-y-2 text-[12px] text-muted-foreground">
+            <li className="flex items-center gap-2"><Check className="h-3 w-3 text-primary shrink-0" strokeWidth={2.5} /> Full ownership & admin access</li>
+            <li className="flex items-center gap-2"><Check className="h-3 w-3 text-primary shrink-0" strokeWidth={2.5} /> Custom domain & branding</li>
+            <li className="flex items-center gap-2"><Check className="h-3 w-3 text-primary shrink-0" strokeWidth={2.5} /> REST API access & webhooks</li>
+            <li className="flex items-center gap-2"><Check className="h-3 w-3 text-primary shrink-0" strokeWidth={2.5} /> Revenue collection via Stripe</li>
+            <li className="flex items-center gap-2"><Check className="h-3 w-3 text-primary shrink-0" strokeWidth={2.5} /> Priority agent orchestration</li>
+          </ul>
+          <div className="flex gap-2.5">
+            <button onClick={onDeployAnother}
+              className="px-4 py-2.5 text-[12px] font-medium text-muted-foreground hover:text-foreground transition-colors">
+              Deploy another
+            </button>
+            <button onClick={() => toast.info("Payment flow coming soon — you'll be first in line.")}
+              className="flex-1 h-11 rounded-xl bg-foreground text-background text-[12px] font-semibold flex items-center justify-center gap-2 hover:opacity-90 transition-all active:scale-[0.97]">
+              <CreditCard className="h-3.5 w-3.5" strokeWidth={1.8} />
+              Subscribe & Claim — $58/mo
+            </button>
+          </div>
+        </motion.div>
+      )}
+    </div>
+  );
+}
+
 const CompanyCreate = () => {
   const { t } = useLanguage();
   const navigate = useNavigate();
