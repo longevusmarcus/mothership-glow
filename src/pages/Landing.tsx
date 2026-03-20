@@ -79,7 +79,7 @@ const Landing = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 0.5 }}
           transition={{ duration: 0.6, delay: 0.6 }}
-          className="hidden lg:block absolute right-[12%] top-[38%] font-pixel text-[11px] text-muted-foreground/60 text-right leading-snug"
+          className="hidden lg:block absolute right-[12%] top-[38%] font-mono text-[11px] text-muted-foreground/60 text-right leading-snug italic"
         >
           <em>sufficiently</em>
           <br />
