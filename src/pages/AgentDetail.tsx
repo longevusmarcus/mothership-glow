@@ -5,7 +5,7 @@ import { Link, useParams } from "react-router-dom";
 import { useState } from "react";
 import { useLanguage } from "@/i18n/LanguageContext";
 import type { TranslationKey } from "@/i18n/translations";
-import { typeMeta } from "@/data/constants";
+import { typeMeta, stageColors } from "@/data/constants";
 
 const agentData: Record<string, {
   name: string; type: string; endpoint: string; version: string; role: string; score: number; stage: string;
