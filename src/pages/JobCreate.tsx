@@ -1,146 +1,264 @@
-import { ArrowLeft, Loader2, Send } from "lucide-react";
+import { ArrowLeft, Bot, Brain, Code, Loader2, Rocket, Zap, Check, Radio, TrendingUp, Lightbulb, Database, Globe, ChevronRight } from "lucide-react";
 import AiIcon from "@/components/AiIcon";
-import { InteractiveHoverButton } from "@/components/ui/interactive-hover-button";
 import { TextShimmer } from "@/components/ui/text-shimmer";
-import { Link } from "react-router-dom";
-import { useState, useCallback } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useState, useEffect, useRef } from "react";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { toast } from "sonner";
+import { motion, AnimatePresence } from "framer-motion";
+
+const agents = [
+  { id: "codeforge", name: "CodeForge", role: "Full-Stack Builder", icon: Code, color: "hsl(var(--chart-1))", desc: "Builds MVPs end-to-end from signals. Deploys landing pages, backends, and payment flows autonomously." },
+  { id: "growthpilot", name: "GrowthPilot", role: "Growth & Distribution", icon: TrendingUp, color: "hsl(var(--chart-2))", desc: "Analyzes market signals, sets up acquisition channels, and runs initial traction experiments." },
+  { id: "visionarch", name: "VisionArch", role: "Product Strategist", icon: Brain, color: "hsl(var(--chart-3))", desc: "Synthesizes ideas and signals into a coherent product strategy with roadmap and positioning." },
+  { id: "dataweaver", name: "DataWeaver", role: "Data & Integrations", icon: Database, color: "hsl(var(--chart-4))", desc: "Connects APIs, scrapes data sources, and builds automated pipelines from signal databases." },
+];
+
+type DeployStep = {
+  label: string;
+  detail: string;
+  duration: number;
+};
+
+const deploySteps: DeployStep[] = [
+  { label: "Scanning signals database", detail: "Analyzing 847 market signals from last 30 days...", duration: 2200 },
+  { label: "Cross-referencing ideas", detail: "Matching 23 validated ideas with current trends...", duration: 1800 },
+  { label: "Generating business model", detail: "Building revenue model, pricing, and unit economics...", duration: 2400 },
+  { label: "Designing tech architecture", detail: "Selecting stack: React, Supabase, Stripe, Resend...", duration: 1600 },
+  { label: "Creating landing page", detail: "Deploying hero, features, pricing sections...", duration: 2000 },
+  { label: "Setting up backend", detail: "Provisioning database, auth, and API routes...", duration: 1800 },
+  { label: "Configuring payments", detail: "Integrating Stripe checkout and billing portal...", duration: 1400 },
+  { label: "Running pre-launch checks", detail: "Testing flows, performance, and security...", duration: 1200 },
+  { label: "Deploying to production", detail: "Publishing to global CDN with SSL...", duration: 1600 },
+];
 
 const CompanyCreate = () => {
   const { t } = useLanguage();
-  const [form, setForm] = useState({
-    title: "", department: "", location: "", type: "SaaS B2B",
-    experience: "", salary: "", description: "", requirements: "", skills: "",
-  });
-  const [generating, setGenerating] = useState(false);
+  const navigate = useNavigate();
+  const [selectedAgent, setSelectedAgent] = useState<string | null>(null);
+  const [step, setStep] = useState<"select" | "deploying" | "done">("select");
+  const [currentDeployStep, setCurrentDeployStep] = useState(0);
+  const [completedSteps, setCompletedSteps] = useState<number[]>([]);
+  const [generatedCompany, setGeneratedCompany] = useState<{ name: string; type: string; market: string; mrr: string } | null>(null);
+  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  const update = (field: string, value: string) => setForm(prev => ({ ...prev, [field]: value }));
+  const startDeploy = () => {
+    if (!selectedAgent) return;
+    setStep("deploying");
+    setCurrentDeployStep(0);
+    setCompletedSteps([]);
+    runStep(0);
+  };
 
-  const inputClass = "w-full px-3.5 py-2.5 bg-background border border-border rounded-xl text-[13px] font-body placeholder:text-muted-foreground/40 focus:outline-none focus:ring-1 focus:ring-ring/15 transition-all";
-  const labelClass = "block text-[10px] font-semibold text-muted-foreground mb-1.5 tracking-wider uppercase";
+  const runStep = (idx: number) => {
+    if (idx >= deploySteps.length) {
+      setGeneratedCompany({ name: "NovaPay", type: "SaaS B2B", market: "EU / Global", mrr: "$2,400" });
+      setStep("done");
+      toast.success("Company deployed autonomously!");
+      return;
+    }
+    setCurrentDeployStep(idx);
+    timerRef.current = setTimeout(() => {
+      setCompletedSteps(prev => [...prev, idx]);
+      runStep(idx + 1);
+    }, deploySteps[idx].duration);
+  };
 
-  const generateWithAI = useCallback(() => {
-    setGenerating(true);
-    const generated = {
-      title: "SmartInvoice",
-      department: "Fintech",
-      location: "EU / Global",
-      type: "SaaS B2B",
-      experience: "MVP",
-      salary: "$1,800/mo",
-      description: "AI-powered invoicing platform for freelancers and small businesses. Automatically generates invoices from project tracking data, handles multi-currency conversions, sends payment reminders, and provides cash flow forecasting.\n\nKey features:\n• Auto-generate invoices from time tracking\n• Multi-currency support with real-time conversion\n• Smart payment reminders & follow-ups\n• Cash flow forecasting with AI predictions\n• Stripe & PayPal integration for instant payments\n• Tax calculation by jurisdiction",
-      requirements: "Stripe API integration\nMulti-currency handling\nPDF generation\nEmail notifications\nDashboard analytics\nMobile-responsive design",
-      skills: "React, TypeScript, Node.js, Stripe, Supabase, Resend, PDF-lib",
-    };
+  useEffect(() => () => { if (timerRef.current) clearTimeout(timerRef.current); }, []);
 
-    const fields = Object.entries(generated);
-    let fieldIdx = 0;
-    let charIdx = 0;
-
-    const interval = setInterval(() => {
-      if (fieldIdx >= fields.length) {
-        setGenerating(false);
-        clearInterval(interval);
-        return;
-      }
-      const [key, value] = fields[fieldIdx];
-      if (charIdx <= value.length) {
-        setForm(prev => ({ ...prev, [key]: value.slice(0, charIdx) }));
-        charIdx += Math.floor(Math.random() * 4) + 2;
-      } else {
-        setForm(prev => ({ ...prev, [key]: value }));
-        fieldIdx++;
-        charIdx = 0;
-      }
-    }, 15);
-  }, []);
+  const agent = agents.find(a => a.id === selectedAgent);
+  const progress = step === "done" ? 100 : step === "deploying" ? Math.round(((completedSteps.length) / deploySteps.length) * 100) : 0;
 
   return (
-    <div className="max-w-4xl mx-auto space-y-6">
+    <div className="max-w-3xl mx-auto space-y-6">
       <Link to="/companies" className="inline-flex items-center gap-2 text-[12px] text-muted-foreground hover:text-foreground transition-colors font-medium">
         <ArrowLeft className="h-3.5 w-3.5" strokeWidth={1.6} /> {t("jobs.backToJobs")}
       </Link>
 
-      <div className="flex items-end justify-between">
-        <div>
-          <h1 className="text-[26px] font-heading font-semibold tracking-tight"><TextShimmer as="span" duration={2.5}>{t("jobCreate.title")}</TextShimmer></h1>
-          <p className="text-[13px] text-muted-foreground mt-1">{t("jobCreate.subtitle")}</p>
-        </div>
-        <button onClick={generateWithAI} disabled={generating} className="flex items-center gap-1.5 px-4 py-2 border border-border text-muted-foreground rounded-xl text-[12px] font-body font-medium hover:bg-muted transition-all disabled:opacity-50">
-          {generating ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <AiIcon size={14} />}
-          {generating ? t("jobCreate.generating") : t("jobCreate.generateAi")}
-        </button>
+      <div>
+        <h1 className="text-[26px] font-heading font-semibold tracking-tight">
+          <TextShimmer as="span" duration={2.5}>{t("jobCreate.title")}</TextShimmer>
+        </h1>
+        <p className="text-[13px] text-muted-foreground mt-1">Select an agent to autonomously build your next company from signals &amp; ideas</p>
       </div>
 
-      {generating && (
-        <div className="rounded-2xl p-4 flex items-center gap-3 border border-border bg-muted/30">
-          <Loader2 className="h-4 w-4 text-muted-foreground animate-spin shrink-0" />
-          <p className="text-[12px] text-muted-foreground font-medium">{t("jobCreate.aiGenerating")}</p>
-        </div>
-      )}
+      <AnimatePresence mode="wait">
+        {step === "select" && (
+          <motion.div key="select" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -12 }} transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }} className="space-y-4">
+            {/* Agent cards */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              {agents.map(a => {
+                const Icon = a.icon;
+                const selected = selectedAgent === a.id;
+                return (
+                  <button key={a.id} onClick={() => setSelectedAgent(a.id)}
+                    className={`relative text-left p-5 rounded-2xl border transition-all duration-200 group ${selected ? "border-primary/40 bg-primary/[0.04] shadow-[0_2px_12px_-4px_hsl(var(--primary)/0.15)]" : "border-border bg-card hover:border-border/80 hover:shadow-[0_2px_8px_-4px_hsl(var(--foreground)/0.06)]"}`}>
+                    {selected && <div className="absolute top-3 right-3"><Check className="h-4 w-4 text-primary" strokeWidth={2} /></div>}
+                    <div className="flex items-start gap-3.5">
+                      <div className="h-10 w-10 rounded-xl flex items-center justify-center shrink-0" style={{ background: `${a.color}15` }}>
+                        <Icon className="h-4.5 w-4.5" style={{ color: a.color }} strokeWidth={1.6} />
+                      </div>
+                      <div className="min-w-0">
+                        <div className="flex items-center gap-2">
+                          <span className="text-[13px] font-semibold text-foreground">{a.name}</span>
+                          <span className="text-[10px] font-medium text-muted-foreground bg-muted px-1.5 py-0.5 rounded-md">{a.role}</span>
+                        </div>
+                        <p className="text-[11.5px] text-muted-foreground mt-1.5 leading-relaxed">{a.desc}</p>
+                      </div>
+                    </div>
+                  </button>
+                );
+              })}
+            </div>
 
-      <div className="bg-card rounded-2xl p-7 card-static space-y-6">
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-          <div>
-            <label className={labelClass}>{t("jobCreate.positionTitle")} *</label>
-            <input type="text" value={form.title} onChange={e => update("title", e.target.value)} className={inputClass} placeholder="e.g. SmartInvoice" />
-          </div>
-          <div>
-            <label className={labelClass}>{t("jobCreate.department")} *</label>
-            <input type="text" value={form.department} onChange={e => update("department", e.target.value)} className={inputClass} placeholder="e.g. Fintech" />
-          </div>
-          <div>
-            <label className={labelClass}>{t("jobCreate.workLocation")} *</label>
-            <input type="text" value={form.location} onChange={e => update("location", e.target.value)} className={inputClass} placeholder="e.g. EU / Global" />
-          </div>
-          <div>
-            <label className={labelClass}>{t("jobCreate.contractType")} *</label>
-            <select value={form.type} onChange={e => update("type", e.target.value)} className={inputClass}>
-              <option>{t("jobCreate.fullTime")}</option>
-              <option>{t("jobCreate.partTime")}</option>
-              <option>{t("jobCreate.freelance")}</option>
-              <option>{t("jobCreate.internship")}</option>
-              <option>{t("jobCreate.apprenticeship")}</option>
-            </select>
-          </div>
-          <div>
-            <label className={labelClass}>{t("jobCreate.requiredExperience")}</label>
-            <select value={form.experience} onChange={e => update("experience", e.target.value)} className={inputClass}>
-              <option value="">{t("jobCreate.select")}</option>
-              <option>{t("jobCreate.years02")}</option>
-              <option>{t("jobCreate.years35")}</option>
-              <option>{t("jobCreate.years58")}</option>
-              <option>{t("jobCreate.years8plus")}</option>
-            </select>
-          </div>
-          <div>
-            <label className={labelClass}>{t("jobCreate.salaryRange")}</label>
-            <input type="text" value={form.salary} onChange={e => update("salary", e.target.value)} className={inputClass} placeholder="e.g. $1,500 — $3,000/mo" />
-          </div>
-        </div>
+            {/* Signal + Idea sources preview */}
+            <div className="rounded-2xl border border-border bg-card p-5 space-y-3">
+              <p className="text-[10px] font-semibold text-muted-foreground tracking-wider uppercase">Data sources the agent will use</p>
+              <div className="grid grid-cols-3 gap-3">
+                {[
+                  { icon: Radio, label: "Signals", count: "847", sub: "last 30 days" },
+                  { icon: Lightbulb, label: "Ideas", count: "23", sub: "validated" },
+                  { icon: Globe, label: "Markets", count: "12", sub: "tracked" },
+                ].map(s => (
+                  <div key={s.label} className="flex items-center gap-3 p-3 rounded-xl bg-muted/40">
+                    <s.icon className="h-4 w-4 text-muted-foreground shrink-0" strokeWidth={1.5} />
+                    <div>
+                      <div className="flex items-baseline gap-1.5">
+                        <span className="text-[15px] font-semibold text-foreground tabular-nums">{s.count}</span>
+                        <span className="text-[10px] text-muted-foreground">{s.label}</span>
+                      </div>
+                      <p className="text-[10px] text-muted-foreground/60">{s.sub}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
 
-        <div>
-          <label className={labelClass}>{t("jobCreate.roleDescription")} *</label>
-          <textarea rows={8} value={form.description} onChange={e => update("description", e.target.value)} className={`${inputClass} resize-none`} />
-        </div>
+            {/* Deploy button */}
+            <div className="flex justify-end gap-2.5 pt-2">
+              <Link to="/companies" className="px-4 py-2.5 text-[12px] font-body font-medium text-muted-foreground hover:text-foreground transition-colors">{t("jobCreate.cancel")}</Link>
+              <button onClick={startDeploy} disabled={!selectedAgent}
+                className="flex items-center gap-2 px-5 py-2.5 bg-primary text-primary-foreground rounded-xl text-[12px] font-semibold hover:opacity-90 transition-all disabled:opacity-30 disabled:cursor-not-allowed active:scale-[0.97]">
+                <Rocket className="h-3.5 w-3.5" strokeWidth={1.8} />
+                Deploy with {agent?.name ?? "Agent"}
+              </button>
+            </div>
+          </motion.div>
+        )}
 
-        <div>
-          <label className={labelClass}>{t("jobCreate.requiredSkills")}</label>
-          <input type="text" value={form.skills} onChange={e => update("skills", e.target.value)} className={inputClass} placeholder="e.g. React, TypeScript, Stripe, Supabase" />
-        </div>
+        {step === "deploying" && (
+          <motion.div key="deploying" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -12 }} transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }} className="space-y-5">
+            {/* Agent header */}
+            {agent && (
+              <div className="flex items-center gap-3 p-4 rounded-2xl border border-primary/20 bg-primary/[0.03]">
+                <div className="h-10 w-10 rounded-xl flex items-center justify-center" style={{ background: `${agent.color}15` }}>
+                  <agent.icon className="h-4.5 w-4.5" style={{ color: agent.color }} strokeWidth={1.6} />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <p className="text-[13px] font-semibold text-foreground">{agent.name} is building your company</p>
+                  <p className="text-[11px] text-muted-foreground">Autonomous deployment in progress...</p>
+                </div>
+                <Loader2 className="h-4 w-4 text-primary animate-spin shrink-0" />
+              </div>
+            )}
 
-        <div>
-          <label className={labelClass}>{t("jobCreate.additionalRequirements")}</label>
-          <textarea rows={4} value={form.requirements} onChange={e => update("requirements", e.target.value)} className={`${inputClass} resize-none`} />
-        </div>
+            {/* Progress bar */}
+            <div className="space-y-2">
+              <div className="flex justify-between text-[11px]">
+                <span className="text-muted-foreground font-medium">Progress</span>
+                <span className="text-foreground font-semibold tabular-nums">{progress}%</span>
+              </div>
+              <div className="h-2 w-full rounded-full bg-muted overflow-hidden">
+                <motion.div className="h-full rounded-full bg-primary" initial={{ width: 0 }} animate={{ width: `${progress}%` }} transition={{ duration: 0.6, ease: "easeOut" }} />
+              </div>
+            </div>
 
-        <div className="flex justify-end gap-2.5 pt-3 border-t border-border">
-          <Link to="/companies" className="px-4 py-2.5 text-[12px] font-body font-medium text-muted-foreground hover:text-foreground transition-colors">{t("jobCreate.cancel")}</Link>
-          <InteractiveHoverButton text={t("jobCreate.saveDraft")} className="border-border" onClick={() => toast.success(t("jobCreate.saveDraft"))} />
-          <InteractiveHoverButton text={t("jobCreate.publishPosition")} icon={<Send className="h-3.5 w-3.5" strokeWidth={1.6} />} onClick={() => toast.success("Company created!")} />
-        </div>
-      </div>
+            {/* Steps */}
+            <div className="rounded-2xl border border-border bg-card divide-y divide-border">
+              {deploySteps.map((s, i) => {
+                const done = completedSteps.includes(i);
+                const active = currentDeployStep === i && !done;
+                return (
+                  <motion.div key={i} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: i * 0.05 }}
+                    className={`flex items-center gap-3 px-5 py-3 transition-colors ${active ? "bg-primary/[0.03]" : ""}`}>
+                    <div className="shrink-0">
+                      {done ? <Check className="h-4 w-4 text-primary" strokeWidth={2.2} /> : active ? <Loader2 className="h-4 w-4 text-primary animate-spin" /> : <div className="h-4 w-4 rounded-full border border-border" />}
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <p className={`text-[12px] font-medium ${done ? "text-foreground" : active ? "text-foreground" : "text-muted-foreground/50"}`}>{s.label}</p>
+                      {active && <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-[11px] text-muted-foreground mt-0.5">{s.detail}</motion.p>}
+                    </div>
+                  </motion.div>
+                );
+              })}
+            </div>
+          </motion.div>
+        )}
+
+        {step === "done" && generatedCompany && (
+          <motion.div key="done" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }} className="space-y-5">
+            {/* Success header */}
+            <div className="flex items-center gap-3 p-5 rounded-2xl border border-primary/25 bg-primary/[0.04]">
+              <div className="h-11 w-11 rounded-xl bg-primary/10 flex items-center justify-center">
+                <Check className="h-5 w-5 text-primary" strokeWidth={2.2} />
+              </div>
+              <div>
+                <p className="text-[15px] font-semibold text-foreground">Company deployed successfully</p>
+                <p className="text-[12px] text-muted-foreground mt-0.5">{agent?.name} built everything from 847 signals and 23 validated ideas</p>
+              </div>
+            </div>
+
+            {/* Generated company summary */}
+            <div className="rounded-2xl border border-border bg-card p-6 space-y-5">
+              <div className="flex items-center gap-3">
+                <div className="h-12 w-12 rounded-2xl bg-gradient-to-br from-primary/20 to-primary/5 flex items-center justify-center text-[18px] font-bold text-primary">N</div>
+                <div>
+                  <h2 className="text-[18px] font-heading font-semibold text-foreground">{generatedCompany.name}</h2>
+                  <p className="text-[12px] text-muted-foreground">{generatedCompany.type} · {generatedCompany.market}</p>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                {[
+                  { label: "Status", value: "Live", color: "text-emerald-500" },
+                  { label: "Projected MRR", value: generatedCompany.mrr, color: "text-foreground" },
+                  { label: "Pages deployed", value: "7", color: "text-foreground" },
+                  { label: "APIs connected", value: "4", color: "text-foreground" },
+                ].map(m => (
+                  <div key={m.label} className="p-3 rounded-xl bg-muted/40">
+                    <p className="text-[10px] text-muted-foreground uppercase tracking-wider font-medium">{m.label}</p>
+                    <p className={`text-[15px] font-semibold tabular-nums mt-0.5 ${m.color}`}>{m.value}</p>
+                  </div>
+                ))}
+              </div>
+
+              <div className="space-y-2">
+                <p className="text-[10px] font-semibold text-muted-foreground tracking-wider uppercase">What was deployed</p>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                  {["Landing page with pricing", "Stripe checkout integration", "User auth & onboarding", "Admin dashboard", "Email sequences via Resend", "Analytics & event tracking", "REST API + webhooks"].map(item => (
+                    <div key={item} className="flex items-center gap-2 text-[12px] text-muted-foreground">
+                      <Check className="h-3 w-3 text-primary shrink-0" strokeWidth={2.5} />
+                      {item}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Actions */}
+            <div className="flex justify-end gap-2.5">
+              <button onClick={() => { setStep("select"); setSelectedAgent(null); setGeneratedCompany(null); }}
+                className="px-4 py-2.5 text-[12px] font-medium text-muted-foreground hover:text-foreground transition-colors">
+                Deploy another
+              </button>
+              <button onClick={() => navigate("/companies/1")}
+                className="flex items-center gap-2 px-5 py-2.5 bg-primary text-primary-foreground rounded-xl text-[12px] font-semibold hover:opacity-90 transition-all active:scale-[0.97]">
+                Open company <ChevronRight className="h-3.5 w-3.5" strokeWidth={1.8} />
+              </button>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };
