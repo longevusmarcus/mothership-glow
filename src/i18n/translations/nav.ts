@@ -3,6 +3,7 @@ export const translationsNav = {
   "nav.chatAi": { it: "Deploy Hub", en: "Deploy Hub" },
   "nav.candidates": { it: "Agenti", en: "Agents" },
   "nav.knowledge": { it: "Knowledge Base", en: "Knowledge Base" },
+  "nav.store": { it: "App Store", en: "App Store" },
   "nav.jobs": { it: "Aziende", en: "Companies" },
   "nav.analytics": { it: "Analytics", en: "Analytics" },
   "nav.settings": { it: "Impostazioni", en: "Settings" },
