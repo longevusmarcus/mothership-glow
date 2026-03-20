@@ -113,9 +113,9 @@ const CompanyCreate = () => {
                 const isBusy = a.status === "busy";
                 const selected = selectedAgents.some(id => id.startsWith(a.id));
                 return (
-                  <div key={a.id} className="relative">
+                  <div key={a.id} className="relative pb-2">
                     <button onClick={() => toggleAgent(a.id)}
-                      className={`relative w-full text-left p-5 rounded-2xl border transition-all duration-200 group ${
+                      className={`relative w-full h-full text-left p-5 rounded-2xl border transition-all duration-200 group ${
                         isBusy
                           ? "border-border/60 bg-muted/30 opacity-70"
                           : selected
