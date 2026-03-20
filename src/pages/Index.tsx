@@ -52,10 +52,10 @@ const Dashboard = () => {
   ];
 
   const activeCompanies = [
-    { id: 1, title: "NovaTech", agents: 4, days: 23, trend: "+12 tasks" },
-    { id: 2, title: "FinFlow", agents: 3, days: 15, trend: "+8 tasks" },
-    { id: 3, title: "HealthAI", agents: 2, days: 8, trend: "+5 tasks" },
-    { id: 4, title: "DataPulse", agents: 3, days: 31, trend: "+18 tasks" },
+    { id: 1, title: "NovaTech", agents: 4, days: 23, trend: "+12 tasks", revenue: "$4,280" },
+    { id: 2, title: "FinFlow", agents: 3, days: 15, trend: "+8 tasks", revenue: "$3,640" },
+    { id: 3, title: "HealthAI", agents: 2, days: 8, trend: "+5 tasks", revenue: "$2,050" },
+    { id: 4, title: "DataPulse", agents: 3, days: 31, trend: "+18 tasks", revenue: "$2,870" },
   ];
 
   const aiInsights = [
