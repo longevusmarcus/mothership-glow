@@ -257,7 +257,7 @@ const CompanyDetail = () => {
           )}
 
           {activePanel === "deploys" && (
-            <div className="divide-y divide-border max-h-[360px] overflow-y-auto">
+            <div className="divide-y divide-border flex-1 overflow-y-auto">
               {deployPreviews.map((deploy, i) => (
                 <motion.div key={i} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: i * 0.05 }} className="px-5 py-4 flex items-center gap-4">
                   <div className={`h-9 w-9 rounded-xl flex items-center justify-center shrink-0 ${deploy.status === "live" ? "bg-success/10" : "bg-muted"}`}>
