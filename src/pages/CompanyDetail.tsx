@@ -32,8 +32,8 @@ const companyData: Record<string, {
 const defaultCompany = companyData["1"];
 
 const taskLog = [
-  { agent: "CodeForge", task: "Implemented real-time collaboration WebSocket layer", time: "2h ago", status: "done" as const },
-  { agent: "CodeForge", task: "Integrated Stripe checkout + subscription management", time: "5h ago", status: "done" as const },
+  { agent: "CEO Agent", task: "Implemented real-time collaboration WebSocket layer", time: "2h ago", status: "done" as const },
+  { agent: "CEO Agent", task: "Integrated Stripe checkout + subscription management", time: "5h ago", status: "done" as const },
   { agent: "GrowthPilot", task: "Landing page v2 with A/B test variants", time: "8h ago", status: "done" as const },
   { agent: "DesignMind", task: "Dashboard UI redesign — dark mode + responsive", time: "1d ago", status: "done" as const },
   { agent: "MarketBot", task: "SEO meta tags + Open Graph for all pages", time: "1d ago", status: "done" as const },
