@@ -1,7 +1,7 @@
 export const translationsNav = {
   "nav.dashboard": { it: "Dashboard", en: "Dashboard" },
   "nav.chatAi": { it: "Deploy Hub", en: "Deploy Hub" },
-  "nav.candidates": { it: "Agenti", en: "Agents" },
+  "nav.candidates": { it: "I tuoi Agenti", en: "Your Agents" },
   "nav.arena": { it: "Arena", en: "Arena" },
   "nav.more": { it: "Altro", en: "More" },
   "nav.store": { it: "App Store", en: "App Store" },
