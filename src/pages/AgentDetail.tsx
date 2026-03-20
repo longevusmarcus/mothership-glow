@@ -5,7 +5,7 @@ import { Link, useParams } from "react-router-dom";
 import { useState } from "react";
 import { useLanguage } from "@/i18n/LanguageContext";
 import type { TranslationKey } from "@/i18n/translations";
-import { typeMeta } from "@/data/constants";
+import { typeMeta, stageColors } from "@/data/constants";
 
 const agentData: Record<string, {
   name: string; type: string; endpoint: string; version: string; role: string; score: number; stage: string;
@@ -66,12 +66,6 @@ const agentData: Record<string, {
 
 const defaultAgent = agentData["1"];
 
-const stageColors: Record<string, string> = {
-  Screening: "bg-muted text-muted-foreground",
-  Colloquio: "bg-accent text-accent-foreground",
-  Shortlist: "bg-secondary text-secondary-foreground",
-  Placement: "bg-primary text-primary-foreground",
-};
 
 const stageOptions = ["Screening", "Colloquio", "Shortlist", "Placement"];
 

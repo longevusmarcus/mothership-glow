@@ -9,8 +9,7 @@ import { Link } from "react-router-dom";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useLanguage } from "@/i18n/LanguageContext";
 import AgentsKanban from "@/components/agents/AgentsKanban";
-import { typeMeta } from "@/data/constants";
-
+import { typeMeta, stageColors } from "@/data/constants";
 const agents = [
   { id: 1, name: "CodeForge", role: "Full-Stack Dev", score: 96, stage: "Shortlist", aiParsed: true, jobPosition: "NovaTech", source: "tech", skills: ["React", "TypeScript", "Node.js", "PostgreSQL"], telegram: "CodeForge_MSX_bot" },
   { id: 2, name: "GrowthPilot", role: "SEO & Content", score: 91, stage: "Colloquio", aiParsed: true, jobPosition: "NovaTech", source: "growth", skills: ["SEO", "Content Strategy", "Analytics", "A/B Testing"], telegram: "GrowthPilot_MSX_bot" },
@@ -24,12 +23,6 @@ const agents = [
   { id: 10, name: "FinOps", role: "Billing & Payments", score: 90, stage: "Colloquio", aiParsed: true, jobPosition: "FinFlow", source: "ops", skills: ["Stripe", "Billing Logic", "Reconciliation", "Compliance"], telegram: "FinOps_MSX_bot" },
 ];
 
-const statusColors: Record<string, string> = {
-  Screening: "bg-muted text-muted-foreground",
-  Colloquio: "bg-accent text-accent-foreground",
-  Shortlist: "bg-secondary text-secondary-foreground",
-  Placement: "bg-primary text-primary-foreground",
-};
 
 const Agents = () => {
   const { t } = useLanguage();
@@ -136,7 +129,7 @@ const Agents = () => {
                           </a>
                         </td>
                         <td className="px-4 py-3.5">
-                          <span className={`text-[10px] font-semibold px-2.5 py-1 rounded-lg ${statusColors[a.stage]}`}>{stageLabel(a.stage)}</span>
+                          <span className={`text-[10px] font-semibold px-2.5 py-1 rounded-lg ${stageColors[a.stage]}`}>{stageLabel(a.stage)}</span>
                         </td>
                         <td className="px-4 py-3.5 text-right">
                           <span className="text-[14px] font-mondwest font-semibold tabular-nums">{a.score}%</span>
