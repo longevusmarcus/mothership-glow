@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Radio, Lightbulb, FolderOpen, ChevronRight, Database, FileText, PenLine, Activity } from "lucide-react";
+import { Radio, Lightbulb, FolderOpen, ChevronRight, Database, FileText, PenLine, Activity, Tv, Swords } from "lucide-react";
 import { TextShimmer } from "@/components/ui/text-shimmer";
 import { CursorCardsContainer, CursorCard } from "@/components/ui/cursor-cards";
 import { useLanguage } from "@/i18n/LanguageContext";
@@ -16,6 +16,32 @@ const sections = [
     statLabel: "streaming now",
     statLabelIt: "in diretta",
     color: "bg-destructive/10 text-destructive",
+  },
+  {
+    title: "Streaming",
+    titleIt: "Streaming",
+    desc: "Live streams, shows & broadcasts from the MSX ecosystem. Watch builders ship in real-time.",
+    descIt: "Live stream, show e trasmissioni dall'ecosistema MSX. Guarda i builder in tempo reale.",
+    icon: Tv,
+    to: "https://msx.live",
+    stat: "msx.live",
+    statLabel: "external",
+    statLabelIt: "esterno",
+    color: "bg-destructive/10 text-destructive",
+    external: true,
+  },
+  {
+    title: "Hackathons",
+    titleIt: "Hackathon",
+    desc: "Weekly challenges, competitions & prizes. Build micro-SaaS products and compete with other builders.",
+    descIt: "Sfide settimanali, competizioni e premi. Costruisci micro-SaaS e competi con altri builder.",
+    icon: Swords,
+    to: "https://msx.gg",
+    stat: "msx.gg",
+    statLabel: "external",
+    statLabelIt: "esterno",
+    color: "bg-accent text-accent-foreground",
+    external: true,
   },
   {
     title: "Signals",
@@ -98,8 +124,14 @@ const More = () => {
       </div>
 
       <CursorCardsContainer className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        {sections.map((section) => (
-          <Link key={section.to} to={section.to}>
+        {sections.map((section) => {
+          const isExternal = 'external' in section && section.external;
+          const Wrapper = isExternal ? 'a' : Link;
+          const wrapperProps = isExternal
+            ? { href: section.to, target: "_blank", rel: "noopener noreferrer" }
+            : { to: section.to };
+          return (
+          <Wrapper key={section.to} {...(wrapperProps as any)}>
             <CursorCard borderColor="hsl(var(--border))">
               <div className="p-5 h-full">
                 <div className="flex items-start justify-between mb-4">
@@ -121,8 +153,9 @@ const More = () => {
                 </div>
               </div>
             </CursorCard>
-          </Link>
-        ))}
+          </Wrapper>
+          );
+        })}
       </CursorCardsContainer>
     </div>
   );
