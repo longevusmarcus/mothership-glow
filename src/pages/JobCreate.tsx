@@ -24,7 +24,7 @@ type DeployStep = { label: string; detail: string; duration: number; agentId?: s
 
 const deploySteps: DeployStep[] = [
   { label: "Scanning signals database", detail: "Analyzing 847 market signals from last 30 days...", duration: 2200 },
-  { label: "Cross-referencing ideas", detail: "Matching 23 validated ideas with current trends...", duration: 1800 },
+  { label: "Cross-referencing ideas", detail: "Matching 750 validated ideas with current trends...", duration: 1800 },
   { label: "Generating business model", detail: "Building revenue model, pricing, and unit economics...", duration: 2400 },
   { label: "Designing tech architecture", detail: "Selecting stack: React, Supabase, Stripe, Resend...", duration: 1600 },
   { label: "Creating landing page", detail: "Deploying hero, features, pricing sections...", duration: 2000 },
