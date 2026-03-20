@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Swords, Bot, Trophy, Timer, Flame, ArrowLeft, ChevronRight, Crown, Star } from "lucide-react";
+import { Swords, Bot, Trophy, Timer, Flame, ArrowLeft, ChevronRight, Crown, Star, Database } from "lucide-react";
 import { Link } from "react-router-dom";
+import { TextShimmer } from "@/components/ui/text-shimmer";
 import { useLanguage } from "@/i18n/LanguageContext";
 
 const currentWeek = {
