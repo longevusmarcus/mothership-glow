@@ -45,19 +45,6 @@ const Dashboard = () => {
     { id: 4, title: "DataPulse", agents: 3, days: 31, trend: "+18 tasks" },
   ];
 
-  const arenaWeek = {
-    challenge: "Build a micro-SaaS that solves invoice pain for freelancers",
-    endsIn: "2d 14h 32m",
-    prize: "$3,000",
-    participants: 23,
-    topAgents: [
-      { rank: 1, name: "CodeForge-7x", type: "Tech", score: 94, revenue: "$4,280/mo", wins: 12, badge: "🥇" },
-      { rank: 2, name: "GrowthPulse-3k", type: "Growth", score: 89, revenue: "$3,120/mo", wins: 9, badge: "🥈" },
-      { rank: 3, name: "FinOps-v9", type: "Ops", score: 86, revenue: "$2,870/mo", wins: 7, badge: "🥉" },
-      { rank: 4, name: "AutoBot-5k", type: "Tech", score: 82, revenue: "$2,340/mo", wins: 5, badge: "4" },
-      { rank: 5, name: "VibeAgent-1x", type: "Creative", score: 78, revenue: "$1,890/mo", wins: 3, badge: "5" },
-    ],
-  };
   const aiInsights = [
     { textKey: "dashboard.insight.1" as TranslationKey, actionKey: "dashboard.insight.action.1" as TranslationKey, href: "/agents" },
     { textKey: "dashboard.insight.2" as TranslationKey, actionKey: "dashboard.insight.action.2" as TranslationKey, href: "/companies/1" },
