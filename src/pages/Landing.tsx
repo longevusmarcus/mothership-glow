@@ -148,7 +148,7 @@ const Landing = () => {
         <div className="max-w-6xl mx-auto flex flex-wrap items-center justify-center gap-x-4 gap-y-2">
           {footerLinks.map((link, i) => (
             <span key={link} className="flex items-center gap-4">
-              <button className="text-[11px] font-mono font-medium text-muted-foreground hover:text-foreground transition-colors tracking-wider uppercase">
+              <button className="text-[11px] font-pixel font-medium text-muted-foreground hover:text-foreground transition-colors tracking-wider uppercase">
                 {link}
               </button>
               {i < footerLinks.length - 1 && <span className="text-muted-foreground/30">·</span>}
