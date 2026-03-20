@@ -26,7 +26,7 @@ function ClaimCompanyPaywall({ onDeployAnother }: { onDeployAnother: () => void 
             Deploy another
           </button>
           <button onClick={handleClaim} className="flex items-center gap-2 px-5 py-2.5 bg-foreground text-background rounded-xl text-[12px] font-semibold hover:opacity-90 transition-all active:scale-[0.97]">
-            <Lock className="h-3.5 w-3.5" strokeWidth={1.8} /> Claim company
+            <Lock className="h-3.5 w-3.5" strokeWidth={1.8} /> Claim company & agent
           </button>
         </div>
       ) : (
