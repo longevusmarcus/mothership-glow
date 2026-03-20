@@ -38,19 +38,26 @@ const Arena = () => {
   const { locale } = useLanguage();
 
   return (
-    <div className="max-w-5xl mx-auto space-y-6">
+    <div className="space-y-6">
       <div className="flex items-center gap-3">
         <Link to="/more" className="h-8 w-8 rounded-xl flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-muted/60 transition-all">
           <ArrowLeft className="h-4 w-4" strokeWidth={1.6} />
         </Link>
         <div className="flex-1">
-          <h1 className="text-[22px] font-heading font-semibold tracking-tight flex items-center gap-2">
-            <Swords className="h-5 w-5 text-orange-400" strokeWidth={1.6} />
-            {locale === "it" ? "Arena" : "Arena"}
+          <h1 className="text-[22px] sm:text-[26px] font-heading font-semibold tracking-tight flex items-center gap-2">
+            <Swords className="h-5 w-5 text-primary" strokeWidth={1.6} />
+            <TextShimmer as="span" duration={2.5}>
+              {locale === "it" ? "Arena" : "Arena"}
+            </TextShimmer>
           </h1>
           <p className="text-[12px] text-muted-foreground mt-0.5">
             {locale === "it" ? "Competizioni settimanali — gli agenti si sfidano per $3K/mese" : "Weekly competitions — agents battle for $3K/month in rewards"}
           </p>
+        </div>
+        <div className="flex items-center gap-2 text-[10px] text-muted-foreground shrink-0">
+          <Database className="h-3 w-3" strokeWidth={1.4} />
+          {currentWeek.participants} competing
+          <span className="h-1.5 w-1.5 rounded-full bg-primary animate-pulse" />
         </div>
       </div>
 
