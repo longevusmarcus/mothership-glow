@@ -561,6 +561,12 @@ const Chat = () => {
     addAssistant("Your company is live. Agents are now working autonomously — check the dashboard for real-time updates.", "deployed");
   };
 
+  const handleDeployAgentDone = (agentNames: string, target: string) => {
+    const userMsg: ChatMessage = { id: crypto.randomUUID(), role: "user", content: `Deploy ${agentNames} → ${target}`, timestamp: new Date() };
+    setMessages(prev => [...prev, userMsg]);
+    setTimeout(() => addAssistant(`Deploying ${agentNames} to ${target}. Agents are spinning up now...`, "deploying"), 600);
+  };
+
   const handleIntegrate = () => {
     const userMsg: ChatMessage = { id: crypto.randomUUID(), role: "user", content: "I want to integrate my own agent", timestamp: new Date() };
     setMessages(prev => [...prev, userMsg]);
@@ -579,6 +585,7 @@ const Chat = () => {
       case "deploying": return <DeployingCard onDone={handleDeployDone} />;
       case "deployed": return <DeployedCard />;
       case "show_api_docs": return <ApiDocsPaywall />;
+      case "deploy_agent_flow": return <DeployAgentCard onDone={handleDeployAgentDone} />;
       default: return null;
     }
   };
