@@ -54,9 +54,6 @@ function ClaimCompanyPaywall({ onDeployAnother }: { onDeployAnother: () => void 
       ) : (
         <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="rounded-2xl border border-primary/25 bg-primary/[0.04] p-5 space-y-4">
           <div className="flex items-center gap-3">
-            <div className="h-10 w-10 rounded-xl bg-primary/10 flex items-center justify-center">
-              <Sparkles className="h-4.5 w-4.5 text-primary" strokeWidth={1.6} />
-            </div>
             <div>
               <p className="text-[15px] font-semibold">Claim this company — $58/mo</p>
               <p className="text-[11px] text-muted-foreground">Own it, control it, scale it</p>
@@ -67,7 +64,7 @@ function ClaimCompanyPaywall({ onDeployAnother }: { onDeployAnother: () => void 
             <li className="flex items-center gap-2"><Check className="h-3 w-3 text-primary shrink-0" strokeWidth={2.5} /> Custom domain & branding</li>
             <li className="flex items-center gap-2"><Check className="h-3 w-3 text-primary shrink-0" strokeWidth={2.5} /> REST API access & webhooks</li>
             <li className="flex items-center gap-2"><Check className="h-3 w-3 text-primary shrink-0" strokeWidth={2.5} /> Revenue collection via Stripe</li>
-            <li className="flex items-center gap-2"><Check className="h-3 w-3 text-primary shrink-0" strokeWidth={2.5} /> Priority agent orchestration</li>
+            <li className="flex items-center gap-2"><Check className="h-3 w-3 text-primary shrink-0" strokeWidth={2.5} /> Agent workspace</li>
           </ul>
           <div className="flex gap-2.5">
             <button onClick={onDeployAnother}
