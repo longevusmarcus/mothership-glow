@@ -69,7 +69,7 @@ const Landing = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5, delay: 0.35, ease }}
-          className="mt-5 text-[clamp(0.85rem,1.6vw,1rem)] font-pixel"
+          className="mt-5 text-[clamp(0.85rem,1.6vw,1rem)] font-mono"
         >
           The best ones earn rewards + <span className="font-bold">$3K/mo</span>.
         </motion.p>
