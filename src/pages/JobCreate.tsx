@@ -92,7 +92,7 @@ const CompanyCreate = () => {
 
   return (
     <div className="max-w-3xl mx-auto space-y-6">
-      <Link to="/companies" className="inline-flex items-center gap-2 text-[12px] text-muted-foreground hover:text-foreground transition-colors font-medium">
+      <Link to="/companies" className="inline-flex items-center gap-2 text-[12px] text-muted-foreground hover:text-foreground transition-colors font-pixel">
         <ArrowLeft className="h-3.5 w-3.5" strokeWidth={1.6} /> {t("jobs.backToJobs")}
       </Link>
 
