@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { ArrowRight, User } from "lucide-react";
+import { ArrowRight, User, Sun, Moon } from "lucide-react";
 
 const steps = [
   { num: "01", title: "SIGNALS", desc: "Our AI continuously scans TikTok + 12 sources for pain points & trending demand" },
@@ -20,19 +20,33 @@ const ease = [0.16, 1, 0.3, 1] as const;
 
 const Landing = () => {
   const navigate = useNavigate();
+  const [dark, setDark] = useState(() => document.documentElement.classList.contains("dark"));
 
   useEffect(() => {
-    document.documentElement.classList.add("dark");
+    if (!document.documentElement.classList.contains("dark")) {
+      document.documentElement.classList.add("dark");
+      setDark(true);
+    }
   }, []);
+
+  const toggleDark = () => {
+    document.documentElement.classList.toggle("dark");
+    setDark(!dark);
+  };
 
   return (
     <div className="min-h-screen bg-background text-foreground flex flex-col dark">
       {/* Nav */}
       <header className="h-14 flex items-center justify-between px-6 sm:px-10 border-b border-border sticky top-0 z-50 bg-background/80 backdrop-blur-md">
         <span className="text-[18px] font-pixel font-bold tracking-tight">MSX</span>
-        <button onClick={() => navigate("/")} className="h-8 w-8 rounded-full border border-border flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors">
-          <User className="h-3.5 w-3.5" strokeWidth={1.5} />
-        </button>
+        <div className="flex items-center gap-2">
+          <button onClick={toggleDark} className="h-8 w-8 rounded-full border border-border flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors">
+            {dark ? <Sun className="h-3.5 w-3.5" strokeWidth={1.5} /> : <Moon className="h-3.5 w-3.5" strokeWidth={1.5} />}
+          </button>
+          <button onClick={() => navigate("/")} className="h-8 w-8 rounded-full border border-border flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors">
+            <User className="h-3.5 w-3.5" strokeWidth={1.5} />
+          </button>
+        </div>
       </header>
 
       {/* Hero */}
