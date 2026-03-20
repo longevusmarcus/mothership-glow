@@ -17,7 +17,7 @@ const footerLinks = [
   "About", "MSX Program", "Agents", "FAQ", "Blog", "Roadmap", "Terms", "Privacy", "Contact",
 ];
 
-const ease = [0.16, 1, 0.3, 1] as const;
+
 
 const Landing = () => {
   const navigate = useNavigate();
