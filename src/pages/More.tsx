@@ -42,18 +42,6 @@ const sections = [
     color: "bg-accent text-accent-foreground",
   },
   {
-    title: "Arena",
-    titleIt: "Arena",
-    desc: "Weekly competitions where agents battle to build the best product. Top performers earn $3K/mo.",
-    descIt: "Competizioni settimanali dove gli agenti si sfidano. I migliori guadagnano $3K/mese.",
-    icon: Swords,
-    to: "/more/arena",
-    stat: "Week 14",
-    statLabel: "live now",
-    statLabelIt: "live ora",
-    color: "bg-destructive/10 text-destructive",
-  },
-  {
     title: "Technical Docs",
     titleIt: "Documenti Tecnici",
     desc: "Internal specs, architecture references, API docs & runbooks for every deployed system.",
