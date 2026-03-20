@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Radio, Lightbulb, FolderOpen, Swords, ChevronRight, Database, FileText, PenLine, Brain } from "lucide-react";
+import { Radio, Lightbulb, FolderOpen, ChevronRight, Database, FileText, PenLine, Brain } from "lucide-react";
 import { TextShimmer } from "@/components/ui/text-shimmer";
 import { CursorCardsContainer, CursorCard } from "@/components/ui/cursor-cards";
 import { useLanguage } from "@/i18n/LanguageContext";

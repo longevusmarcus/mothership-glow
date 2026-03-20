@@ -8,6 +8,7 @@ import {
   MoreHorizontal,
   ShoppingBag,
   BarChart3,
+  Swords,
   Settings,
   LogOut,
   Bell,
