@@ -17,8 +17,18 @@ const statusColors: Record<string, string> = {
 
 const Dashboard = () => {
   const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
   const { t, locale } = useLanguage();
   const view = searchParams.get("view") || "overview";
+
+  // First-time onboarding: redirect to New Company page
+  useEffect(() => {
+    const onboarded = localStorage.getItem("mx_onboarded");
+    if (!onboarded) {
+      localStorage.setItem("mx_onboarded", "true");
+      navigate("/companies/new", { replace: true });
+    }
+  }, [navigate]);
   const now = new Date();
   const hour = now.getHours();
   const greetingKey: TranslationKey = hour < 12 ? "dashboard.greeting.morning" : hour < 18 ? "dashboard.greeting.afternoon" : "dashboard.greeting.evening";
