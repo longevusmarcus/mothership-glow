@@ -92,7 +92,7 @@ const CompanyCreate = () => {
 
   return (
     <div className="max-w-3xl mx-auto space-y-6">
-      <Link to="/companies" className="inline-flex items-center gap-2 text-[12px] text-muted-foreground hover:text-foreground transition-colors font-medium">
+      <Link to="/companies" className="inline-flex items-center gap-2 text-[12px] text-muted-foreground hover:text-foreground transition-colors font-pixel">
         <ArrowLeft className="h-3.5 w-3.5" strokeWidth={1.6} /> {t("jobs.backToJobs")}
       </Link>
 
@@ -100,7 +100,7 @@ const CompanyCreate = () => {
         <h1 className="text-[26px] font-heading font-semibold tracking-tight">
           <TextShimmer as="span" duration={2.5}>{t("jobCreate.title")}</TextShimmer>
         </h1>
-        <p className="text-[13px] text-muted-foreground mt-1">Select one or more agents to autonomously build your next company</p>
+        <p className="text-[13px] text-muted-foreground mt-1 font-pixel">Select one or more agents to autonomously build your next company</p>
       </div>
 
       <AnimatePresence mode="wait">
@@ -139,9 +139,9 @@ const CompanyCreate = () => {
                         <div className="min-w-0">
                           <div className="flex items-center gap-2 flex-wrap">
                             <span className="text-[13px] font-semibold text-foreground">{a.name}</span>
-                            <span className="text-[10px] font-medium text-muted-foreground bg-muted px-1.5 py-0.5 rounded-md">{a.role}</span>
+                            <span className="text-[10px] font-pixel text-muted-foreground bg-muted px-1.5 py-0.5 rounded-md">{a.role}</span>
                           </div>
-                          <p className="text-[11.5px] text-muted-foreground mt-1.5 leading-relaxed">{a.desc}</p>
+                          <p className="text-[11.5px] text-muted-foreground mt-1.5 leading-relaxed font-pixel">{a.desc}</p>
                           {isBusy && (
                             <p className="text-[10px] text-amber-500/80 mt-1.5 flex items-center gap-1">
                               <AlertCircle className="h-3 w-3" strokeWidth={1.8} />
@@ -154,7 +154,7 @@ const CompanyCreate = () => {
                     {/* Spawn new instance button for busy agents */}
                     {isBusy && (
                       <button onClick={() => spawnNewAgent(a)}
-                        className="absolute -bottom-2 left-1/2 -translate-x-1/2 flex items-center gap-1.5 px-3 py-1.5 bg-card border border-border rounded-xl text-[10px] font-semibold text-foreground hover:bg-muted transition-all shadow-sm active:scale-[0.97]">
+                        className="absolute -bottom-2 left-1/2 -translate-x-1/2 flex items-center gap-1.5 px-3 py-1.5 bg-card border border-border rounded-xl text-[10px] font-pixel font-semibold text-foreground hover:bg-muted transition-all shadow-sm active:scale-[0.97]">
                         <Plus className="h-3 w-3" strokeWidth={2} />
                         Spawn new instance
                       </button>
@@ -172,20 +172,20 @@ const CompanyCreate = () => {
                 </div>
                 <div>
                   <p className="text-[13px] font-semibold text-foreground">Integrate your own agent</p>
-                  <p className="text-[11px] text-muted-foreground">Connect a custom agent via API, webhook, or upload a config</p>
+                  <p className="text-[11px] text-muted-foreground font-pixel">Connect a custom agent via API, webhook, or upload a config</p>
                 </div>
               </div>
               <div className="flex gap-2">
                 <button
                   onClick={() => toast.info("API integration coming soon — your agents will decide what to build.")}
-                  className="flex items-center gap-1.5 px-3 py-2 rounded-xl border border-border bg-card text-[11px] font-semibold text-foreground hover:bg-muted/60 transition-all active:scale-[0.97]"
+                  className="flex items-center gap-1.5 px-3 py-2 rounded-xl border border-border bg-card text-[11px] font-pixel font-semibold text-foreground hover:bg-muted/60 transition-all active:scale-[0.97]"
                 >
                   <Link2 className="h-3 w-3" strokeWidth={2} />
                   Connect via API
                 </button>
                 <button
                   onClick={() => toast.info("Config upload coming soon — bring your own agent logic.")}
-                  className="flex items-center gap-1.5 px-3 py-2 rounded-xl border border-border bg-card text-[11px] font-semibold text-foreground hover:bg-muted/60 transition-all active:scale-[0.97]"
+                  className="flex items-center gap-1.5 px-3 py-2 rounded-xl border border-border bg-card text-[11px] font-pixel font-semibold text-foreground hover:bg-muted/60 transition-all active:scale-[0.97]"
                 >
                   <Upload className="h-3 w-3" strokeWidth={2} />
                   Upload config
@@ -212,7 +212,7 @@ const CompanyCreate = () => {
 
             {/* Data sources */}
             <div className="rounded-2xl border border-border bg-card p-5 space-y-3">
-              <p className="text-[10px] font-semibold text-muted-foreground tracking-wider uppercase">Data sources agents will use</p>
+              <p className="text-[10px] font-pixel font-semibold text-muted-foreground tracking-wider uppercase">Data sources agents will use</p>
               <div className="grid grid-cols-3 gap-3">
                 {[
                   { icon: Radio, label: "Signals", count: "847", sub: "last 30 days" },
@@ -224,9 +224,9 @@ const CompanyCreate = () => {
                     <div>
                       <div className="flex items-baseline gap-1.5">
                         <span className="text-[15px] font-semibold text-foreground tabular-nums">{s.count}</span>
-                        <span className="text-[10px] text-muted-foreground">{s.label}</span>
+                        <span className="text-[10px] text-muted-foreground font-pixel">{s.label}</span>
                       </div>
-                      <p className="text-[10px] text-muted-foreground/60">{s.sub}</p>
+                      <p className="text-[10px] text-muted-foreground/60 font-pixel">{s.sub}</p>
                     </div>
                   </div>
                 ))}
@@ -235,9 +235,9 @@ const CompanyCreate = () => {
 
             {/* Deploy button */}
             <div className="flex justify-end gap-2.5 pt-2">
-              <Link to="/companies" className="px-4 py-2.5 text-[12px] font-body font-medium text-muted-foreground hover:text-foreground transition-colors">{t("jobCreate.cancel")}</Link>
+              <Link to="/companies" className="px-4 py-2.5 text-[12px] font-pixel font-medium text-muted-foreground hover:text-foreground transition-colors">{t("jobCreate.cancel")}</Link>
               <button onClick={startDeploy} disabled={selectedAgents.length === 0}
-                className="flex items-center gap-2 px-5 py-2.5 bg-primary text-primary-foreground rounded-xl text-[12px] font-semibold hover:opacity-90 transition-all disabled:opacity-30 disabled:cursor-not-allowed active:scale-[0.97]">
+                className="flex items-center gap-2 px-5 py-2.5 bg-primary text-primary-foreground rounded-xl text-[12px] font-pixel font-semibold hover:opacity-90 transition-all disabled:opacity-30 disabled:cursor-not-allowed active:scale-[0.97]">
                 <Rocket className="h-3.5 w-3.5" strokeWidth={1.8} />
                 Deploy with {selectedAgents.length} agent{selectedAgents.length !== 1 ? "s" : ""}
               </button>
