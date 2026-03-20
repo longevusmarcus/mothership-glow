@@ -26,6 +26,7 @@ const tabs = [
   { id: "integrations", label: "Integrations", labelIt: "Integrazioni", icon: PlugZap },
   { id: "subscription", label: "Subscription", labelIt: "Abbonamento", icon: CreditCard },
   { id: "ai", label: "AI Config", labelIt: "AI Config", icon: () => <AiIcon className="text-muted-foreground" size={16} /> },
+  { id: "personal-os", label: "Personal OS", labelIt: "OS Personale", icon: FolderOpen },
 ];
 
 /* ======================== Budget Tab ======================== */
