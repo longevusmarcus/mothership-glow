@@ -85,7 +85,7 @@ const Analytics = () => {
           <div className="h-6 w-6 rounded-lg bg-muted flex items-center justify-center"><AiIcon className="text-muted-foreground" size={13} /></div>
           <h2 className="text-[13px] font-mondwest font-semibold text-foreground/80">{t("analytics.aiSummary")}</h2>
         </div>
-        <p className="text-[13px] text-foreground/70 leading-relaxed">
+        <p className="text-[13px] text-foreground/70 leading-relaxed font-mono">
           {locale === "it"
             ? <>Revenue in crescita del <strong className="text-foreground">34%</strong> questo trimestre. NovaTech guida con <strong className="text-foreground">$4,280</strong> totali. Il traffico organico è la fonte principale (<strong className="text-foreground">41%</strong> dei visitatori). Suggerimento: scala gli agenti Growth su FinFlow per accelerare la conversione.</>
             : <>Revenue is up <strong className="text-foreground">34%</strong> this quarter. NovaTech leads with <strong className="text-foreground">$4,280</strong> total. Organic search is the top source (<strong className="text-foreground">41%</strong> of visitors). Recommendation: scale Growth agents on FinFlow to accelerate conversion.</>
