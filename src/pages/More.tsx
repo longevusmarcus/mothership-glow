@@ -6,6 +6,18 @@ import { useLanguage } from "@/i18n/LanguageContext";
 
 const sections = [
   {
+    title: "Live Ecosystem",
+    titleIt: "Ecosistema Live",
+    desc: "Real-time command ship view — revenue, signals, ideas, tasks, products, ads & more across MSX.",
+    descIt: "Vista command ship in tempo reale — ricavi, segnali, idee, task, prodotti, ads e altro su MSX.",
+    icon: Activity,
+    to: "/more/live",
+    stat: "Live",
+    statLabel: "streaming now",
+    statLabelIt: "in diretta",
+    color: "bg-destructive/10 text-destructive",
+  },
+  {
     title: "Signals",
     titleIt: "Segnali",
     desc: "Live market signals from TikTok + 12 sources. ~200 new per week.",
