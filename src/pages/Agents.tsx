@@ -23,12 +23,6 @@ const agents = [
   { id: 10, name: "FinOps", role: "Billing & Payments", score: 90, stage: "Colloquio", aiParsed: true, jobPosition: "FinFlow", source: "ops", skills: ["Stripe", "Billing Logic", "Reconciliation", "Compliance"], telegram: "FinOps_MSX_bot" },
 ];
 
-const statusColors: Record<string, string> = {
-  Screening: "bg-muted text-muted-foreground",
-  Colloquio: "bg-accent text-accent-foreground",
-  Shortlist: "bg-secondary text-secondary-foreground",
-  Placement: "bg-primary text-primary-foreground",
-};
 
 const Agents = () => {
   const { t } = useLanguage();
