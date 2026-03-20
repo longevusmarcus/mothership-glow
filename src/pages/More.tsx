@@ -104,19 +104,6 @@ const sections = [
     color: "bg-muted-foreground/10 text-muted-foreground",
     disabled: true,
   },
-  {
-    title: "Personal OS (soon)",
-    titleIt: "OS Personale (presto)",
-    desc: "Your private knowledge base — links, notes, docs & ideas that train your agents.",
-    descIt: "Il tuo spazio privato — link, note, documenti e idee che addestrano i tuoi agenti.",
-    icon: FolderOpen,
-    to: "#",
-    stat: "—",
-    statLabel: "coming soon",
-    statLabelIt: "in arrivo",
-    color: "bg-muted-foreground/10 text-muted-foreground",
-    disabled: true,
-  },
 ];
 
 const More = () => {
