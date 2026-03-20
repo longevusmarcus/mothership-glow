@@ -190,6 +190,21 @@ const CompanyCreate = () => {
               </button>
             </div>
 
+            {/* Name your coding agent */}
+            <div className="rounded-2xl border border-border bg-card p-5 space-y-3">
+              <div className="flex items-center gap-2">
+                <Bot className="h-4 w-4 text-muted-foreground" strokeWidth={1.6} />
+                <p className="text-[12px] font-semibold text-foreground">Name your coding agent</p>
+              </div>
+              <p className="text-[11px] text-muted-foreground font-mono">Choose a custom name for your core coding agent</p>
+              <input
+                value={agentName}
+                onChange={e => setAgentName(e.target.value)}
+                placeholder="e.g. CodeForge, BuildBot, Archon..."
+                className="w-full px-3.5 py-2.5 bg-background border border-border rounded-xl text-[13px] font-mono placeholder:text-muted-foreground/40 focus:outline-none focus:ring-1 focus:ring-ring/15 transition-all"
+              />
+            </div>
+
             {/* Selected agents summary */}
             {selectedAgents.length > 0 && (
               <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: "auto" }} className="rounded-2xl border border-primary/20 bg-primary/[0.03] p-4 flex items-center gap-3">
@@ -202,7 +217,7 @@ const CompanyCreate = () => {
                 </div>
                 <div className="flex-1 min-w-0">
                   <p className="text-[12px] font-semibold text-foreground">{selectedAgents.length} agent{selectedAgents.length > 1 ? "s" : ""} selected</p>
-                  <p className="text-[10px] text-muted-foreground truncate">{agentNames}</p>
+                  <p className="text-[10px] text-muted-foreground truncate">{agentName}{selectedAgentObjects.length > 1 ? `, ${selectedAgentObjects.slice(1).map(a => a.name).join(", ")}` : ""}</p>
                 </div>
               </motion.div>
             )}
