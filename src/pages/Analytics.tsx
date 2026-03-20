@@ -69,7 +69,7 @@ const Analytics = () => {
     <div className="space-y-8">
       <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3">
         <div>
-          <h1 className="text-[22px] sm:text-[26px] font-heading font-semibold tracking-tight"><TextShimmer as="span" duration={2.5}>{t("analytics.title")}</TextShimmer></h1>
+          <h1 className="text-[22px] sm:text-[26px] font-mondwest font-semibold tracking-tight"><TextShimmer as="span" duration={2.5}>{t("analytics.title")}</TextShimmer></h1>
           <p className="text-[13px] text-muted-foreground mt-1">{t("analytics.subtitle")}</p>
         </div>
         <CleanMotionBackground className="bg-card border border-border rounded-xl p-1" hoverable={false} defaultKey={period} onChange={(key) => key && setPeriod(key)}>
@@ -83,7 +83,7 @@ const Analytics = () => {
       <div className="rounded-2xl p-6 border border-border bg-gradient-to-br from-muted/50 via-transparent to-muted/30">
         <div className="flex items-center gap-2.5 mb-3">
           <div className="h-6 w-6 rounded-lg bg-muted flex items-center justify-center"><AiIcon className="text-muted-foreground" size={13} /></div>
-          <h2 className="text-[13px] font-heading font-semibold text-foreground/80">{t("analytics.aiSummary")}</h2>
+          <h2 className="text-[13px] font-mondwest font-semibold text-foreground/80">{t("analytics.aiSummary")}</h2>
         </div>
         <p className="text-[13px] text-foreground/70 leading-relaxed">
           {locale === "it"
@@ -103,7 +103,7 @@ const Analytics = () => {
               </div>
               <span className="text-[10px] font-semibold text-success">{m.trend}</span>
             </div>
-            <p className="text-[28px] font-heading font-semibold tracking-tight leading-none tabular-nums">{m.value}</p>
+            <p className="text-[28px] font-mondwest font-semibold tracking-tight leading-none tabular-nums">{m.value}</p>
             <p className="text-[11px] text-muted-foreground mt-1.5 font-medium">{m.label}</p>
           </div>
         ))}
@@ -113,7 +113,7 @@ const Analytics = () => {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
         {/* Tasks per Month */}
         <div className="bg-card rounded-2xl p-6 card-static">
-          <h2 className="text-[13px] font-heading font-semibold mb-8">{locale === "it" ? "Task per Mese" : "Tasks per Month"}</h2>
+          <h2 className="text-[13px] font-mondwest font-semibold mb-8">{locale === "it" ? "Task per Mese" : "Tasks per Month"}</h2>
           <div className="flex items-end gap-4 h-48">
             {monthlyData.map(d => {
               const totalH = (d.tasks / maxTasks) * 160;
@@ -141,7 +141,7 @@ const Analytics = () => {
 
         {/* Visitors per Month */}
         <div className="bg-card rounded-2xl p-6 card-static">
-          <h2 className="text-[13px] font-heading font-semibold mb-8">{locale === "it" ? "Visitatori per Mese" : "Visitors per Month"}</h2>
+          <h2 className="text-[13px] font-mondwest font-semibold mb-8">{locale === "it" ? "Visitatori per Mese" : "Visitors per Month"}</h2>
           <div className="flex items-end gap-4 h-48">
             {monthlyData.map(d => {
               const barH = (d.visitors / maxVisitors) * 160;
@@ -168,7 +168,7 @@ const Analytics = () => {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
         {/* Revenue per Month */}
         <div className="bg-card rounded-2xl p-6 card-static">
-          <h2 className="text-[13px] font-heading font-semibold mb-8">{locale === "it" ? "Ricavi per Mese" : "Revenue per Month"}</h2>
+          <h2 className="text-[13px] font-mondwest font-semibold mb-8">{locale === "it" ? "Ricavi per Mese" : "Revenue per Month"}</h2>
           <div className="flex items-end gap-4 h-48">
             {monthlyData.map(d => {
               const barH = (d.revenue / maxRevenue) * 160;
@@ -192,7 +192,7 @@ const Analytics = () => {
 
         {/* Visitor Sources */}
         <div className="bg-card rounded-2xl p-6 card-static">
-          <h2 className="text-[13px] font-heading font-semibold mb-6">{locale === "it" ? "Fonti Traffico" : "Traffic Sources"}</h2>
+          <h2 className="text-[13px] font-mondwest font-semibold mb-6">{locale === "it" ? "Fonti Traffico" : "Traffic Sources"}</h2>
           <div className="space-y-4">
             {visitorSources.map(s => (
               <div key={s.source}>
@@ -213,7 +213,7 @@ const Analytics = () => {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
         {/* Revenue by Company */}
         <div className="bg-card rounded-2xl p-6 card-static">
-          <h2 className="text-[13px] font-heading font-semibold mb-6">{locale === "it" ? "Ricavi per Azienda" : "Revenue by Company"}</h2>
+          <h2 className="text-[13px] font-mondwest font-semibold mb-6">{locale === "it" ? "Ricavi per Azienda" : "Revenue by Company"}</h2>
           <div className="space-y-4">
             {revenueByCompany.map(c => (
               <div key={c.company}>
@@ -221,7 +221,7 @@ const Analytics = () => {
                   <span className="text-[13px] font-medium">{c.company}</span>
                   <div className="flex items-center gap-3">
                     <span className="text-[10px] text-muted-foreground/50 tabular-nums">{c.mrr}</span>
-                    <span className="text-[12px] font-heading font-semibold tabular-nums">{c.revenue}</span>
+                    <span className="text-[12px] font-mondwest font-semibold tabular-nums">{c.revenue}</span>
                   </div>
                 </div>
                 <div className="h-1.5 rounded-full bg-muted overflow-hidden">
@@ -234,13 +234,13 @@ const Analytics = () => {
 
         {/* Agent Performance */}
         <div className="bg-card rounded-2xl p-6 card-static">
-          <h2 className="text-[13px] font-heading font-semibold mb-6">{locale === "it" ? "Performance Agenti" : "Agent Performance"}</h2>
+          <h2 className="text-[13px] font-mondwest font-semibold mb-6">{locale === "it" ? "Performance Agenti" : "Agent Performance"}</h2>
           <div className="space-y-4">
             {performanceByType.map(r => (
               <div key={r.role}>
                 <div className="flex items-center justify-between mb-1.5">
                   <span className="text-[13px] font-medium">{r.role}</span>
-                  <span className="text-[12px] font-heading font-semibold tabular-nums">{r.score}%</span>
+                  <span className="text-[12px] font-mondwest font-semibold tabular-nums">{r.score}%</span>
                 </div>
                 <div className="h-1.5 rounded-full bg-muted overflow-hidden">
                   <div className="h-full bg-accent rounded-full transition-all" style={{ width: `${(r.score / maxScore) * 100}%` }} />

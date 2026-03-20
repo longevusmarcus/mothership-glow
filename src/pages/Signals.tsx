@@ -82,7 +82,7 @@ const Signals = () => {
           <ArrowLeft className="h-4 w-4" strokeWidth={1.6} />
         </Link>
         <div className="flex-1">
-          <h1 className="text-[22px] font-heading font-semibold tracking-tight flex items-center gap-2">
+          <h1 className="text-[22px] font-mondwest font-semibold tracking-tight flex items-center gap-2">
             <Radio className="h-5 w-5 text-primary" strokeWidth={1.6} />
             {locale === "it" ? "Segnali" : "Signals"}
           </h1>

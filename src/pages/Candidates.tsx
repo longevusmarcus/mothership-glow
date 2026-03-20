@@ -79,7 +79,7 @@ const Agents = () => {
     <div className="space-y-5 h-full">
       <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 px-1">
         <div>
-          <h1 className="text-[22px] sm:text-[26px] font-heading font-semibold tracking-tight">
+          <h1 className="text-[22px] sm:text-[26px] font-mondwest font-semibold tracking-tight">
             <TextShimmer as="span" duration={2.5}>{t("candidates.title")}</TextShimmer>
           </h1>
           <p className="text-[13px] text-muted-foreground mt-1">
@@ -212,7 +212,7 @@ const Agents = () => {
                           </span>
                         </td>
                         <td className="px-4 py-3.5 text-right">
-                          <span className="text-[14px] font-heading font-semibold tabular-nums">{a.score}%</span>
+                          <span className="text-[14px] font-mondwest font-semibold tabular-nums">{a.score}%</span>
                         </td>
                       </tr>
                     ))}

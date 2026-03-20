@@ -379,7 +379,7 @@ const Chat = () => {
     <div className="flex flex-col h-[calc(100vh-theme(spacing.16)-theme(spacing.20))] max-w-2xl mx-auto">
       {isEmpty ? (
         <div className="flex-1 flex flex-col items-center justify-center px-4">
-          <h1 className="text-[20px] font-heading font-semibold tracking-tight mb-1">
+          <h1 className="text-[20px] font-mondwest font-semibold tracking-tight mb-1">
             <TextShimmer as="span" duration={2.5}>{t("chat.assistantTitle")}</TextShimmer>
           </h1>
           <p className="text-[12px] text-muted-foreground mb-8 text-center max-w-sm">

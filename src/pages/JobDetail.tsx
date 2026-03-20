@@ -164,7 +164,7 @@ const CompanyDetail = () => {
         <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
           <div>
             <div className="flex flex-wrap items-center gap-3 mb-1">
-              <h1 className="text-[18px] sm:text-[22px] font-heading font-semibold tracking-tight"><TextShimmer as="span" duration={2.5}>{company.title}</TextShimmer></h1>
+              <h1 className="text-[18px] sm:text-[22px] font-mondwest font-semibold tracking-tight"><TextShimmer as="span" duration={2.5}>{company.title}</TextShimmer></h1>
               <span className={`text-[10px] px-2.5 py-1 rounded-lg font-semibold ${company.status === "Attiva" ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground"}`}>
                 {company.status === "Attiva" ? t("jobs.active") : t("jobs.paused")}
               </span>
@@ -197,7 +197,7 @@ const CompanyDetail = () => {
           { label: "Revenue", value: "$4,820", trend: "+$1,200 this month" },
         ].map(stat => (
           <div key={stat.label} className="bg-card rounded-xl p-4 card-static">
-            <p className="text-[22px] font-heading font-semibold tracking-tight leading-none tabular-nums">{stat.value}</p>
+            <p className="text-[22px] font-mondwest font-semibold tracking-tight leading-none tabular-nums">{stat.value}</p>
             <p className="text-[11px] text-muted-foreground mt-1 font-medium">{stat.label}</p>
             <p className="text-[9px] text-muted-foreground/50 mt-0.5">{stat.trend}</p>
           </div>
@@ -291,7 +291,7 @@ const CompanyDetail = () => {
           <div className="rounded-2xl p-5 border border-border bg-gradient-to-br from-muted/50 via-transparent to-muted/30">
             <div className="flex items-center gap-2 mb-3">
               <Target className="h-4 w-4 text-muted-foreground" strokeWidth={1.6} />
-              <h2 className="text-[12px] font-heading font-semibold text-foreground/80">AI Summary</h2>
+              <h2 className="text-[12px] font-mondwest font-semibold text-foreground/80">AI Summary</h2>
             </div>
             <p className="text-[11px] text-foreground/70 leading-relaxed">{company.aiSummary}</p>
           </div>
@@ -299,7 +299,7 @@ const CompanyDetail = () => {
           {/* Agents */}
           <div className="bg-card rounded-2xl card-static overflow-hidden">
             <div className="px-5 py-3.5 border-b border-border flex items-center justify-between">
-              <h2 className="text-[13px] font-heading font-semibold">Agents ({company.agents.length})</h2>
+              <h2 className="text-[13px] font-mondwest font-semibold">Agents ({company.agents.length})</h2>
               <span className="text-[9px] px-2 py-0.5 rounded-lg font-semibold bg-muted text-muted-foreground uppercase tracking-wider border border-border flex items-center gap-1"><AiIcon size={10} /> Live</span>
             </div>
             <div className="divide-y divide-border">
@@ -313,7 +313,7 @@ const CompanyDetail = () => {
                       <p className="text-[12px] font-medium truncate">{a.name}</p>
                       <p className="text-[10px] text-muted-foreground">{a.type} · {a.tasks} tasks</p>
                     </div>
-                    <span className="text-[13px] font-heading font-semibold tabular-nums">{a.score}%</span>
+                    <span className="text-[13px] font-mondwest font-semibold tabular-nums">{a.score}%</span>
                   </div>
                 </Link>
               ))}
@@ -322,7 +322,7 @@ const CompanyDetail = () => {
 
           {/* Tech Stack */}
           <div className="bg-card rounded-2xl p-5 card-static">
-            <h2 className="text-[13px] font-heading font-semibold mb-3">Stack</h2>
+            <h2 className="text-[13px] font-mondwest font-semibold mb-3">Stack</h2>
             <div className="flex flex-wrap gap-1.5">
               {company.stack.map(s => (
                 <span key={s} className="text-[10px] px-2.5 py-1 bg-muted text-muted-foreground rounded-lg font-medium">{s}</span>
@@ -332,7 +332,7 @@ const CompanyDetail = () => {
 
           {/* Details */}
           <div className="bg-card rounded-2xl p-5 card-static">
-            <h2 className="text-[13px] font-heading font-semibold mb-3">{t("jobs.details")}</h2>
+            <h2 className="text-[13px] font-mondwest font-semibold mb-3">{t("jobs.details")}</h2>
             <div className="space-y-2.5 text-[12px]">
               {[
                 ["Stage", company.stage],

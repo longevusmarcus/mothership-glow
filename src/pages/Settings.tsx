@@ -41,7 +41,7 @@ function BudgetTab({ locale }: { locale: string }) {
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="text-[13px] font-heading font-semibold">
+        <h2 className="text-[13px] font-mondwest font-semibold">
           {locale === "it" ? "Budget Aziendale" : "Company Budget"}
         </h2>
         <p className="text-[11px] text-muted-foreground mt-0.5">
@@ -54,13 +54,13 @@ function BudgetTab({ locale }: { locale: string }) {
           <p className="text-[11px] text-muted-foreground font-medium mb-1">
             {locale === "it" ? "Saldo Condiviso" : "Shared Balance"}
           </p>
-          <p className="text-[28px] font-heading font-semibold tracking-tight leading-none tabular-nums">${sharedBalance.toFixed(2)}</p>
+          <p className="text-[28px] font-mondwest font-semibold tracking-tight leading-none tabular-nums">${sharedBalance.toFixed(2)}</p>
         </div>
         <div className="bg-card rounded-2xl p-5 card-static">
           <p className="text-[11px] text-muted-foreground font-medium mb-1">
             {locale === "it" ? "Cap per Agente" : "Per Agent Cap"}
           </p>
-          <p className="text-[28px] font-heading font-semibold tracking-tight leading-none tabular-nums">${agentCap.toFixed(2)}</p>
+          <p className="text-[28px] font-mondwest font-semibold tracking-tight leading-none tabular-nums">${agentCap.toFixed(2)}</p>
         </div>
       </div>
 
@@ -82,7 +82,7 @@ function BudgetTab({ locale }: { locale: string }) {
         <p className="text-[12px] font-medium mb-3">{locale === "it" ? "Aggiungi fondi" : "Add funds"}</p>
         <div className="grid grid-cols-3 gap-3">
           {[25, 50, 100].map(amount => (
-            <button key={amount} className="py-3 bg-card border border-border rounded-xl text-[14px] font-heading font-semibold hover:bg-muted/30 hover:border-foreground/10 transition-all active:scale-[0.97]">
+            <button key={amount} className="py-3 bg-card border border-border rounded-xl text-[14px] font-mondwest font-semibold hover:bg-muted/30 hover:border-foreground/10 transition-all active:scale-[0.97]">
               ${amount}
             </button>
           ))}
@@ -158,7 +158,7 @@ function AgentSetupTab({ locale }: { locale: string }) {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-[13px] font-heading font-semibold">
+          <h2 className="text-[13px] font-mondwest font-semibold">
             {locale === "it" ? "Setup Agenti" : "Agent Setup"}
           </h2>
           <p className="text-[11px] text-muted-foreground mt-0.5">
@@ -191,7 +191,7 @@ function AgentSetupTab({ locale }: { locale: string }) {
 
       <div className="bg-card rounded-2xl card-static overflow-hidden">
         <div className="px-5 py-3.5 border-b border-border">
-          <h3 className="text-[13px] font-heading font-semibold">{locale === "it" ? "Skills Installati di Recente" : "Recently Installed Skills"}</h3>
+          <h3 className="text-[13px] font-mondwest font-semibold">{locale === "it" ? "Skills Installati di Recente" : "Recently Installed Skills"}</h3>
         </div>
         <div className="divide-y divide-border">
           {recentSkills.map(skill => (
@@ -227,7 +227,7 @@ function IntegrationsTab({ locale }: { locale: string }) {
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="text-[13px] font-heading font-semibold">
+        <h2 className="text-[13px] font-mondwest font-semibold">
           {locale === "it" ? "Integrazioni" : "Integrations"}
         </h2>
         <p className="text-[11px] text-muted-foreground mt-0.5">
@@ -266,7 +266,7 @@ function SubscriptionTab({ locale }: { locale: string }) {
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="text-[13px] font-heading font-semibold">
+        <h2 className="text-[13px] font-mondwest font-semibold">
           {locale === "it" ? "Abbonamento" : "Subscription"}
         </h2>
         <p className="text-[11px] text-muted-foreground mt-0.5">
@@ -278,12 +278,12 @@ function SubscriptionTab({ locale }: { locale: string }) {
         <div className="flex items-center justify-between mb-4">
           <div>
             <p className="text-[11px] text-muted-foreground font-medium uppercase tracking-wider">{locale === "it" ? "Piano Attuale" : "Current Plan"}</p>
-            <p className="text-[22px] font-heading font-semibold mt-1">Operator Pro</p>
+            <p className="text-[22px] font-mondwest font-semibold mt-1">Operator Pro</p>
           </div>
           <span className="text-[10px] font-semibold text-primary px-2.5 py-1 rounded-lg bg-primary/10">{locale === "it" ? "Attivo" : "Active"}</span>
         </div>
         <div className="flex items-baseline gap-1 mb-4">
-          <span className="text-[32px] font-heading font-bold tracking-tight tabular-nums">$47</span>
+          <span className="text-[32px] font-mondwest font-bold tracking-tight tabular-nums">$47</span>
           <span className="text-[12px] text-muted-foreground font-medium">/{locale === "it" ? "mese" : "mo"}</span>
         </div>
         <div className="space-y-2">
@@ -319,7 +319,7 @@ function SubscriptionTab({ locale }: { locale: string }) {
 
       <div className="bg-card rounded-2xl card-static overflow-hidden">
         <div className="px-5 py-3.5 border-b border-border">
-          <h3 className="text-[13px] font-heading font-semibold">{locale === "it" ? "Fatture Recenti" : "Recent Invoices"}</h3>
+          <h3 className="text-[13px] font-mondwest font-semibold">{locale === "it" ? "Fatture Recenti" : "Recent Invoices"}</h3>
         </div>
         <div className="divide-y divide-border">
           {[
@@ -330,7 +330,7 @@ function SubscriptionTab({ locale }: { locale: string }) {
             <div key={inv.date} className="px-5 py-3 flex items-center justify-between">
               <span className="text-[12px] font-medium">{inv.date}</span>
               <div className="flex items-center gap-3">
-                <span className="text-[12px] font-heading font-semibold tabular-nums">{inv.amount}</span>
+                <span className="text-[12px] font-mondwest font-semibold tabular-nums">{inv.amount}</span>
                 <span className="text-[9px] font-semibold text-success px-2 py-0.5 rounded-lg bg-success/10">{inv.status}</span>
               </div>
             </div>
@@ -355,7 +355,7 @@ const Settings = () => {
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="text-[22px] sm:text-[26px] font-heading font-semibold tracking-tight">
+        <h1 className="text-[22px] sm:text-[26px] font-mondwest font-semibold tracking-tight">
           <TextShimmer as="span" duration={2.5}>{t("settings.title")}</TextShimmer>
         </h1>
         <p className="text-[13px] text-muted-foreground mt-1">{t("settings.subtitle")}</p>
@@ -407,7 +407,7 @@ const Settings = () => {
           {activeTab === "team" && (
             <div className="space-y-5">
               <div className="flex items-center justify-between">
-                <h2 className="text-[13px] font-heading font-semibold">{t("settings.team.title")}</h2>
+                <h2 className="text-[13px] font-mondwest font-semibold">{t("settings.team.title")}</h2>
                 <button className="px-4 py-2 bg-primary text-primary-foreground rounded-xl text-[12px] font-body font-medium hover:opacity-90 transition-all shadow-sm">
                   {t("settings.team.invite")}
                 </button>
@@ -434,7 +434,7 @@ const Settings = () => {
 
           {activeTab === "ai" && (
             <div className="space-y-5">
-              <h2 className="text-[13px] font-heading font-semibold">{t("settings.ai.title")}</h2>
+              <h2 className="text-[13px] font-mondwest font-semibold">{t("settings.ai.title")}</h2>
               <div className="rounded-2xl p-6 space-y-6 border border-border bg-gradient-to-br from-muted/50 via-transparent to-muted/30">
                 <div className="flex items-center gap-3">
                   <AiIcon className="text-muted-foreground" size={20} />
