@@ -136,7 +136,7 @@ const Landing = () => {
               >
                 <span className="text-[11px] font-pixel text-muted-foreground/50 mb-2">{step.num}</span>
                 <h3 className="text-[12px] font-pixel font-bold tracking-wider mb-2">{step.title}</h3>
-                <p className="text-[11px] font-pixel text-muted-foreground leading-relaxed flex-1">{step.desc}</p>
+                <p className="text-[11px] font-mono text-muted-foreground leading-relaxed flex-1">{step.desc}</p>
               </motion.div>
             ))}
           </div>
