@@ -148,10 +148,11 @@ function AgentSetupTab({ locale }: { locale: string }) {
   ];
 
   const recentSkills = [
-    { name: "Stripe API", agent: "FinOps-v9", installed: "2d ago" },
-    { name: "OpenAI GPT-4", agent: "CodeForge-7x", installed: "5d ago" },
-    { name: "Resend Email", agent: "GrowthPulse-3k", installed: "1w ago" },
-    { name: "Supabase Auth", agent: "CodeForge-7x", installed: "1w ago" },
+    { name: "Agent Service API", agent: "CodeForge-7x", installed: "1d ago" },
+    { name: "Signal Scanner", agent: "GrowthPulse-3k", installed: "2d ago" },
+    { name: "Email Inbox", agent: "CodeForge-7x", installed: "3d ago" },
+    { name: "SMS Inbox", agent: "FinOps-v9", installed: "3d ago" },
+    { name: "Site Publisher", agent: "CodeForge-7x", installed: "5d ago" },
   ];
 
   return (
