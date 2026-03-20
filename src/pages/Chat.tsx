@@ -549,6 +549,27 @@ const Chat = () => {
   const scrollToBottom = () => { messagesEndRef.current?.scrollIntoView({ behavior: "smooth" }); };
   useEffect(() => { scrollToBottom(); }, [messages]);
 
+  // Auto-trigger deploy agent flow when navigating from a company
+  useEffect(() => {
+    const state = location.state as { deployToCompany?: { id: string; name: string; type: string; agents: number } } | null;
+    if (state?.deployToCompany && !hasAutoTriggered.current) {
+      hasAutoTriggered.current = true;
+      setDeployToCompany(state.deployToCompany);
+      // Clear the state so refresh doesn't re-trigger
+      window.history.replaceState({}, document.title);
+      // Auto-send the deploy message
+      setTimeout(() => {
+        const company = state.deployToCompany!;
+        const userMessage: ChatMessage = { id: crypto.randomUUID(), role: "user", content: `Deploy agents to ${company.name}`, timestamp: new Date() };
+        setMessages(prev => [...prev, userMessage]);
+        setIsLoading(true);
+        setTimeout(() => {
+          addAssistant(`Let's deploy agents to ${company.name} (${company.type}). Pick which agents you want to activate — they'll be assigned directly to ${company.name}.`, "deploy_agent_flow");
+        }, 800);
+      }, 300);
+    }
+  }, [location.state]);
+
   const addAssistant = (content: string, action?: ChatMessage["action"]) => {
     const msg: ChatMessage = { id: crypto.randomUUID(), role: "assistant", content, timestamp: new Date(), action };
     setMessages(prev => [...prev, msg]);
