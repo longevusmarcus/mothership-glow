@@ -178,10 +178,10 @@ const CompanyDetail = () => {
             </div>
           </div>
           <div className="flex gap-2">
-            <Link to="/chat" className="flex items-center gap-2 px-3.5 py-2 bg-foreground text-background rounded-xl text-[11px] font-body font-medium hover:opacity-90 active:scale-[0.97] transition-all">
+            <Link to="/chat" className="flex items-center gap-2 px-3.5 py-2 bg-foreground text-background rounded-xl text-[11px] font-mono font-medium hover:opacity-90 active:scale-[0.97] transition-all">
               <Rocket className="h-3 w-3" strokeWidth={1.6} /> Deploy Agent
             </Link>
-            <button className="flex items-center gap-2 px-3.5 py-2 border border-border rounded-xl text-[11px] font-body font-medium text-muted-foreground hover:text-foreground transition-all">
+            <button className="flex items-center gap-2 px-3.5 py-2 border border-border rounded-xl text-[11px] font-mono font-medium text-muted-foreground hover:text-foreground transition-all">
               <Edit className="h-3 w-3" strokeWidth={1.6} /> {t("jobs.edit")}
             </button>
           </div>

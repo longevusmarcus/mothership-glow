@@ -94,7 +94,7 @@ const AgentDetail = () => {
 
   const agent = { ...agentBase, stage: currentStage };
 
-  const inputClass = "w-full px-3.5 py-2.5 bg-background border border-border rounded-xl text-[13px] font-body placeholder:text-muted-foreground/40 focus:outline-none focus:ring-1 focus:ring-ring/15 transition-all";
+  const inputClass = "w-full px-3.5 py-2.5 bg-background border border-border rounded-xl text-[13px] font-mono placeholder:text-muted-foreground/40 focus:outline-none focus:ring-1 focus:ring-ring/15 transition-all";
 
   const stageDisplayName = (stage: string) => {
     const map: Record<string, TranslationKey> = {
@@ -179,10 +179,10 @@ const AgentDetail = () => {
         </div>
 
         <div className="flex gap-2.5 mt-5">
-          <button onClick={() => setShowNoteInput(true)} className="flex items-center gap-2 px-4 py-2 border border-border rounded-xl text-[12px] font-body font-medium text-muted-foreground hover:text-foreground transition-all">
+          <button onClick={() => setShowNoteInput(true)} className="flex items-center gap-2 px-4 py-2 border border-border rounded-xl text-[12px] font-mono font-medium text-muted-foreground hover:text-foreground transition-all">
             <StickyNote className="h-3 w-3" strokeWidth={1.6} /> {t("candidateDetail.addNote")}
           </button>
-          <button className="flex items-center gap-2 px-4 py-2 border border-border rounded-xl text-[12px] font-body font-medium text-muted-foreground hover:text-foreground transition-all">
+          <button className="flex items-center gap-2 px-4 py-2 border border-border rounded-xl text-[12px] font-mono font-medium text-muted-foreground hover:text-foreground transition-all">
             <Zap className="h-3 w-3" strokeWidth={1.6} /> {t("candidateDetail.downloadCv")}
           </button>
         </div>
@@ -218,7 +218,7 @@ const AgentDetail = () => {
       {/* Tabs */}
       <div className="flex gap-1 border-b border-border">
         {tabs.map(tab => (
-          <button key={tab.id} onClick={() => setActiveTab(tab.id)} className={`px-4 py-2.5 text-[12px] font-body font-medium transition-all border-b-2 -mb-px ${activeTab === tab.id ? "border-foreground text-foreground" : "border-transparent text-muted-foreground hover:text-foreground"}`}>
+          <button key={tab.id} onClick={() => setActiveTab(tab.id)} className={`px-4 py-2.5 text-[12px] font-mono font-medium transition-all border-b-2 -mb-px ${activeTab === tab.id ? "border-foreground text-foreground" : "border-transparent text-muted-foreground hover:text-foreground"}`}>
             {tab.label}
           </button>
         ))}

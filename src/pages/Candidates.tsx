@@ -119,7 +119,7 @@ const Agents = () => {
             placeholder={t("candidates.searchPlaceholder")}
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-9 pr-4 py-2.5 bg-card border border-border rounded-xl text-[12px] font-body placeholder:text-muted-foreground/40 focus:outline-none focus:ring-1 focus:ring-ring/15 transition-all"
+            className="w-full pl-9 pr-4 py-2.5 bg-card border border-border rounded-xl text-[12px] font-mono placeholder:text-muted-foreground/40 focus:outline-none focus:ring-1 focus:ring-ring/15 transition-all"
           />
         </div>
         <Select value={typeFilter} onValueChange={setTypeFilter}>
