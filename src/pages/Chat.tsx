@@ -84,13 +84,30 @@ const ease = [0.16, 1, 0.3, 1] as const;
 
 function SignalsCard({ onSelect }: { onSelect: (title: string) => void }) {
   const [selected, setSelected] = useState<string[]>([]);
+  const [signals, setSignals] = useState(() => shuffleAndPick(allSignals, 5));
+  const [refreshing, setRefreshing] = useState(false);
   const toggle = (t: string) => setSelected(prev => prev.includes(t) ? prev.filter(x => x !== t) : [...prev, t]);
+
+  const refresh = () => {
+    setRefreshing(true);
+    setTimeout(() => {
+      setSignals(shuffleAndPick(allSignals, 5));
+      setSelected([]);
+      setRefreshing(false);
+    }, 400);
+  };
 
   return (
     <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, ease }} className="space-y-2 mt-2">
-      <p className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider">Top signals this week</p>
+      <div className="flex items-center justify-between">
+        <p className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider">Top signals this week</p>
+        <button onClick={refresh} className="flex items-center gap-1 text-[10px] text-muted-foreground hover:text-foreground transition-colors active:scale-95">
+          <RefreshCw className={`h-3 w-3 ${refreshing ? "animate-spin" : ""}`} strokeWidth={1.8} />
+          Refresh
+        </button>
+      </div>
       <div className="space-y-1.5">
-        {topSignals.map((s, i) => (
+        {signals.map((s, i) => (
           <motion.button
             key={s.title}
             initial={{ opacity: 0, x: -8 }}
@@ -129,11 +146,28 @@ function SignalsCard({ onSelect }: { onSelect: (title: string) => void }) {
 }
 
 function IdeasCard({ onSelect }: { onSelect: (idea: string) => void }) {
+  const [ideas, setIdeas] = useState(() => shuffleAndPick(allIdeas, 4));
+  const [refreshing, setRefreshing] = useState(false);
+
+  const refresh = () => {
+    setRefreshing(true);
+    setTimeout(() => {
+      setIdeas(shuffleAndPick(allIdeas, 4));
+      setRefreshing(false);
+    }, 400);
+  };
+
   return (
     <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, ease }} className="space-y-2 mt-2">
-      <p className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider">Pre-validated ideas</p>
+      <div className="flex items-center justify-between">
+        <p className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider">Pre-validated ideas</p>
+        <button onClick={refresh} className="flex items-center gap-1 text-[10px] text-muted-foreground hover:text-foreground transition-colors active:scale-95">
+          <RefreshCw className={`h-3 w-3 ${refreshing ? "animate-spin" : ""}`} strokeWidth={1.8} />
+          Refresh
+        </button>
+      </div>
       <div className="space-y-1.5">
-        {topIdeas.map((idea, i) => (
+        {ideas.map((idea, i) => (
           <motion.button
             key={idea.title}
             initial={{ opacity: 0, x: -8 }}
