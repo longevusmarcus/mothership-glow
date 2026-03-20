@@ -153,8 +153,9 @@ const More = () => {
                 </div>
               </div>
             </CursorCard>
-          </Link>
-        ))}
+          </Wrapper>
+          );
+        })}
       </CursorCardsContainer>
     </div>
   );
