@@ -91,7 +91,7 @@ const Dashboard = () => {
         <div>
           <p className="text-[12px] text-muted-foreground font-medium capitalize tracking-wide font-mono">{dateStr}</p>
           <h1 className="text-[28px] sm:text-[34px] font-mondwest font-semibold tracking-tight mt-1">
-            <TextShimmer as="span" duration={2.5}>{`${t(greetingKey)}, Operator`}</TextShimmer>
+            <TextShimmer as="span" duration={2.5}>{`${t(greetingKey)}, Orchestrator`}</TextShimmer>
           </h1>
         </div>
         <Link to="/companies/new" className="w-full sm:w-auto">
