@@ -5,6 +5,7 @@ import {
   Building2,
   Rocket,
   BookOpen,
+  MoreHorizontal,
   ShoppingBag,
   BarChart3,
   Settings,
