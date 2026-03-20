@@ -539,9 +539,12 @@ const quickActions = [
 const Chat = () => {
   const { t, locale } = useLanguage();
   const navigate = useNavigate();
+  const location = useLocation();
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const [deployToCompany, setDeployToCompany] = useState<{ id: string; name: string; type: string; agents: number } | null>(null);
+  const hasAutoTriggered = useRef(false);
 
   const scrollToBottom = () => { messagesEndRef.current?.scrollIntoView({ behavior: "smooth" }); };
   useEffect(() => { scrollToBottom(); }, [messages]);
