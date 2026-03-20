@@ -44,7 +44,7 @@ const Dashboard = () => {
   ];
 
   const recentAgents = [
-    { id: 1, name: "CodeForge", type: "Tech Agent", score: 96, status: "Active", aiMatch: true },
+    { id: 1, name: "CEO Agent", type: "Tech Agent", score: 96, status: "Active", aiMatch: true },
     { id: 2, name: "GrowthPilot", type: "Growth Agent", score: 91, status: "Deployed", aiMatch: true },
     { id: 3, name: "DesignMind", type: "Creative Agent", score: 87, status: "Active", aiMatch: false },
     { id: 4, name: "DataStream", type: "Tech Agent", score: 94, status: "Integrated", aiMatch: true },

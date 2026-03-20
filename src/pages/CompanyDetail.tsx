@@ -52,7 +52,7 @@ const companyDocuments = [
 ];
 
 const deployPreviews = [
-  { name: "Dashboard v3.2", url: "novatech-dash.vercel.app", agent: "CodeForge", time: "2h ago", status: "live" },
+  { name: "Dashboard v3.2", url: "novatech-dash.vercel.app", agent: "CEO Agent", time: "2h ago", status: "live" },
   { name: "Landing Page v2", url: "novatech.com", agent: "GrowthPilot", time: "8h ago", status: "live" },
   { name: "Onboarding Flow", url: "novatech-onboard.vercel.app", agent: "DesignMind", time: "1d ago", status: "preview" },
 ];

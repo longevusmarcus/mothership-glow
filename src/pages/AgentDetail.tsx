@@ -41,7 +41,7 @@ const agentData: Record<string, {
       { date: "15 Mar 2026", command: "Set up CI/CD pipeline", status: "Completed" },
     ],
     history: [
-      { date: "20 Mar 2026", action: "Task completed: Checkout flow", by: "CodeForge" },
+      { date: "20 Mar 2026", action: "Task completed: Checkout flow", by: "CEO Agent" },
       { date: "18 Mar 2026", action: "Deployed to NovaTech — Performance 96%", by: "MothershipX AI", ai: true },
       { date: "15 Mar 2026", action: "API Skill installed: Stripe", by: "Operator" },
       { date: "12 Mar 2026", action: "Agent created and trained", by: "System" },
