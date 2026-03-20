@@ -373,7 +373,7 @@ const CompanyCreate = () => {
               </div>
             </div>
 
-            <ClaimCompanyPaywall onDeployAnother={() => { setStep("select"); setSelectedAgents([]); setGeneratedCompany(null); }} />
+            <ClaimCompanyPaywall onDeployAnother={() => { setStep("select"); setSelectedAgents([coreAgentId]); setAgentName(createAgents[0].name); setGeneratedCompany(null); }} />
           </motion.div>
         )}
       </AnimatePresence>
