@@ -355,10 +355,10 @@ const Chat = () => {
   };
 
   const handleIntegrate = () => {
-    const userMsg: ChatMessage = { id: crypto.randomUUID(), role: "user", content: "I want to connect my own agent", timestamp: new Date() };
+    const userMsg: ChatMessage = { id: crypto.randomUUID(), role: "user", content: "I want to integrate my own agent", timestamp: new Date() };
     setMessages(prev => [...prev, userMsg]);
     setIsLoading(true);
-    setTimeout(() => addAssistant("Agent integration is coming soon. For now, you can deploy with our built-in agents — they'll coordinate with your systems via API once connected."), 800);
+    setTimeout(() => addAssistant("Here's everything you need to connect your agent via REST API. Unlock full access with the MSX Pro plan.", "show_api_docs"), 800);
   };
 
   const isEmpty = messages.length === 0;
