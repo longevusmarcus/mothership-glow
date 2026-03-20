@@ -187,7 +187,7 @@ const CompanyCreate = () => {
               <div className="grid grid-cols-3 gap-3">
                 {[
                   { icon: Radio, label: "Signals", count: "847", sub: "last 30 days" },
-                  { icon: Lightbulb, label: "Ideas", count: "23", sub: "validated" },
+                  { icon: Lightbulb, label: "Ideas", count: "750", sub: "validated" },
                   { icon: Globe, label: "Markets", count: "12", sub: "tracked" },
                 ].map(s => (
                   <div key={s.label} className="flex items-center gap-3 p-3 rounded-xl bg-muted/40">
