@@ -3,9 +3,10 @@ import AiIcon from "@/components/AiIcon";
 import { InteractiveHoverButton } from "@/components/ui/interactive-hover-button";
 import { TextShimmer } from "@/components/ui/text-shimmer";
 import { CursorCardsContainer, CursorCard } from "@/components/ui/cursor-cards";
-import { Link, useSearchParams } from "react-router-dom";
+import { Link, useSearchParams, useNavigate } from "react-router-dom";
 import { useLanguage } from "@/i18n/LanguageContext";
 import type { TranslationKey } from "@/i18n/translations";
+import { useEffect } from "react";
 
 const statusColors: Record<string, string> = {
   Training: "bg-muted text-muted-foreground",
