@@ -185,7 +185,7 @@ const CompanyCreate = () => {
                 </button>
                 <button
                   onClick={() => toast.info("Config upload coming soon — bring your own agent logic.")}
-                  className="flex items-center gap-1.5 px-3 py-2 rounded-xl border border-border bg-card text-[11px] font-semibold text-foreground hover:bg-muted/60 transition-all active:scale-[0.97]"
+                  className="flex items-center gap-1.5 px-3 py-2 rounded-xl border border-border bg-card text-[11px] font-pixel font-semibold text-foreground hover:bg-muted/60 transition-all active:scale-[0.97]"
                 >
                   <Upload className="h-3 w-3" strokeWidth={2} />
                   Upload config
