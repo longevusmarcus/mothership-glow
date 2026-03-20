@@ -21,6 +21,10 @@ const ease = [0.16, 1, 0.3, 1] as const;
 const Landing = () => {
   const navigate = useNavigate();
 
+  useEffect(() => {
+    document.documentElement.classList.add("dark");
+  }, []);
+
   return (
     <div className="min-h-screen bg-background text-foreground flex flex-col dark">
       {/* Nav */}
