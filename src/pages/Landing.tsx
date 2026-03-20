@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { ArrowRight, Code, MonitorPlay, Swords, User } from "lucide-react";
+import { ArrowRight, User } from "lucide-react";
 
 const steps = [
   { num: "01", title: "SIGNALS", desc: "Our AI continuously scans TikTok + 12 sources for pain points & trending demand" },
