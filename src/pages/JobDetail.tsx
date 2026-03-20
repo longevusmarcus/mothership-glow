@@ -41,6 +41,16 @@ const taskLog = [
   { agent: "GrowthPilot", task: "Google Analytics 4 + conversion tracking", time: "now", status: "in_progress" as const },
 ];
 
+const companyDocuments = [
+  { name: "Company Mission & Vision", type: "Mission", agent: "GrowthPilot", time: "1d ago", size: "2.4 KB", status: "final" as const },
+  { name: "Market Research — SaaS PM Tools", type: "Market Research", agent: "MarketBot", time: "2d ago", size: "18.7 KB", status: "final" as const },
+  { name: "Competitive Analysis Report", type: "Market Research", agent: "MarketBot", time: "3d ago", size: "12.1 KB", status: "final" as const },
+  { name: "Go-To-Market Strategy v2", type: "Strategy", agent: "GrowthPilot", time: "4d ago", size: "8.3 KB", status: "draft" as const },
+  { name: "Technical Architecture Doc", type: "Technical", agent: "CodeForge", time: "5d ago", size: "6.9 KB", status: "final" as const },
+  { name: "Brand Guidelines & Tone", type: "Branding", agent: "DesignMind", time: "6d ago", size: "4.1 KB", status: "final" as const },
+  { name: "Revenue Model & Projections", type: "Financial", agent: "GrowthPilot", time: "1w ago", size: "9.5 KB", status: "draft" as const },
+];
+
 const deployPreviews = [
   { name: "Dashboard v3.2", url: "novatech-dash.vercel.app", agent: "CodeForge", time: "2h ago", status: "live" },
   { name: "Landing Page v2", url: "novatech.com", agent: "GrowthPilot", time: "8h ago", status: "live" },
