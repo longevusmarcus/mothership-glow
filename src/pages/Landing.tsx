@@ -95,7 +95,7 @@ const Landing = () => {
         >
           <button
             onClick={() => navigate("/companies/new")}
-            className="group h-14 px-10 rounded-xl bg-foreground text-background font-mono text-[13px] font-semibold tracking-wider flex items-center gap-3 hover:opacity-90 transition-all active:scale-[0.97]"
+            className="group h-14 px-10 rounded-xl bg-foreground text-background font-pixel text-[13px] font-semibold tracking-wider flex items-center gap-3 hover:opacity-90 transition-all active:scale-[0.97]"
           >
             <span className="text-muted-foreground/60 group-hover:text-background/60 transition-colors">&gt;</span>
             DEPLOY_AGENT
