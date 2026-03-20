@@ -14,7 +14,7 @@ interface ChatMessage {
   role: "user" | "assistant";
   content: string;
   timestamp: Date;
-  action?: "show_signals" | "show_ideas" | "pick_agent" | "deploying" | "deployed" | "show_api_docs";
+  action?: "show_signals" | "show_ideas" | "pick_agent" | "deploying" | "deployed" | "show_api_docs" | "deploy_agent_flow";
 }
 
 const responseKeys: TranslationKey[] = [
@@ -344,10 +344,133 @@ function ApiDocsPaywall() {
   );
 }
 
+// Mock existing companies
+const existingCompanies = [
+  { id: "novapay", name: "NovaPay", type: "SaaS B2B", agents: 2 },
+  { id: "mealmind", name: "MealMind", type: "Consumer App", agents: 1 },
+  { id: "splitpay", name: "SplitPay", type: "Fintech", agents: 3 },
+];
+
+function DeployAgentCard({ onDone }: { onDone: (agentNames: string, target: string) => void }) {
+  const [selectedAgents, setSelectedAgents] = useState<string[]>([]);
+  const [target, setTarget] = useState<"existing" | "new" | null>(null);
+  const [selectedCompany, setSelectedCompany] = useState<string | null>(null);
+  const toggleAgent = (id: string) => setSelectedAgents(prev => prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id]);
+
+  const canDeploy = selectedAgents.length > 0 && (target === "new" || (target === "existing" && selectedCompany));
+
+  const handleDeploy = () => {
+    const names = selectedAgents.map(id => agents.find(a => a.id === id)?.name || id).join(", ");
+    const targetLabel = target === "new" ? "a new company" : existingCompanies.find(c => c.id === selectedCompany)?.name || "company";
+    onDone(names, targetLabel);
+  };
+
+  return (
+    <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, ease }} className="space-y-3 mt-2">
+      {/* Step 1: Pick agents */}
+      <p className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider">1. Select agents to deploy</p>
+      <div className="grid grid-cols-2 gap-2">
+        {agents.map((a, i) => {
+          const Icon = a.icon;
+          const isSelected = selectedAgents.includes(a.id);
+          return (
+            <motion.button
+              key={a.id}
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: i * 0.06, duration: 0.3 }}
+              onClick={() => toggleAgent(a.id)}
+              className={`relative text-left p-3 rounded-xl border transition-all ${
+                isSelected ? "border-primary/40 bg-primary/[0.04]" : "border-border bg-background hover:border-border/80"
+              }`}
+            >
+              {isSelected && <Check className="absolute top-2.5 right-2.5 h-3 w-3 text-primary" strokeWidth={2.5} />}
+              <div className="flex items-center gap-2 mb-1">
+                <div className="h-7 w-7 rounded-lg flex items-center justify-center" style={{ background: `${a.color}15` }}>
+                  <Icon className="h-3.5 w-3.5" style={{ color: a.color }} strokeWidth={1.6} />
+                </div>
+                <div>
+                  <p className="text-[11px] font-semibold">{a.name}</p>
+                  <p className="text-[9px] text-muted-foreground">{a.role}</p>
+                </div>
+              </div>
+            </motion.button>
+          );
+        })}
+      </div>
+
+      {/* Step 2: Choose target */}
+      {selectedAgents.length > 0 && (
+        <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: "auto" }} className="space-y-2">
+          <p className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider">2. Assign to</p>
+          <div className="grid grid-cols-2 gap-2">
+            <button
+              onClick={() => { setTarget("existing"); setSelectedCompany(null); }}
+              className={`p-3 rounded-xl border text-left transition-all ${target === "existing" ? "border-primary/40 bg-primary/[0.04]" : "border-border bg-background hover:border-border/80"}`}
+            >
+              <Building2 className="h-4 w-4 text-muted-foreground mb-1.5" strokeWidth={1.6} />
+              <p className="text-[11px] font-semibold">Existing company</p>
+              <p className="text-[9px] text-muted-foreground">{existingCompanies.length} companies</p>
+            </button>
+            <button
+              onClick={() => { setTarget("new"); setSelectedCompany(null); }}
+              className={`p-3 rounded-xl border text-left transition-all ${target === "new" ? "border-primary/40 bg-primary/[0.04]" : "border-border bg-background hover:border-border/80"}`}
+            >
+              <Rocket className="h-4 w-4 text-muted-foreground mb-1.5" strokeWidth={1.6} />
+              <p className="text-[11px] font-semibold">New company</p>
+              <p className="text-[9px] text-muted-foreground">Deploy from scratch</p>
+            </button>
+          </div>
+        </motion.div>
+      )}
+
+      {/* Step 2b: Pick existing company */}
+      {target === "existing" && (
+        <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: "auto" }} className="space-y-1.5">
+          {existingCompanies.map((c, i) => (
+            <motion.button
+              key={c.id}
+              initial={{ opacity: 0, x: -8 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: i * 0.05, duration: 0.3 }}
+              onClick={() => setSelectedCompany(c.id)}
+              className={`w-full text-left p-3 rounded-xl border transition-all ${
+                selectedCompany === c.id ? "border-primary/40 bg-primary/[0.04]" : "border-border bg-background hover:border-border/80"
+              }`}
+            >
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-[12px] font-semibold">{c.name}</p>
+                  <p className="text-[10px] text-muted-foreground">{c.type} · {c.agents} agents active</p>
+                </div>
+                {selectedCompany === c.id && <Check className="h-3 w-3 text-primary" strokeWidth={2.5} />}
+              </div>
+            </motion.button>
+          ))}
+        </motion.div>
+      )}
+
+      {/* Deploy button */}
+      {canDeploy && (
+        <motion.button
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          onClick={handleDeploy}
+          className="w-full h-10 rounded-xl bg-foreground text-background text-[12px] font-semibold flex items-center justify-center gap-2 hover:opacity-90 transition-all active:scale-[0.97]"
+        >
+          <Zap className="h-3.5 w-3.5" strokeWidth={1.8} />
+          Deploy {selectedAgents.length} agent{selectedAgents.length > 1 ? "s" : ""} → {target === "new" ? "New company" : existingCompanies.find(c => c.id === selectedCompany)?.name}
+        </motion.button>
+      )}
+    </motion.div>
+  );
+}
+
 // ---------- Main Chat component ----------
 
 const quickActions = [
   { icon: Rocket, label: "Deploy a company", labelIt: "Deploya un'azienda", prompt: "I want to deploy a new company" },
+  { icon: Zap, label: "Deploy agent", labelIt: "Deploya agente", prompt: "I want to deploy an agent to a company" },
   { icon: Radio, label: "Browse signals", labelIt: "Sfoglia segnali", prompt: "Show me the top market signals this week" },
   { icon: Lightbulb, label: "Explore ideas", labelIt: "Esplora idee", prompt: "Show me pre-validated business ideas" },
   { icon: Bot, label: "Agent types", labelIt: "Tipi di agente", prompt: "Show me all available agent types and their capabilities" },
@@ -395,6 +518,11 @@ const Chat = () => {
       return;
     }
 
+    if (lower.includes("deploy") && lower.includes("agent") && (lower.includes("company") || lower.includes("assign") || !lower.includes("azienda"))) {
+      setTimeout(() => addAssistant("Let's deploy your agents. Pick which agents you want to activate and where to assign them — an existing company or a brand new one.", "deploy_agent_flow"), 800);
+      return;
+    }
+
     if (lower.includes("integrate") && lower.includes("agent")) {
       setTimeout(() => addAssistant("Let's get your agent connected. Choose from our agents or integrate your own — you can mix both.", "pick_agent"), 800);
       return;
@@ -433,6 +561,12 @@ const Chat = () => {
     addAssistant("Your company is live. Agents are now working autonomously — check the dashboard for real-time updates.", "deployed");
   };
 
+  const handleDeployAgentDone = (agentNames: string, target: string) => {
+    const userMsg: ChatMessage = { id: crypto.randomUUID(), role: "user", content: `Deploy ${agentNames} → ${target}`, timestamp: new Date() };
+    setMessages(prev => [...prev, userMsg]);
+    setTimeout(() => addAssistant(`Deploying ${agentNames} to ${target}. Agents are spinning up now...`, "deploying"), 600);
+  };
+
   const handleIntegrate = () => {
     const userMsg: ChatMessage = { id: crypto.randomUUID(), role: "user", content: "I want to integrate my own agent", timestamp: new Date() };
     setMessages(prev => [...prev, userMsg]);
@@ -451,6 +585,7 @@ const Chat = () => {
       case "deploying": return <DeployingCard onDone={handleDeployDone} />;
       case "deployed": return <DeployedCard />;
       case "show_api_docs": return <ApiDocsPaywall />;
+      case "deploy_agent_flow": return <DeployAgentCard onDone={handleDeployAgentDone} />;
       default: return null;
     }
   };
