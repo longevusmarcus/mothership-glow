@@ -36,6 +36,14 @@ const deploySteps: DeployStep[] = [
 
 function ClaimCompanyPaywall({ onDeployAnother }: { onDeployAnother: () => void }) {
   const [showPlan, setShowPlan] = useState(false);
+  const planRef = useRef<HTMLDivElement>(null);
+
+  const handleClaim = () => {
+    setShowPlan(true);
+    setTimeout(() => {
+      planRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
+    }, 100);
+  };
 
   return (
     <div className="space-y-3">
@@ -45,14 +53,14 @@ function ClaimCompanyPaywall({ onDeployAnother }: { onDeployAnother: () => void 
             className="px-4 py-2.5 text-[12px] font-medium text-muted-foreground hover:text-foreground transition-colors">
             Deploy another
           </button>
-          <button onClick={() => setShowPlan(true)}
+          <button onClick={handleClaim}
             className="flex items-center gap-2 px-5 py-2.5 bg-foreground text-background rounded-xl text-[12px] font-semibold hover:opacity-90 transition-all active:scale-[0.97]">
             <Lock className="h-3.5 w-3.5" strokeWidth={1.8} />
             Claim company
           </button>
         </div>
       ) : (
-        <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="rounded-2xl border border-primary/25 bg-primary/[0.04] p-5 space-y-4">
+        <motion.div ref={planRef} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="rounded-2xl border border-primary/25 bg-primary/[0.04] p-5 space-y-4">
           <div className="flex items-center gap-3">
             <div>
               <p className="text-[15px] font-semibold">Claim this company — $58/mo</p>
