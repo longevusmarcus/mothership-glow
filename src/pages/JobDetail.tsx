@@ -231,7 +231,7 @@ const CompanyDetail = () => {
           {activePanel === "chat" && <CompanyChat companyName={company.title} />}
 
           {activePanel === "tasks" && (
-            <div className="divide-y divide-border max-h-[360px] overflow-y-auto">
+            <div className="divide-y divide-border flex-1 overflow-y-auto">
               {taskLog.map((task, i) => (
                 <motion.div key={i} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: i * 0.03 }} className="px-5 py-3.5 flex items-start gap-3">
                   <div className={`h-7 w-7 rounded-lg flex items-center justify-center shrink-0 mt-0.5 ${task.status === "done" ? "bg-success/10" : "bg-primary/10"}`}>
