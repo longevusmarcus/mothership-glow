@@ -339,7 +339,7 @@ const Chat = () => {
   const handleIdeaSelected = (idea: string) => {
     const userMsg: ChatMessage = { id: crypto.randomUUID(), role: "user", content: `Build: ${idea}`, timestamp: new Date() };
     setMessages(prev => [...prev, userMsg]);
-    setIsLoading(true;
+    setIsLoading(true);
     setTimeout(() => addAssistant(`Solid choice — "${idea}" has strong market validation. Now pick the agents that will build it, or integrate your own.`, "pick_agent"), 900);
   };
 
