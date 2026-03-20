@@ -10,7 +10,7 @@ import CompanyChat from "@/components/company/CompanyChat";
 const companyData: Record<string, {
   title: string; department: string; location: string; type: string; status: string;
   description: string; stack: string[]; stage: string; budget: string;
-  agents: { id: number; name: string; type: string; score: number; status: string; tasks: number }[];
+  agents: { id: number; name: string; type: string; score: number; status: string; tasks: number; telegram?: string }[];
   daysActive: number; aiSummary: string;
 }> = {
   "1": {
