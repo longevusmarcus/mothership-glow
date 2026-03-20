@@ -370,16 +370,7 @@ const CompanyCreate = () => {
             </div>
 
             {/* Actions */}
-            <div className="flex justify-end gap-2.5">
-              <button onClick={() => { setStep("select"); setSelectedAgents([]); setGeneratedCompany(null); }}
-                className="px-4 py-2.5 text-[12px] font-medium text-muted-foreground hover:text-foreground transition-colors">
-                Deploy another
-              </button>
-              <button onClick={() => navigate("/companies/1")}
-                className="flex items-center gap-2 px-5 py-2.5 bg-primary text-primary-foreground rounded-xl text-[12px] font-semibold hover:opacity-90 transition-all active:scale-[0.97]">
-                Open company <ChevronRight className="h-3.5 w-3.5" strokeWidth={1.8} />
-              </button>
-            </div>
+            <ClaimCompanyPaywall onDeployAnother={() => { setStep("select"); setSelectedAgents([]); setGeneratedCompany(null); }} />
           </motion.div>
         )}
       </AnimatePresence>
