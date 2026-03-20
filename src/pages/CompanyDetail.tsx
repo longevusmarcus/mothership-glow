@@ -118,7 +118,7 @@ const CompanyDetail = () => {
         <div className="lg:col-span-2 bg-card rounded-2xl card-static overflow-hidden flex flex-col min-h-[500px]">
           <div className="flex items-center border-b border-border overflow-x-auto scrollbar-hide">
              {([
-              { id: "chat" as const, label: "Agent Chat", icon: MessageSquare },
+              { id: "chat" as const, label: "Orchestrator Chat", icon: MessageSquare },
               { id: "tasks" as const, label: "Task Log", icon: CheckCircle2 },
               { id: "docs" as const, label: "Docs", icon: FileText },
               { id: "deploys" as const, label: "Deploys", icon: Eye },
