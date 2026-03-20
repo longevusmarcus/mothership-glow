@@ -408,10 +408,10 @@ const existingCompanies = [
   { id: "splitpay", name: "SplitPay", type: "Fintech", agents: 3 },
 ];
 
-function DeployAgentCard({ onDone }: { onDone: (agentNames: string, target: string) => void }) {
+function DeployAgentCard({ onDone, preSelectedCompany }: { onDone: (agentNames: string, target: string) => void; preSelectedCompany?: { id: string; name: string; type: string; agents: number } | null }) {
   const [selectedAgents, setSelectedAgents] = useState<string[]>([]);
-  const [target, setTarget] = useState<"existing" | "new" | null>(null);
-  const [selectedCompany, setSelectedCompany] = useState<string | null>(null);
+  const [target, setTarget] = useState<"existing" | "new" | null>(preSelectedCompany ? "existing" : null);
+  const [selectedCompany, setSelectedCompany] = useState<string | null>(preSelectedCompany?.id || null);
   const toggleAgent = (id: string) => setSelectedAgents(prev => prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id]);
 
   const canDeploy = selectedAgents.length > 0 && (target === "new" || (target === "existing" && selectedCompany));
