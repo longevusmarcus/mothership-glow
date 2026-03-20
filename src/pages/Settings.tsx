@@ -1,4 +1,4 @@
-import { DollarSign, Bot, CreditCard, Users, Zap, Shield, Mail, Bell, PlugZap, Clock, ArrowUpRight, Copy, Plus } from "lucide-react";
+import { DollarSign, Bot, CreditCard, Users, Zap, Shield, Mail, Bell, PlugZap, Clock, ArrowUpRight, Copy, Plus, FolderOpen } from "lucide-react";
 import AiIcon from "@/components/AiIcon";
 import { TextShimmer } from "@/components/ui/text-shimmer";
 import { useState } from "react";
