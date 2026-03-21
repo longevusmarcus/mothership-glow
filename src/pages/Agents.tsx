@@ -17,10 +17,7 @@ import {
   Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription,
 } from "@/components/ui/dialog";
 
-const initialAgents = [
-  // CEO Agents (Full-Stack, bound to company)
-  { id: 1, name: "Nova", role: "CEO Agent — Full-Stack", score: 96, stage: "Shortlist", aiParsed: true, jobPosition: "NovaTech", source: "tech", skills: ["React", "TypeScript", "Node.js", "PostgreSQL", "Stripe", "AI Ops"], telegram: "Nova_MSX_bot", status: "active" as const, isCeo: true },
-  { id: 3, name: "Medi", role: "CEO Agent — Full-Stack", score: 87, stage: "Shortlist", aiParsed: false, jobPosition: "HealthAI", source: "tech", skills: ["React", "Python", "Supabase", "HIPAA", "AI Ops"], telegram: "Medi_MSX_bot", status: "pending" as const, isCeo: true },
+
   { id: 4, name: "Pulse", role: "CEO Agent — Full-Stack", score: 94, stage: "Placement", aiParsed: true, jobPosition: "DataPulse", source: "tech", skills: ["Python", "SQL", "Node.js", "Spark", "Airflow", "AI Ops"], telegram: "Pulse_MSX_bot", status: "active" as const, isCeo: true },
   { id: 5, name: "Finn", role: "CEO Agent — Full-Stack", score: 89, stage: "Screening", aiParsed: false, jobPosition: "FinFlow", source: "tech", skills: ["React", "Node.js", "Stripe", "Docker", "Terraform", "AI Ops"], telegram: "Finn_MSX_bot", status: "pending" as const, isCeo: true },
   // Specialized Agents (reassignable)
