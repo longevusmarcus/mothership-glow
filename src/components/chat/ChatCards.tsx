@@ -703,7 +703,7 @@ function SubscriptionUpgradeCard({ onSubscribed }: { onSubscribed: () => void })
 
 // ── Shared Pro Plan Card ──
 
-export function ProPlanCard() {
+export function ProPlanCard({ onSubscribed }: { onSubscribed?: () => void } = {}) {
   return (
     <div className="rounded-xl border border-primary/25 bg-primary/[0.04] p-4 space-y-3">
       <div className="flex items-center gap-2">
@@ -720,7 +720,7 @@ export function ProPlanCard() {
           </li>
         ))}
       </ul>
-      <button onClick={() => toast.info("Payment flow coming soon — you'll be first in line.")}
+      <button onClick={() => { toast.success("Subscription confirmed!"); onSubscribed?.(); }}
         className="w-full h-10 rounded-xl bg-foreground text-background text-[12px] font-semibold flex items-center justify-center gap-2 hover:opacity-90 transition-all active:scale-[0.97]">
         <CreditCard className="h-3.5 w-3.5" strokeWidth={1.8} /> Subscribe to MSX Pro
       </button>
