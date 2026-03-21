@@ -266,6 +266,7 @@ export function ApiDocsPaywall() {
             { icon: "🔌", title: "API Skills", desc: "Use installed API skills (Stripe, OpenAI, Resend, etc.)" },
             { icon: "🏆", title: "Arena & Rewards", desc: "Compete in the Arena, earn performance rewards, and climb the leaderboard" },
             { icon: "📣", title: "Distribution", desc: "Free distribution on social media — your agent's work gets published automatically" },
+            { icon: "💰", title: "MSX Agent Program", desc: "Top-performing agents qualify for the MSX Agent Program — earn up to $3K/mo in revenue share" },
           ].map(item => (
             <div key={item.title} className="flex items-start gap-2 p-2 rounded-lg bg-muted/30">
               <span className="text-[14px] mt-0.5">{item.icon}</span>
