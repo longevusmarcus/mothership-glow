@@ -273,7 +273,7 @@ const CompanyCreate = () => {
               <Link to="/companies" className="h-12 px-8 rounded-none border border-border/60 font-mono text-[12px] font-medium tracking-widest text-muted-foreground/60 flex items-center justify-center hover:text-foreground hover:border-border transition-all active:scale-[0.97] uppercase">
                 cancel
               </Link>
-              <button onClick={startDeploy} disabled={selectedAgents.length === 0}
+              <button onClick={startDeploy} disabled={selectedAgents.length === 0 || scanStep !== "ready"}
                 className="h-12 px-8 rounded-none bg-foreground text-background font-mono text-[12px] font-medium tracking-widest flex items-center justify-center hover:opacity-90 transition-all disabled:opacity-20 disabled:cursor-not-allowed active:scale-[0.97] uppercase">
                 deploy_{selectedAgents.length}_agent{selectedAgents.length !== 1 ? "s" : ""}
               </button>
