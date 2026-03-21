@@ -1,4 +1,4 @@
-import { Search, Bot, Building2, List, KanbanSquare, Send, Power, X, Loader2, Check } from "lucide-react";
+import { Search, Bot, Building2, List, KanbanSquare, Power, X, Loader2, Check } from "lucide-react";
 import AiIcon from "@/components/AiIcon";
 import { InteractiveHoverButton } from "@/components/ui/interactive-hover-button";
 import { TextShimmer } from "@/components/ui/text-shimmer";
@@ -10,18 +10,12 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { useLanguage } from "@/i18n/LanguageContext";
 import AgentsKanban from "@/components/agents/AgentsKanban";
 import { typeMeta, stageColors } from "@/data";
+import { agentCompanies as companies, agentChannels as channels, initialAgents } from "@/data/mock";
 import { toast } from "sonner";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription,
 } from "@/components/ui/dialog";
-
-const companies = ["NovaTech", "FinFlow", "DataPulse", "HealthAI"];
-
-const channels = [
-  { id: "telegram", label: "Telegram", icon: Send },
-  { id: "web", label: "Web Dashboard", icon: Building2 },
-];
 
 const initialAgents = [
   // CEO Agents (Full-Stack, bound to company)
