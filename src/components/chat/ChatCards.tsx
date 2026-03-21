@@ -37,7 +37,7 @@ export function SignalsCard({ onSelect }: { onSelect: (title: string) => void })
               <div className="flex items-center gap-2">
                 <span className="text-[9px] font-mono text-muted-foreground">{s.source}</span>
                 <span className="text-[10px] font-semibold tabular-nums text-primary">{s.score}</span>
-                {selected.includes(s.title) && <Check className="h-3 w-3 text-primary" strokeWidth={2.5} />}
+                {selected === s.title && <Check className="h-3 w-3 text-primary" strokeWidth={2.5} />}
               </div>
             </div>
             <p className="text-[10px] text-muted-foreground">{s.pain}</p>
