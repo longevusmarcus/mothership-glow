@@ -383,8 +383,8 @@ const CompanyCreate = () => {
                 ))}
               </div>
               <div className="flex-1 min-w-0">
-                <p className="text-[13px] font-semibold">{selectedAgents.length} agent{selectedAgents.length > 1 ? "s" : ""} building your company</p>
-                <p className="text-[11px] text-muted-foreground">Autonomous deployment in progress...</p>
+                <p className="text-[13px] font-semibold">{selectedAgents.length} agent{selectedAgents.length > 1 ? "s" : ""} working on your company</p>
+                <p className="text-[11px] text-muted-foreground">Autonomous pre-deployment in progress...</p>
               </div>
               <Loader2 className="h-4 w-4 text-primary animate-spin shrink-0" />
             </div>
