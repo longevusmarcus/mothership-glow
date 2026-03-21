@@ -127,7 +127,7 @@ const CompanyDetail = () => {
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
         {[
           { label: "Tasks Done", value: company.agents.reduce((s, a) => s + a.tasks, 0).toString(), trend: "+24 this week" },
-          { label: "Deploys", value: "12", trend: "3 today" },
+          { label: "Visitors", value: "24.3K", trend: "+18% this month" },
           { label: "Budget Used", value: company.budget, trend: "67% of cap" },
           { label: "Revenue", value: "$4,820", trend: "+$1,200 this month" },
         ].map(stat => (
