@@ -22,7 +22,7 @@ const companyData: Record<string, {
       { id: 1, name: "CEO Agent", type: "Tech", score: 96, status: "Active", tasks: 47, telegram: "CEOAgent_bot" },
       { id: 2, name: "GrowthPilot", type: "Growth", score: 91, status: "Active", tasks: 23, telegram: "GrowthPilot_bot" },
       { id: 6, name: "MarketBot", type: "Growth", score: 88, status: "Active", tasks: 15, telegram: "MarketBot_agent" },
-      { id: 3, name: "DesignMind", type: "Creative", score: 87, status: "Deployed", tasks: 31, telegram: "DesignMind_bot" },
+      { id: 3, name: "DesignMind", type: "Creative", score: 87, status: "To Activate", tasks: 31, telegram: "DesignMind_bot" },
     ],
     daysActive: 23,
     aiSummary: "NovaTech is progressing well toward MVP launch. CEO Agent has completed 47 tasks including the core dashboard, real-time collaboration features, and Stripe integration. GrowthPilot is building the landing page and setting up analytics. Estimated MVP completion: 5 days.",

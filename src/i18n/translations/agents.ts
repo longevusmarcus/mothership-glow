@@ -74,8 +74,8 @@ export const translationsAgents = {
 
   "agents.analysis.title": { it: "Analisi AI Sistema", en: "AI System Analysis" },
 
-  "stage.screening": { it: "Training", en: "Training" },
-  "stage.interview": { it: "Deployato", en: "Deployed" },
+  "stage.screening": { it: "In attesa / Training", en: "Waiting / In Training" },
+  "stage.interview": { it: "Da attivare", en: "To Activate" },
   "stage.shortlist": { it: "Attivo", en: "Active" },
   "stage.placement": { it: "Integrato", en: "Integrated" },
 } as const;
