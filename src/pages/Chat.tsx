@@ -129,6 +129,7 @@ const Chat = () => {
       case "deployed": return <DeployedCard />;
       case "show_api_docs": return <ApiDocsPaywall />;
       case "deploy_agent_flow": return <DeployAgentCard onDone={handleDeployAgentDone} preSelectedCompany={deployToCompany} />;
+      case "add_agent_to_company": return <AddAgentToCompanyCard onDone={handleAddAgentDone} />;
       default: return null;
     }
   };
