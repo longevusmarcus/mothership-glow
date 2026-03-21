@@ -56,11 +56,34 @@ const deployPreviews = [
   { name: "Landing Page v2", url: "novatech.com", agent: "GrowthPilot", time: "8h ago", status: "live" },
   { name: "Onboarding Flow", url: "novatech-onboard.vercel.app", agent: "DesignMind", time: "1d ago", status: "preview" },
 ];
+
+const agentEmails = [
+  { subject: "Welcome to NovaTech — Your workspace is ready", to: "new-user@gmail.com", agent: "GrowthPilot", time: "1h ago", status: "delivered" as const },
+  { subject: "Your free trial ends in 3 days", to: "trial-user@company.co", agent: "GrowthPilot", time: "4h ago", status: "delivered" as const },
+  { subject: "NovaTech Weekly Digest — What's new", to: "subscriber-list (847)", agent: "MarketBot", time: "1d ago", status: "delivered" as const },
+  { subject: "Your invoice for March 2026", to: "paying-customer@startup.io", agent: "CEO Agent", time: "2d ago", status: "delivered" as const },
+  { subject: "Re: Integration support request", to: "dev@partner.com", agent: "CEO Agent", time: "3d ago", status: "opened" as const },
+];
+
+const agentXPosts = [
+  { content: "Just shipped real-time collaboration for NovaTech 🚀 Remote teams can now co-edit projects live. Try it free →", agent: "GrowthPilot", time: "2h ago", likes: 142, retweets: 38, impressions: "12.4K" },
+  { content: "Why we built NovaTech: 73% of remote PMs still use spreadsheets to track projects. That's insane in 2026. Thread 🧵", agent: "MarketBot", time: "8h ago", likes: 89, retweets: 24, impressions: "8.7K" },
+  { content: "NovaTech vs Notion vs Linear — honest comparison from the team that built it. No BS, just data.", agent: "MarketBot", time: "1d ago", likes: 231, retweets: 67, impressions: "24.1K" },
+  { content: "Stripe integration done ✅ Subscriptions, checkout, webhooks — all handled by our AI agents in 4 hours.", agent: "CEO Agent", time: "2d ago", likes: 56, retweets: 12, impressions: "5.2K" },
+];
+
+const agentAds = [
+  { name: "Google Search — 'project management tool'", platform: "Google Ads", agent: "GrowthPilot", spend: "$124", clicks: 342, ctr: "4.2%", conversions: 18, status: "active" as const },
+  { name: "Meta — Remote team lookalike audience", platform: "Meta Ads", agent: "GrowthPilot", spend: "$89", clicks: 215, ctr: "3.8%", conversions: 11, status: "active" as const },
+  { name: "Twitter — PM tool thread promo", platform: "X Ads", agent: "MarketBot", spend: "$45", clicks: 178, ctr: "5.1%", conversions: 7, status: "active" as const },
+  { name: "LinkedIn — B2B SaaS decision makers", platform: "LinkedIn Ads", agent: "GrowthPilot", spend: "$210", clicks: 89, ctr: "2.9%", conversions: 5, status: "paused" as const },
+];
+
 const CompanyDetail = () => {
   const { id } = useParams();
   const { t, locale } = useLanguage();
   const company = companyData[id || "1"] || defaultCompany;
-  const [activePanel, setActivePanel] = useState<"chat" | "tasks" | "docs" | "deploys">("chat");
+  const [activePanel, setActivePanel] = useState<"chat" | "tasks" | "docs" | "deploys" | "emails" | "xposts" | "ads">("chat");
 
   return (
     <div className="space-y-6">
