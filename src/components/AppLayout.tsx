@@ -243,10 +243,6 @@ const AppLayout = ({ children }: AppLayoutProps) => {
           </button>
 
           <div className="flex items-center gap-1.5 ml-auto shrink-0">
-            <button onClick={() => setLocale(locale === "it" ? "en" : "it")} className="h-8 px-2 rounded-xl flex items-center justify-center gap-1.5 text-muted-foreground hover:text-foreground hover:bg-muted/60 transition-all" title={locale === "it" ? "Switch to English" : "Passa all'italiano"}>
-              <Languages className="h-3.5 w-3.5" strokeWidth={1.6} />
-              <span className="text-[10px] font-mono font-bold uppercase tracking-wider">{locale === "it" ? "EN" : "IT"}</span>
-            </button>
 
             <button onClick={toggleDark} className="h-8 w-8 rounded-xl flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-muted/60 transition-all" title={dark ? t("theme.light") : t("theme.dark")}>
               {dark ? <Sun className="h-3.5 w-3.5" strokeWidth={1.6} /> : <Moon className="h-3.5 w-3.5" strokeWidth={1.6} />}
