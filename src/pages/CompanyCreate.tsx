@@ -25,34 +25,64 @@ function StepHeader({ number, title, done, active }: { number: number; title: st
   );
 }
 
-function ClaimCompanyPaywall({ onDeployAnother }: { onDeployAnother: () => void }) {
-  const [showPlan, setShowPlan] = useState(false);
+function ClaimCompanyPaywall({ onDeployAnother, agentCount }: { onDeployAnother: () => void; agentCount: number }) {
+  const [stage, setStage] = useState<"initial" | "plan" | "subscribed">("initial");
   const planRef = useRef<HTMLDivElement>(null);
+  const navigate = useNavigate();
 
   const handleClaim = () => {
-    setShowPlan(true);
+    setStage("plan");
     setTimeout(() => { planRef.current?.scrollIntoView({ behavior: "smooth", block: "center" }); }, 100);
+  };
+
+  const handleSubscribed = () => {
+    setStage("subscribed");
   };
 
   return (
     <div className="space-y-3">
-      {!showPlan ? (
+      {stage === "initial" && (
         <div className="flex justify-end gap-2.5">
           <button onClick={onDeployAnother} className="px-4 py-2.5 text-[12px] font-medium text-muted-foreground hover:text-foreground transition-colors">
             Deploy another
           </button>
           <button onClick={handleClaim} className="flex items-center gap-2 px-5 py-2.5 bg-foreground text-background rounded-xl text-[12px] font-semibold hover:opacity-90 transition-all active:scale-[0.97]">
-            <Lock className="h-3.5 w-3.5" strokeWidth={1.8} /> Activate company & agent
+            <CreditCard className="h-3.5 w-3.5" strokeWidth={1.8} /> Claim
           </button>
         </div>
-      ) : (
-        <motion.div ref={planRef} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}>
-          <ProPlanCard />
-          <button onClick={onDeployAnother} className="w-full mt-2 px-4 py-2.5 text-[12px] font-medium text-muted-foreground hover:text-foreground transition-colors text-center">
-            Deploy another instead
-          </button>
-        </motion.div>
       )}
+
+      <AnimatePresence>
+        {stage === "plan" && (
+          <motion.div ref={planRef} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}>
+            <ProPlanCard onSubscribed={handleSubscribed} agentCount={agentCount} />
+            <button onClick={onDeployAnother} className="w-full mt-2 px-4 py-2.5 text-[12px] font-medium text-muted-foreground hover:text-foreground transition-colors text-center">
+              Deploy another instead
+            </button>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      <AnimatePresence>
+        {stage === "subscribed" && (
+          <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="space-y-3">
+            <div className="rounded-xl border border-primary/20 bg-primary/[0.03] p-3 flex items-center gap-3">
+              <Check className="h-4 w-4 text-primary shrink-0" strokeWidth={2} />
+              <p className="text-[11px] text-muted-foreground leading-relaxed">
+                Subscription confirmed! Activate your company and agents to start running.
+              </p>
+            </div>
+            <div className="flex justify-end gap-2.5">
+              <button onClick={onDeployAnother} className="px-4 py-2.5 text-[12px] font-medium text-muted-foreground hover:text-foreground transition-colors">
+                Deploy another
+              </button>
+              <button onClick={() => navigate("/agents")} className="flex items-center gap-2 px-5 py-2.5 bg-foreground text-background rounded-xl text-[12px] font-semibold hover:opacity-90 transition-all active:scale-[0.97]">
+                <Lock className="h-3.5 w-3.5" strokeWidth={1.8} /> Activate company & agent
+              </button>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
