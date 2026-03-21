@@ -5,9 +5,9 @@ import { useState, useEffect, useRef } from "react";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { toast } from "sonner";
 import { motion, AnimatePresence } from "framer-motion";
-import { createAgents, companyDeploySteps, ease } from "@/data/constants";
-import type { CreateAgent } from "@/data/constants";
-import { ProPlanCard, SignalsCard, IdeasCard, ApiDocsPaywall } from "@/components/chat/ChatCards";
+import { createAgents, companyDeploySteps, ease, CEO_PRICE, EXTRA_AGENT_PRICE } from "@/data";
+import type { CreateAgent } from "@/data";
+import { ProPlanCard, SignalsCard, IdeasCard, ApiDocsPaywall } from "@/components/chat";
 
 const CEO_PRICE = 58;
 const EXTRA_PRICE = 30;
