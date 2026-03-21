@@ -669,13 +669,17 @@ export function AgentAddedCard({ agentCount = 1 }: { agentCount?: number }) {
 
 // ── Subscription Upgrade Card ──
 
-function SubscriptionUpgradeCard({ onSubscribed }: { onSubscribed: () => void }) {
+function SubscriptionUpgradeCard({ onSubscribed, agentCount = 1 }: { onSubscribed: () => void; agentCount?: number }) {
   const tiers = [
-    { name: "Orbital", price: 58, desc: "Base CEO Agent — everything included" },
-    { name: "Orbital +1", price: 88, desc: "CEO + 1 specialized agent" },
-    { name: "Orbital +2", price: 118, desc: "CEO + 2 specialized agents" },
-    { name: "Interstellar", price: 148, desc: "CEO + 3 agents — full plan" },
+    { name: "Orbital", price: 58, agents: 1, desc: "Base CEO Agent — everything included" },
+    { name: "Orbital +1", price: 88, agents: 2, desc: "CEO + 1 specialized agent" },
+    { name: "Orbital +2", price: 118, agents: 3, desc: "CEO + 2 specialized agents" },
+    { name: "Interstellar", price: 148, agents: 4, desc: "CEO + 3 agents — full plan" },
   ];
+
+  // Recommend the tier that fits: existing CEO + new agents
+  const totalNeeded = 1 + agentCount; // CEO + new agents
+  const recommended = tiers.find(t => t.agents >= totalNeeded) || tiers[tiers.length - 1];
 
   return (
     <div className="rounded-xl border border-primary/25 bg-primary/[0.04] p-4 space-y-3">
@@ -684,22 +688,28 @@ function SubscriptionUpgradeCard({ onSubscribed }: { onSubscribed: () => void })
         <p className="text-[13px] font-semibold">Upgrade Subscription</p>
       </div>
       <p className="text-[10px] text-muted-foreground leading-relaxed">
-        Each new specialized agent requires upgrading your Orbital plan. Pick the tier that fits.
+        You're adding {agentCount} agent{agentCount > 1 ? "s" : ""}. Upgrade to <strong>{recommended.name}</strong> (${recommended.price}/mo) to activate.
       </p>
       <div className="space-y-1.5">
-        {tiers.map(tier => (
-          <div key={tier.name} className="flex items-center justify-between p-3 rounded-xl border border-border bg-background">
-            <div>
-              <p className="text-[11px] font-semibold">{tier.name}</p>
-              <p className="text-[9px] text-muted-foreground">{tier.desc}</p>
+        {tiers.map(tier => {
+          const isRecommended = tier.name === recommended.name;
+          return (
+            <div key={tier.name} className={`flex items-center justify-between p-3 rounded-xl border ${isRecommended ? "border-primary bg-primary/[0.04]" : "border-border bg-background"}`}>
+              <div className="flex items-center gap-2">
+                {isRecommended && <span className="text-[8px] font-bold text-primary uppercase tracking-wider">Recommended</span>}
+                <div>
+                  <p className={`text-[11px] font-semibold ${isRecommended ? "text-foreground" : ""}`}>{tier.name}</p>
+                  <p className="text-[9px] text-muted-foreground">{tier.desc}</p>
+                </div>
+              </div>
+              <p className="text-[12px] font-semibold tabular-nums">${tier.price}<span className="text-[9px] text-muted-foreground font-normal">/mo</span></p>
             </div>
-            <p className="text-[12px] font-semibold tabular-nums">${tier.price}<span className="text-[9px] text-muted-foreground font-normal">/mo</span></p>
-          </div>
-        ))}
+          );
+        })}
       </div>
       <button onClick={() => { toast.success("Subscription confirmed!"); onSubscribed(); }}
         className="w-full h-10 rounded-xl bg-foreground text-background text-[12px] font-semibold flex items-center justify-center gap-2 hover:opacity-90 transition-all active:scale-[0.97]">
-        <CreditCard className="h-3.5 w-3.5" strokeWidth={1.8} /> Upgrade now
+        <CreditCard className="h-3.5 w-3.5" strokeWidth={1.8} /> Upgrade to {recommended.name} — ${recommended.price}/mo
       </button>
     </div>
   );
