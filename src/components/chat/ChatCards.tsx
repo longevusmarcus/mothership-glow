@@ -531,6 +531,136 @@ export function AddAgentToCompanyCard({ onDone }: { onDone: (agentNames: string[
   );
 }
 
+// ── Adding Agent Card (deploying steps for add-to-company) ──
+
+const addAgentSteps = [
+  "Connecting to company workspace...",
+  "Configuring agent permissions...",
+  "Installing required skills...",
+  "Setting up orchestration layer...",
+  "Running pre-launch checks...",
+];
+
+export function AddingAgentCard({ onDone }: { onDone: () => void }) {
+  const [step, setStep] = useState(0);
+  const [completed, setCompleted] = useState<number[]>([]);
+
+  useEffect(() => {
+    if (step >= addAgentSteps.length) { onDone(); return; }
+    const t = setTimeout(() => { setCompleted(prev => [...prev, step]); setStep(s => s + 1); }, 900 + Math.random() * 600);
+    return () => clearTimeout(t);
+  }, [step]);
+
+  const progress = Math.round((completed.length / addAgentSteps.length) * 100);
+
+  return (
+    <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, ease }} className="space-y-3 mt-2">
+      <div className="flex items-center justify-between">
+        <p className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider">Deploying specialized agent</p>
+        <span className="text-[11px] font-semibold tabular-nums">{progress}%</span>
+      </div>
+      <div className="h-1.5 w-full rounded-full bg-muted overflow-hidden">
+        <motion.div className="h-full rounded-full bg-primary" animate={{ width: `${progress}%` }} transition={{ duration: 0.5 }} />
+      </div>
+      <div className="space-y-1">
+        {addAgentSteps.map((s, i) => {
+          const done = completed.includes(i);
+          const active = step === i && !done;
+          return (
+            <motion.div key={i} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: i * 0.04 }}
+              className={`flex items-center gap-2 py-1.5 px-2 rounded-lg text-[11px] ${active ? "bg-primary/[0.04]" : ""}`}>
+              {done ? <Check className="h-3 w-3 text-primary shrink-0" strokeWidth={2.2} /> : active ? <Loader2 className="h-3 w-3 text-primary animate-spin shrink-0" /> : <div className="h-3 w-3 rounded-full border border-border shrink-0" />}
+              <span className={done || active ? "text-foreground" : "text-muted-foreground/40"}>{s}</span>
+            </motion.div>
+          );
+        })}
+      </div>
+    </motion.div>
+  );
+}
+
+// ── Agent Added Card (with upgrade subscription) ──
+
+export function AgentAddedCard() {
+  const [showUpgrade, setShowUpgrade] = useState(false);
+  const planRef = useRef<HTMLDivElement>(null);
+  const navigate = useNavigate();
+
+  const handleActivate = () => {
+    setShowUpgrade(true);
+    setTimeout(() => { planRef.current?.scrollIntoView({ behavior: "smooth", block: "center" }); }, 100);
+  };
+
+  return (
+    <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, ease }} className="mt-2 space-y-3">
+      <div className="rounded-xl border border-primary/20 bg-primary/[0.03] p-4 space-y-3">
+        <div className="flex items-center gap-3">
+          <div className="h-10 w-10 rounded-xl bg-primary/10 flex items-center justify-center">
+            <Check className="h-5 w-5 text-primary" strokeWidth={2} />
+          </div>
+          <div>
+            <p className="text-[13px] font-semibold">Agent pre-deployed successfully</p>
+            <p className="text-[11px] text-muted-foreground">Upgrade your subscription to activate and run</p>
+          </div>
+        </div>
+        <div className="grid grid-cols-2 gap-2">
+          <button onClick={() => navigate("/agents")} className="h-9 rounded-xl border border-border bg-card text-[11px] font-semibold flex items-center justify-center gap-2 hover:bg-muted/60 transition-all active:scale-[0.97]">
+            View agents <ArrowRight className="h-3 w-3" />
+          </button>
+          <button onClick={handleActivate} className="h-9 rounded-xl bg-foreground text-background text-[11px] font-semibold flex items-center justify-center gap-2 hover:opacity-90 transition-all active:scale-[0.97]">
+            <CreditCard className="h-3 w-3" strokeWidth={1.8} /> Activate & run
+          </button>
+        </div>
+      </div>
+      <AnimatePresence>
+        {showUpgrade && (
+          <motion.div ref={planRef} initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: "auto" }} exit={{ opacity: 0, height: 0 }} className="overflow-hidden">
+            <SubscriptionUpgradeCard />
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.div>
+  );
+}
+
+// ── Subscription Upgrade Card ──
+
+function SubscriptionUpgradeCard() {
+  const tiers = [
+    { name: "Orbital", price: 58, desc: "Base CEO Agent — everything included" },
+    { name: "Orbital +1", price: 88, desc: "CEO + 1 specialized agent" },
+    { name: "Orbital +2", price: 118, desc: "CEO + 2 specialized agents" },
+    { name: "Interstellar", price: 148, desc: "CEO + 3 agents — full plan" },
+  ];
+
+  return (
+    <div className="rounded-xl border border-primary/25 bg-primary/[0.04] p-4 space-y-3">
+      <div className="flex items-center gap-2">
+        <Sparkles className="h-4 w-4 text-primary" strokeWidth={1.6} />
+        <p className="text-[13px] font-semibold">Upgrade Subscription</p>
+      </div>
+      <p className="text-[10px] text-muted-foreground leading-relaxed">
+        Each new specialized agent requires upgrading your Orbital plan. Pick the tier that fits.
+      </p>
+      <div className="space-y-1.5">
+        {tiers.map(tier => (
+          <div key={tier.name} className="flex items-center justify-between p-3 rounded-xl border border-border bg-background">
+            <div>
+              <p className="text-[11px] font-semibold">{tier.name}</p>
+              <p className="text-[9px] text-muted-foreground">{tier.desc}</p>
+            </div>
+            <p className="text-[12px] font-semibold tabular-nums">${tier.price}<span className="text-[9px] text-muted-foreground font-normal">/mo</span></p>
+          </div>
+        ))}
+      </div>
+      <button onClick={() => toast.info("Payment flow coming soon — you'll be first in line.")}
+        className="w-full h-10 rounded-xl bg-foreground text-background text-[12px] font-semibold flex items-center justify-center gap-2 hover:opacity-90 transition-all active:scale-[0.97]">
+        <CreditCard className="h-3.5 w-3.5" strokeWidth={1.8} /> Upgrade now
+      </button>
+    </div>
+  );
+}
+
 // ── Shared Pro Plan Card ──
 
 export function ProPlanCard() {

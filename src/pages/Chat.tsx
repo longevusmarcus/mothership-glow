@@ -13,6 +13,7 @@ import type { CompanyRef } from "@/data/constants";
 import {
   SignalsCard, IdeasCard, AgentPickerCard, DeployingCard,
   DeployedCard, ApiDocsPaywall, DeployAgentCard, AddAgentToCompanyCard,
+  AddingAgentCard, AgentAddedCard,
 } from "@/components/chat/ChatCards";
 
 // ── Types ──
@@ -22,7 +23,7 @@ interface ChatMessage {
   role: "user" | "assistant";
   content: string;
   timestamp: Date;
-  action?: "show_signals" | "show_ideas" | "pick_agent" | "deploying" | "deployed" | "show_api_docs" | "deploy_agent_flow" | "add_agent_to_company";
+  action?: "show_signals" | "show_ideas" | "pick_agent" | "deploying" | "deployed" | "show_api_docs" | "deploy_agent_flow" | "add_agent_to_company" | "adding_agent" | "agent_added";
 }
 
 const responseKeys: TranslationKey[] = [
@@ -109,15 +110,24 @@ const Chat = () => {
   const handleDeployDone = () => { addAssistant("Your company is in progress. Agents are now ready to be activated and work autonomously — check the dashboard for real-time updates.", "deployed"); };
   const handleDeployAgentDone = (names: string, target: string) => { addUser(`Deploy ${names} → ${target}`); setTimeout(() => addAssistant(`Deploying ${names} to ${target}. Agents are spinning up now...`, "deploying"), 600); };
   const handleIntegrate = () => { addUser("I want to integrate my own agent"); setIsLoading(true); setTimeout(() => addAssistant("Here's everything you need to connect your agent via REST API. Unlock full access with the MSX Pro plan.", "show_api_docs"), 800); };
+  const [pendingAddAgent, setPendingAddAgent] = useState<{ agentNames: string[]; companyName: string } | null>(null);
   const handleAddAgentDone = (agentNames: string[], companyName: string) => {
+    addUser(`Add ${agentNames.join(", ")} → ${companyName}`);
+    setPendingAddAgent({ agentNames, companyName });
+    setTimeout(() => addAssistant(
+      `Deploying ${agentNames.length} specialized agent${agentNames.length > 1 ? "s" : ""} to ${companyName}. Setting up workspace access, skills, and orchestration...`,
+      "adding_agent"
+    ), 600);
+  };
+  const handleAddAgentDeployDone = () => {
+    if (!pendingAddAgent) return;
+    const { agentNames, companyName } = pendingAddAgent;
     const firstAgent = agentNames[0];
     const restAgents = agentNames.slice(1);
-    addUser(`Add ${agentNames.join(", ")} → ${companyName}`);
-    setIsLoading(true);
     const msg = restAgents.length > 0
-      ? `Done! **${firstAgent}** is now active on ${companyName}. ${restAgents.length} more agent${restAgents.length > 1 ? "s" : ""} (${restAgents.join(", ")}) ${restAgents.length > 1 ? "are" : "is"} pending — activate them one by one from the Your Agents page.`
-      : `Done! **${firstAgent}** is now active on ${companyName}. Head to Your Agents to manage it.`;
-    setTimeout(() => addAssistant(msg), 900);
+      ? `${firstAgent} and ${restAgents.length} more agent${restAgents.length > 1 ? "s" : ""} are now pre-deployed on ${companyName}. Activate & upgrade your subscription to start them.`
+      : `${firstAgent} is now pre-deployed on ${companyName}. Activate & upgrade your subscription to start it.`;
+    addAssistant(msg, "agent_added");
   };
 
   const renderExtras = (msg: ChatMessage) => {
@@ -130,6 +140,8 @@ const Chat = () => {
       case "show_api_docs": return <ApiDocsPaywall />;
       case "deploy_agent_flow": return <DeployAgentCard onDone={handleDeployAgentDone} preSelectedCompany={deployToCompany} />;
       case "add_agent_to_company": return <AddAgentToCompanyCard onDone={handleAddAgentDone} />;
+      case "adding_agent": return <AddingAgentCard onDone={handleAddAgentDeployDone} />;
+      case "agent_added": return <AgentAddedCard />;
       default: return null;
     }
   };
