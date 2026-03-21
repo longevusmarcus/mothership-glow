@@ -97,9 +97,20 @@ export function IdeasCard({ onSelect }: { onSelect: (idea: string) => void }) {
 
 // ── Agent Picker Card ──
 
+const CEO_AGENT_ID = "ceoagent";
+const CEO_PRICE = 58;
+const EXTRA_AGENT_PRICE = 30;
+
+function calcAgentPrice(selectedIds: string[]): number {
+  const hasCeo = selectedIds.includes(CEO_AGENT_ID);
+  const extras = hasCeo ? selectedIds.length - 1 : selectedIds.length;
+  return (hasCeo ? CEO_PRICE : 0) + extras * EXTRA_AGENT_PRICE;
+}
+
 export function AgentPickerCard({ onDeploy, onIntegrate }: { onDeploy: (ids: string[]) => void; onIntegrate: () => void }) {
   const [selected, setSelected] = useState<string[]>([deployableAgents[0]?.id].filter(Boolean));
   const toggle = (id: string) => setSelected(prev => prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id]);
+  const price = calcAgentPrice(selected);
 
   return (
     <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, ease }} className="space-y-3 mt-2">
@@ -108,6 +119,7 @@ export function AgentPickerCard({ onDeploy, onIntegrate }: { onDeploy: (ids: str
         {deployableAgents.map((a, i) => {
           const Icon = a.icon;
           const isSelected = selected.includes(a.id);
+          const agentPrice = a.id === CEO_AGENT_ID ? CEO_PRICE : EXTRA_AGENT_PRICE;
           return (
             <motion.button key={a.id} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.06, duration: 0.3 }}
               onClick={() => toggle(a.id)}
@@ -123,6 +135,7 @@ export function AgentPickerCard({ onDeploy, onIntegrate }: { onDeploy: (ids: str
                 </div>
               </div>
               <p className="text-[9px] text-muted-foreground leading-relaxed">{a.desc}</p>
+              <p className="text-[10px] font-semibold mt-1.5 text-foreground/70">${agentPrice}/mo</p>
             </motion.button>
           );
         })}
@@ -142,7 +155,7 @@ export function AgentPickerCard({ onDeploy, onIntegrate }: { onDeploy: (ids: str
       {selected.length > 0 && (
         <motion.button initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} onClick={() => onDeploy(selected)}
           className="w-full h-10 rounded-xl bg-foreground text-background text-[12px] font-semibold flex items-center justify-center gap-2 hover:opacity-90 transition-all active:scale-[0.97]">
-          <Rocket className="h-3.5 w-3.5" strokeWidth={1.8} /> Deploy company with {selected.length} agent{selected.length > 1 ? "s" : ""}
+          <Rocket className="h-3.5 w-3.5" strokeWidth={1.8} /> Deploy company with {selected.length} agent{selected.length > 1 ? "s" : ""} — ${price}/mo
         </motion.button>
       )}
     </motion.div>
