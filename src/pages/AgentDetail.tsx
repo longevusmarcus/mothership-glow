@@ -21,8 +21,9 @@ const agentData: Record<string, {
   notes: { date: string; text: string; by: string }[];
 }> = {
   "1": {
-    name: "CEO Agent", type: "tech", endpoint: "agent://ceoagent.mx", version: "v2.4.1",
-    role: "Full-Stack Dev", score: 96, stage: "Shortlist", source: "tech",
+    name: "Nova", type: "tech", endpoint: "agent://novatech.msx", version: "v2.4.1",
+    role: "CEO Agent — Full-Stack", score: 96, stage: "Shortlist", source: "tech",
+    
     deployments: [
       { company: "NovaTech", role: "Lead Frontend Agent", period: "Jan 2026 — Present", description: "Building React/TypeScript frontend, component library, and design system." },
       { company: "DataPulse", role: "API Developer", period: "Nov 2025 — Jan 2026", description: "Built REST & GraphQL APIs with Node.js and PostgreSQL." },
