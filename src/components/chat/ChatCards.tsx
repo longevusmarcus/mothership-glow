@@ -462,13 +462,18 @@ export function AddAgentToCompanyCard({ onDone }: { onDone: (agentNames: string[
       <div className="grid grid-cols-2 gap-2">
         {deployableAgents.map((a, i) => {
           const Icon = a.icon;
+          const isCeo = a.id === CEO_AGENT_ID;
           const isSelected = selectedAgents.includes(a.id);
-          const agentPrice = a.id === CEO_AGENT_ID ? CEO_PRICE : EXTRA_AGENT_PRICE;
+          const agentPrice = isCeo ? CEO_PRICE : EXTRA_AGENT_PRICE;
           return (
             <motion.button key={a.id} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.06, duration: 0.3 }}
               onClick={() => toggleAgent(a.id)}
-              className={`relative text-left p-3 rounded-xl border transition-all ${isSelected ? "border-primary/40 bg-primary/[0.04]" : "border-border bg-background hover:border-border/80"}`}>
-              {isSelected && <Check className="absolute top-2.5 right-2.5 h-3 w-3 text-primary" strokeWidth={2.5} />}
+              className={`relative text-left p-3 rounded-xl border transition-all ${
+                isCeo ? "border-border/60 bg-muted/30 opacity-70 cursor-not-allowed"
+                : isSelected ? "border-primary/40 bg-primary/[0.04]" : "border-border bg-background hover:border-border/80"
+              }`}>
+              {isCeo && <span className="absolute top-2.5 right-2.5 text-[9px] font-semibold text-muted-foreground bg-muted px-1.5 py-0.5 rounded-md">Already added</span>}
+              {!isCeo && isSelected && <Check className="absolute top-2.5 right-2.5 h-3 w-3 text-primary" strokeWidth={2.5} />}
               <div className="flex items-center gap-2 mb-1">
                 <div className="h-7 w-7 rounded-lg flex items-center justify-center" style={{ background: `${a.color}15` }}>
                   <Icon className="h-3.5 w-3.5" style={{ color: a.color }} strokeWidth={1.6} />
@@ -479,7 +484,7 @@ export function AddAgentToCompanyCard({ onDone }: { onDone: (agentNames: string[
                 </div>
               </div>
               <p className="text-[9px] text-muted-foreground leading-relaxed">{a.desc}</p>
-              <p className="text-[10px] font-semibold mt-1.5 text-foreground/70">${agentPrice}/mo</p>
+              {!isCeo && <p className="text-[10px] font-semibold mt-1.5 text-foreground/70">${agentPrice}/mo</p>}
             </motion.button>
           );
         })}
