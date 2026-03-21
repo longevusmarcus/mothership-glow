@@ -103,7 +103,10 @@ const CompanyDetail = () => {
             </div>
             <p className="text-[11px] text-muted-foreground uppercase font-medium tracking-wider">{company.department} · {company.type}</p>
             <div className="flex flex-wrap items-center gap-3 sm:gap-4 mt-3 text-[11px] text-muted-foreground">
-              <span className="flex items-center gap-1.5"><Globe className="h-3 w-3" strokeWidth={1.6} />{company.location}</span>
+              <a href={`https://${company.title.toLowerCase().replace(/\s+/g, "")}.msx.dev`} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 text-primary hover:underline">
+                <Globe className="h-3 w-3" strokeWidth={1.6} />{company.title.toLowerCase().replace(/\s+/g, "")}.msx.dev
+                <ExternalLink className="h-2.5 w-2.5" strokeWidth={1.6} />
+              </a>
               <span className="flex items-center gap-1.5"><Building2 className="h-3 w-3" strokeWidth={1.6} />{company.stage}</span>
               <span className="flex items-center gap-1.5"><Clock className="h-3 w-3" strokeWidth={1.6} />{company.daysActive}d active</span>
               <span className="flex items-center gap-1.5"><Bot className="h-3 w-3" strokeWidth={1.6} />{company.agents.length} agents</span>
