@@ -141,9 +141,24 @@ const Agents = () => {
                         </td>
                         <td className="px-4 py-3.5 text-[12px] text-muted-foreground">{a.role}</td>
                         <td className="px-4 py-3.5">
-                          <Link to={`/companies/${a.id <= 4 ? 1 : 2}`} className="text-[12px] text-muted-foreground hover:text-foreground transition-colors flex items-center gap-1">
-                            <Building2 className="h-3 w-3" strokeWidth={1.6} /> {a.jobPosition}
-                          </Link>
+                          {a.isCeo ? (
+                            <span className="text-[12px] text-muted-foreground flex items-center gap-1" title="CEO agents are bound to their company">
+                              <Building2 className="h-3 w-3" strokeWidth={1.6} /> {a.jobPosition}
+                              <span className="text-[9px] text-muted-foreground/50 ml-1">(CEO)</span>
+                            </span>
+                          ) : (
+                            <Select value={a.jobPosition} onValueChange={(val) => reassignAgent(a.id, val)}>
+                              <SelectTrigger className="h-7 w-[130px] text-[11px] border-border/50 bg-transparent px-2 gap-1">
+                                <Building2 className="h-3 w-3 shrink-0 text-muted-foreground" strokeWidth={1.6} />
+                                <SelectValue />
+                              </SelectTrigger>
+                              <SelectContent>
+                                {companies.map(c => (
+                                  <SelectItem key={c} value={c} className="text-[11px]">{c}</SelectItem>
+                                ))}
+                              </SelectContent>
+                            </Select>
+                          )}
                         </td>
                         <td className="px-4 py-3.5">
                           {a.status === "active" ? (
