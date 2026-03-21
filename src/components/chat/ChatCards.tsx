@@ -16,7 +16,7 @@ export function SignalsCard({ onSelect }: { onSelect: (title: string) => void })
 
   const refresh = () => {
     setRefreshing(true);
-    setTimeout(() => { setSignals(shuffleAndPick(allSignals, 5)); setSelected([]); setRefreshing(false); }, 400);
+    setTimeout(() => { setSignals(shuffleAndPick(allSignals, 5)); setSelected(null); setRefreshing(false); }, 400);
   };
 
   return (
