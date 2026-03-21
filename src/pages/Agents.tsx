@@ -13,17 +13,19 @@ import { typeMeta, stageColors } from "@/data/constants";
 import { toast } from "sonner";
 import { motion } from "framer-motion";
 
+const companies = ["NovaTech", "FinFlow", "DataPulse", "HealthAI"];
+
 const initialAgents = [
-  { id: 1, name: "CodeForge", role: "Full-Stack Dev", score: 96, stage: "Shortlist", aiParsed: true, jobPosition: "NovaTech", source: "tech", skills: ["React", "TypeScript", "Node.js", "PostgreSQL"], telegram: "CodeForge_MSX_bot", status: "active" as const },
-  { id: 2, name: "GrowthPilot", role: "SEO & Content", score: 91, stage: "Colloquio", aiParsed: true, jobPosition: "NovaTech", source: "growth", skills: ["SEO", "Content Strategy", "Analytics", "A/B Testing"], telegram: "GrowthPilot_MSX_bot", status: "active" as const },
-  { id: 3, name: "DesignMind", role: "UI/UX Design", score: 87, stage: "Shortlist", aiParsed: false, jobPosition: "HealthAI", source: "creative", skills: ["Figma", "Design Systems", "Prototyping"], telegram: "DesignMind_MSX_bot", status: "pending" as const },
-  { id: 4, name: "DataStream", role: "Data Pipeline", score: 94, stage: "Placement", aiParsed: true, jobPosition: "DataPulse", source: "tech", skills: ["Python", "SQL", "Spark", "Airflow"], telegram: "DataStream_MSX_bot", status: "active" as const },
-  { id: 5, name: "OpsEngine", role: "DevOps & CI/CD", score: 89, stage: "Screening", aiParsed: false, jobPosition: "FinFlow", source: "ops", skills: ["Docker", "Kubernetes", "Terraform", "AWS"], telegram: "OpsEngine_MSX_bot", status: "pending" as const },
-  { id: 6, name: "MarketBot", role: "Paid Ads & Social", score: 88, stage: "Colloquio", aiParsed: true, jobPosition: "NovaTech", source: "growth", skills: ["Google Ads", "Meta Ads", "Analytics", "Copywriting"], telegram: "MarketBot_MSX_bot", status: "active" as const },
-  { id: 7, name: "SecureGuard", role: "Security Audit", score: 92, stage: "Shortlist", aiParsed: true, jobPosition: "FinFlow", source: "ops", skills: ["Penetration Testing", "OWASP", "Compliance", "Monitoring"], telegram: "SecureGuard_MSX_bot", status: "active" as const },
-  { id: 8, name: "ContentCraft", role: "Copywriting", score: 83, stage: "Screening", aiParsed: false, jobPosition: "HealthAI", source: "creative", skills: ["Blog Writing", "Email Copy", "Brand Voice", "Social Media"], telegram: "ContentCraft_MSX_bot", status: "active" as const },
-  { id: 9, name: "APIForge", role: "Backend & APIs", score: 95, stage: "Placement", aiParsed: true, jobPosition: "DataPulse", source: "tech", skills: ["REST", "GraphQL", "Microservices", "Redis"], telegram: "APIForge_MSX_bot", status: "active" as const },
-  { id: 10, name: "FinOps", role: "Billing & Payments", score: 90, stage: "Colloquio", aiParsed: true, jobPosition: "FinFlow", source: "ops", skills: ["Stripe", "Billing Logic", "Reconciliation", "Compliance"], telegram: "FinOps_MSX_bot", status: "active" as const },
+  { id: 1, name: "CodeForge", role: "Full-Stack Dev", score: 96, stage: "Shortlist", aiParsed: true, jobPosition: "NovaTech", source: "tech", skills: ["React", "TypeScript", "Node.js", "PostgreSQL"], telegram: "CodeForge_MSX_bot", status: "active" as const, isCeo: true },
+  { id: 2, name: "GrowthPilot", role: "SEO & Content", score: 91, stage: "Colloquio", aiParsed: true, jobPosition: "NovaTech", source: "growth", skills: ["SEO", "Content Strategy", "Analytics", "A/B Testing"], telegram: "GrowthPilot_MSX_bot", status: "active" as const, isCeo: false },
+  { id: 3, name: "DesignMind", role: "UI/UX Design", score: 87, stage: "Shortlist", aiParsed: false, jobPosition: "HealthAI", source: "creative", skills: ["Figma", "Design Systems", "Prototyping"], telegram: "DesignMind_MSX_bot", status: "pending" as const, isCeo: false },
+  { id: 4, name: "DataStream", role: "Data Pipeline", score: 94, stage: "Placement", aiParsed: true, jobPosition: "DataPulse", source: "tech", skills: ["Python", "SQL", "Spark", "Airflow"], telegram: "DataStream_MSX_bot", status: "active" as const, isCeo: false },
+  { id: 5, name: "OpsEngine", role: "DevOps & CI/CD", score: 89, stage: "Screening", aiParsed: false, jobPosition: "FinFlow", source: "ops", skills: ["Docker", "Kubernetes", "Terraform", "AWS"], telegram: "OpsEngine_MSX_bot", status: "pending" as const, isCeo: false },
+  { id: 6, name: "MarketBot", role: "Paid Ads & Social", score: 88, stage: "Colloquio", aiParsed: true, jobPosition: "NovaTech", source: "growth", skills: ["Google Ads", "Meta Ads", "Analytics", "Copywriting"], telegram: "MarketBot_MSX_bot", status: "active" as const, isCeo: false },
+  { id: 7, name: "SecureGuard", role: "Security Audit", score: 92, stage: "Shortlist", aiParsed: true, jobPosition: "FinFlow", source: "ops", skills: ["Penetration Testing", "OWASP", "Compliance", "Monitoring"], telegram: "SecureGuard_MSX_bot", status: "active" as const, isCeo: false },
+  { id: 8, name: "ContentCraft", role: "Copywriting", score: 83, stage: "Screening", aiParsed: false, jobPosition: "HealthAI", source: "creative", skills: ["Blog Writing", "Email Copy", "Brand Voice", "Social Media"], telegram: "ContentCraft_MSX_bot", status: "active" as const, isCeo: false },
+  { id: 9, name: "APIForge", role: "Backend & APIs", score: 95, stage: "Placement", aiParsed: true, jobPosition: "DataPulse", source: "tech", skills: ["REST", "GraphQL", "Microservices", "Redis"], telegram: "APIForge_MSX_bot", status: "active" as const, isCeo: false },
+  { id: 10, name: "FinOps", role: "Billing & Payments", score: 90, stage: "Colloquio", aiParsed: true, jobPosition: "FinFlow", source: "ops", skills: ["Stripe", "Billing Logic", "Reconciliation", "Compliance"], telegram: "FinOps_MSX_bot", status: "active" as const, isCeo: false },
 ];
 
 const Agents = () => {
@@ -38,6 +40,12 @@ const Agents = () => {
     setAgents(prev => prev.map(a => a.id === id ? { ...a, status: "active" as const } : a));
     const agent = agents.find(a => a.id === id);
     toast.success(`${agent?.name} activated successfully!`);
+  };
+
+  const reassignAgent = (id: number, newCompany: string) => {
+    setAgents(prev => prev.map(a => a.id === id ? { ...a, jobPosition: newCompany } : a));
+    const agent = agents.find(a => a.id === id);
+    toast.success(`${agent?.name} reassigned to ${newCompany}`);
   };
 
   const filtered = agents.filter(a => {
@@ -133,9 +141,24 @@ const Agents = () => {
                         </td>
                         <td className="px-4 py-3.5 text-[12px] text-muted-foreground">{a.role}</td>
                         <td className="px-4 py-3.5">
-                          <Link to={`/companies/${a.id <= 4 ? 1 : 2}`} className="text-[12px] text-muted-foreground hover:text-foreground transition-colors flex items-center gap-1">
-                            <Building2 className="h-3 w-3" strokeWidth={1.6} /> {a.jobPosition}
-                          </Link>
+                          {a.isCeo ? (
+                            <span className="text-[12px] text-muted-foreground flex items-center gap-1" title="CEO agents are bound to their company">
+                              <Building2 className="h-3 w-3" strokeWidth={1.6} /> {a.jobPosition}
+                              <span className="text-[9px] text-muted-foreground/50 ml-1">(CEO)</span>
+                            </span>
+                          ) : (
+                            <Select value={a.jobPosition} onValueChange={(val) => reassignAgent(a.id, val)}>
+                              <SelectTrigger className="h-7 w-[130px] text-[11px] border-border/50 bg-transparent px-2 gap-1">
+                                <Building2 className="h-3 w-3 shrink-0 text-muted-foreground" strokeWidth={1.6} />
+                                <SelectValue />
+                              </SelectTrigger>
+                              <SelectContent>
+                                {companies.map(c => (
+                                  <SelectItem key={c} value={c} className="text-[11px]">{c}</SelectItem>
+                                ))}
+                              </SelectContent>
+                            </Select>
+                          )}
                         </td>
                         <td className="px-4 py-3.5">
                           {a.status === "active" ? (
