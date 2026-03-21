@@ -26,13 +26,13 @@ const Companies = () => {
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3">
         <div>
-          <h1 className="text-[28px] sm:text-[34px] font-mondwest font-semibold tracking-tight"><TextShimmer as="span" duration={2.5}>{t("jobs.title")}</TextShimmer></h1>
+          <h1 className="text-[28px] sm:text-[34px] font-mondwest font-semibold tracking-tight"><TextShimmer as="span" duration={2.5}>{t("companies.title")}</TextShimmer></h1>
           <p className="text-[13px] text-muted-foreground mt-1 font-mono">
-            {companies.filter(c => c.status === "Attiva").length} {t("jobs.activePositions")}
+            {companies.filter(c => c.status === "Attiva").length} {t("companies.activePositions")}
           </p>
         </div>
         <Link to="/companies/new" className="w-full sm:w-auto">
-          <InteractiveHoverButton className="w-full sm:w-auto" text={t("jobs.newPosition")} icon={<Plus className="h-3.5 w-3.5" strokeWidth={1.6} />} />
+          <InteractiveHoverButton className="w-full sm:w-auto" text={t("companies.newPosition")} icon={<Plus className="h-3.5 w-3.5" strokeWidth={1.6} />} />
         </Link>
       </div>
 
@@ -42,9 +42,9 @@ const Companies = () => {
         defaultKey={filter}
         onChange={(key) => key && setFilter(key)}
       >
-        <div data-key="all"><span className="text-[11px] font-medium text-foreground">{t("jobs.all")}</span></div>
-        <div data-key="Attiva"><span className="text-[11px] font-medium text-foreground">{t("jobs.active")}</span></div>
-        <div data-key="In Pausa"><span className="text-[11px] font-medium text-foreground whitespace-nowrap">{t("jobs.paused")}</span></div>
+        <div data-key="all"><span className="text-[11px] font-medium text-foreground">{t("companies.all")}</span></div>
+        <div data-key="Attiva"><span className="text-[11px] font-medium text-foreground">{t("companies.active")}</span></div>
+        <div data-key="In Pausa"><span className="text-[11px] font-medium text-foreground whitespace-nowrap">{t("companies.paused")}</span></div>
       </CleanMotionBackground>
 
       <CursorCardsContainer className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -57,7 +57,7 @@ const Companies = () => {
                   <p className="text-[11px] text-muted-foreground mt-0.5 uppercase font-medium tracking-wider font-mono">{company.department} · {company.type}</p>
                 </div>
                 <span className={`text-[10px] px-2.5 py-1 rounded-lg font-semibold shrink-0 ${company.status === "Attiva" ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground"}`}>
-                  {company.status === "Attiva" ? t("jobs.active") : t("jobs.paused")}
+                  {company.status === "Attiva" ? t("companies.active") : t("companies.paused")}
                 </span>
               </div>
               <p className="text-[12px] text-muted-foreground mb-5 line-clamp-2 leading-relaxed flex-1">{company.description}</p>
@@ -65,11 +65,11 @@ const Companies = () => {
                 <div className="flex items-center gap-4 text-[11px] text-muted-foreground">
                   <span className="flex items-center gap-1.5"><Globe className="h-3 w-3" strokeWidth={1.6} />{company.location}</span>
                   <span className="flex items-center gap-1.5"><Bot className="h-3 w-3" strokeWidth={1.6} />{company.agents}</span>
-                  <span className="flex items-center gap-1.5"><Clock className="h-3 w-3" strokeWidth={1.6} />{company.daysActive}{t("jobs.daysOpen")}</span>
+                  <span className="flex items-center gap-1.5"><Clock className="h-3 w-3" strokeWidth={1.6} />{company.daysActive}{t("companies.daysOpen")}</span>
                 </div>
                 {company.aiMatches > 0 && (
                   <span className="flex items-center gap-1 text-[10px] font-semibold text-muted-foreground">
-                    <AiIcon size={12} /> {company.aiMatches} {t("jobs.aiMatch")}
+                    <AiIcon size={12} /> {company.aiMatches} {t("companies.aiMatch")}
                   </span>
                 )}
               </div>

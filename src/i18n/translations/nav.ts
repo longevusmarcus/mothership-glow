@@ -1,11 +1,11 @@
 export const translationsNav = {
   "nav.dashboard": { it: "Dashboard", en: "Dashboard" },
   "nav.chatAi": { it: "Deploy Hub", en: "Deploy Hub" },
-  "nav.candidates": { it: "I tuoi Agenti", en: "Your Agents" },
+  "nav.agents": { it: "I tuoi Agenti", en: "Your Agents" },
   "nav.arena": { it: "Arena", en: "Arena" },
   "nav.more": { it: "Altro", en: "More" },
   "nav.store": { it: "App Store", en: "App Store" },
-  "nav.jobs": { it: "Le tue Aziende", en: "Your Companies" },
+  "nav.companies": { it: "Le tue Aziende", en: "Your Companies" },
   "nav.analytics": { it: "Analytics", en: "Analytics" },
   "nav.settings": { it: "Impostazioni", en: "Settings" },
   "nav.logout": { it: "Esci", en: "Logout" },

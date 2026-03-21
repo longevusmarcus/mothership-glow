@@ -65,7 +65,7 @@ const CompanyDetail = () => {
   return (
     <div className="space-y-6">
       <Link to="/companies" className="inline-flex items-center gap-2 text-[12px] text-muted-foreground hover:text-foreground transition-colors font-medium">
-        <ArrowLeft className="h-3.5 w-3.5" strokeWidth={1.6} /> {t("jobs.backToJobs")}
+        <ArrowLeft className="h-3.5 w-3.5" strokeWidth={1.6} /> {t("companies.backToJobs")}
       </Link>
 
       {/* Header */}
@@ -75,7 +75,7 @@ const CompanyDetail = () => {
             <div className="flex flex-wrap items-center gap-3 mb-1">
               <h1 className="text-[22px] sm:text-[28px] font-mondwest font-semibold tracking-tight"><TextShimmer as="span" duration={2.5}>{company.title}</TextShimmer></h1>
               <span className={`text-[10px] px-2.5 py-1 rounded-lg font-semibold ${company.status === "Attiva" ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground"}`}>
-                {company.status === "Attiva" ? t("jobs.active") : t("jobs.paused")}
+                {company.status === "Attiva" ? t("companies.active") : t("companies.paused")}
               </span>
             </div>
             <p className="text-[11px] text-muted-foreground uppercase font-medium tracking-wider">{company.department} · {company.type}</p>
@@ -91,7 +91,7 @@ const CompanyDetail = () => {
               <Rocket className="h-3 w-3" strokeWidth={1.6} /> Deploy Agent
             </Link>
             <button className="flex items-center gap-2 px-3.5 py-2 border border-border rounded-xl text-[11px] font-mono font-medium text-muted-foreground hover:text-foreground transition-all">
-              <Edit className="h-3 w-3" strokeWidth={1.6} /> {t("jobs.edit")}
+              <Edit className="h-3 w-3" strokeWidth={1.6} /> {t("companies.edit")}
             </button>
           </div>
         </div>
@@ -278,7 +278,7 @@ const CompanyDetail = () => {
 
           {/* Details */}
           <div className="bg-card rounded-2xl p-5 card-static">
-            <h2 className="text-[13px] font-mondwest font-semibold mb-3">{t("jobs.details")}</h2>
+            <h2 className="text-[13px] font-mondwest font-semibold mb-3">{t("companies.details")}</h2>
             <div className="space-y-2.5 text-[12px]">
               {[
                 ["Stage", company.stage],
