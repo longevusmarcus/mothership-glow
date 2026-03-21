@@ -30,8 +30,8 @@ export function SignalsCard({ onSelect }: { onSelect: (title: string) => void })
       <div className="space-y-1.5">
         {signals.map((s, i) => (
           <motion.button key={s.title} initial={{ opacity: 0, x: -8 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: i * 0.06, duration: 0.3 }}
-            onClick={() => toggle(s.title)}
-            className={`w-full text-left p-3 rounded-xl border transition-all ${selected.includes(s.title) ? "border-primary/40 bg-primary/[0.04]" : "border-border bg-background hover:bg-muted/30"}`}>
+            onClick={() => setSelected(s.title)}
+            className={`w-full text-left p-3 rounded-xl border transition-all ${selected === s.title ? "border-primary/40 bg-primary/[0.04]" : "border-border bg-background hover:bg-muted/30"}`}>
             <div className="flex items-center justify-between mb-1">
               <span className="text-[12px] font-medium">{s.title}</span>
               <div className="flex items-center gap-2">
