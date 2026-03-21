@@ -154,7 +154,7 @@ const Agents = () => {
                         </td>
                         <td className="px-4 py-3.5">
                           <a href={`https://t.me/${a.telegram}`} target="_blank" rel="noopener noreferrer"
-                            className="inline-flex items-center gap-1.5 text-[11px] text-muted-foreground hover:text-[#0088cc] transition-colors font-medium">
+                            className="inline-flex items-center gap-1.5 text-[11px] text-[#26A5E4] font-medium">
                             <Send className="h-3 w-3" strokeWidth={1.6} /> Chat
                           </a>
                         </td>
