@@ -1,4 +1,4 @@
-import { Search, Bot, Building2, List, KanbanSquare, Send, Power } from "lucide-react";
+import { Search, Bot, Building2, List, KanbanSquare, Send, Power, X, Loader2, Check } from "lucide-react";
 import AiIcon from "@/components/AiIcon";
 import { InteractiveHoverButton } from "@/components/ui/interactive-hover-button";
 import { TextShimmer } from "@/components/ui/text-shimmer";
@@ -11,9 +11,17 @@ import { useLanguage } from "@/i18n/LanguageContext";
 import AgentsKanban from "@/components/agents/AgentsKanban";
 import { typeMeta, stageColors } from "@/data/constants";
 import { toast } from "sonner";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
+import {
+  Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription,
+} from "@/components/ui/dialog";
 
 const companies = ["NovaTech", "FinFlow", "DataPulse", "HealthAI"];
+
+const channels = [
+  { id: "telegram", label: "Telegram", icon: Send },
+  { id: "web", label: "Web Dashboard", icon: Building2 },
+];
 
 const initialAgents = [
   // CEO Agents (Full-Stack, bound to company)
@@ -33,6 +41,79 @@ const initialAgents = [
   { id: 13, name: "OpsEngine", role: "DevOps & CI/CD", score: 91, stage: "Shortlist", aiParsed: true, jobPosition: "FinFlow", source: "ops", skills: ["Docker", "Kubernetes", "Terraform", "AWS", "GitHub Actions"], telegram: "OpsEngine_MSX_bot", status: "active" as const, isCeo: false },
 ];
 
+// ── Activation Dialog ──
+
+function ActivateDialog({ agent, open, onClose, onActivate }: {
+  agent: typeof initialAgents[0] | null;
+  open: boolean;
+  onClose: () => void;
+  onActivate: (id: number, name: string, channel: string) => void;
+}) {
+  const [customName, setCustomName] = useState("");
+  const [channel, setChannel] = useState("telegram");
+
+  const handleSubmit = () => {
+    if (!agent) return;
+    const finalName = customName.trim() || agent.name;
+    onActivate(agent.id, finalName, channel);
+    setCustomName("");
+    setChannel("telegram");
+    onClose();
+  };
+
+  if (!agent) return null;
+
+  return (
+    <Dialog open={open} onOpenChange={onClose}>
+      <DialogContent className="sm:max-w-md rounded-2xl border-border">
+        <DialogHeader>
+          <DialogTitle className="text-[16px] font-mondwest">Activate {agent.name}</DialogTitle>
+          <DialogDescription className="text-[11px] text-muted-foreground font-mono">
+            Choose a display name and channel. Your agent will be provisioned in a couple of minutes.
+          </DialogDescription>
+        </DialogHeader>
+        <div className="space-y-4 pt-2">
+          <div className="space-y-1.5">
+            <label className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider">Agent Name</label>
+            <input
+              type="text"
+              value={customName}
+              onChange={e => setCustomName(e.target.value)}
+              placeholder={agent.name}
+              className="w-full h-9 px-3 rounded-xl border border-border bg-card text-[12px] placeholder:text-muted-foreground/40 focus:outline-none focus:ring-1 focus:ring-ring transition-all"
+            />
+          </div>
+          <div className="space-y-1.5">
+            <label className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider">Activation Channel</label>
+            <div className="grid grid-cols-2 gap-2">
+              {channels.map(ch => (
+                <button
+                  key={ch.id}
+                  onClick={() => setChannel(ch.id)}
+                  className={`flex items-center gap-2 p-3 rounded-xl border text-[11px] font-medium transition-all ${
+                    channel === ch.id
+                      ? "border-primary bg-primary/[0.05] text-foreground"
+                      : "border-border bg-card text-muted-foreground hover:bg-muted/30"
+                  }`}
+                >
+                  <ch.icon className="h-3.5 w-3.5" strokeWidth={1.6} />
+                  {ch.label}
+                </button>
+              ))}
+            </div>
+          </div>
+          <button
+            onClick={handleSubmit}
+            className="w-full h-10 rounded-xl bg-foreground text-background text-[12px] font-semibold flex items-center justify-center gap-2 hover:opacity-90 transition-all active:scale-[0.97]"
+          >
+            <Power className="h-3.5 w-3.5" strokeWidth={1.8} /> Activate & Run
+          </button>
+        </div>
+      </DialogContent>
+    </Dialog>
+  );
+}
+
 const Agents = () => {
   const { t } = useLanguage();
   const [searchQuery, setSearchQuery] = useState("");
@@ -40,11 +121,18 @@ const Agents = () => {
   const [stageFilter, setStageFilter] = useState("all");
   const [viewMode, setViewMode] = useState<"list" | "kanban">("list");
   const [agents, setAgents] = useState(initialAgents);
+  const [activatingAgent, setActivatingAgent] = useState<typeof initialAgents[0] | null>(null);
+  const [provisioningIds, setProvisioningIds] = useState<number[]>([]);
 
-  const activateAgent = (id: number) => {
-    setAgents(prev => prev.map(a => a.id === id ? { ...a, status: "active" as const } : a));
-    const agent = agents.find(a => a.id === id);
-    toast.success(`${agent?.name} activated successfully!`);
+  const activateAgent = (id: number, name: string, channel: string) => {
+    setProvisioningIds(prev => [...prev, id]);
+    toast.success(`${name} is being provisioned on ${channel === "telegram" ? "Telegram" : "Web Dashboard"}...`);
+    // Simulate provisioning delay
+    setTimeout(() => {
+      setAgents(prev => prev.map(a => a.id === id ? { ...a, name, status: "active" as const } : a));
+      setProvisioningIds(prev => prev.filter(pid => pid !== id));
+      toast.success(`${name} is now active and running!`);
+    }, 3000 + Math.random() * 2000);
   };
 
   const reassignAgent = (id: number, newCompany: string) => {
