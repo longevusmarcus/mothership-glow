@@ -267,8 +267,7 @@ function SubscriptionTab({ locale }: { locale: string }) {
     { name: "Orbital", agents: 1, price: 58, desc: locale === "it" ? "CEO Agent base — tutto incluso" : "Base CEO Agent — everything included", current: false },
     { name: "Orbital +1", agents: 2, price: 88, desc: locale === "it" ? "CEO + 1 agente specializzato" : "CEO + 1 specialized agent", current: false },
     { name: "Orbital +2", agents: 3, price: 118, desc: locale === "it" ? "CEO + 2 agenti specializzati" : "CEO + 2 specialized agents", current: true },
-    { name: "Orbital +3", agents: 4, price: 148, desc: locale === "it" ? "CEO + 3 agenti specializzati" : "CEO + 3 specialized agents", current: false },
-    { name: "Interstellar", agents: 5, price: 178, desc: locale === "it" ? "CEO + 4 agenti — piano completo" : "CEO + 4 agents — full plan", current: false },
+    { name: "Interstellar", agents: 4, price: 148, desc: locale === "it" ? "CEO + 3 agenti — piano completo" : "CEO + 3 agents — full plan", current: false },
   ];
 
   return (
