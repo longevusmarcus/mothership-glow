@@ -38,10 +38,10 @@ const stages: PipelineStage[] = [
 ];
 
 interface AgentsKanbanProps {
-  candidates: Agent[];
+  agents: Agent[];
 }
 
-const AgentsKanban = ({ candidates }: AgentsKanbanProps) => {
+const AgentsKanban = ({ agents }: AgentsKanbanProps) => {
   const { t } = useLanguage();
   const [draggedAgent, setDraggedAgent] = useState<{ agent: Agent; fromStage: string } | null>(null);
   const [dragOverStage, setDragOverStage] = useState<string | null>(null);
