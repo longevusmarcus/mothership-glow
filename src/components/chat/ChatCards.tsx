@@ -99,7 +99,7 @@ export function IdeasCard({ onSelect }: { onSelect: (idea: string) => void }) {
 // ── Agent Picker Card ──
 
 export function AgentPickerCard({ onDeploy, onIntegrate }: { onDeploy: (ids: string[]) => void; onIntegrate: () => void }) {
-  const [selected, setSelected] = useState<string[]>([]);
+  const [selected, setSelected] = useState<string[]>([deployableAgents[0]?.id].filter(Boolean));
   const toggle = (id: string) => setSelected(prev => prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id]);
 
   return (
