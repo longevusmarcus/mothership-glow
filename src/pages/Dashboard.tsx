@@ -103,7 +103,7 @@ const Dashboard = () => {
 
       <CursorCardsContainer className="grid grid-cols-2 lg:grid-cols-3 gap-4">
         {stats.map((stat) => (
-          <Link key={stat.labelKey} to={stat.href}>
+          <Link key={stat.labelKey || (stat as any).label} to={stat.href}>
             <CursorCard borderColor="hsl(var(--border))">
               <div className="p-5">
                 <div className="flex items-center justify-between mb-3">
