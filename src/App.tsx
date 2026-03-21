@@ -37,8 +37,8 @@ const App = () => (
         <BrowserRouter>
           <ScrollToTop />
           <Routes>
-            <Route path="/landing" element={<Landing />} />
-            <Route path="/" element={<AppLayout><Dashboard /></AppLayout>} />
+            <Route path="/" element={<Landing />} />
+            <Route path="/dashboard" element={<AppLayout><Dashboard /></AppLayout>} />
             <Route path="/agents" element={<AppLayout><Agents /></AppLayout>} />
             <Route path="/agents/:id" element={<AppLayout><AgentDetail /></AppLayout>} />
             <Route path="/companies" element={<AppLayout><Companies /></AppLayout>} />
