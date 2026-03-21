@@ -443,7 +443,10 @@ export function DeployAgentCard({ onDone, preSelectedCompany }: { onDone: (agent
 export function AddAgentToCompanyCard({ onDone }: { onDone: (agentNames: string[], companyName: string) => void }) {
   const [selectedAgents, setSelectedAgents] = useState<string[]>([]);
   const [selectedCompany, setSelectedCompany] = useState<string | null>(null);
-  const toggleAgent = (id: string) => setSelectedAgents(prev => prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id]);
+  const toggleAgent = (id: string) => {
+    if (id === CEO_AGENT_ID) return; // CEO already added to every company
+    setSelectedAgents(prev => prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id]);
+  };
 
   const canSubmit = selectedAgents.length > 0 && selectedCompany;
 
