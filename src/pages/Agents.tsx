@@ -113,7 +113,7 @@ const Agents = () => {
                       <th className="px-4 py-3">{t("agents.th.position")}</th>
                       <th className="px-4 py-3">Status</th>
                       <th className="px-4 py-3">Telegram</th>
-                      <th className="px-4 py-3">{t("agents.th.stage")}</th>
+                      
                       <th className="px-4 py-3 text-right">{t("agents.th.aiScore")}</th>
                     </tr>
                   </thead>
