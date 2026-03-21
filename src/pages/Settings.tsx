@@ -390,46 +390,17 @@ function PersonalOSTab({ locale }: { locale: string }) {
         </p>
       </div>
 
-      <div className="p-4 rounded-xl border border-dashed border-border bg-muted/10 text-center">
-        <FolderOpen className="h-5 w-5 text-muted-foreground mx-auto mb-2" strokeWidth={1.4} />
-        <p className="text-[12px] font-medium mb-1">{locale === "it" ? "Il tuo spazio privato" : "Your private knowledge"}</p>
-        <p className="text-[10px] text-muted-foreground max-w-sm mx-auto">
+      <div className="p-6 rounded-xl border border-dashed border-border bg-muted/10 text-center">
+        <FolderOpen className="h-6 w-6 text-muted-foreground mx-auto mb-3" strokeWidth={1.4} />
+        <p className="text-[13px] font-semibold mb-1">{locale === "it" ? "Il tuo spazio privato" : "Your private knowledge"}</p>
+        <p className="text-[11px] text-muted-foreground max-w-sm mx-auto mb-4">
           {locale === "it"
             ? "Salva idee, link, documenti e note. Tutto qui addestra automaticamente i tuoi agenti."
             : "Save ideas, links, docs & notes. Everything here autonomously trains your agents."}
         </p>
-      </div>
-
-      <div className="relative max-w-sm">
-        <Bell className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground" strokeWidth={1.6} />
-        <input type="text" placeholder={locale === "it" ? "Cerca nel tuo OS..." : "Search your OS..."} value={search} onChange={e => setSearch(e.target.value)}
-          className="w-full h-9 pl-9 pr-4 rounded-xl border border-border bg-card text-[12px] placeholder:text-muted-foreground/60 focus:outline-none focus:ring-1 focus:ring-ring transition-all" />
-      </div>
-
-      <div className="space-y-2">
-        {filtered.map((item) => {
-          const Icon = typeIcons[item.type] || Zap;
-          return (
-            <div key={item.id} className="group p-4 bg-card border border-border rounded-xl hover:bg-muted/20 transition-all cursor-pointer">
-              <div className="flex items-start gap-3">
-                <div className="h-8 w-8 rounded-lg bg-muted flex items-center justify-center shrink-0 mt-0.5">
-                  <Icon className="h-4 w-4 text-muted-foreground" strokeWidth={1.4} />
-                </div>
-                <div className="flex-1 min-w-0">
-                  <p className="text-[13px] font-medium leading-snug mb-1.5">{item.title}</p>
-                  <div className="flex items-center gap-2 flex-wrap">
-                    {item.tags.map(tag => (
-                      <span key={tag} className="text-[9px] px-2 py-0.5 rounded-full bg-muted text-muted-foreground">{tag}</span>
-                    ))}
-                    <span className="text-[9px] text-muted-foreground/40 flex items-center gap-1 ml-auto">
-                      <Clock className="h-2.5 w-2.5" /> {item.added}
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          );
-        })}
+        <span className="inline-block px-3 py-1 rounded-full bg-muted text-[10px] font-semibold text-muted-foreground uppercase tracking-wider">
+          {locale === "it" ? "Presto disponibile" : "Soon available"}
+        </span>
       </div>
     </div>
   );
