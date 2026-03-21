@@ -1,4 +1,4 @@
-import { Search, Bot, Building2, List, KanbanSquare, Send } from "lucide-react";
+import { Search, Bot, Building2, List, KanbanSquare, Send, Power } from "lucide-react";
 import AiIcon from "@/components/AiIcon";
 import { InteractiveHoverButton } from "@/components/ui/interactive-hover-button";
 import { TextShimmer } from "@/components/ui/text-shimmer";
@@ -10,19 +10,21 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { useLanguage } from "@/i18n/LanguageContext";
 import AgentsKanban from "@/components/agents/AgentsKanban";
 import { typeMeta, stageColors } from "@/data/constants";
-const agents = [
-  { id: 1, name: "CodeForge", role: "Full-Stack Dev", score: 96, stage: "Shortlist", aiParsed: true, jobPosition: "NovaTech", source: "tech", skills: ["React", "TypeScript", "Node.js", "PostgreSQL"], telegram: "CodeForge_MSX_bot" },
-  { id: 2, name: "GrowthPilot", role: "SEO & Content", score: 91, stage: "Colloquio", aiParsed: true, jobPosition: "NovaTech", source: "growth", skills: ["SEO", "Content Strategy", "Analytics", "A/B Testing"], telegram: "GrowthPilot_MSX_bot" },
-  { id: 3, name: "DesignMind", role: "UI/UX Design", score: 87, stage: "Shortlist", aiParsed: false, jobPosition: "HealthAI", source: "creative", skills: ["Figma", "Design Systems", "Prototyping"], telegram: "DesignMind_MSX_bot" },
-  { id: 4, name: "DataStream", role: "Data Pipeline", score: 94, stage: "Placement", aiParsed: true, jobPosition: "DataPulse", source: "tech", skills: ["Python", "SQL", "Spark", "Airflow"], telegram: "DataStream_MSX_bot" },
-  { id: 5, name: "OpsEngine", role: "DevOps & CI/CD", score: 89, stage: "Screening", aiParsed: false, jobPosition: "FinFlow", source: "ops", skills: ["Docker", "Kubernetes", "Terraform", "AWS"], telegram: "OpsEngine_MSX_bot" },
-  { id: 6, name: "MarketBot", role: "Paid Ads & Social", score: 88, stage: "Colloquio", aiParsed: true, jobPosition: "NovaTech", source: "growth", skills: ["Google Ads", "Meta Ads", "Analytics", "Copywriting"], telegram: "MarketBot_MSX_bot" },
-  { id: 7, name: "SecureGuard", role: "Security Audit", score: 92, stage: "Shortlist", aiParsed: true, jobPosition: "FinFlow", source: "ops", skills: ["Penetration Testing", "OWASP", "Compliance", "Monitoring"], telegram: "SecureGuard_MSX_bot" },
-  { id: 8, name: "ContentCraft", role: "Copywriting", score: 83, stage: "Screening", aiParsed: false, jobPosition: "HealthAI", source: "creative", skills: ["Blog Writing", "Email Copy", "Brand Voice", "Social Media"], telegram: "ContentCraft_MSX_bot" },
-  { id: 9, name: "APIForge", role: "Backend & APIs", score: 95, stage: "Placement", aiParsed: true, jobPosition: "DataPulse", source: "tech", skills: ["REST", "GraphQL", "Microservices", "Redis"], telegram: "APIForge_MSX_bot" },
-  { id: 10, name: "FinOps", role: "Billing & Payments", score: 90, stage: "Colloquio", aiParsed: true, jobPosition: "FinFlow", source: "ops", skills: ["Stripe", "Billing Logic", "Reconciliation", "Compliance"], telegram: "FinOps_MSX_bot" },
-];
+import { toast } from "sonner";
+import { motion } from "framer-motion";
 
+const initialAgents = [
+  { id: 1, name: "CodeForge", role: "Full-Stack Dev", score: 96, stage: "Shortlist", aiParsed: true, jobPosition: "NovaTech", source: "tech", skills: ["React", "TypeScript", "Node.js", "PostgreSQL"], telegram: "CodeForge_MSX_bot", status: "active" as const },
+  { id: 2, name: "GrowthPilot", role: "SEO & Content", score: 91, stage: "Colloquio", aiParsed: true, jobPosition: "NovaTech", source: "growth", skills: ["SEO", "Content Strategy", "Analytics", "A/B Testing"], telegram: "GrowthPilot_MSX_bot", status: "active" as const },
+  { id: 3, name: "DesignMind", role: "UI/UX Design", score: 87, stage: "Shortlist", aiParsed: false, jobPosition: "HealthAI", source: "creative", skills: ["Figma", "Design Systems", "Prototyping"], telegram: "DesignMind_MSX_bot", status: "pending" as const },
+  { id: 4, name: "DataStream", role: "Data Pipeline", score: 94, stage: "Placement", aiParsed: true, jobPosition: "DataPulse", source: "tech", skills: ["Python", "SQL", "Spark", "Airflow"], telegram: "DataStream_MSX_bot", status: "active" as const },
+  { id: 5, name: "OpsEngine", role: "DevOps & CI/CD", score: 89, stage: "Screening", aiParsed: false, jobPosition: "FinFlow", source: "ops", skills: ["Docker", "Kubernetes", "Terraform", "AWS"], telegram: "OpsEngine_MSX_bot", status: "pending" as const },
+  { id: 6, name: "MarketBot", role: "Paid Ads & Social", score: 88, stage: "Colloquio", aiParsed: true, jobPosition: "NovaTech", source: "growth", skills: ["Google Ads", "Meta Ads", "Analytics", "Copywriting"], telegram: "MarketBot_MSX_bot", status: "active" as const },
+  { id: 7, name: "SecureGuard", role: "Security Audit", score: 92, stage: "Shortlist", aiParsed: true, jobPosition: "FinFlow", source: "ops", skills: ["Penetration Testing", "OWASP", "Compliance", "Monitoring"], telegram: "SecureGuard_MSX_bot", status: "active" as const },
+  { id: 8, name: "ContentCraft", role: "Copywriting", score: 83, stage: "Screening", aiParsed: false, jobPosition: "HealthAI", source: "creative", skills: ["Blog Writing", "Email Copy", "Brand Voice", "Social Media"], telegram: "ContentCraft_MSX_bot", status: "pending" as const },
+  { id: 9, name: "APIForge", role: "Backend & APIs", score: 95, stage: "Placement", aiParsed: true, jobPosition: "DataPulse", source: "tech", skills: ["REST", "GraphQL", "Microservices", "Redis"], telegram: "APIForge_MSX_bot", status: "active" as const },
+  { id: 10, name: "FinOps", role: "Billing & Payments", score: 90, stage: "Colloquio", aiParsed: true, jobPosition: "FinFlow", source: "ops", skills: ["Stripe", "Billing Logic", "Reconciliation", "Compliance"], telegram: "FinOps_MSX_bot", status: "active" as const },
+];
 
 const Agents = () => {
   const { t } = useLanguage();
@@ -30,11 +32,20 @@ const Agents = () => {
   const [typeFilter, setTypeFilter] = useState("all");
   const [stageFilter, setStageFilter] = useState("all");
   const [viewMode, setViewMode] = useState<"list" | "kanban">("list");
+  const [agents, setAgents] = useState(initialAgents);
+
+  const activateAgent = (id: number) => {
+    setAgents(prev => prev.map(a => a.id === id ? { ...a, status: "active" as const } : a));
+    const agent = agents.find(a => a.id === id);
+    toast.success(`${agent?.name} activated successfully!`);
+  };
 
   const filtered = agents.filter(a => {
     const matchesSearch = a.name.toLowerCase().includes(searchQuery.toLowerCase()) || a.role.toLowerCase().includes(searchQuery.toLowerCase()) || a.skills.some(s => s.toLowerCase().includes(searchQuery.toLowerCase()));
     return matchesSearch && (typeFilter === "all" || a.source === typeFilter) && (stageFilter === "all" || a.stage === stageFilter);
   });
+
+  const pendingCount = agents.filter(a => a.status === "pending").length;
 
   const stageLabel = (stage: string) => {
     const map: Record<string, string> = { Screening: t("stage.screening"), Colloquio: t("stage.interview"), Shortlist: t("stage.shortlist"), Placement: t("stage.placement") };
@@ -48,7 +59,10 @@ const Agents = () => {
           <h1 className="text-[28px] sm:text-[34px] font-mondwest font-semibold tracking-tight">
             <TextShimmer as="span" duration={2.5}>{t("candidates.title")}</TextShimmer>
           </h1>
-          <p className="text-[13px] text-muted-foreground mt-1 font-mono">{agents.length} {t("candidates.inDatabase")}</p>
+          <p className="text-[13px] text-muted-foreground mt-1 font-mono">
+            {agents.length} {t("candidates.inDatabase")}
+            {pendingCount > 0 && <span className="text-amber-500 ml-2">· {pendingCount} pending activation</span>}
+          </p>
         </div>
         <div className="flex items-center gap-2.5 w-full sm:w-auto">
           <CleanMotionBackground className="bg-card border border-border rounded-xl p-1" hoverable={false} defaultKey={viewMode} onChange={(key) => key && setViewMode(key as "list" | "kanban")}>
@@ -97,6 +111,7 @@ const Agents = () => {
                       <th className="px-5 py-3">{t("candidates.th.name")}</th>
                       <th className="px-4 py-3">{t("candidates.th.role")}</th>
                       <th className="px-4 py-3">{t("candidates.th.position")}</th>
+                      <th className="px-4 py-3">Status</th>
                       <th className="px-4 py-3">Telegram</th>
                       <th className="px-4 py-3">{t("candidates.th.stage")}</th>
                       <th className="px-4 py-3 text-right">{t("candidates.th.aiScore")}</th>
@@ -121,6 +136,21 @@ const Agents = () => {
                           <Link to={`/companies/${a.id <= 4 ? 1 : 2}`} className="text-[12px] text-muted-foreground hover:text-foreground transition-colors flex items-center gap-1">
                             <Building2 className="h-3 w-3" strokeWidth={1.6} /> {a.jobPosition}
                           </Link>
+                        </td>
+                        <td className="px-4 py-3.5">
+                          {a.status === "active" ? (
+                            <span className="inline-flex items-center gap-1.5 text-[10px] font-semibold px-2.5 py-1 rounded-lg bg-primary/10 text-primary">
+                              <span className="h-1.5 w-1.5 rounded-full bg-primary" /> Active
+                            </span>
+                          ) : (
+                            <motion.button
+                              whileTap={{ scale: 0.95 }}
+                              onClick={() => activateAgent(a.id)}
+                              className="inline-flex items-center gap-1.5 text-[10px] font-semibold px-2.5 py-1 rounded-lg bg-amber-500/10 text-amber-500 hover:bg-amber-500/20 transition-colors cursor-pointer"
+                            >
+                              <Power className="h-3 w-3" strokeWidth={2} /> Activate
+                            </motion.button>
+                          )}
                         </td>
                         <td className="px-4 py-3.5">
                           <a href={`https://t.me/${a.telegram}`} target="_blank" rel="noopener noreferrer"
