@@ -64,7 +64,7 @@ const AgentsKanban = ({ agents }: AgentsKanbanProps) => {
   return (
     <div className="flex gap-4 overflow-x-auto pb-4 -mx-4 px-4 sm:mx-0 sm:px-0 snap-x snap-mandatory">
       {stages.map(stage => {
-        const stageAgents = candidates.filter(a => getAgentStage(a) === stage.id);
+        const stageAgents = agents.filter(a => getAgentStage(a) === stage.id);
         return (
           <div key={stage.id} className={`min-w-[260px] sm:min-w-[280px] flex-1 shrink-0 rounded-2xl p-3 transition-all duration-200 snap-start ${dragOverStage === stage.id ? "bg-muted/60 ring-1 ring-border" : "bg-muted/30"}`}
             onDragOver={e => handleDragOver(e, stage.id)} onDragLeave={handleDragLeave} onDrop={() => handleDrop(stage.id)}>

@@ -99,7 +99,7 @@ const Agents = () => {
       </div>
 
       {viewMode === "kanban" ? (
-        <AgentsKanban candidates={filtered} />
+        <AgentsKanban agents={filtered} />
       ) : (
         <CursorCardsContainer>
           <CursorCard borderColor="hsl(var(--border))">
