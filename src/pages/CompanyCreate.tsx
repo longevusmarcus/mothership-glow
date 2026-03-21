@@ -351,7 +351,7 @@ const CompanyCreate = () => {
                 {[
                   { label: "Status", value: "Live", color: "text-emerald-500" },
                   { label: "Projected MRR", value: generatedCompany.mrr, color: "text-foreground" },
-                  { label: "Pages deployed", value: "7", color: "text-foreground" },
+                  { label: "Pages pre-deployed", value: "7", color: "text-foreground" },
                   { label: "APIs connected", value: "4", color: "text-foreground" },
                 ].map(m => (
                   <div key={m.label} className="p-3 rounded-xl bg-muted/40">
@@ -362,7 +362,7 @@ const CompanyCreate = () => {
               </div>
 
               <div className="space-y-2">
-                <p className="text-[10px] font-semibold text-muted-foreground tracking-wider uppercase">What was deployed</p>
+                <p className="text-[10px] font-semibold text-muted-foreground tracking-wider uppercase">What was pre-deployed</p>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                   {["Landing page with pricing", "Stripe checkout integration", "User auth & onboarding", "Admin dashboard", "Email sequences via Resend", "Analytics & event tracking", "REST API + webhooks"].map(item => (
                     <div key={item} className="flex items-center gap-2 text-[12px] text-muted-foreground">
