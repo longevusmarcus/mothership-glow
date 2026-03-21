@@ -50,6 +50,7 @@ const Chat = () => {
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const [deployToCompany, setDeployToCompany] = useState<CompanyRef | null>(null);
+  const [deployedAgentCount, setDeployedAgentCount] = useState(1);
   const hasAutoTriggered = useRef(false);
 
   const scrollToBottom = () => { messagesEndRef.current?.scrollIntoView({ behavior: "smooth" }); };
@@ -106,7 +107,7 @@ const Chat = () => {
   // Flow handlers
   const handleSignalsSelected = (s: string) => { addUser(`Selected signals: ${s}`); setIsLoading(true); setTimeout(() => addAssistant("Great picks. Based on those signals, here are the strongest validated ideas with revenue proof. Choose one to build.", "show_ideas"), 900); };
   const handleIdeaSelected = (idea: string) => { addUser(`Build: ${idea}`); setIsLoading(true); setTimeout(() => addAssistant(`Solid choice — "${idea}" has strong market validation. Now pick the agents that will build it.`, "pick_agent"), 900); };
-  const handleDeploy = (ids: string[]) => { const names = ids.map(id => deployableAgents.find(a => a.id === id)?.name || id).join(", "); addUser(`Deploy with: ${names}`); setTimeout(() => addAssistant(`Deploying your company with ${names}. Agents are taking over now...`, "deploying"), 600); };
+  const handleDeploy = (ids: string[]) => { setDeployedAgentCount(ids.length); const names = ids.map(id => deployableAgents.find(a => a.id === id)?.name || id).join(", "); addUser(`Deploy with: ${names}`); setTimeout(() => addAssistant(`Deploying your company with ${names}. Agents are taking over now...`, "deploying"), 600); };
   const handleDeployDone = () => { addAssistant("Your company is in progress. Agents are now ready to be activated and work autonomously — check the dashboard for real-time updates.", "deployed"); };
   const handleDeployAgentDone = (names: string, target: string) => { addUser(`Deploy ${names} → ${target}`); setTimeout(() => addAssistant(`Deploying ${names} to ${target}. Agents are spinning up now...`, "deploying"), 600); };
   const handleIntegrate = () => { addUser("I want to integrate my own agent"); setIsLoading(true); setTimeout(() => addAssistant("Here's everything you need to connect your agent via REST API. Unlock full access with the MSX Pro plan.", "show_api_docs"), 800); };
@@ -114,6 +115,7 @@ const Chat = () => {
   const handleAddAgentDone = (agentNames: string[], companyName: string) => {
     addUser(`Add ${agentNames.join(", ")} → ${companyName}`);
     setPendingAddAgent({ agentNames, companyName });
+    setDeployedAgentCount(agentNames.length);
     setTimeout(() => addAssistant(
       `Deploying ${agentNames.length} specialized agent${agentNames.length > 1 ? "s" : ""} to ${companyName}. Setting up workspace access, skills, and orchestration...`,
       "adding_agent"
@@ -136,12 +138,12 @@ const Chat = () => {
       case "show_ideas": return <IdeasCard onSelect={handleIdeaSelected} />;
       case "pick_agent": return <AgentPickerCard onDeploy={handleDeploy} onIntegrate={handleIntegrate} />;
       case "deploying": return <DeployingCard onDone={handleDeployDone} />;
-      case "deployed": return <DeployedCard />;
+      case "deployed": return <DeployedCard agentCount={deployedAgentCount} />;
       case "show_api_docs": return <ApiDocsPaywall />;
       case "deploy_agent_flow": return <DeployAgentCard onDone={handleDeployAgentDone} preSelectedCompany={deployToCompany} />;
       case "add_agent_to_company": return <AddAgentToCompanyCard onDone={handleAddAgentDone} />;
       case "adding_agent": return <AddingAgentCard onDone={handleAddAgentDeployDone} />;
-      case "agent_added": return <AgentAddedCard />;
+      case "agent_added": return <AgentAddedCard agentCount={deployedAgentCount} />;
       default: return null;
     }
   };

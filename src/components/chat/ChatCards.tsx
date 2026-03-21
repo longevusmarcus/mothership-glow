@@ -206,7 +206,7 @@ export function DeployingCard({ onDone }: { onDone: () => void }) {
 
 // ── Deployed Card (with paywall) ──
 
-export function DeployedCard() {
+export function DeployedCard({ agentCount = 1 }: { agentCount?: number }) {
   const navigate = useNavigate();
   const [showPlan, setShowPlan] = useState(false);
   const [subscribed, setSubscribed] = useState(false);
@@ -221,6 +221,10 @@ export function DeployedCard() {
     setSubscribed(true);
     setShowPlan(false);
   };
+
+  // For deploy company: agentCount includes CEO, so total agents = agentCount
+  // Pricing: Orbital ($58) = CEO only, +1 = $88, +2 = $118, +3 = $148
+  const recommendedPrice = 58 + Math.max(0, agentCount - 1) * 30;
 
   return (
     <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, ease }} className="mt-2 space-y-3">
@@ -250,7 +254,7 @@ export function DeployedCard() {
       <AnimatePresence>
         {showPlan && (
           <motion.div ref={planRef} initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: "auto" }} exit={{ opacity: 0, height: 0 }} className="overflow-hidden">
-            <ProPlanCard onSubscribed={handleSubscribed} />
+            <ProPlanCard onSubscribed={handleSubscribed} recommendedPrice={recommendedPrice} agentCount={agentCount} />
           </motion.div>
         )}
       </AnimatePresence>
@@ -601,7 +605,7 @@ export function AddingAgentCard({ onDone }: { onDone: () => void }) {
 
 // ── Agent Added Card (with upgrade subscription) ──
 
-export function AgentAddedCard() {
+export function AgentAddedCard({ agentCount = 1 }: { agentCount?: number }) {
   const [showUpgrade, setShowUpgrade] = useState(false);
   const [subscribed, setSubscribed] = useState(false);
   const planRef = useRef<HTMLDivElement>(null);
@@ -645,7 +649,7 @@ export function AgentAddedCard() {
       <AnimatePresence>
         {showUpgrade && (
           <motion.div ref={planRef} initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: "auto" }} exit={{ opacity: 0, height: 0 }} className="overflow-hidden">
-            <SubscriptionUpgradeCard onSubscribed={handleSubscribed} />
+            <SubscriptionUpgradeCard onSubscribed={handleSubscribed} agentCount={agentCount} />
           </motion.div>
         )}
       </AnimatePresence>
@@ -665,13 +669,17 @@ export function AgentAddedCard() {
 
 // ── Subscription Upgrade Card ──
 
-function SubscriptionUpgradeCard({ onSubscribed }: { onSubscribed: () => void }) {
+function SubscriptionUpgradeCard({ onSubscribed, agentCount = 1 }: { onSubscribed: () => void; agentCount?: number }) {
   const tiers = [
-    { name: "Orbital", price: 58, desc: "Base CEO Agent — everything included" },
-    { name: "Orbital +1", price: 88, desc: "CEO + 1 specialized agent" },
-    { name: "Orbital +2", price: 118, desc: "CEO + 2 specialized agents" },
-    { name: "Interstellar", price: 148, desc: "CEO + 3 agents — full plan" },
+    { name: "Orbital", price: 58, agents: 1, desc: "Base CEO Agent — everything included" },
+    { name: "Orbital +1", price: 88, agents: 2, desc: "CEO + 1 specialized agent" },
+    { name: "Orbital +2", price: 118, agents: 3, desc: "CEO + 2 specialized agents" },
+    { name: "Interstellar", price: 148, agents: 4, desc: "CEO + 3 agents — full plan" },
   ];
+
+  // Recommend the tier that fits: existing CEO + new agents
+  const totalNeeded = 1 + agentCount; // CEO + new agents
+  const recommended = tiers.find(t => t.agents >= totalNeeded) || tiers[tiers.length - 1];
 
   return (
     <div className="rounded-xl border border-primary/25 bg-primary/[0.04] p-4 space-y-3">
@@ -680,22 +688,28 @@ function SubscriptionUpgradeCard({ onSubscribed }: { onSubscribed: () => void })
         <p className="text-[13px] font-semibold">Upgrade Subscription</p>
       </div>
       <p className="text-[10px] text-muted-foreground leading-relaxed">
-        Each new specialized agent requires upgrading your Orbital plan. Pick the tier that fits.
+        You're adding {agentCount} agent{agentCount > 1 ? "s" : ""}. Upgrade to <strong>{recommended.name}</strong> (${recommended.price}/mo) to activate.
       </p>
       <div className="space-y-1.5">
-        {tiers.map(tier => (
-          <div key={tier.name} className="flex items-center justify-between p-3 rounded-xl border border-border bg-background">
-            <div>
-              <p className="text-[11px] font-semibold">{tier.name}</p>
-              <p className="text-[9px] text-muted-foreground">{tier.desc}</p>
+        {tiers.map(tier => {
+          const isRecommended = tier.name === recommended.name;
+          return (
+            <div key={tier.name} className={`flex items-center justify-between p-3 rounded-xl border ${isRecommended ? "border-primary bg-primary/[0.04]" : "border-border bg-background"}`}>
+              <div className="flex items-center gap-2">
+                {isRecommended && <span className="text-[8px] font-bold text-primary uppercase tracking-wider">Recommended</span>}
+                <div>
+                  <p className={`text-[11px] font-semibold ${isRecommended ? "text-foreground" : ""}`}>{tier.name}</p>
+                  <p className="text-[9px] text-muted-foreground">{tier.desc}</p>
+                </div>
+              </div>
+              <p className="text-[12px] font-semibold tabular-nums">${tier.price}<span className="text-[9px] text-muted-foreground font-normal">/mo</span></p>
             </div>
-            <p className="text-[12px] font-semibold tabular-nums">${tier.price}<span className="text-[9px] text-muted-foreground font-normal">/mo</span></p>
-          </div>
-        ))}
+          );
+        })}
       </div>
       <button onClick={() => { toast.success("Subscription confirmed!"); onSubscribed(); }}
         className="w-full h-10 rounded-xl bg-foreground text-background text-[12px] font-semibold flex items-center justify-center gap-2 hover:opacity-90 transition-all active:scale-[0.97]">
-        <CreditCard className="h-3.5 w-3.5" strokeWidth={1.8} /> Upgrade now
+        <CreditCard className="h-3.5 w-3.5" strokeWidth={1.8} /> Upgrade to {recommended.name} — ${recommended.price}/mo
       </button>
     </div>
   );
@@ -703,15 +717,19 @@ function SubscriptionUpgradeCard({ onSubscribed }: { onSubscribed: () => void })
 
 // ── Shared Pro Plan Card ──
 
-export function ProPlanCard({ onSubscribed }: { onSubscribed?: () => void } = {}) {
+export function ProPlanCard({ onSubscribed, agentCount = 1 }: { onSubscribed?: () => void; recommendedPrice?: number; agentCount?: number } = {}) {
+  // Price based on agents: CEO ($58) + extra agents ($30 each)
+  const price = 58 + Math.max(0, agentCount - 1) * 30;
+  const tierName = agentCount <= 1 ? "Orbital" : agentCount === 2 ? "Orbital +1" : agentCount === 3 ? "Orbital +2" : "Interstellar";
+
   return (
     <div className="rounded-xl border border-primary/25 bg-primary/[0.04] p-4 space-y-3">
       <div className="flex items-center gap-2">
         <Sparkles className="h-4 w-4 text-primary" strokeWidth={1.6} />
-        <p className="text-[13px] font-semibold">MSX Pro — $58/month</p>
+        <p className="text-[13px] font-semibold">MSX Pro — {tierName} — ${price}/month</p>
       </div>
       <p className="text-[10px] text-muted-foreground leading-relaxed">
-        Claim full ownership. Get custom domain, Stripe revenue collection, and full control.
+        {agentCount > 1 ? `CEO + ${agentCount - 1} specialized agent${agentCount > 2 ? "s" : ""}. ` : ""}Claim full ownership. Get custom domain, Stripe revenue collection, and full control.
       </p>
       <ul className="space-y-1.5 text-[11px] text-muted-foreground">
         {mxProFeatures.map(f => (
@@ -722,7 +740,7 @@ export function ProPlanCard({ onSubscribed }: { onSubscribed?: () => void } = {}
       </ul>
       <button onClick={() => { toast.success("Subscription confirmed!"); onSubscribed?.(); }}
         className="w-full h-10 rounded-xl bg-foreground text-background text-[12px] font-semibold flex items-center justify-center gap-2 hover:opacity-90 transition-all active:scale-[0.97]">
-        <CreditCard className="h-3.5 w-3.5" strokeWidth={1.8} /> Subscribe to MSX Pro
+        <CreditCard className="h-3.5 w-3.5" strokeWidth={1.8} /> Subscribe to MSX Pro — ${price}/mo
       </button>
     </div>
   );
