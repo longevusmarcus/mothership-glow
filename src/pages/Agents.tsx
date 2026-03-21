@@ -1,4 +1,4 @@
-import { Search, Bot, Building2, List, KanbanSquare, Power, X, Loader2, Check } from "lucide-react";
+import { Search, Bot, Building2, List, KanbanSquare, Send, Power, X, Loader2, Check } from "lucide-react";
 import AiIcon from "@/components/AiIcon";
 import { InteractiveHoverButton } from "@/components/ui/interactive-hover-button";
 import { TextShimmer } from "@/components/ui/text-shimmer";
