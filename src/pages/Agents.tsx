@@ -158,9 +158,6 @@ const Agents = () => {
                             <Send className="h-3 w-3" strokeWidth={1.6} /> Chat
                           </a>
                         </td>
-                        <td className="px-4 py-3.5">
-                          <span className={`text-[10px] font-semibold px-2.5 py-1 rounded-lg ${stageColors[a.stage]}`}>{stageLabel(a.stage)}</span>
-                        </td>
                         <td className="px-4 py-3.5 text-right">
                           <span className="text-[14px] font-mondwest font-semibold tabular-nums">{a.score}%</span>
                         </td>
