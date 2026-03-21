@@ -47,6 +47,9 @@ const CompanyCreate = () => {
   const [selectedAgents, setSelectedAgents] = useState<string[]>([createAgents[0].id]);
   const [agentName, setAgentName] = useState(createAgents[0].name);
   const [step, setStep] = useState<"select" | "deploying" | "done">("select");
+  const [scanStep, setScanStep] = useState<"signals" | "ideas" | "ready">("signals");
+  const [selectedSignals, setSelectedSignals] = useState<string>("");
+  const [selectedIdea, setSelectedIdea] = useState<string>("");
   const [currentDeployStep, setCurrentDeployStep] = useState(0);
   const [completedSteps, setCompletedSteps] = useState<number[]>([]);
   const [generatedCompany, setGeneratedCompany] = useState<{ name: string; type: string; market: string; mrr: string } | null>(null);
