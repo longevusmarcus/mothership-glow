@@ -136,6 +136,7 @@ const Agents = () => {
                             <div className="flex items-center gap-1.5">
                               <span className="text-[13px] font-medium group-hover:text-foreground/80 transition-colors">{a.name}</span>
                               {a.aiParsed && <AiIcon className="text-muted-foreground" size={12} />}
+                              {a.isCeo && <span className="text-[9px] text-muted-foreground/50">(CEO)</span>}
                             </div>
                           </Link>
                         </td>
