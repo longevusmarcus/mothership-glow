@@ -7,7 +7,7 @@ import { toast } from "sonner";
 import { motion, AnimatePresence } from "framer-motion";
 import { createAgents, companyDeploySteps, ease } from "@/data/constants";
 import type { CreateAgent } from "@/data/constants";
-import { ProPlanCard } from "@/components/chat/ChatCards";
+import { ProPlanCard, SignalsCard, IdeasCard } from "@/components/chat/ChatCards";
 
 function ClaimCompanyPaywall({ onDeployAnother }: { onDeployAnother: () => void }) {
   const [showPlan, setShowPlan] = useState(false);
