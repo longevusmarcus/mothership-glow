@@ -251,7 +251,7 @@ const CompanyCreate = () => {
                   <div className="flex items-center gap-2 p-3 rounded-xl bg-primary/[0.04] border border-primary/20">
                     <Check className="h-3.5 w-3.5 text-primary shrink-0" strokeWidth={2} />
                     <div className="flex-1 min-w-0">
-                      <p className="text-[11px] font-semibold text-foreground">Signals: {selectedSignals.split(", ").length} selected</p>
+                      <p className="text-[11px] font-semibold text-foreground">Signal selected</p>
                       <p className="text-[10px] text-muted-foreground truncate">{selectedSignals}</p>
                     </div>
                     <button onClick={() => setScanStep("signals")} className="text-[10px] text-primary hover:underline shrink-0">Change</button>
