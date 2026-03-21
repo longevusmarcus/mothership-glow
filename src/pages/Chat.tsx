@@ -12,7 +12,7 @@ import { deployableAgents } from "@/data/constants";
 import type { CompanyRef } from "@/data/constants";
 import {
   SignalsCard, IdeasCard, AgentPickerCard, DeployingCard,
-  DeployedCard, ApiDocsPaywall, DeployAgentCard,
+  DeployedCard, ApiDocsPaywall, DeployAgentCard, AddAgentToCompanyCard,
 } from "@/components/chat/ChatCards";
 
 // ── Types ──
