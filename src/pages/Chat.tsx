@@ -115,6 +115,7 @@ const Chat = () => {
   const handleAddAgentDone = (agentNames: string[], companyName: string) => {
     addUser(`Add ${agentNames.join(", ")} → ${companyName}`);
     setPendingAddAgent({ agentNames, companyName });
+    setDeployedAgentCount(agentNames.length);
     setTimeout(() => addAssistant(
       `Deploying ${agentNames.length} specialized agent${agentNames.length > 1 ? "s" : ""} to ${companyName}. Setting up workspace access, skills, and orchestration...`,
       "adding_agent"
