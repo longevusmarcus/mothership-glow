@@ -50,6 +50,7 @@ const Chat = () => {
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const [deployToCompany, setDeployToCompany] = useState<CompanyRef | null>(null);
+  const [deployedAgentCount, setDeployedAgentCount] = useState(1);
   const hasAutoTriggered = useRef(false);
 
   const scrollToBottom = () => { messagesEndRef.current?.scrollIntoView({ behavior: "smooth" }); };
