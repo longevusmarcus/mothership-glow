@@ -518,7 +518,7 @@ const CompanyCreate = () => {
               </div>
             </div>
 
-            <ClaimCompanyPaywall onDeployAnother={resetAll} />
+            <ClaimCompanyPaywall onDeployAnother={resetAll} agentCount={selectedAgents.length} />
           </motion.div>
         )}
       </div>
