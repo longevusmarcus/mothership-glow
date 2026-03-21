@@ -221,6 +221,80 @@ const CompanyDetail = () => {
             </div>
           )}
 
+          {activePanel === "emails" && (
+            <div className="divide-y divide-border flex-1 overflow-y-auto">
+              {agentEmails.map((email, i) => (
+                <motion.div key={i} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: i * 0.04 }} className="px-5 py-3.5 flex items-center gap-3 hover:bg-muted/20 transition-all">
+                  <div className="h-9 w-9 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
+                    <Mail className="h-4 w-4 text-primary" strokeWidth={1.4} />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <p className="text-[12px] font-medium leading-snug truncate">{email.subject}</p>
+                    <div className="flex items-center gap-2 mt-0.5">
+                      <span className="text-[10px] text-muted-foreground font-medium">{email.agent}</span>
+                      <span className="text-[9px] text-muted-foreground/40">·</span>
+                      <span className="text-[10px] text-muted-foreground/50">to {email.to}</span>
+                      <span className="text-[9px] text-muted-foreground/40">·</span>
+                      <span className="text-[10px] text-muted-foreground/50">{email.time}</span>
+                    </div>
+                  </div>
+                  <span className={`text-[9px] px-2 py-0.5 rounded-lg font-semibold shrink-0 ${email.status === "opened" ? "bg-accent text-accent-foreground" : "bg-success/10 text-success"}`}>
+                    {email.status === "opened" ? "Opened" : "Delivered"}
+                  </span>
+                </motion.div>
+              ))}
+            </div>
+          )}
+
+          {activePanel === "xposts" && (
+            <div className="divide-y divide-border flex-1 overflow-y-auto">
+              {agentXPosts.map((post, i) => (
+                <motion.div key={i} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: i * 0.04 }} className="px-5 py-3.5 hover:bg-muted/20 transition-all">
+                  <p className="text-[12px] leading-relaxed">{post.content}</p>
+                  <div className="flex items-center gap-3 mt-2">
+                    <span className="text-[10px] text-muted-foreground font-medium">{post.agent}</span>
+                    <span className="text-[9px] text-muted-foreground/40">·</span>
+                    <span className="text-[10px] text-muted-foreground/50">{post.time}</span>
+                    <span className="text-[9px] text-muted-foreground/40">·</span>
+                    <span className="text-[10px] text-muted-foreground/50">❤️ {post.likes}</span>
+                    <span className="text-[10px] text-muted-foreground/50">🔁 {post.retweets}</span>
+                    <span className="text-[10px] text-muted-foreground/50">👁 {post.impressions}</span>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          )}
+
+          {activePanel === "ads" && (
+            <div className="divide-y divide-border flex-1 overflow-y-auto">
+              {agentAds.map((ad, i) => (
+                <motion.div key={i} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: i * 0.04 }} className="px-5 py-3.5 flex items-center gap-3 hover:bg-muted/20 transition-all">
+                  <div className={`h-9 w-9 rounded-xl flex items-center justify-center shrink-0 ${ad.status === "active" ? "bg-success/10" : "bg-muted"}`}>
+                    <Megaphone className={`h-4 w-4 ${ad.status === "active" ? "text-success" : "text-muted-foreground"}`} strokeWidth={1.4} />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <p className="text-[12px] font-medium leading-snug truncate">{ad.name}</p>
+                    <div className="flex items-center gap-2 mt-0.5">
+                      <span className="text-[10px] text-muted-foreground font-medium">{ad.agent}</span>
+                      <span className="text-[9px] text-muted-foreground/40">·</span>
+                      <span className="text-[10px] text-muted-foreground/50">{ad.platform}</span>
+                      <span className="text-[9px] text-muted-foreground/40">·</span>
+                      <span className="text-[10px] text-muted-foreground/50">{ad.spend} spent</span>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-3 shrink-0 text-[10px] text-muted-foreground tabular-nums">
+                    <span>{ad.clicks} clicks</span>
+                    <span>{ad.ctr} CTR</span>
+                    <span className="font-semibold text-foreground">{ad.conversions} conv</span>
+                  </div>
+                  <span className={`text-[9px] px-2 py-0.5 rounded-lg font-semibold shrink-0 ${ad.status === "active" ? "bg-success/10 text-success" : "bg-muted text-muted-foreground"}`}>
+                    {ad.status === "active" ? "Active" : "Paused"}
+                  </span>
+                </motion.div>
+              ))}
+            </div>
+          )}
+
           {activePanel === "deploys" && (
             <div className="divide-y divide-border flex-1 overflow-y-auto">
               {deployPreviews.map((deploy, i) => (
