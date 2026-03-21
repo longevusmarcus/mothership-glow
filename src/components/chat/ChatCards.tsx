@@ -218,7 +218,7 @@ export function DeployedCard() {
             View dashboard <ArrowRight className="h-3 w-3" />
           </button>
           <button onClick={handleClaim} className="h-9 rounded-xl bg-foreground text-background text-[11px] font-semibold flex items-center justify-center gap-2 hover:opacity-90 transition-all active:scale-[0.97]">
-            <CreditCard className="h-3 w-3" strokeWidth={1.8} /> Claim & own
+            <CreditCard className="h-3 w-3" strokeWidth={1.8} /> Activate & own
           </button>
         </div>
       </div>
