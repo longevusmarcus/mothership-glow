@@ -31,10 +31,10 @@ const responseKeys: TranslationKey[] = [
 
 const quickActions = [
   { icon: Rocket, label: "Deploy a company", labelIt: "Deploya un'azienda", prompt: "I want to deploy a new company" },
+  { icon: Bot, label: "Add agent to company", labelIt: "Aggiungi agente", prompt: "I want to add a new agent to an existing company" },
   { icon: Zap, label: "Deploy agent", labelIt: "Deploya agente", prompt: "I want to deploy an agent to a company" },
   { icon: Radio, label: "Browse signals", labelIt: "Sfoglia segnali", prompt: "Show me the top market signals this week" },
   { icon: Lightbulb, label: "Explore ideas", labelIt: "Esplora idee", prompt: "Show me pre-validated business ideas" },
-  { icon: Bot, label: "Agent types", labelIt: "Tipi di agente", prompt: "Show me all available agent types and their capabilities" },
   { icon: PlugZap, label: "Integrate my agent", labelIt: "Integra il mio agente", prompt: "I want to integrate my own agent" },
   { icon: BarChart3, label: "Performance report", labelIt: "Report performance", prompt: "Give me a performance report across all agents and companies" },
 ];
