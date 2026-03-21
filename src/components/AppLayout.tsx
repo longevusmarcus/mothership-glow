@@ -92,7 +92,7 @@ function IconRail({
                   isActive
                     ? "bg-icon-rail-hover text-icon-rail-active"
                     : isChat
-                      ? "text-primary dark:text-primary hover:bg-icon-rail-hover/60"
+                      ? "text-icon-rail-active hover:bg-icon-rail-hover/60"
                       : "text-icon-rail-foreground hover:text-icon-rail-active hover:bg-icon-rail-hover/60"
                 }`}
               >
