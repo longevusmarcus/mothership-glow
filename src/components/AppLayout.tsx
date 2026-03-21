@@ -23,8 +23,8 @@ import type { TranslationKey } from "@/i18n/translations";
 const navItemsDef = [
   { id: "dashboard", icon: LayoutDashboard, labelKey: "nav.dashboard" as TranslationKey, to: "/" },
   { id: "chat", icon: MessageSquare, labelKey: "nav.chatAi" as TranslationKey, to: "/chat" },
-  { id: "candidates", icon: Bot, labelKey: "nav.agents" as TranslationKey, to: "/agents" },
-  { id: "jobs", icon: Building2, labelKey: "nav.companies" as TranslationKey, to: "/companies" },
+  { id: "agents", icon: Bot, labelKey: "nav.agents" as TranslationKey, to: "/agents" },
+  { id: "companies", icon: Building2, labelKey: "nav.companies" as TranslationKey, to: "/companies" },
   { id: "more", icon: MoreHorizontal, labelKey: "nav.more" as TranslationKey, to: "/more" },
 ];
 
