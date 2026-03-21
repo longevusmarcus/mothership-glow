@@ -81,6 +81,7 @@ function IconRail({
       <div className="flex-1 flex flex-col items-center gap-0.5 overflow-y-auto">
         {navItemsDef.map((item) => {
           const isActive = activeSection === item.id;
+          const isChat = item.id === "chat";
           return (
             <IconTooltip key={item.id} label={t(item.labelKey)}>
               <motion.button
@@ -90,7 +91,9 @@ function IconRail({
                 className={`relative h-9 w-9 rounded-xl flex items-center justify-center transition-colors duration-200 ${
                   isActive
                     ? "bg-icon-rail-hover text-icon-rail-active"
-                    : "text-icon-rail-foreground hover:text-icon-rail-active hover:bg-icon-rail-hover/60"
+                    : isChat
+                      ? "text-primary hover:bg-icon-rail-hover/60"
+                      : "text-icon-rail-foreground hover:text-icon-rail-active hover:bg-icon-rail-hover/60"
                 }`}
               >
                 {isActive && (
