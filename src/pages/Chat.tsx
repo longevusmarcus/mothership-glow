@@ -14,7 +14,7 @@ import {
   SignalsCard, IdeasCard, AgentPickerCard, DeployingCard,
   DeployedCard, ApiDocsPaywall, DeployAgentCard, AddAgentToCompanyCard,
   AddingAgentCard, AgentAddedCard,
-} from "@/components/chat/ChatCards";
+} from "@/components/chat";
 
 // ── Types ──
 

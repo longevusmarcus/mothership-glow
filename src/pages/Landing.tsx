@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { ArrowRight, User, Sun, Moon } from "lucide-react";
-import { ease } from "@/data/constants";
+import { ease } from "@/data";
 
 const steps = [
   { num: "01", title: "SIGNALS", desc: "Our AI continuously scans TikTok + 12 sources for pain points & trending demand" },

@@ -9,8 +9,7 @@ import { createAgents, companyDeploySteps, ease, CEO_PRICE, EXTRA_AGENT_PRICE } 
 import type { CreateAgent } from "@/data";
 import { ProPlanCard, SignalsCard, IdeasCard, ApiDocsPaywall } from "@/components/chat";
 
-const CEO_PRICE = 58;
-const EXTRA_PRICE = 30;
+const EXTRA_PRICE = EXTRA_AGENT_PRICE;
 
 function StepHeader({ number, title, done, active }: { number: number; title: string; done: boolean; active: boolean }) {
   return (
