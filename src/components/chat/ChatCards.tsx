@@ -210,7 +210,7 @@ export function DeployedCard() {
           </div>
           <div>
             <p className="text-[13px] font-semibold">Company deployed successfully</p>
-            <p className="text-[11px] text-muted-foreground">Your agents are now building autonomously</p>
+            <p className="text-[11px] text-muted-foreground">Your agents are now ready to ship autonomously</p>
           </div>
         </div>
         <div className="grid grid-cols-2 gap-2">
