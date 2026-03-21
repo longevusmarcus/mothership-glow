@@ -138,12 +138,12 @@ const Chat = () => {
       case "show_ideas": return <IdeasCard onSelect={handleIdeaSelected} />;
       case "pick_agent": return <AgentPickerCard onDeploy={handleDeploy} onIntegrate={handleIntegrate} />;
       case "deploying": return <DeployingCard onDone={handleDeployDone} />;
-      case "deployed": return <DeployedCard />;
+      case "deployed": return <DeployedCard agentCount={deployedAgentCount} />;
       case "show_api_docs": return <ApiDocsPaywall />;
       case "deploy_agent_flow": return <DeployAgentCard onDone={handleDeployAgentDone} preSelectedCompany={deployToCompany} />;
       case "add_agent_to_company": return <AddAgentToCompanyCard onDone={handleAddAgentDone} />;
       case "adding_agent": return <AddingAgentCard onDone={handleAddAgentDeployDone} />;
-      case "agent_added": return <AgentAddedCard />;
+      case "agent_added": return <AgentAddedCard agentCount={deployedAgentCount} />;
       default: return null;
     }
   };
