@@ -1,6 +1,6 @@
 export const translationsAgents = {
   "agents.title": { it: "I tuoi Agenti", en: "Your Agents" },
-  "agents.inDatabase": { it: "agenti nel sistema", en: "agents in the system" },
+  "agents.inDatabase": { it: "agenti openclaw nella tua factory", en: "openclaw agents in your factory" },
   "agents.list": { it: "Lista", en: "List" },
   "agents.kanban": { it: "Kanban", en: "Kanban" },
   "agents.uploadCv": { it: "Importa Agente", en: "Import Agent" },
