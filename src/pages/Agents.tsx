@@ -290,6 +290,13 @@ const Agents = () => {
           </CursorCard>
         </CursorCardsContainer>
       )}
+
+      <ActivateDialog
+        agent={activatingAgent}
+        open={!!activatingAgent}
+        onClose={() => setActivatingAgent(null)}
+        onActivate={activateAgent}
+      />
     </div>
   );
 };
