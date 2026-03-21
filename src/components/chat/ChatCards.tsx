@@ -206,7 +206,7 @@ export function DeployingCard({ onDone }: { onDone: () => void }) {
 
 // ── Deployed Card (with paywall) ──
 
-export function DeployedCard() {
+export function DeployedCard({ agentCount = 1 }: { agentCount?: number }) {
   const navigate = useNavigate();
   const [showPlan, setShowPlan] = useState(false);
   const [subscribed, setSubscribed] = useState(false);
@@ -221,6 +221,10 @@ export function DeployedCard() {
     setSubscribed(true);
     setShowPlan(false);
   };
+
+  // For deploy company: agentCount includes CEO, so total agents = agentCount
+  // Pricing: Orbital ($58) = CEO only, +1 = $88, +2 = $118, +3 = $148
+  const recommendedPrice = 58 + Math.max(0, agentCount - 1) * 30;
 
   return (
     <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, ease }} className="mt-2 space-y-3">
@@ -250,7 +254,7 @@ export function DeployedCard() {
       <AnimatePresence>
         {showPlan && (
           <motion.div ref={planRef} initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: "auto" }} exit={{ opacity: 0, height: 0 }} className="overflow-hidden">
-            <ProPlanCard onSubscribed={handleSubscribed} />
+            <ProPlanCard onSubscribed={handleSubscribed} recommendedPrice={recommendedPrice} agentCount={agentCount} />
           </motion.div>
         )}
       </AnimatePresence>
