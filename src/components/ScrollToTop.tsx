@@ -7,7 +7,10 @@ export const ScrollToTop = () => {
 
   useEffect(() => {
     if (navType !== "POP") {
+      // Scroll both window and the app's main scrollable container
       window.scrollTo({ top: 0, left: 0, behavior: "instant" as ScrollBehavior });
+      const main = document.querySelector("main");
+      if (main) main.scrollTo({ top: 0, left: 0, behavior: "instant" as ScrollBehavior });
     }
   }, [pathname, navType]);
 
