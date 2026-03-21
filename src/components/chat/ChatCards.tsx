@@ -458,6 +458,7 @@ export function AddAgentToCompanyCard({ onDone }: { onDone: (agentNames: string[
         {deployableAgents.map((a, i) => {
           const Icon = a.icon;
           const isSelected = selectedAgents.includes(a.id);
+          const agentPrice = a.id === CEO_AGENT_ID ? CEO_PRICE : EXTRA_AGENT_PRICE;
           return (
             <motion.button key={a.id} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.06, duration: 0.3 }}
               onClick={() => toggleAgent(a.id)}
@@ -473,6 +474,7 @@ export function AddAgentToCompanyCard({ onDone }: { onDone: (agentNames: string[
                 </div>
               </div>
               <p className="text-[9px] text-muted-foreground leading-relaxed">{a.desc}</p>
+              <p className="text-[10px] font-semibold mt-1.5 text-foreground/70">${agentPrice}/mo</p>
             </motion.button>
           );
         })}
