@@ -109,6 +109,16 @@ const Chat = () => {
   const handleDeployDone = () => { addAssistant("Your company is live. Agents are now working autonomously — check the dashboard for real-time updates.", "deployed"); };
   const handleDeployAgentDone = (names: string, target: string) => { addUser(`Deploy ${names} → ${target}`); setTimeout(() => addAssistant(`Deploying ${names} to ${target}. Agents are spinning up now...`, "deploying"), 600); };
   const handleIntegrate = () => { addUser("I want to integrate my own agent"); setIsLoading(true); setTimeout(() => addAssistant("Here's everything you need to connect your agent via REST API. Unlock full access with the MSX Pro plan.", "show_api_docs"), 800); };
+  const handleAddAgentDone = (agentNames: string[], companyName: string) => {
+    const firstAgent = agentNames[0];
+    const restAgents = agentNames.slice(1);
+    addUser(`Add ${agentNames.join(", ")} → ${companyName}`);
+    setIsLoading(true);
+    const msg = restAgents.length > 0
+      ? `Done! **${firstAgent}** is now active on ${companyName}. ${restAgents.length} more agent${restAgents.length > 1 ? "s" : ""} (${restAgents.join(", ")}) ${restAgents.length > 1 ? "are" : "is"} pending — activate them one by one from the Your Agents page.`
+      : `Done! **${firstAgent}** is now active on ${companyName}. Head to Your Agents to manage it.`;
+    setTimeout(() => addAssistant(msg), 900);
+  };
 
   const renderExtras = (msg: ChatMessage) => {
     switch (msg.action) {
