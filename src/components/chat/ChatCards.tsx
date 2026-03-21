@@ -10,10 +10,9 @@ import { useEffect } from "react";
 // ── Signals Card ──
 
 export function SignalsCard({ onSelect }: { onSelect: (title: string) => void }) {
-  const [selected, setSelected] = useState<string[]>([]);
+  const [selected, setSelected] = useState<string | null>(null);
   const [signals, setSignals] = useState(() => shuffleAndPick(allSignals, 5));
   const [refreshing, setRefreshing] = useState(false);
-  const toggle = (t: string) => setSelected(prev => prev.includes(t) ? prev.filter(x => x !== t) : [...prev, t]);
 
   const refresh = () => {
     setRefreshing(true);
