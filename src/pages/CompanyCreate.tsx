@@ -239,7 +239,7 @@ const CompanyCreate = () => {
                 <>
                   <div className="flex items-center gap-2 text-[10px] text-muted-foreground mb-1">
                     <Check className="h-3 w-3 text-primary" strokeWidth={2} />
-                    <span className="font-medium">Signals: {selectedSignals.split(", ").length} selected</span>
+                    <span className="font-medium">Signal: {selectedSignals}</span>
                     <button onClick={() => setScanStep("signals")} className="text-primary hover:underline ml-1">Change</button>
                   </div>
                   <IdeasCard onSelect={(idea) => { setSelectedIdea(idea); setScanStep("ready"); }} />
