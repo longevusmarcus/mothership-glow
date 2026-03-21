@@ -431,7 +431,7 @@ export function DeployAgentCard({ onDone, preSelectedCompany }: { onDone: (agent
         <motion.button initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} onClick={handleDeploy}
           className="w-full h-10 rounded-xl bg-foreground text-background text-[12px] font-semibold flex items-center justify-center gap-2 hover:opacity-90 transition-all active:scale-[0.97]">
           <Zap className="h-3.5 w-3.5" strokeWidth={1.8} />
-          Deploy {selectedAgents.length} agent{selectedAgents.length > 1 ? "s" : ""} → {target === "new" ? "New company" : existingCompanies.find(c => c.id === selectedCompany)?.name}
+          Deploy {selectedAgents.length} agent{selectedAgents.length > 1 ? "s" : ""} → {target === "new" ? "New company" : existingCompanies.find(c => c.id === selectedCompany)?.name} — ${calcAgentPrice(selectedAgents)}/mo
         </motion.button>
       )}
     </motion.div>
