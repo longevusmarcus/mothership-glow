@@ -7,7 +7,7 @@ import { toast } from "sonner";
 import { motion, AnimatePresence } from "framer-motion";
 import { createAgents, companyDeploySteps, ease } from "@/data/constants";
 import type { CreateAgent } from "@/data/constants";
-import { ProPlanCard } from "@/components/chat/ChatCards";
+import { ProPlanCard, SignalsCard, IdeasCard } from "@/components/chat/ChatCards";
 
 function ClaimCompanyPaywall({ onDeployAnother }: { onDeployAnother: () => void }) {
   const [showPlan, setShowPlan] = useState(false);
@@ -47,6 +47,9 @@ const CompanyCreate = () => {
   const [selectedAgents, setSelectedAgents] = useState<string[]>([createAgents[0].id]);
   const [agentName, setAgentName] = useState(createAgents[0].name);
   const [step, setStep] = useState<"select" | "deploying" | "done">("select");
+  const [scanStep, setScanStep] = useState<"signals" | "ideas" | "ready">("signals");
+  const [selectedSignals, setSelectedSignals] = useState<string>("");
+  const [selectedIdea, setSelectedIdea] = useState<string>("");
   const [currentDeployStep, setCurrentDeployStep] = useState(0);
   const [completedSteps, setCompletedSteps] = useState<number[]>([]);
   const [generatedCompany, setGeneratedCompany] = useState<{ name: string; type: string; market: string; mrr: string } | null>(null);
@@ -224,25 +227,45 @@ const CompanyCreate = () => {
 
             {/* Data sources */}
             <div className="rounded-2xl border border-border bg-card p-6 space-y-4">
-              <p className="text-[12px] font-pixel font-semibold text-muted-foreground tracking-wider uppercase">Data sources agents will use</p>
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                {[
-                  { icon: Radio, label: "Signals", count: "847", sub: "last 30 days" },
-                  { icon: Lightbulb, label: "Ideas", count: "750", sub: "validated" },
-                  { icon: Globe, label: "Markets", count: "12", sub: "tracked" },
-                ].map(s => (
-                  <div key={s.label} className="flex items-center gap-4 p-4 sm:p-5 rounded-xl bg-muted/40">
-                    <s.icon className="h-5 w-5 sm:h-6 sm:w-6 text-muted-foreground shrink-0" strokeWidth={1.5} />
-                    <div>
-                      <div className="flex items-baseline gap-2">
-                        <span className="text-[20px] sm:text-[22px] font-semibold text-foreground tabular-nums">{s.count}</span>
-                        <span className="text-[12px] text-muted-foreground font-pixel">{s.label}</span>
-                      </div>
-                      <p className="text-[11px] text-muted-foreground/60 font-pixel">{s.sub}</p>
-                    </div>
+              <p className="text-[12px] font-pixel font-semibold text-muted-foreground tracking-wider uppercase">
+                {scanStep === "signals" ? "Select signals to scan" : scanStep === "ideas" ? "Choose an idea to build" : "Signals & idea locked in"}
+              </p>
+
+              {scanStep === "signals" && (
+                <SignalsCard onSelect={(signals) => { setSelectedSignals(signals); setScanStep("ideas"); }} />
+              )}
+
+              {scanStep === "ideas" && (
+                <>
+                  <div className="flex items-center gap-2 text-[10px] text-muted-foreground mb-1">
+                    <Check className="h-3 w-3 text-primary" strokeWidth={2} />
+                    <span className="font-medium">Signals: {selectedSignals.split(", ").length} selected</span>
+                    <button onClick={() => setScanStep("signals")} className="text-primary hover:underline ml-1">Change</button>
                   </div>
-                ))}
-              </div>
+                  <IdeasCard onSelect={(idea) => { setSelectedIdea(idea); setScanStep("ready"); }} />
+                </>
+              )}
+
+              {scanStep === "ready" && (
+                <div className="space-y-2">
+                  <div className="flex items-center gap-2 p-3 rounded-xl bg-primary/[0.04] border border-primary/20">
+                    <Check className="h-3.5 w-3.5 text-primary shrink-0" strokeWidth={2} />
+                    <div className="flex-1 min-w-0">
+                      <p className="text-[11px] font-semibold text-foreground">Signals: {selectedSignals.split(", ").length} selected</p>
+                      <p className="text-[10px] text-muted-foreground truncate">{selectedSignals}</p>
+                    </div>
+                    <button onClick={() => setScanStep("signals")} className="text-[10px] text-primary hover:underline shrink-0">Change</button>
+                  </div>
+                  <div className="flex items-center gap-2 p-3 rounded-xl bg-primary/[0.04] border border-primary/20">
+                    <Check className="h-3.5 w-3.5 text-primary shrink-0" strokeWidth={2} />
+                    <div className="flex-1 min-w-0">
+                      <p className="text-[11px] font-semibold text-foreground">Idea selected</p>
+                      <p className="text-[10px] text-muted-foreground truncate">{selectedIdea}</p>
+                    </div>
+                    <button onClick={() => setScanStep("ideas")} className="text-[10px] text-primary hover:underline shrink-0">Change</button>
+                  </div>
+                </div>
+              )}
             </div>
 
             {/* Deploy button */}
@@ -250,7 +273,7 @@ const CompanyCreate = () => {
               <Link to="/companies" className="h-12 px-8 rounded-none border border-border/60 font-mono text-[12px] font-medium tracking-widest text-muted-foreground/60 flex items-center justify-center hover:text-foreground hover:border-border transition-all active:scale-[0.97] uppercase">
                 cancel
               </Link>
-              <button onClick={startDeploy} disabled={selectedAgents.length === 0}
+              <button onClick={startDeploy} disabled={selectedAgents.length === 0 || scanStep !== "ready"}
                 className="h-12 px-8 rounded-none bg-foreground text-background font-mono text-[12px] font-medium tracking-widest flex items-center justify-center hover:opacity-90 transition-all disabled:opacity-20 disabled:cursor-not-allowed active:scale-[0.97] uppercase">
                 deploy_{selectedAgents.length}_agent{selectedAgents.length !== 1 ? "s" : ""}
               </button>
