@@ -605,7 +605,7 @@ export function AddingAgentCard({ onDone }: { onDone: () => void }) {
 
 // ── Agent Added Card (with upgrade subscription) ──
 
-export function AgentAddedCard() {
+export function AgentAddedCard({ agentCount = 1 }: { agentCount?: number }) {
   const [showUpgrade, setShowUpgrade] = useState(false);
   const [subscribed, setSubscribed] = useState(false);
   const planRef = useRef<HTMLDivElement>(null);
@@ -649,7 +649,7 @@ export function AgentAddedCard() {
       <AnimatePresence>
         {showUpgrade && (
           <motion.div ref={planRef} initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: "auto" }} exit={{ opacity: 0, height: 0 }} className="overflow-hidden">
-            <SubscriptionUpgradeCard onSubscribed={handleSubscribed} />
+            <SubscriptionUpgradeCard onSubscribed={handleSubscribed} agentCount={agentCount} />
           </motion.div>
         )}
       </AnimatePresence>
