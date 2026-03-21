@@ -44,10 +44,10 @@ export function SignalsCard({ onSelect }: { onSelect: (title: string) => void })
           </motion.button>
         ))}
       </div>
-      {selected.length > 0 && (
-        <motion.button initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} onClick={() => onSelect(selected.join(", "))}
+      {selected && (
+        <motion.button initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} onClick={() => onSelect(selected)}
           className="w-full h-10 rounded-xl bg-primary text-primary-foreground text-[12px] font-semibold flex items-center justify-center gap-2 hover:opacity-90 transition-all active:scale-[0.97]">
-          <Lightbulb className="h-3.5 w-3.5" strokeWidth={1.8} /> Show ideas for {selected.length} signal{selected.length > 1 ? "s" : ""}
+          <Lightbulb className="h-3.5 w-3.5" strokeWidth={1.8} /> Show ideas for this signal
         </motion.button>
       )}
     </motion.div>
