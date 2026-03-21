@@ -85,7 +85,9 @@ const Chat = () => {
     setIsLoading(true);
     const lower = message.toLowerCase();
 
-    if (lower.includes("deploy") && (lower.includes("company") || lower.includes("azienda"))) {
+    if (lower.includes("add") && lower.includes("agent") && (lower.includes("company") || lower.includes("existing"))) {
+      setTimeout(() => addAssistant("Let's add agents to one of your companies. Pick the agent types you need, then choose the company.", "add_agent_to_company"), 800);
+    } else if (lower.includes("deploy") && (lower.includes("company") || lower.includes("azienda"))) {
       setTimeout(() => addAssistant("Let's build something. First, here are the strongest market signals I've found this week — pick the ones that resonate with you.", "show_signals"), 800);
     } else if (lower.includes("signal")) {
       setTimeout(() => addAssistant("Here are the top-scoring signals from TikTok, Reddit, Twitter/X and 10 other sources. Select the ones you want to build on.", "show_signals"), 800);
