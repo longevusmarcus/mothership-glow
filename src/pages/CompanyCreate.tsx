@@ -100,12 +100,12 @@ const CompanyCreate = () => {
   return (
     <div className="max-w-3xl mx-auto space-y-6">
       <Link to="/companies" className="inline-flex items-center gap-2 text-[12px] text-muted-foreground hover:text-foreground transition-colors font-pixel">
-        <ArrowLeft className="h-3.5 w-3.5" strokeWidth={1.6} /> {t("jobs.backToJobs")}
+        <ArrowLeft className="h-3.5 w-3.5" strokeWidth={1.6} /> {t("companies.backToJobs")}
       </Link>
 
       <div>
         <h1 className="text-[28px] sm:text-[34px] font-mondwest font-semibold tracking-tight">
-          <TextShimmer as="span" duration={2.5}>{t("jobCreate.title")}</TextShimmer>
+          <TextShimmer as="span" duration={2.5}>{t("companyCreate.title")}</TextShimmer>
         </h1>
         <p className="text-[13px] text-muted-foreground mt-1 font-mono">Select one or more agents to autonomously build your next company</p>
       </div>

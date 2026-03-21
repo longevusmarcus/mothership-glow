@@ -1,7 +1,7 @@
 import { translationsNav } from "./translations/nav";
 import { translationsDashboard } from "./translations/dashboard";
-import { translationsCandidates } from "./translations/candidates";
-import { translationsJobs } from "./translations/jobs";
+import { translationsAgents } from "./translations/agents";
+import { translationsCompanies } from "./translations/companies";
 import { translationsChat } from "./translations/chat";
 import { translationsAnalytics } from "./translations/analytics";
 import { translationsSettings } from "./translations/settings";
@@ -12,8 +12,8 @@ export type Locale = "it" | "en";
 export const translations = {
   ...translationsNav,
   ...translationsDashboard,
-  ...translationsCandidates,
-  ...translationsJobs,
+  ...translationsAgents,
+  ...translationsCompanies,
   ...translationsChat,
   ...translationsAnalytics,
   ...translationsSettings,

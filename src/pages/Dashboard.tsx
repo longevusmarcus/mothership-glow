@@ -103,7 +103,7 @@ const Dashboard = () => {
 
       <CursorCardsContainer className="grid grid-cols-2 lg:grid-cols-3 gap-4">
         {stats.map((stat) => (
-          <Link key={stat.labelKey} to={stat.href}>
+          <Link key={stat.labelKey || (stat as any).label} to={stat.href}>
             <CursorCard borderColor="hsl(var(--border))">
               <div className="p-5">
                 <div className="flex items-center justify-between mb-3">
@@ -156,7 +156,7 @@ const Dashboard = () => {
             </div>
             <div className="p-6 space-y-4">
               {pipelineStages.map((s) => (
-                <div key={s.stageKey} className="block hover:bg-muted/20 -mx-2 px-2 py-1 rounded-lg transition-all">
+                <div key={String(s.stageKey)} className="block hover:bg-muted/20 -mx-2 px-2 py-1 rounded-lg transition-all">
                   <div className="flex justify-between mb-1.5">
                     <span className="text-[13px] font-medium">{t(s.stageKey)}</span>
                     <span className="text-[11px] text-muted-foreground">{s.count} {t("dashboard.agentsLabel")}</span>

@@ -57,17 +57,17 @@ const Agents = () => {
       <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 px-1">
         <div>
           <h1 className="text-[28px] sm:text-[34px] font-mondwest font-semibold tracking-tight">
-            <TextShimmer as="span" duration={2.5}>{t("candidates.title")}</TextShimmer>
+            <TextShimmer as="span" duration={2.5}>{t("agents.title")}</TextShimmer>
           </h1>
           <p className="text-[13px] text-muted-foreground mt-1 font-mono">
-            {agents.length} {t("candidates.inDatabase")}
+            {agents.length} {t("agents.inDatabase")}
             {pendingCount > 0 && <span className="text-amber-500 ml-2">· {pendingCount} pending activation</span>}
           </p>
         </div>
         <div className="flex items-center gap-2.5 w-full sm:w-auto">
           <CleanMotionBackground className="bg-card border border-border rounded-xl p-1" hoverable={false} defaultKey={viewMode} onChange={(key) => key && setViewMode(key as "list" | "kanban")}>
-            <div data-key="list"><span className="text-[11px] font-medium text-foreground flex items-center justify-center gap-1.5"><List className="h-3 w-3" strokeWidth={1.6} /> {t("candidates.list")}</span></div>
-            <div data-key="kanban"><span className="text-[11px] font-medium text-foreground flex items-center justify-center gap-1.5"><KanbanSquare className="h-3 w-3" strokeWidth={1.6} /> {t("candidates.kanban")}</span></div>
+            <div data-key="list"><span className="text-[11px] font-medium text-foreground flex items-center justify-center gap-1.5"><List className="h-3 w-3" strokeWidth={1.6} /> {t("agents.list")}</span></div>
+            <div data-key="kanban"><span className="text-[11px] font-medium text-foreground flex items-center justify-center gap-1.5"><KanbanSquare className="h-3 w-3" strokeWidth={1.6} /> {t("agents.kanban")}</span></div>
           </CleanMotionBackground>
           <Link to="/chat"><InteractiveHoverButton text="Deploy Agent" icon={<Bot className="h-3.5 w-3.5" strokeWidth={1.6} />} /></Link>
         </div>
@@ -76,20 +76,20 @@ const Agents = () => {
       <div className="flex flex-col sm:flex-row gap-3">
         <div className="relative flex-1">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground/50" strokeWidth={1.6} />
-          <input type="text" placeholder={t("candidates.searchPlaceholder")} value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)}
+          <input type="text" placeholder={t("agents.searchPlaceholder")} value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)}
             className="w-full pl-9 pr-4 py-2.5 bg-card border border-border rounded-xl text-[12px] font-mono placeholder:text-muted-foreground/40 focus:outline-none focus:ring-1 focus:ring-ring/15 transition-all" />
         </div>
         <Select value={typeFilter} onValueChange={setTypeFilter}>
-          <SelectTrigger className="w-full sm:w-[160px] h-[38px] rounded-xl text-[12px] border-border"><SelectValue placeholder={t("candidates.allPositions")} /></SelectTrigger>
+          <SelectTrigger className="w-full sm:w-[160px] h-[38px] rounded-xl text-[12px] border-border"><SelectValue placeholder={t("agents.allPositions")} /></SelectTrigger>
           <SelectContent>
-            <SelectItem value="all">{t("candidates.allPositions")}</SelectItem>
+            <SelectItem value="all">{t("agents.allPositions")}</SelectItem>
             {Object.entries(typeMeta).map(([k, v]) => <SelectItem key={k} value={k}>{v.label}</SelectItem>)}
           </SelectContent>
         </Select>
         <Select value={stageFilter} onValueChange={setStageFilter}>
-          <SelectTrigger className="w-full sm:w-[160px] h-[38px] rounded-xl text-[12px] border-border"><SelectValue placeholder={t("candidates.all")} /></SelectTrigger>
+          <SelectTrigger className="w-full sm:w-[160px] h-[38px] rounded-xl text-[12px] border-border"><SelectValue placeholder={t("agents.all")} /></SelectTrigger>
           <SelectContent>
-            <SelectItem value="all">{t("candidates.all")}</SelectItem>
+            <SelectItem value="all">{t("agents.all")}</SelectItem>
             <SelectItem value="Screening">{t("stage.screening")}</SelectItem>
             <SelectItem value="Colloquio">{t("stage.interview")}</SelectItem>
             <SelectItem value="Shortlist">{t("stage.shortlist")}</SelectItem>
@@ -99,7 +99,7 @@ const Agents = () => {
       </div>
 
       {viewMode === "kanban" ? (
-        <AgentsKanban candidates={filtered} />
+        <AgentsKanban agents={filtered} />
       ) : (
         <CursorCardsContainer>
           <CursorCard borderColor="hsl(var(--border))">
@@ -108,13 +108,13 @@ const Agents = () => {
                 <table className="w-full text-left">
                   <thead>
                     <tr className="border-b border-border text-[10px] font-semibold text-muted-foreground uppercase tracking-wider">
-                      <th className="px-5 py-3">{t("candidates.th.name")}</th>
-                      <th className="px-4 py-3">{t("candidates.th.role")}</th>
-                      <th className="px-4 py-3">{t("candidates.th.position")}</th>
+                      <th className="px-5 py-3">{t("agents.th.name")}</th>
+                      <th className="px-4 py-3">{t("agents.th.role")}</th>
+                      <th className="px-4 py-3">{t("agents.th.position")}</th>
                       <th className="px-4 py-3">Status</th>
                       <th className="px-4 py-3">Telegram</th>
-                      <th className="px-4 py-3">{t("candidates.th.stage")}</th>
-                      <th className="px-4 py-3 text-right">{t("candidates.th.aiScore")}</th>
+                      <th className="px-4 py-3">{t("agents.th.stage")}</th>
+                      <th className="px-4 py-3 text-right">{t("agents.th.aiScore")}</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-border">

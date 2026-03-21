@@ -92,11 +92,11 @@ const AgentDetail = () => {
   };
 
   const tabs = [
-    { id: "profilo", label: t("candidateDetail.profile") },
-    { id: "ai", label: t("candidateDetail.aiAnalysis") },
-    { id: "config", label: t("candidateDetail.cvDocs") },
-    { id: "commands", label: t("candidateDetail.communications") },
-    { id: "history", label: t("candidateDetail.history") },
+    { id: "profilo", label: t("agentDetail.profile") },
+    { id: "ai", label: t("agentDetail.aiAnalysis") },
+    { id: "config", label: t("agentDetail.cvDocs") },
+    { id: "commands", label: t("agentDetail.communications") },
+    { id: "history", label: t("agentDetail.history") },
   ];
 
   const handleStageChange = (newStage: string) => { setCurrentStage(newStage); setShowStageDropdown(false); };
@@ -114,7 +114,7 @@ const AgentDetail = () => {
     <div className="space-y-6">
       <Link to="/agents" className="inline-flex items-center gap-2 text-[12px] text-muted-foreground hover:text-foreground transition-colors font-medium">
         <ArrowLeft className="h-3.5 w-3.5" strokeWidth={1.6} />
-        {t("candidates.backToCandidates")}
+        {t("agents.backToCandidates")}
       </Link>
 
       {/* Header */}
@@ -168,19 +168,19 @@ const AgentDetail = () => {
 
         <div className="flex gap-2.5 mt-5">
           <button onClick={() => setShowNoteInput(true)} className="flex items-center gap-2 px-4 py-2 border border-border rounded-xl text-[12px] font-mono font-medium text-muted-foreground hover:text-foreground transition-all">
-            <StickyNote className="h-3 w-3" strokeWidth={1.6} /> {t("candidateDetail.addNote")}
+            <StickyNote className="h-3 w-3" strokeWidth={1.6} /> {t("agentDetail.addNote")}
           </button>
           <button className="flex items-center gap-2 px-4 py-2 border border-border rounded-xl text-[12px] font-mono font-medium text-muted-foreground hover:text-foreground transition-all">
-            <Zap className="h-3 w-3" strokeWidth={1.6} /> {t("candidateDetail.downloadCv")}
+            <Zap className="h-3 w-3" strokeWidth={1.6} /> {t("agentDetail.downloadCv")}
           </button>
         </div>
 
         {showNoteInput && (
           <div className="mt-4 p-4 bg-muted/30 rounded-xl border border-border space-y-3">
-            <textarea rows={3} className={`${inputClass} resize-none`} placeholder={t("candidateDetail.writeNote")} value={newNote} onChange={e => setNewNote(e.target.value)} autoFocus />
+            <textarea rows={3} className={`${inputClass} resize-none`} placeholder={t("agentDetail.writeNote")} value={newNote} onChange={e => setNewNote(e.target.value)} autoFocus />
             <div className="flex justify-end gap-2">
-              <button onClick={() => { setShowNoteInput(false); setNewNote(""); }} className="px-3 py-1.5 text-[11px] font-medium text-muted-foreground hover:text-foreground transition-colors">{t("candidateDetail.cancel")}</button>
-              <button onClick={handleAddNote} disabled={!newNote.trim()} className="px-4 py-1.5 bg-primary text-primary-foreground rounded-lg text-[11px] font-medium hover:opacity-90 transition-all disabled:opacity-50">{t("candidateDetail.saveNote")}</button>
+              <button onClick={() => { setShowNoteInput(false); setNewNote(""); }} className="px-3 py-1.5 text-[11px] font-medium text-muted-foreground hover:text-foreground transition-colors">{t("agentDetail.cancel")}</button>
+              <button onClick={handleAddNote} disabled={!newNote.trim()} className="px-4 py-1.5 bg-primary text-primary-foreground rounded-lg text-[11px] font-medium hover:opacity-90 transition-all disabled:opacity-50">{t("agentDetail.saveNote")}</button>
             </div>
           </div>
         )}
@@ -190,7 +190,7 @@ const AgentDetail = () => {
         <div className="bg-card rounded-2xl p-5 card-static">
           <div className="flex items-center gap-2 mb-4">
             <StickyNote className="h-4 w-4 text-muted-foreground" strokeWidth={1.6} />
-            <h2 className="text-[12px] font-mondwest font-semibold">{t("candidateDetail.notes")} ({notes.length})</h2>
+            <h2 className="text-[12px] font-mondwest font-semibold">{t("agentDetail.notes")} ({notes.length})</h2>
           </div>
           <div className="space-y-3">
             {notes.map((note, i) => (
@@ -216,7 +216,7 @@ const AgentDetail = () => {
       {activeTab === "profilo" && (
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
           <div className="bg-card rounded-2xl p-6 card-static">
-            <h2 className="text-[13px] font-mondwest font-semibold mb-4">{t("candidateDetail.workExperience")}</h2>
+            <h2 className="text-[13px] font-mondwest font-semibold mb-4">{t("agentDetail.workExperience")}</h2>
             <div className="space-y-5">
               {agent.deployments.map((d, i) => (
                 <div key={i} className="relative pl-4 border-l-2 border-border">
@@ -229,7 +229,7 @@ const AgentDetail = () => {
           </div>
           <div className="space-y-5">
             <div className="bg-card rounded-2xl p-6 card-static">
-              <h2 className="text-[13px] font-mondwest font-semibold mb-3">{t("candidateDetail.skills")}</h2>
+              <h2 className="text-[13px] font-mondwest font-semibold mb-3">{t("agentDetail.skills")}</h2>
               <div className="flex flex-wrap gap-1.5">
                 {agent.skills.map(s => (
                   <span key={s} className="text-[11px] px-2.5 py-1 rounded-lg bg-muted text-muted-foreground font-medium">{s}</span>
@@ -237,7 +237,7 @@ const AgentDetail = () => {
               </div>
             </div>
             <div className="bg-card rounded-2xl p-6 card-static">
-              <h2 className="text-[13px] font-mondwest font-semibold mb-3">{t("candidateDetail.certifications")}</h2>
+              <h2 className="text-[13px] font-mondwest font-semibold mb-3">{t("agentDetail.certifications")}</h2>
               <div className="space-y-2">
                 {agent.apiSkills.map(s => (
                   <div key={s} className="flex items-center gap-2 text-[12px]">
@@ -248,7 +248,7 @@ const AgentDetail = () => {
               </div>
             </div>
             <div className="bg-card rounded-2xl p-6 card-static">
-              <h2 className="text-[13px] font-mondwest font-semibold mb-3">{t("candidateDetail.languages")}</h2>
+              <h2 className="text-[13px] font-mondwest font-semibold mb-3">{t("agentDetail.languages")}</h2>
               <div className="space-y-2">
                 {agent.integrations.map(i => (
                   <div key={i.name} className="flex items-center justify-between text-[12px]">
@@ -267,12 +267,12 @@ const AgentDetail = () => {
           <div className="rounded-2xl p-6 border border-border bg-gradient-to-br from-muted/50 via-transparent to-muted/30">
             <div className="flex items-center gap-2 mb-3">
               <AiIcon className="text-muted-foreground" size={14} />
-              <h2 className="text-[13px] font-mondwest font-semibold">{t("candidateDetail.fullAiAnalysis")}</h2>
+              <h2 className="text-[13px] font-mondwest font-semibold">{t("agentDetail.fullAiAnalysis")}</h2>
             </div>
             <p className="text-[13px] text-foreground/70 leading-relaxed mb-5">{agent.aiAnalysis.summary}</p>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <h3 className="text-[11px] font-semibold text-success uppercase tracking-wider mb-2">{t("candidateDetail.strengths")}</h3>
+                <h3 className="text-[11px] font-semibold text-success uppercase tracking-wider mb-2">{t("agentDetail.strengths")}</h3>
                 <ul className="space-y-1.5">
                   {agent.aiAnalysis.strengths.map(s => (
                     <li key={s} className="text-[12px] text-foreground/70 flex items-start gap-2"><span className="h-1.5 w-1.5 rounded-full bg-success mt-1.5 shrink-0" />{s}</li>
@@ -280,7 +280,7 @@ const AgentDetail = () => {
                 </ul>
               </div>
               <div>
-                <h3 className="text-[11px] font-semibold text-warning uppercase tracking-wider mb-2">{t("candidateDetail.areasOfAttention")}</h3>
+                <h3 className="text-[11px] font-semibold text-warning uppercase tracking-wider mb-2">{t("agentDetail.areasOfAttention")}</h3>
                 <ul className="space-y-1.5">
                   {agent.aiAnalysis.gaps.map(g => (
                     <li key={g} className="text-[12px] text-foreground/70 flex items-start gap-2"><span className="h-1.5 w-1.5 rounded-full bg-warning mt-1.5 shrink-0" />{g}</li>
@@ -289,12 +289,12 @@ const AgentDetail = () => {
               </div>
             </div>
             <div className="mt-5 p-4 bg-muted/30 rounded-xl">
-              <h3 className="text-[11px] font-semibold text-foreground/60 uppercase tracking-wider mb-2">{t("candidateDetail.aiRecommendation")}</h3>
+              <h3 className="text-[11px] font-semibold text-foreground/60 uppercase tracking-wider mb-2">{t("agentDetail.aiRecommendation")}</h3>
               <p className="text-[12px] text-foreground/70 leading-relaxed">{agent.aiAnalysis.recommendation}</p>
             </div>
           </div>
           <div className="bg-card rounded-2xl p-6 card-static">
-            <h2 className="text-[13px] font-mondwest font-semibold mb-4">{t("candidateDetail.matchScoreByPosition")}</h2>
+            <h2 className="text-[13px] font-mondwest font-semibold mb-4">{t("agentDetail.matchScoreByPosition")}</h2>
             <div className="space-y-4">
               {agent.matchScores.map(m => (
                 <div key={m.company}>
@@ -328,7 +328,7 @@ const AgentDetail = () => {
 
       {activeTab === "history" && (
         <div className="bg-card rounded-2xl p-6 card-static">
-          <h2 className="text-[13px] font-mondwest font-semibold mb-4">{t("candidateDetail.history")}</h2>
+          <h2 className="text-[13px] font-mondwest font-semibold mb-4">{t("agentDetail.history")}</h2>
           <div className="space-y-4">
             {agent.history.map((h, i) => (
               <div key={i} className="flex items-start gap-3">
@@ -345,7 +345,7 @@ const AgentDetail = () => {
 
       {activeTab === "commands" && (
         <div className="bg-card rounded-2xl p-6 card-static">
-          <h2 className="text-[13px] font-mondwest font-semibold mb-4">{t("candidateDetail.communications")}</h2>
+          <h2 className="text-[13px] font-mondwest font-semibold mb-4">{t("agentDetail.communications")}</h2>
           <div className="space-y-3">
             {agent.commands.map((c, i) => (
               <div key={i} className="flex items-center justify-between p-3 bg-muted/20 rounded-lg border border-border/50">
@@ -362,7 +362,7 @@ const AgentDetail = () => {
 
       {activeTab === "config" && (
         <div className="bg-card rounded-2xl p-6 card-static">
-          <h2 className="text-[13px] font-mondwest font-semibold mb-4">{t("candidateDetail.cvDocs")}</h2>
+          <h2 className="text-[13px] font-mondwest font-semibold mb-4">{t("agentDetail.cvDocs")}</h2>
           <div className="space-y-4">
             <div className="p-4 bg-muted/20 rounded-lg border border-border/50">
               <p className="text-[11px] text-muted-foreground font-medium mb-2">Agent Configuration</p>
