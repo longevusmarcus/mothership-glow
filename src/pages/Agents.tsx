@@ -42,6 +42,12 @@ const Agents = () => {
     toast.success(`${agent?.name} activated successfully!`);
   };
 
+  const reassignAgent = (id: number, newCompany: string) => {
+    setAgents(prev => prev.map(a => a.id === id ? { ...a, jobPosition: newCompany } : a));
+    const agent = agents.find(a => a.id === id);
+    toast.success(`${agent?.name} reassigned to ${newCompany}`);
+  };
+
   const filtered = agents.filter(a => {
     const matchesSearch = a.name.toLowerCase().includes(searchQuery.toLowerCase()) || a.role.toLowerCase().includes(searchQuery.toLowerCase()) || a.skills.some(s => s.toLowerCase().includes(searchQuery.toLowerCase()));
     return matchesSearch && (typeFilter === "all" || a.source === typeFilter) && (stageFilter === "all" || a.stage === stageFilter);
