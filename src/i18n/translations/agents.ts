@@ -1,4 +1,4 @@
-export const translationsCandidates = {
+export const translationsAgents = {
   "agents.title": { it: "I tuoi Agenti", en: "Your Agents" },
   "agents.inDatabase": { it: "agenti nel sistema", en: "agents in the system" },
   "agents.list": { it: "Lista", en: "List" },

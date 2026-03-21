@@ -1,4 +1,4 @@
-export const translationsJobs = {
+export const translationsCompanies = {
   "companies.title": { it: "Le tue Aziende", en: "Your Companies" },
   "companies.activePositions": { it: "aziende attive", en: "active companies" },
   "companies.newPosition": { it: "Nuova Azienda", en: "New Company" },
