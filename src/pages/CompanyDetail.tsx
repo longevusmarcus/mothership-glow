@@ -144,6 +144,9 @@ const CompanyDetail = () => {
               { id: "chat" as const, label: "Orchestrator Chat", icon: MessageSquare },
               { id: "tasks" as const, label: "Task Log", icon: CheckCircle2 },
               { id: "docs" as const, label: "Docs", icon: FileText },
+              { id: "emails" as const, label: "Emails", icon: Mail },
+              { id: "xposts" as const, label: "X Posts", icon: Twitter },
+              { id: "ads" as const, label: "Ads", icon: Megaphone },
               { id: "deploys" as const, label: "Deploys", icon: Eye },
             ]).map(tab => (
               <button
