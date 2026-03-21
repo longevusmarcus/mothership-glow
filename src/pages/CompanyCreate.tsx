@@ -436,8 +436,8 @@ const CompanyCreate = () => {
                 <Check className="h-5 w-5 text-primary" strokeWidth={2.2} />
               </div>
               <div>
-                <p className="text-[15px] font-semibold">Company deployed successfully</p>
-                <p className="text-[12px] text-muted-foreground mt-0.5">{selectedAgents.length} agent{selectedAgents.length > 1 ? "s" : ""} built everything from 847 signals and 750 validated ideas</p>
+                <p className="text-[15px] font-semibold">Company pre-deployed successfully</p>
+                <p className="text-[12px] text-muted-foreground mt-0.5">{selectedAgents.length} agent{selectedAgents.length > 1 ? "s" : ""} {selectedAgents.length > 1 ? "are" : "is"} working on one business out of 847 market signals and 750 validated ideas</p>
               </div>
             </div>
 
