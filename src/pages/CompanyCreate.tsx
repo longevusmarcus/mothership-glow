@@ -351,7 +351,7 @@ const CompanyCreate = () => {
                 {[
                   { label: "Status", value: "Live", color: "text-emerald-500" },
                   { label: "Projected MRR", value: generatedCompany.mrr, color: "text-foreground" },
-                  { label: "Pages deployed", value: "7", color: "text-foreground" },
+                  { label: "Pages pre-deployed", value: "7", color: "text-foreground" },
                   { label: "APIs connected", value: "4", color: "text-foreground" },
                 ].map(m => (
                   <div key={m.label} className="p-3 rounded-xl bg-muted/40">
