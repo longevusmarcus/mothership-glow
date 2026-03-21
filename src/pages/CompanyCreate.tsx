@@ -42,7 +42,7 @@ function ClaimCompanyPaywall({ onDeployAnother }: { onDeployAnother: () => void 
             Deploy another
           </button>
           <button onClick={handleClaim} className="flex items-center gap-2 px-5 py-2.5 bg-foreground text-background rounded-xl text-[12px] font-semibold hover:opacity-90 transition-all active:scale-[0.97]">
-            <Lock className="h-3.5 w-3.5" strokeWidth={1.8} /> Claim company & agent
+            <Lock className="h-3.5 w-3.5" strokeWidth={1.8} /> Activate company & agent
           </button>
         </div>
       ) : (
@@ -111,7 +111,7 @@ const CompanyCreate = () => {
     if (idx >= companyDeploySteps.length) {
       setGeneratedCompany({ name: "NovaPay", type: "SaaS B2B", market: "EU / Global", mrr: "$2,400" });
       setWizardStep(7);
-      toast.success("Company deployed autonomously!", { duration: 3000 });
+      toast.success("Company pre-deployed successfully!", { duration: 3000 });
       return;
     }
     setCurrentDeployStep(idx);
@@ -383,8 +383,8 @@ const CompanyCreate = () => {
                 ))}
               </div>
               <div className="flex-1 min-w-0">
-                <p className="text-[13px] font-semibold">{selectedAgents.length} agent{selectedAgents.length > 1 ? "s" : ""} building your company</p>
-                <p className="text-[11px] text-muted-foreground">Autonomous deployment in progress...</p>
+                <p className="text-[13px] font-semibold">{selectedAgents.length} agent{selectedAgents.length > 1 ? "s" : ""} working on your company</p>
+                <p className="text-[11px] text-muted-foreground">Autonomous pre-deployment in progress...</p>
               </div>
               <Loader2 className="h-4 w-4 text-primary animate-spin shrink-0" />
             </div>
@@ -436,8 +436,8 @@ const CompanyCreate = () => {
                 <Check className="h-5 w-5 text-primary" strokeWidth={2.2} />
               </div>
               <div>
-                <p className="text-[15px] font-semibold">Company deployed successfully</p>
-                <p className="text-[12px] text-muted-foreground mt-0.5">{selectedAgents.length} agent{selectedAgents.length > 1 ? "s" : ""} built everything from 847 signals and 750 validated ideas</p>
+                <p className="text-[15px] font-semibold">Company pre-deployed successfully</p>
+                <p className="text-[12px] text-muted-foreground mt-0.5">{selectedAgents.length} agent{selectedAgents.length > 1 ? "s" : ""} {selectedAgents.length > 1 ? "are" : "is"} working on one business out of 847 market signals and 750 validated ideas</p>
               </div>
             </div>
 
@@ -464,7 +464,7 @@ const CompanyCreate = () => {
 
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                 {[
-                  { label: "Status", value: "Live", color: "text-success" },
+                  { label: "Status", value: "Pre-deployed", color: "text-primary" },
                   { label: "Projected MRR", value: generatedCompany.mrr, color: "text-foreground" },
                   { label: "Pages pre-deployed", value: "7", color: "text-foreground" },
                   { label: "APIs connected", value: "4", color: "text-foreground" },
