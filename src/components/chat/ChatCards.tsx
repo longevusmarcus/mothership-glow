@@ -599,7 +599,7 @@ export function AgentAddedCard() {
             <Check className="h-5 w-5 text-primary" strokeWidth={2} />
           </div>
           <div>
-            <p className="text-[13px] font-semibold">Agent pre-deployed successfully</p>
+            <p className="text-[13px] font-semibold">Pre-deployed successfully</p>
             <p className="text-[11px] text-muted-foreground">Upgrade your subscription to activate and run</p>
           </div>
         </div>
