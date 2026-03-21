@@ -77,5 +77,5 @@ export const translationsAgents = {
   "stage.screening": { it: "In attesa / Training", en: "Waiting / In Training" },
   "stage.interview": { it: "Pre-deployed", en: "Pre-deployed" },
   "stage.shortlist": { it: "Attivo", en: "Active" },
-  "stage.placement": { it: "Integrato", en: "Integrated" },
+  "stage.placement": { it: "Integrato (Setup Esterno)", en: "Integrated (External Setup)" },
 } as const;
