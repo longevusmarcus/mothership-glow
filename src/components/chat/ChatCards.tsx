@@ -109,6 +109,7 @@ function calcAgentPrice(selectedIds: string[]): number {
 
 export function AgentPickerCard({ onDeploy, onIntegrate }: { onDeploy: (ids: string[]) => void; onIntegrate: () => void }) {
   const [selected, setSelected] = useState<string[]>([deployableAgents[0]?.id].filter(Boolean));
+  const [showIntegrate, setShowIntegrate] = useState(false);
   const toggle = (id: string) => setSelected(prev => prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id]);
   const price = calcAgentPrice(selected);
 
@@ -148,11 +149,12 @@ export function AgentPickerCard({ onDeploy, onIntegrate }: { onDeploy: (ids: str
             <p className="text-[9px] text-muted-foreground">Connect via API or upload config</p>
           </div>
         </div>
-        <button onClick={onIntegrate} className="flex items-center gap-1 px-2.5 py-1.5 rounded-lg border border-border text-[10px] font-semibold hover:bg-muted/60 transition-all active:scale-[0.97]">
-          <Link2 className="h-3 w-3" strokeWidth={2} /> Connect
+        <button onClick={() => setShowIntegrate(prev => !prev)} className="flex items-center gap-1 px-2.5 py-1.5 rounded-lg border border-border text-[10px] font-semibold hover:bg-muted/60 transition-all active:scale-[0.97]">
+          <Link2 className="h-3 w-3" strokeWidth={2} /> {showIntegrate ? "Close" : "Connect"}
         </button>
       </div>
-      {selected.length > 0 && (
+      {showIntegrate && <ApiDocsPaywall />}
+      {selected.length > 0 && !showIntegrate && (
         <motion.button initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} onClick={() => onDeploy(selected)}
           className="w-full h-10 rounded-xl bg-foreground text-background text-[12px] font-semibold flex items-center justify-center gap-2 hover:opacity-90 transition-all active:scale-[0.97]">
           <Rocket className="h-3.5 w-3.5" strokeWidth={1.8} /> Deploy company with {selected.length} agent{selected.length > 1 ? "s" : ""} — ${price}/mo
