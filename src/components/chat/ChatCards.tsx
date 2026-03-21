@@ -583,12 +583,18 @@ export function AddingAgentCard({ onDone }: { onDone: () => void }) {
 
 export function AgentAddedCard() {
   const [showUpgrade, setShowUpgrade] = useState(false);
+  const [subscribed, setSubscribed] = useState(false);
   const planRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
 
-  const handleActivate = () => {
+  const handleClaim = () => {
     setShowUpgrade(true);
     setTimeout(() => { planRef.current?.scrollIntoView({ behavior: "smooth", block: "center" }); }, 100);
+  };
+
+  const handleSubscribed = () => {
+    setSubscribed(true);
+    setShowUpgrade(false);
   };
 
   return (
@@ -600,22 +606,36 @@ export function AgentAddedCard() {
           </div>
           <div>
             <p className="text-[13px] font-semibold">Pre-deployed successfully</p>
-            <p className="text-[11px] text-muted-foreground">Upgrade your subscription to activate and run</p>
+            <p className="text-[11px] text-muted-foreground">
+              {subscribed ? "Subscription confirmed — activate your agents from the Agents page" : "Claim your agents, then upgrade to activate"}
+            </p>
           </div>
         </div>
         <div className="grid grid-cols-2 gap-2">
           <button onClick={() => navigate("/agents")} className="h-9 rounded-xl border border-border bg-card text-[11px] font-semibold flex items-center justify-center gap-2 hover:bg-muted/60 transition-all active:scale-[0.97]">
-            View agents <ArrowRight className="h-3 w-3" />
+            {subscribed ? "Activate & run" : "View agents"} <ArrowRight className="h-3 w-3" />
           </button>
-          <button onClick={handleActivate} className="h-9 rounded-xl bg-foreground text-background text-[11px] font-semibold flex items-center justify-center gap-2 hover:opacity-90 transition-all active:scale-[0.97]">
-            <CreditCard className="h-3 w-3" strokeWidth={1.8} /> Activate & run
-          </button>
+          {!subscribed && (
+            <button onClick={handleClaim} className="h-9 rounded-xl bg-foreground text-background text-[11px] font-semibold flex items-center justify-center gap-2 hover:opacity-90 transition-all active:scale-[0.97]">
+              <CreditCard className="h-3 w-3" strokeWidth={1.8} /> Claim
+            </button>
+          )}
         </div>
       </div>
       <AnimatePresence>
         {showUpgrade && (
           <motion.div ref={planRef} initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: "auto" }} exit={{ opacity: 0, height: 0 }} className="overflow-hidden">
-            <SubscriptionUpgradeCard />
+            <SubscriptionUpgradeCard onSubscribed={handleSubscribed} />
+          </motion.div>
+        )}
+      </AnimatePresence>
+      <AnimatePresence>
+        {subscribed && (
+          <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="rounded-xl border border-primary/20 bg-primary/[0.03] p-3 flex items-center gap-3">
+            <Check className="h-4 w-4 text-primary shrink-0" strokeWidth={2} />
+            <p className="text-[11px] text-muted-foreground leading-relaxed">
+              Subscription active. Go to <button onClick={() => navigate("/agents")} className="text-foreground font-semibold underline underline-offset-2">/agents</button> to <strong>Activate & Run</strong> your pre-deployed agents.
+            </p>
           </motion.div>
         )}
       </AnimatePresence>
@@ -625,7 +645,7 @@ export function AgentAddedCard() {
 
 // ── Subscription Upgrade Card ──
 
-function SubscriptionUpgradeCard() {
+function SubscriptionUpgradeCard({ onSubscribed }: { onSubscribed: () => void }) {
   const tiers = [
     { name: "Orbital", price: 58, desc: "Base CEO Agent — everything included" },
     { name: "Orbital +1", price: 88, desc: "CEO + 1 specialized agent" },
@@ -653,7 +673,7 @@ function SubscriptionUpgradeCard() {
           </div>
         ))}
       </div>
-      <button onClick={() => toast.info("Payment flow coming soon — you'll be first in line.")}
+      <button onClick={() => { toast.success("Subscription confirmed!"); onSubscribed(); }}
         className="w-full h-10 rounded-xl bg-foreground text-background text-[12px] font-semibold flex items-center justify-center gap-2 hover:opacity-90 transition-all active:scale-[0.97]">
         <CreditCard className="h-3.5 w-3.5" strokeWidth={1.8} /> Upgrade now
       </button>
