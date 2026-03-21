@@ -96,7 +96,7 @@ const Chat = () => {
     } else if (lower.includes("deploy") && lower.includes("agent")) {
       setTimeout(() => addAssistant("Let's deploy your agents. Pick which agents you want to activate and where to assign them.", "deploy_agent_flow"), 800);
     } else if (lower.includes("integrate") && lower.includes("agent")) {
-      setTimeout(() => addAssistant("Let's get your agent connected. Choose from our agents or integrate your own.", "pick_agent"), 800);
+      setTimeout(() => addAssistant("Here's everything you need to connect your agent via REST API. Unlock full access with the MSX Pro plan.", "show_api_docs"), 800);
     } else {
       setTimeout(() => { addAssistant(t(responseKeys[Math.floor(Math.random() * responseKeys.length)])); }, 1000 + Math.random() * 800);
     }
