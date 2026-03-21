@@ -144,25 +144,28 @@ const CompanyDetail = () => {
         <div className="lg:col-span-2 bg-card rounded-2xl card-static overflow-hidden flex flex-col min-h-[500px]">
           <div className="flex items-center border-b border-border overflow-x-auto scrollbar-hide">
              {([
-              { id: "chat" as const, label: "Orchestrator Chat", icon: MessageSquare },
-              { id: "tasks" as const, label: "Task Log", icon: CheckCircle2 },
-              { id: "docs" as const, label: "Docs", icon: FileText },
-              { id: "emails" as const, label: "Emails", icon: Mail },
-              { id: "xposts" as const, label: "X Posts", icon: Twitter },
-              { id: "ads" as const, label: "Ads", icon: Megaphone },
-              { id: "deploys" as const, label: "Deploys", icon: Eye },
+              { id: "chat" as const, label: "Orchestrator Chat", icon: MessageSquare, soon: false },
+              { id: "tasks" as const, label: "Task Log", icon: CheckCircle2, soon: false },
+              { id: "docs" as const, label: "Docs", icon: FileText, soon: false },
+              { id: "emails" as const, label: "Emails", icon: Mail, soon: true },
+              { id: "xposts" as const, label: "X Posts", icon: Twitter, soon: true },
+              { id: "ads" as const, label: "Ads", icon: Megaphone, soon: true },
+              { id: "deploys" as const, label: "Deploys", icon: Eye, soon: false },
             ]).map(tab => (
               <button
                 key={tab.id}
-                onClick={() => setActivePanel(tab.id)}
+                onClick={() => !tab.soon && setActivePanel(tab.id)}
                 className={`flex items-center gap-1.5 px-3.5 py-3.5 text-[11px] font-medium transition-all border-b-2 whitespace-nowrap shrink-0 ${
-                  activePanel === tab.id
-                    ? "border-foreground text-foreground"
-                    : "border-transparent text-muted-foreground hover:text-foreground"
+                  tab.soon
+                    ? "border-transparent text-muted-foreground/40 cursor-not-allowed"
+                    : activePanel === tab.id
+                      ? "border-foreground text-foreground"
+                      : "border-transparent text-muted-foreground hover:text-foreground"
                 }`}
               >
                 <tab.icon className="h-3.5 w-3.5" strokeWidth={1.6} />
                 {tab.label}
+                {tab.soon && <span className="text-[8px] px-1.5 py-0.5 rounded bg-muted text-muted-foreground/50 uppercase tracking-wider font-semibold ml-0.5">Soon</span>}
               </button>
             ))}
           </div>

@@ -263,6 +263,14 @@ function IntegrationsTab({ locale }: { locale: string }) {
 /* ======================== Subscription Tab ======================== */
 
 function SubscriptionTab({ locale }: { locale: string }) {
+  const orbitalTiers = [
+    { name: "Orbital", agents: 1, price: 58, desc: locale === "it" ? "CEO Agent base — tutto incluso" : "Base CEO Agent — everything included", current: false },
+    { name: "Orbital +1", agents: 2, price: 88, desc: locale === "it" ? "CEO + 1 agente specializzato" : "CEO + 1 specialized agent", current: false },
+    { name: "Orbital +2", agents: 3, price: 118, desc: locale === "it" ? "CEO + 2 agenti specializzati" : "CEO + 2 specialized agents", current: true },
+    { name: "Orbital +3", agents: 4, price: 148, desc: locale === "it" ? "CEO + 3 agenti specializzati" : "CEO + 3 specialized agents", current: false },
+    { name: "Interstellar", agents: 5, price: 178, desc: locale === "it" ? "CEO + 4 agenti — piano completo" : "CEO + 4 agents — full plan", current: false },
+  ];
+
   return (
     <div className="space-y-6">
       <div>
@@ -274,35 +282,50 @@ function SubscriptionTab({ locale }: { locale: string }) {
         </p>
       </div>
 
-      <div className="bg-card rounded-2xl p-6 card-static">
-        <div className="flex items-center justify-between mb-4">
-          <div>
-            <p className="text-[11px] text-muted-foreground font-medium uppercase tracking-wider">{locale === "it" ? "Piano Attuale" : "Current Plan"}</p>
-            <p className="text-[22px] font-mondwest font-semibold mt-1">Operator Pro</p>
-          </div>
-          <span className="text-[10px] font-semibold text-primary px-2.5 py-1 rounded-lg bg-primary/10">{locale === "it" ? "Attivo" : "Active"}</span>
-        </div>
-        <div className="flex items-baseline gap-1 mb-4">
-          <span className="text-[32px] font-mondwest font-bold tracking-tight tabular-nums">$47</span>
-          <span className="text-[12px] text-muted-foreground font-medium">/{locale === "it" ? "mese" : "mo"}</span>
-        </div>
-        <div className="space-y-2">
-          {[
-            { label: locale === "it" ? "Agenti attivi" : "Active agents", value: "8 / 15", pct: 53 },
-            { label: locale === "it" ? "Aziende" : "Companies", value: "4 / 10", pct: 40 },
-            { label: locale === "it" ? "Token AI" : "AI tokens", value: "124K / 500K", pct: 25 },
-            { label: locale === "it" ? "Deploys" : "Deploys", value: "47 / ∞", pct: 0 },
-          ].map(item => (
-            <div key={item.label}>
-              <div className="flex items-center justify-between mb-1">
-                <span className="text-[11px] text-muted-foreground font-medium">{item.label}</span>
-                <span className="text-[11px] font-medium tabular-nums">{item.value}</span>
+      {/* Current plan highlight */}
+      {(() => {
+        const current = orbitalTiers.find(t => t.current)!;
+        return (
+          <div className="bg-card rounded-2xl p-6 card-static">
+            <div className="flex items-center justify-between mb-4">
+              <div>
+                <p className="text-[11px] text-muted-foreground font-medium uppercase tracking-wider">{locale === "it" ? "Piano Attuale" : "Current Plan"}</p>
+                <p className="text-[22px] font-mondwest font-semibold mt-1">{current.name}</p>
               </div>
-              {item.pct > 0 && (
-                <div className="h-1.5 rounded-full bg-muted overflow-hidden">
-                  <div className="h-full bg-primary/40 rounded-full" style={{ width: `${item.pct}%` }} />
+              <span className="text-[10px] font-semibold text-primary px-2.5 py-1 rounded-lg bg-primary/10">{locale === "it" ? "Attivo" : "Active"}</span>
+            </div>
+            <div className="flex items-baseline gap-1 mb-4">
+              <span className="text-[32px] font-mondwest font-bold tracking-tight tabular-nums">${current.price}</span>
+              <span className="text-[12px] text-muted-foreground font-medium">/{locale === "it" ? "mese" : "mo"}</span>
+            </div>
+            <p className="text-[11px] text-muted-foreground">{current.desc}</p>
+            <div className="flex items-center gap-2 mt-3 text-[11px] text-muted-foreground">
+              <Bot className="h-3.5 w-3.5" strokeWidth={1.4} />
+              <span>{current.agents} {locale === "it" ? "agenti attivi" : "active agents"} · $58 CEO + ${current.price - 58} {locale === "it" ? "specializzati" : "specialized"}</span>
+            </div>
+          </div>
+        );
+      })()}
+
+      {/* All tiers */}
+      <div>
+        <p className="text-[12px] font-medium mb-3">{locale === "it" ? "Tutti i piani" : "All Plans"}</p>
+        <div className="space-y-2">
+          {orbitalTiers.map(tier => (
+            <div key={tier.name} className={`flex items-center justify-between p-4 rounded-xl border transition-all ${tier.current ? "border-primary/40 bg-primary/[0.04]" : "border-border bg-card"}`}>
+              <div className="flex items-center gap-3">
+                <div className="h-8 w-8 rounded-lg bg-muted flex items-center justify-center text-[11px] font-mondwest font-bold tabular-nums">{tier.agents}</div>
+                <div>
+                  <div className="flex items-center gap-2">
+                    <p className="text-[12px] font-semibold">{tier.name}</p>
+                    {tier.current && <span className="text-[8px] px-1.5 py-0.5 rounded bg-primary/10 text-primary font-semibold uppercase tracking-wider">{locale === "it" ? "Attuale" : "Current"}</span>}
+                  </div>
+                  <p className="text-[10px] text-muted-foreground">{tier.desc}</p>
                 </div>
-              )}
+              </div>
+              <div className="text-right">
+                <p className="text-[14px] font-mondwest font-semibold tabular-nums">${tier.price}<span className="text-[10px] text-muted-foreground font-normal">/{locale === "it" ? "mese" : "mo"}</span></p>
+              </div>
             </div>
           ))}
         </div>
@@ -323,9 +346,9 @@ function SubscriptionTab({ locale }: { locale: string }) {
         </div>
         <div className="divide-y divide-border">
           {[
-            { date: "Mar 1, 2026", amount: "$47.00", status: "Paid" },
-            { date: "Feb 1, 2026", amount: "$47.00", status: "Paid" },
-            { date: "Jan 1, 2026", amount: "$47.00", status: "Paid" },
+            { date: "Mar 1, 2026", amount: "$118.00", status: "Paid" },
+            { date: "Feb 1, 2026", amount: "$118.00", status: "Paid" },
+            { date: "Jan 1, 2026", amount: "$88.00", status: "Paid" },
           ].map(inv => (
             <div key={inv.date} className="px-5 py-3 flex items-center justify-between">
               <span className="text-[12px] font-medium">{inv.date}</span>

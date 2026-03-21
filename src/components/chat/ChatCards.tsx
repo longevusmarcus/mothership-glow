@@ -368,6 +368,7 @@ export function DeployAgentCard({ onDone, preSelectedCompany }: { onDone: (agent
         {deployableAgents.map((a, i) => {
           const Icon = a.icon;
           const isSelected = selectedAgents.includes(a.id);
+          const agentPrice = a.id === CEO_AGENT_ID ? CEO_PRICE : EXTRA_AGENT_PRICE;
           return (
             <motion.button key={a.id} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.06, duration: 0.3 }}
               onClick={() => toggleAgent(a.id)}
@@ -382,6 +383,7 @@ export function DeployAgentCard({ onDone, preSelectedCompany }: { onDone: (agent
                   <p className="text-[9px] text-muted-foreground">{a.role}</p>
                 </div>
               </div>
+              <p className="text-[10px] font-semibold mt-1.5 text-foreground/70">${agentPrice}/mo</p>
             </motion.button>
           );
         })}
@@ -429,7 +431,7 @@ export function DeployAgentCard({ onDone, preSelectedCompany }: { onDone: (agent
         <motion.button initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} onClick={handleDeploy}
           className="w-full h-10 rounded-xl bg-foreground text-background text-[12px] font-semibold flex items-center justify-center gap-2 hover:opacity-90 transition-all active:scale-[0.97]">
           <Zap className="h-3.5 w-3.5" strokeWidth={1.8} />
-          Deploy {selectedAgents.length} agent{selectedAgents.length > 1 ? "s" : ""} → {target === "new" ? "New company" : existingCompanies.find(c => c.id === selectedCompany)?.name}
+          Deploy {selectedAgents.length} agent{selectedAgents.length > 1 ? "s" : ""} → {target === "new" ? "New company" : existingCompanies.find(c => c.id === selectedCompany)?.name} — ${calcAgentPrice(selectedAgents)}/mo
         </motion.button>
       )}
     </motion.div>
@@ -458,6 +460,7 @@ export function AddAgentToCompanyCard({ onDone }: { onDone: (agentNames: string[
         {deployableAgents.map((a, i) => {
           const Icon = a.icon;
           const isSelected = selectedAgents.includes(a.id);
+          const agentPrice = a.id === CEO_AGENT_ID ? CEO_PRICE : EXTRA_AGENT_PRICE;
           return (
             <motion.button key={a.id} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.06, duration: 0.3 }}
               onClick={() => toggleAgent(a.id)}
@@ -473,6 +476,7 @@ export function AddAgentToCompanyCard({ onDone }: { onDone: (agentNames: string[
                 </div>
               </div>
               <p className="text-[9px] text-muted-foreground leading-relaxed">{a.desc}</p>
+              <p className="text-[10px] font-semibold mt-1.5 text-foreground/70">${agentPrice}/mo</p>
             </motion.button>
           );
         })}
@@ -512,7 +516,7 @@ export function AddAgentToCompanyCard({ onDone }: { onDone: (agentNames: string[
         <motion.button initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} onClick={handleSubmit}
           className="w-full h-10 rounded-xl bg-foreground text-background text-[12px] font-semibold flex items-center justify-center gap-2 hover:opacity-90 transition-all active:scale-[0.97]">
           <Zap className="h-3.5 w-3.5" strokeWidth={1.8} />
-          Add {selectedAgents.length} agent{selectedAgents.length > 1 ? "s" : ""} → {existingCompanies.find(c => c.id === selectedCompany)?.name}
+          Add {selectedAgents.length} agent{selectedAgents.length > 1 ? "s" : ""} → {existingCompanies.find(c => c.id === selectedCompany)?.name} — ${calcAgentPrice(selectedAgents)}/mo
         </motion.button>
       )}
     </motion.div>
