@@ -7,7 +7,7 @@ import { toast } from "sonner";
 import { motion, AnimatePresence } from "framer-motion";
 import { createAgents, companyDeploySteps, ease } from "@/data/constants";
 import type { CreateAgent } from "@/data/constants";
-import { ProPlanCard, SignalsCard, IdeasCard } from "@/components/chat/ChatCards";
+import { ProPlanCard, SignalsCard, IdeasCard, ApiDocsPaywall } from "@/components/chat/ChatCards";
 
 const CEO_PRICE = 58;
 const EXTRA_PRICE = 30;
@@ -97,6 +97,7 @@ const CompanyCreate = () => {
   const [agentName, setAgentName] = useState(createAgents[0].name);
   const [selectedSignals, setSelectedSignals] = useState<string>("");
   const [selectedIdea, setSelectedIdea] = useState<string>("");
+  const [showIntegrate, setShowIntegrate] = useState(false);
   const [currentDeployStep, setCurrentDeployStep] = useState(0);
   const [completedSteps, setCompletedSteps] = useState<number[]>([]);
   const [generatedCompany, setGeneratedCompany] = useState<{ name: string; type: string; market: string; mrr: string } | null>(null);
@@ -264,18 +265,27 @@ const CompanyCreate = () => {
               </div>
 
               {/* Integrate your own */}
-              <div className="rounded-xl border border-dashed border-border p-4 flex items-center justify-between">
-                <div className="flex items-center gap-2.5">
-                  <Upload className="h-3.5 w-3.5 text-muted-foreground" strokeWidth={1.6} />
-                  <div>
-                    <p className="text-[11px] font-medium">Integrate your own agent</p>
-                    <p className="text-[9px] text-muted-foreground">Connect via API or upload config</p>
+              <div className="rounded-xl border border-dashed border-border p-4 space-y-3">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2.5">
+                    <Upload className="h-3.5 w-3.5 text-muted-foreground" strokeWidth={1.6} />
+                    <div>
+                      <p className="text-[11px] font-medium">Integrate your own agent</p>
+                      <p className="text-[9px] text-muted-foreground">Connect via API or upload config</p>
+                    </div>
                   </div>
+                  <button onClick={() => setShowIntegrate(prev => !prev)}
+                    className="flex items-center gap-1 px-2.5 py-1.5 rounded-lg border border-border text-[10px] font-semibold hover:bg-muted/60 transition-all active:scale-[0.97]">
+                    <Link2 className="h-3 w-3" strokeWidth={2} /> {showIntegrate ? "Hide" : "Connect"}
+                  </button>
                 </div>
-                <button onClick={() => toast.info("API integration coming soon")}
-                  className="flex items-center gap-1 px-2.5 py-1.5 rounded-lg border border-border text-[10px] font-semibold hover:bg-muted/60 transition-all active:scale-[0.97]">
-                  <Link2 className="h-3 w-3" strokeWidth={2} /> Connect
-                </button>
+                <AnimatePresence>
+                  {showIntegrate && (
+                    <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: "auto" }} exit={{ opacity: 0, height: 0 }} className="overflow-hidden">
+                      <ApiDocsPaywall />
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </div>
 
               {/* Summary + continue */}
