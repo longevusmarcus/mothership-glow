@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useLanguage } from "@/i18n/LanguageContext";
 import AgentsKanban from "@/components/agents/AgentsKanban";
-import { typeMeta, stageColors } from "@/data/constants";
+import { typeMeta, stageColors } from "@/data";
 import { toast } from "sonner";
 import { motion, AnimatePresence } from "framer-motion";
 import {

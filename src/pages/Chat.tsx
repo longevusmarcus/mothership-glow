@@ -8,13 +8,13 @@ import { User, Loader2, Rocket, Zap, PlugZap, Bot, BarChart3, Radio, Lightbulb }
 import { useLanguage } from "@/i18n/LanguageContext";
 import { useNavigate, useLocation } from "react-router-dom";
 import type { TranslationKey } from "@/i18n/translations";
-import { deployableAgents } from "@/data/constants";
-import type { CompanyRef } from "@/data/constants";
+import { deployableAgents } from "@/data";
+import type { CompanyRef } from "@/data";
 import {
   SignalsCard, IdeasCard, AgentPickerCard, DeployingCard,
   DeployedCard, ApiDocsPaywall, DeployAgentCard, AddAgentToCompanyCard,
   AddingAgentCard, AgentAddedCard,
-} from "@/components/chat/ChatCards";
+} from "@/components/chat";
 
 // ── Types ──
 
