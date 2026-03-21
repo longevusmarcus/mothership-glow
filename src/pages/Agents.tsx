@@ -258,10 +258,14 @@ const Agents = () => {
                             <span className="inline-flex items-center gap-1.5 text-[10px] font-semibold px-2.5 py-1 rounded-lg bg-primary/10 text-primary">
                               <span className="h-1.5 w-1.5 rounded-full bg-primary" /> Active
                             </span>
+                          ) : provisioningIds.includes(a.id) ? (
+                            <span className="inline-flex items-center gap-1.5 text-[10px] font-semibold px-2.5 py-1 rounded-lg bg-muted text-muted-foreground">
+                              <Loader2 className="h-3 w-3 animate-spin" strokeWidth={2} /> Provisioning...
+                            </span>
                           ) : (
                             <motion.button
                               whileTap={{ scale: 0.95 }}
-                              onClick={() => activateAgent(a.id)}
+                              onClick={() => setActivatingAgent(a)}
                               className="inline-flex items-center gap-1.5 text-[10px] font-semibold px-2.5 py-1 rounded-lg bg-amber-500/10 text-amber-500 hover:bg-amber-500/20 transition-colors cursor-pointer"
                             >
                               <Power className="h-3 w-3" strokeWidth={2} /> Activate
