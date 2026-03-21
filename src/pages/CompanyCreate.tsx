@@ -7,7 +7,7 @@ import { toast } from "sonner";
 import { motion, AnimatePresence } from "framer-motion";
 import { createAgents, companyDeploySteps, ease } from "@/data/constants";
 import type { CreateAgent } from "@/data/constants";
-import { ProPlanCard, SignalsCard, IdeasCard } from "@/components/chat/ChatCards";
+import { ProPlanCard, SignalsCard, IdeasCard, ApiDocsPaywall } from "@/components/chat/ChatCards";
 
 const CEO_PRICE = 58;
 const EXTRA_PRICE = 30;
