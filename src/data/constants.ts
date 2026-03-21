@@ -117,7 +117,12 @@ export const mxProFeatures = [
   "Stripe revenue collection",
   "Custom domain connection",
   "REST API & webhook access",
-  "Priority agent orchestration",
+  "Agent workspace",
+  "Agent orchestration",
+  "Rewards access",
+  "Free distribution",
+  "Startup studio program",
+  "$15 seed company budget",
 ];
 
 // ── Deploy steps (CompanyCreate detailed) ──
