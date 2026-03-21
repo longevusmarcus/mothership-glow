@@ -20,6 +20,8 @@ import Ideas from "./pages/Ideas";
 import Arena from "./pages/Arena";
 import Live from "./pages/Live";
 import Landing from "./pages/Landing";
+import Analytics from "./pages/Analytics";
+import PersonalOS from "./pages/PersonalOS";
 
 import Settings from "./pages/Settings";
 import NotFound from "./pages/NotFound";
