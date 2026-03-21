@@ -464,7 +464,7 @@ const CompanyCreate = () => {
 
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                 {[
-                  { label: "Status", value: "Live", color: "text-success" },
+                  { label: "Status", value: "Pre-deployed", color: "text-primary" },
                   { label: "Projected MRR", value: generatedCompany.mrr, color: "text-foreground" },
                   { label: "Pages pre-deployed", value: "7", color: "text-foreground" },
                   { label: "APIs connected", value: "4", color: "text-foreground" },
