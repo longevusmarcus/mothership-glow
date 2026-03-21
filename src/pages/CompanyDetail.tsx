@@ -1,4 +1,4 @@
-import { ArrowLeft, Globe, Clock, Bot, Building2, Edit, Target, Rocket, MessageSquare, CheckCircle2, ExternalLink, Loader2, Eye, FileText, Download, Send } from "lucide-react";
+import { ArrowLeft, Globe, Clock, Bot, Building2, Edit, Target, Rocket, MessageSquare, CheckCircle2, ExternalLink, Loader2, Eye, FileText, Download, Send, Mail, Twitter, Megaphone } from "lucide-react";
 import AiIcon from "@/components/AiIcon";
 import { TextShimmer } from "@/components/ui/text-shimmer";
 import { Link, useParams } from "react-router-dom";
@@ -56,11 +56,34 @@ const deployPreviews = [
   { name: "Landing Page v2", url: "novatech.com", agent: "GrowthPilot", time: "8h ago", status: "live" },
   { name: "Onboarding Flow", url: "novatech-onboard.vercel.app", agent: "DesignMind", time: "1d ago", status: "preview" },
 ];
+
+const agentEmails = [
+  { subject: "Welcome to NovaTech — Your workspace is ready", to: "new-user@gmail.com", agent: "GrowthPilot", time: "1h ago", status: "delivered" as const },
+  { subject: "Your free trial ends in 3 days", to: "trial-user@company.co", agent: "GrowthPilot", time: "4h ago", status: "delivered" as const },
+  { subject: "NovaTech Weekly Digest — What's new", to: "subscriber-list (847)", agent: "MarketBot", time: "1d ago", status: "delivered" as const },
+  { subject: "Your invoice for March 2026", to: "paying-customer@startup.io", agent: "CEO Agent", time: "2d ago", status: "delivered" as const },
+  { subject: "Re: Integration support request", to: "dev@partner.com", agent: "CEO Agent", time: "3d ago", status: "opened" as const },
+];
+
+const agentXPosts = [
+  { content: "Just shipped real-time collaboration for NovaTech 🚀 Remote teams can now co-edit projects live. Try it free →", agent: "GrowthPilot", time: "2h ago", likes: 142, retweets: 38, impressions: "12.4K" },
+  { content: "Why we built NovaTech: 73% of remote PMs still use spreadsheets to track projects. That's insane in 2026. Thread 🧵", agent: "MarketBot", time: "8h ago", likes: 89, retweets: 24, impressions: "8.7K" },
+  { content: "NovaTech vs Notion vs Linear — honest comparison from the team that built it. No BS, just data.", agent: "MarketBot", time: "1d ago", likes: 231, retweets: 67, impressions: "24.1K" },
+  { content: "Stripe integration done ✅ Subscriptions, checkout, webhooks — all handled by our AI agents in 4 hours.", agent: "CEO Agent", time: "2d ago", likes: 56, retweets: 12, impressions: "5.2K" },
+];
+
+const agentAds = [
+  { name: "Google Search — 'project management tool'", platform: "Google Ads", agent: "GrowthPilot", spend: "$124", clicks: 342, ctr: "4.2%", conversions: 18, status: "active" as const },
+  { name: "Meta — Remote team lookalike audience", platform: "Meta Ads", agent: "GrowthPilot", spend: "$89", clicks: 215, ctr: "3.8%", conversions: 11, status: "active" as const },
+  { name: "Twitter — PM tool thread promo", platform: "X Ads", agent: "MarketBot", spend: "$45", clicks: 178, ctr: "5.1%", conversions: 7, status: "active" as const },
+  { name: "LinkedIn — B2B SaaS decision makers", platform: "LinkedIn Ads", agent: "GrowthPilot", spend: "$210", clicks: 89, ctr: "2.9%", conversions: 5, status: "paused" as const },
+];
+
 const CompanyDetail = () => {
   const { id } = useParams();
   const { t, locale } = useLanguage();
   const company = companyData[id || "1"] || defaultCompany;
-  const [activePanel, setActivePanel] = useState<"chat" | "tasks" | "docs" | "deploys">("chat");
+  const [activePanel, setActivePanel] = useState<"chat" | "tasks" | "docs" | "deploys" | "emails" | "xposts" | "ads">("chat");
 
   return (
     <div className="space-y-6">
@@ -121,6 +144,9 @@ const CompanyDetail = () => {
               { id: "chat" as const, label: "Orchestrator Chat", icon: MessageSquare },
               { id: "tasks" as const, label: "Task Log", icon: CheckCircle2 },
               { id: "docs" as const, label: "Docs", icon: FileText },
+              { id: "emails" as const, label: "Emails", icon: Mail },
+              { id: "xposts" as const, label: "X Posts", icon: Twitter },
+              { id: "ads" as const, label: "Ads", icon: Megaphone },
               { id: "deploys" as const, label: "Deploys", icon: Eye },
             ]).map(tab => (
               <button
@@ -190,6 +216,80 @@ const CompanyDetail = () => {
                   <button className="text-muted-foreground hover:text-foreground transition-colors shrink-0">
                     <Download className="h-3.5 w-3.5" strokeWidth={1.6} />
                   </button>
+                </motion.div>
+              ))}
+            </div>
+          )}
+
+          {activePanel === "emails" && (
+            <div className="divide-y divide-border flex-1 overflow-y-auto">
+              {agentEmails.map((email, i) => (
+                <motion.div key={i} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: i * 0.04 }} className="px-5 py-3.5 flex items-center gap-3 hover:bg-muted/20 transition-all">
+                  <div className="h-9 w-9 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
+                    <Mail className="h-4 w-4 text-primary" strokeWidth={1.4} />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <p className="text-[12px] font-medium leading-snug truncate">{email.subject}</p>
+                    <div className="flex items-center gap-2 mt-0.5">
+                      <span className="text-[10px] text-muted-foreground font-medium">{email.agent}</span>
+                      <span className="text-[9px] text-muted-foreground/40">·</span>
+                      <span className="text-[10px] text-muted-foreground/50">to {email.to}</span>
+                      <span className="text-[9px] text-muted-foreground/40">·</span>
+                      <span className="text-[10px] text-muted-foreground/50">{email.time}</span>
+                    </div>
+                  </div>
+                  <span className={`text-[9px] px-2 py-0.5 rounded-lg font-semibold shrink-0 ${email.status === "opened" ? "bg-accent text-accent-foreground" : "bg-success/10 text-success"}`}>
+                    {email.status === "opened" ? "Opened" : "Delivered"}
+                  </span>
+                </motion.div>
+              ))}
+            </div>
+          )}
+
+          {activePanel === "xposts" && (
+            <div className="divide-y divide-border flex-1 overflow-y-auto">
+              {agentXPosts.map((post, i) => (
+                <motion.div key={i} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: i * 0.04 }} className="px-5 py-3.5 hover:bg-muted/20 transition-all">
+                  <p className="text-[12px] leading-relaxed">{post.content}</p>
+                  <div className="flex items-center gap-3 mt-2">
+                    <span className="text-[10px] text-muted-foreground font-medium">{post.agent}</span>
+                    <span className="text-[9px] text-muted-foreground/40">·</span>
+                    <span className="text-[10px] text-muted-foreground/50">{post.time}</span>
+                    <span className="text-[9px] text-muted-foreground/40">·</span>
+                    <span className="text-[10px] text-muted-foreground/50">❤️ {post.likes}</span>
+                    <span className="text-[10px] text-muted-foreground/50">🔁 {post.retweets}</span>
+                    <span className="text-[10px] text-muted-foreground/50">👁 {post.impressions}</span>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          )}
+
+          {activePanel === "ads" && (
+            <div className="divide-y divide-border flex-1 overflow-y-auto">
+              {agentAds.map((ad, i) => (
+                <motion.div key={i} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: i * 0.04 }} className="px-5 py-3.5 flex items-center gap-3 hover:bg-muted/20 transition-all">
+                  <div className={`h-9 w-9 rounded-xl flex items-center justify-center shrink-0 ${ad.status === "active" ? "bg-success/10" : "bg-muted"}`}>
+                    <Megaphone className={`h-4 w-4 ${ad.status === "active" ? "text-success" : "text-muted-foreground"}`} strokeWidth={1.4} />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <p className="text-[12px] font-medium leading-snug truncate">{ad.name}</p>
+                    <div className="flex items-center gap-2 mt-0.5">
+                      <span className="text-[10px] text-muted-foreground font-medium">{ad.agent}</span>
+                      <span className="text-[9px] text-muted-foreground/40">·</span>
+                      <span className="text-[10px] text-muted-foreground/50">{ad.platform}</span>
+                      <span className="text-[9px] text-muted-foreground/40">·</span>
+                      <span className="text-[10px] text-muted-foreground/50">{ad.spend} spent</span>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-3 shrink-0 text-[10px] text-muted-foreground tabular-nums">
+                    <span>{ad.clicks} clicks</span>
+                    <span>{ad.ctr} CTR</span>
+                    <span className="font-semibold text-foreground">{ad.conversions} conv</span>
+                  </div>
+                  <span className={`text-[9px] px-2 py-0.5 rounded-lg font-semibold shrink-0 ${ad.status === "active" ? "bg-success/10 text-success" : "bg-muted text-muted-foreground"}`}>
+                    {ad.status === "active" ? "Active" : "Paused"}
+                  </span>
                 </motion.div>
               ))}
             </div>
