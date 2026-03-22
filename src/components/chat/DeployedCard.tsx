@@ -31,6 +31,8 @@ export function DeployedCard({ agentCount = 1, subdomain }: { agentCount?: numbe
           <div>
             <p className="text-[13px] font-semibold">Company pre-deployed successfully</p>
             <p className="text-[11px] text-muted-foreground">
+              {subdomain && <span className="font-mono text-foreground">{subdomain}.msx.dev</span>}
+              {subdomain && " — "}
               {subscribed ? "Subscription confirmed — activate your agents from the Agents page" : "Claim your company, then subscribe to activate"}
             </p>
           </div>
