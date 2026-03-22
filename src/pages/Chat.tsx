@@ -4,7 +4,7 @@ import { PromptInputBox } from "@/components/ui/ai-prompt-box";
 import AiIcon from "@/components/AiIcon";
 import { TextShimmer } from "@/components/ui/text-shimmer";
 import { motion, AnimatePresence } from "framer-motion";
-import { User, Loader2, Rocket, Zap, PlugZap, Bot, BarChart3, Radio, Lightbulb } from "lucide-react";
+import { User, Loader2, Rocket, Zap, PlugZap, Bot, BarChart3, Radio, Lightbulb, PenLine } from "lucide-react";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { useNavigate, useLocation } from "react-router-dom";
 import type { TranslationKey } from "@/i18n/translations";
@@ -13,7 +13,7 @@ import type { CompanyRef } from "@/data";
 import {
   SignalsCard, IdeasCard, AgentPickerCard, DeployingCard,
   DeployedCard, ApiDocsPaywall, DeployAgentCard, AddAgentToCompanyCard,
-  AddingAgentCard, AgentAddedCard,
+  AddingAgentCard, AgentAddedCard, ValidateIdeaCard, BudgetOutcomesCard,
 } from "@/components/chat";
 
 // ── Types ──
@@ -23,7 +23,7 @@ interface ChatMessage {
   role: "user" | "assistant";
   content: string;
   timestamp: Date;
-  action?: "show_signals" | "show_ideas" | "pick_agent" | "deploying" | "deployed" | "show_api_docs" | "deploy_agent_flow" | "add_agent_to_company" | "adding_agent" | "agent_added" | "ask_subdomain";
+  action?: "show_signals" | "show_ideas" | "pick_agent" | "deploying" | "deployed" | "show_api_docs" | "deploy_agent_flow" | "add_agent_to_company" | "adding_agent" | "agent_added" | "ask_subdomain" | "validate_idea" | "ask_budget";
 }
 
 const responseKeys: TranslationKey[] = [
@@ -32,6 +32,7 @@ const responseKeys: TranslationKey[] = [
 
 const quickActions = [
   { icon: Rocket, label: "Deploy a company", labelIt: "Deploya un'azienda", prompt: "I want to deploy a new company" },
+  { icon: PenLine, label: "I have my own idea", labelIt: "Ho la mia idea", prompt: "I have my own idea I want to build" },
   { icon: Bot, label: "Add agent to company", labelIt: "Aggiungi agente", prompt: "I want to add a new agent to an existing company" },
   { icon: Zap, label: "Deploy agent", labelIt: "Deploya agente", prompt: "I want to deploy an agent to a company" },
   { icon: Radio, label: "Browse signals", labelIt: "Sfoglia segnali", prompt: "Show me the top market signals this week" },
@@ -53,6 +54,8 @@ const Chat = () => {
   const [deployedAgentCount, setDeployedAgentCount] = useState(1);
   const [chosenSubdomain, setChosenSubdomain] = useState<string | null>(null);
   const [awaitingSubdomain, setAwaitingSubdomain] = useState(false);
+  const [awaitingCustomIdea, setAwaitingCustomIdea] = useState(false);
+  const [customIdea, setCustomIdea] = useState<string | null>(null);
   const hasAutoTriggered = useRef(false);
 
   const scrollToBottom = () => { messagesEndRef.current?.scrollIntoView({ behavior: "smooth" }); };
@@ -97,11 +100,26 @@ const Chat = () => {
       return;
     }
 
+    // Handle custom idea input
+    if (awaitingCustomIdea) {
+      setAwaitingCustomIdea(false);
+      setCustomIdea(message.trim());
+      setIsLoading(true);
+      setTimeout(() => addAssistant(`Let me validate "${message.trim()}" against real market data, competitor landscape, and demand signals.`, "validate_idea"), 800);
+      return;
+    }
+
     setIsLoading(true);
     const lower = message.toLowerCase();
 
     if (lower.includes("add") && lower.includes("agent") && (lower.includes("company") || lower.includes("existing"))) {
       setTimeout(() => addAssistant("Let's add agents to one of your companies. Pick the agent types you need, then choose the company.", "add_agent_to_company"), 800);
+    } else if (lower.includes("my own idea") || lower.includes("have an idea") || lower.includes("ho la mia") || lower.includes("own idea")) {
+      setAwaitingCustomIdea(true);
+      setTimeout(() => {
+        setIsLoading(false);
+        addAssistant("Tell me your idea — describe what you want to build, the problem it solves, and who it's for. I'll validate it against real market data.");
+      }, 800);
     } else if (lower.includes("deploy") && (lower.includes("company") || lower.includes("azienda"))) {
       setTimeout(() => addAssistant("Let's build something. First, here are the strongest market signals I've found this week — pick the ones that resonate with you.", "show_signals"), 800);
     } else if (lower.includes("signal")) {
@@ -119,7 +137,18 @@ const Chat = () => {
 
   // Flow handlers
   const handleSignalsSelected = (s: string) => { addUser(`Selected signals: ${s}`); setIsLoading(true); setTimeout(() => addAssistant("Great picks. Based on those signals, here are the strongest validated ideas with revenue proof. Choose one to build.", "show_ideas"), 900); };
-  const handleIdeaSelected = (idea: string) => { addUser(`Build: ${idea}`); setIsLoading(true); setTimeout(() => addAssistant(`Solid choice — "${idea}" has strong market validation. Now pick the agents that will build it.`, "pick_agent"), 900); };
+  const handleIdeaSelected = (idea: string) => { addUser(`Build: ${idea}`); setIsLoading(true); setTimeout(() => addAssistant(`Solid choice — "${idea}" has strong market validation. Now set your budget and desired outcomes.`, "ask_budget"), 900); };
+
+  // Custom idea validated → go to budget
+  const handleCustomIdeaValidated = (idea: string) => { addUser(`Build: ${idea}`); setIsLoading(true); setTimeout(() => addAssistant(`Great — "${idea}" looks promising. Now set your monthly budget and the outcomes you're targeting.`, "ask_budget"), 900); };
+
+  // Budget set → go to agent picker
+  const handleBudgetDone = (budget: string, outcomes: string[]) => {
+    addUser(`Budget: $${budget}/mo · Goals: ${outcomes.join(", ")}`);
+    setIsLoading(true);
+    setTimeout(() => addAssistant(`Perfect — $${budget}/mo budget targeting ${outcomes.join(" & ")}. Now pick the agents that will build and grow your company.`, "pick_agent"), 900);
+  };
+
   const handleDeploy = (ids: string[]) => { setDeployedAgentCount(ids.length); const names = ids.map(id => deployableAgents.find(a => a.id === id)?.name || id).join(", "); addUser(`Deploy with: ${names}`); setTimeout(() => addAssistant(`Deploying your company with ${names}. Agents are taking over now...`, "deploying"), 600); };
   const handleDeployDone = () => {
     setAwaitingSubdomain(true);
@@ -160,6 +189,8 @@ const Chat = () => {
       case "add_agent_to_company": return <AddAgentToCompanyCard onDone={handleAddAgentDone} />;
       case "adding_agent": return <AddingAgentCard onDone={handleAddAgentDeployDone} />;
       case "agent_added": return <AgentAddedCard agentCount={deployedAgentCount} />;
+      case "validate_idea": return <ValidateIdeaCard idea={customIdea || ""} onValidated={handleCustomIdeaValidated} />;
+      case "ask_budget": return <BudgetOutcomesCard onDone={handleBudgetDone} />;
       default: return null;
     }
   };

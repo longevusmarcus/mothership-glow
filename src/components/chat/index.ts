@@ -13,3 +13,5 @@ export { DeployAgentCard } from "./DeployAgentCard";
 export { AddAgentToCompanyCard } from "./AddAgentToCompanyCard";
 export { AddingAgentCard } from "./AddingAgentCard";
 export { AgentAddedCard } from "./AgentAddedCard";
+export { ValidateIdeaCard } from "./ValidateIdeaCard";
+export { BudgetOutcomesCard } from "./BudgetOutcomesCard";
