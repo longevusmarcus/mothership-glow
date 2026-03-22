@@ -165,10 +165,8 @@ const AppLayout = ({ children }: AppLayoutProps) => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("dashboard");
   const [dark, setDark] = useState(() => {
-    if (!document.documentElement.classList.contains("dark")) {
-      document.documentElement.classList.add("dark");
-    }
-    return true;
+    document.documentElement.classList.remove("dark");
+    return false;
   });
   const [notifOpen, setNotifOpen] = useState(false);
   const notifRef = useRef<HTMLDivElement>(null);
