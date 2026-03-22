@@ -44,6 +44,7 @@ export function SignalsCard({ onSelect }: { onSelect: (title: string) => void })
           <Lightbulb className="h-3.5 w-3.5" strokeWidth={1.8} /> Show ideas for this signal
         </motion.button>
       )}
+      <p className="text-[10px] text-muted-foreground/60 text-center">You can always change your signal later after deployment</p>
     </motion.div>
   );
 }
