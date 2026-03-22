@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { ease } from "@/data";
 import { ProPlanCard } from "./ProPlanCard";
 
-export function DeployedCard({ agentCount = 1 }: { agentCount?: number }) {
+export function DeployedCard({ agentCount = 1, subdomain }: { agentCount?: number; subdomain?: string | null }) {
   const navigate = useNavigate();
   const [showPlan, setShowPlan] = useState(false);
   const [subscribed, setSubscribed] = useState(false);
