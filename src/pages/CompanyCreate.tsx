@@ -432,7 +432,7 @@ const CompanyCreate = () => {
               <span>
                 {selectedAgents.length} agents · ${calcPrice()}/mo
               </span>
-              {wizardStep < 6 && (
+              {wizardStep < 7 && (
                 <button onClick={() => setWizardStep(1)} className="text-primary hover:underline ml-1 text-[10px]">
                   Edit
                 </button>
