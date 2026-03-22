@@ -269,9 +269,9 @@ const CompanyCreate = () => {
       </div>
 
       {/* Progress bar */}
-      {wizardStep <= 5 && (
+      {wizardStep <= 6 && (
         <div className="flex items-center gap-1.5">
-          {[1, 2, 3, 4, 5].map((s) => (
+          {[1, 2, 3, 4, 5, 6].map((s) => (
             <div
               key={s}
               className={`h-1 flex-1 rounded-full transition-colors duration-300 ${
