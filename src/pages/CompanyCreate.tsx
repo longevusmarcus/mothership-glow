@@ -23,6 +23,7 @@ import { useLanguage } from "@/i18n/LanguageContext";
 import { toast } from "sonner";
 import { motion, AnimatePresence } from "framer-motion";
 import { createAgents, companyDeploySteps, ease, CEO_PRICE, EXTRA_AGENT_PRICE } from "@/data";
+import { DollarSign } from "lucide-react";
 import type { CreateAgent } from "@/data";
 import { ProPlanCard, SignalsCard, IdeasCard, ApiDocsPaywall } from "@/components/chat";
 
