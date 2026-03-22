@@ -145,7 +145,13 @@ const CompanyCreate = () => {
   const { t } = useLanguage();
   const navigate = useNavigate();
 
-  // Wizard state: 1=agents, 2=name, 3=signals, 4=ideas, 5=review, 6=deploying, 7=done
+  // Wizard state: 1=agents, 2=name, 3=signals, 4=ideas, 5=budget, 6=review, 7=deploying, 8=done
+  const budgetTiers = [
+    { label: "$50/mo", value: "50", desc: "Solo agent — lean MVP" },
+    { label: "$150/mo", value: "150", desc: "Small team — 2-3 agents" },
+    { label: "$500/mo", value: "500", desc: "Full stack — 5+ agents" },
+    { label: "Custom", value: "custom", desc: "Set your own budget" },
+  ];
   const [wizardStep, setWizardStep] = useState(1);
   const [selectedAgents, setSelectedAgents] = useState<string[]>([createAgents[0].id]);
   const [agentName, setAgentName] = useState(createAgents[0].name);
