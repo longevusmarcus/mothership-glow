@@ -38,6 +38,7 @@ export function IdeasCard({ onSelect }: { onSelect: (idea: string) => void }) {
           </motion.button>
         ))}
       </div>
+      <p className="text-[10px] text-muted-foreground/60 text-center">You can always change your idea later after deployment</p>
     </motion.div>
   );
 }
