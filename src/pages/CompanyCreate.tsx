@@ -157,6 +157,7 @@ const CompanyCreate = () => {
   const [agentName, setAgentName] = useState(createAgents[0].name);
   const [selectedSignals, setSelectedSignals] = useState<string>("");
   const [selectedIdea, setSelectedIdea] = useState<string>("");
+  const [selectedBudget, setSelectedBudget] = useState<string | null>(null);
   const [showIntegrate, setShowIntegrate] = useState(false);
   const [currentDeployStep, setCurrentDeployStep] = useState(0);
   const [completedSteps, setCompletedSteps] = useState<number[]>([]);
