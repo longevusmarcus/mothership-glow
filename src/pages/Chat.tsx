@@ -91,15 +91,6 @@ const Chat = () => {
     if (!message.trim()) return;
     addUser(message);
 
-    // Handle subdomain input
-    if (awaitingSubdomain) {
-      setAwaitingSubdomain(false);
-      const sub = message.trim().replace(/\.msx\.dev$/i, "").replace(/[^a-zA-Z0-9-]/g, "").toLowerCase();
-      setChosenSubdomain(sub);
-      setIsLoading(true);
-      setTimeout(() => addAssistant(`Your company is live at **${sub}.msx.dev**. Agents are now ready to be activated and work autonomously — check the dashboard for real-time updates.`, "deployed"), 800);
-      return;
-    }
 
     // Handle custom idea input
     if (awaitingCustomIdea) {
