@@ -207,7 +207,7 @@ const CompanyCreate = () => {
   const runStep = (idx: number) => {
     if (idx >= companyDeploySteps.length) {
       setGeneratedCompany({ name: "NovaPay", type: "SaaS B2B", market: "EU / Global", mrr: "$2,400" });
-      setWizardStep(7);
+      setWizardStep(8);
       toast.success("Company pre-deployed successfully!", { duration: 3000 });
       return;
     }
