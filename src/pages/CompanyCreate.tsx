@@ -227,9 +227,9 @@ const CompanyCreate = () => {
 
   const selectedAgentObjects = createAgents.filter((a) => selectedAgents.some((id) => id.startsWith(a.id)));
   const progress =
-    wizardStep === 7
+    wizardStep === 8
       ? 100
-      : wizardStep === 6
+      : wizardStep === 7
         ? Math.round((completedSteps.length / companyDeploySteps.length) * 100)
         : 0;
 
