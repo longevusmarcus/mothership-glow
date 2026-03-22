@@ -51,6 +51,8 @@ const Chat = () => {
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const [deployToCompany, setDeployToCompany] = useState<CompanyRef | null>(null);
   const [deployedAgentCount, setDeployedAgentCount] = useState(1);
+  const [chosenSubdomain, setChosenSubdomain] = useState<string | null>(null);
+  const [awaitingSubdomain, setAwaitingSubdomain] = useState(false);
   const hasAutoTriggered = useRef(false);
 
   const scrollToBottom = () => { messagesEndRef.current?.scrollIntoView({ behavior: "smooth" }); };
