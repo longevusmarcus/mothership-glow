@@ -544,7 +544,7 @@ const CompanyCreate = () => {
               <div className="flex items-center gap-2 text-[11px] text-muted-foreground">
                 <Lightbulb className="h-3.5 w-3.5" strokeWidth={1.4} />
                 <span className="truncate">{selectedIdea}</span>
-                {wizardStep < 6 && (
+                {wizardStep < 7 && (
                   <button
                     onClick={() => setWizardStep(4)}
                     className="text-primary hover:underline ml-1 text-[10px] shrink-0"
