@@ -15,6 +15,7 @@ import {
   DeployedCard, ApiDocsPaywall, DeployAgentCard, AddAgentToCompanyCard,
   AddingAgentCard, AgentAddedCard, ValidateIdeaCard, BudgetOutcomesCard,
 } from "@/components/chat";
+import { SubdomainCard } from "@/components/chat/SubdomainCard";
 
 // ── Types ──
 
