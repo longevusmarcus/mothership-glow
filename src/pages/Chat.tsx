@@ -188,6 +188,7 @@ const Chat = () => {
       case "agent_added": return <AgentAddedCard agentCount={deployedAgentCount} />;
       case "validate_idea": return <ValidateIdeaCard idea={customIdea || ""} onValidated={handleCustomIdeaValidated} />;
       case "ask_budget": return <BudgetOutcomesCard onDone={handleBudgetDone} />;
+      case "ask_subdomain": return <SubdomainCard onDone={handleSubdomainDone} />;
       default: return null;
     }
   };
