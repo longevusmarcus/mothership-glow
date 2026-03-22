@@ -23,7 +23,7 @@ interface ChatMessage {
   role: "user" | "assistant";
   content: string;
   timestamp: Date;
-  action?: "show_signals" | "show_ideas" | "pick_agent" | "deploying" | "deployed" | "show_api_docs" | "deploy_agent_flow" | "add_agent_to_company" | "adding_agent" | "agent_added";
+  action?: "show_signals" | "show_ideas" | "pick_agent" | "deploying" | "deployed" | "show_api_docs" | "deploy_agent_flow" | "add_agent_to_company" | "adding_agent" | "agent_added" | "ask_subdomain";
 }
 
 const responseKeys: TranslationKey[] = [
