@@ -198,7 +198,7 @@ const CompanyCreate = () => {
   };
 
   const startDeploy = () => {
-    setWizardStep(6);
+    setWizardStep(7);
     setCurrentDeployStep(0);
     setCompletedSteps([]);
     runStep(0);
