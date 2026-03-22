@@ -23,6 +23,7 @@ import { useLanguage } from "@/i18n/LanguageContext";
 import { toast } from "sonner";
 import { motion, AnimatePresence } from "framer-motion";
 import { createAgents, companyDeploySteps, ease, CEO_PRICE, EXTRA_AGENT_PRICE } from "@/data";
+import { DollarSign } from "lucide-react";
 import type { CreateAgent } from "@/data";
 import { ProPlanCard, SignalsCard, IdeasCard, ApiDocsPaywall } from "@/components/chat";
 
@@ -144,12 +145,19 @@ const CompanyCreate = () => {
   const { t } = useLanguage();
   const navigate = useNavigate();
 
-  // Wizard state: 1=agents, 2=name, 3=signals, 4=ideas, 5=review, 6=deploying, 7=done
+  // Wizard state: 1=agents, 2=name, 3=signals, 4=ideas, 5=budget, 6=review, 7=deploying, 8=done
+  const budgetTiers = [
+    { label: "$50/mo", value: "50", desc: "Solo agent — lean MVP" },
+    { label: "$150/mo", value: "150", desc: "Small team — 2-3 agents" },
+    { label: "$500/mo", value: "500", desc: "Full stack — 5+ agents" },
+    { label: "Custom", value: "custom", desc: "Set your own budget" },
+  ];
   const [wizardStep, setWizardStep] = useState(1);
   const [selectedAgents, setSelectedAgents] = useState<string[]>([createAgents[0].id]);
   const [agentName, setAgentName] = useState(createAgents[0].name);
   const [selectedSignals, setSelectedSignals] = useState<string>("");
   const [selectedIdea, setSelectedIdea] = useState<string>("");
+  const [selectedBudget, setSelectedBudget] = useState<string | null>(null);
   const [showIntegrate, setShowIntegrate] = useState(false);
   const [currentDeployStep, setCurrentDeployStep] = useState(0);
   const [completedSteps, setCompletedSteps] = useState<number[]>([]);
@@ -190,7 +198,7 @@ const CompanyCreate = () => {
   };
 
   const startDeploy = () => {
-    setWizardStep(6);
+    setWizardStep(7);
     setCurrentDeployStep(0);
     setCompletedSteps([]);
     runStep(0);
@@ -199,7 +207,7 @@ const CompanyCreate = () => {
   const runStep = (idx: number) => {
     if (idx >= companyDeploySteps.length) {
       setGeneratedCompany({ name: "NovaPay", type: "SaaS B2B", market: "EU / Global", mrr: "$2,400" });
-      setWizardStep(7);
+      setWizardStep(8);
       toast.success("Company pre-deployed successfully!", { duration: 3000 });
       return;
     }
@@ -219,9 +227,9 @@ const CompanyCreate = () => {
 
   const selectedAgentObjects = createAgents.filter((a) => selectedAgents.some((id) => id.startsWith(a.id)));
   const progress =
-    wizardStep === 7
+    wizardStep === 8
       ? 100
-      : wizardStep === 6
+      : wizardStep === 7
         ? Math.round((completedSteps.length / companyDeploySteps.length) * 100)
         : 0;
 
@@ -236,6 +244,7 @@ const CompanyCreate = () => {
     setAgentName(createAgents[0].name);
     setSelectedSignals("");
     setSelectedIdea("");
+    setSelectedBudget(null);
     setGeneratedCompany(null);
   };
 
@@ -260,9 +269,9 @@ const CompanyCreate = () => {
       </div>
 
       {/* Progress bar */}
-      {wizardStep <= 5 && (
+      {wizardStep <= 6 && (
         <div className="flex items-center gap-1.5">
-          {[1, 2, 3, 4, 5].map((s) => (
+          {[1, 2, 3, 4, 5, 6].map((s) => (
             <div
               key={s}
               className={`h-1 flex-1 rounded-full transition-colors duration-300 ${
@@ -423,7 +432,7 @@ const CompanyCreate = () => {
               <span>
                 {selectedAgents.length} agents · ${calcPrice()}/mo
               </span>
-              {wizardStep < 6 && (
+              {wizardStep < 7 && (
                 <button onClick={() => setWizardStep(1)} className="text-primary hover:underline ml-1 text-[10px]">
                   Edit
                 </button>
@@ -470,7 +479,7 @@ const CompanyCreate = () => {
               <div className="flex items-center gap-2 text-[11px] text-muted-foreground">
                 <Bot className="h-3.5 w-3.5" strokeWidth={1.4} />
                 <span>{agentName}</span>
-                {wizardStep < 6 && (
+                {wizardStep < 7 && (
                   <button onClick={() => setWizardStep(2)} className="text-primary hover:underline ml-1 text-[10px]">
                     Edit
                   </button>
@@ -501,7 +510,7 @@ const CompanyCreate = () => {
               <div className="flex items-center gap-2 text-[11px] text-muted-foreground">
                 <Radio className="h-3.5 w-3.5" strokeWidth={1.4} />
                 <span className="truncate">{selectedSignals}</span>
-                {wizardStep < 6 && (
+                {wizardStep < 7 && (
                   <button
                     onClick={() => setWizardStep(3)}
                     className="text-primary hover:underline ml-1 text-[10px] shrink-0"
@@ -535,7 +544,7 @@ const CompanyCreate = () => {
               <div className="flex items-center gap-2 text-[11px] text-muted-foreground">
                 <Lightbulb className="h-3.5 w-3.5" strokeWidth={1.4} />
                 <span className="truncate">{selectedIdea}</span>
-                {wizardStep < 6 && (
+                {wizardStep < 7 && (
                   <button
                     onClick={() => setWizardStep(4)}
                     className="text-primary hover:underline ml-1 text-[10px] shrink-0"
@@ -548,15 +557,70 @@ const CompanyCreate = () => {
           </motion.div>
         )}
 
-        {/* ─── Step 5: Review & Deploy ─── */}
-        {wizardStep === 5 && (
+        {/* ─── Step 5: Monthly Budget ─── */}
+        {wizardStep >= 5 && (
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, ease }}
+            className="rounded-2xl border border-border bg-card p-5 space-y-3"
+          >
+            <StepHeader number={5} title="Set monthly budget" done={wizardStep > 5} active={wizardStep === 5} />
+
+            {wizardStep === 5 ? (
+              <>
+                <div className="grid grid-cols-2 gap-2">
+                  {budgetTiers.map(opt => {
+                    const active = selectedBudget === opt.value;
+                    return (
+                      <button key={opt.value} onClick={() => setSelectedBudget(opt.value)}
+                        className={`rounded-xl border p-3 text-left transition-all active:scale-[0.97] ${active ? "border-primary bg-primary/[0.05]" : "border-border bg-background hover:bg-muted/30"}`}>
+                        <div className="flex items-center justify-between">
+                          <span className="text-[12px] font-bold">{opt.label}</span>
+                          {active && <Check className="h-3 w-3 text-primary" strokeWidth={2.2} />}
+                        </div>
+                        <p className="text-[10px] text-muted-foreground mt-0.5">{opt.desc}</p>
+                      </button>
+                    );
+                  })}
+                </div>
+                <p className="text-[10px] text-muted-foreground/60 text-center">You can always change your budget later after deployment</p>
+                <div className="flex justify-end pt-1">
+                  <button
+                    onClick={() => { if (selectedBudget) advanceToStep(6); }}
+                    disabled={!selectedBudget}
+                    className="flex items-center gap-2 px-5 py-2.5 bg-foreground text-background rounded-xl text-[12px] font-semibold hover:opacity-90 transition-all active:scale-[0.97] disabled:opacity-30 disabled:cursor-not-allowed"
+                  >
+                    Continue <ChevronDown className="h-3.5 w-3.5" strokeWidth={2} />
+                  </button>
+                </div>
+              </>
+            ) : (
+              <div className="flex items-center gap-2 text-[11px] text-muted-foreground">
+                <DollarSign className="h-3.5 w-3.5" strokeWidth={1.4} />
+                <span>{budgetTiers.find(b => b.value === selectedBudget)?.label || selectedBudget}</span>
+                {wizardStep < 7 && (
+                  <button
+                    onClick={() => setWizardStep(5)}
+                    className="text-primary hover:underline ml-1 text-[10px] shrink-0"
+                  >
+                    Edit
+                  </button>
+                )}
+              </div>
+            )}
+          </motion.div>
+        )}
+
+        {/* ─── Step 6: Review & Deploy ─── */}
+        {wizardStep === 6 && (
           <motion.div
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4, ease }}
             className="rounded-2xl border border-primary/20 bg-primary/[0.03] p-5 space-y-4"
           >
-            <StepHeader number={5} title="Review & deploy" done={false} active={true} />
+            <StepHeader number={6} title="Review & deploy" done={false} active={true} />
 
             <div className="space-y-2">
               {[
@@ -567,6 +631,7 @@ const CompanyCreate = () => {
                 { label: "CEO Name", value: agentName },
                 { label: "Signal", value: selectedSignals },
                 { label: "Idea", value: selectedIdea },
+                { label: "Budget", value: budgetTiers.find(b => b.value === selectedBudget)?.label || selectedBudget },
                 { label: "Monthly cost", value: `$${calcPrice()}/mo` },
               ].map((row) => (
                 <div key={row.label} className="flex items-start gap-3 text-[11px]">
@@ -593,8 +658,8 @@ const CompanyCreate = () => {
           </motion.div>
         )}
 
-        {/* ─── Step 6: Deploying ─── */}
-        {wizardStep === 6 && (
+        {/* ─── Step 7: Deploying ─── */}
+        {wizardStep === 7 && (
           <motion.div
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
@@ -692,8 +757,8 @@ const CompanyCreate = () => {
           </motion.div>
         )}
 
-        {/* ─── Step 7: Done ─── */}
-        {wizardStep === 7 && generatedCompany && (
+        {/* ─── Step 8: Done ─── */}
+        {wizardStep === 8 && generatedCompany && (
           <motion.div
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
