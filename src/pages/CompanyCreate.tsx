@@ -757,8 +757,8 @@ const CompanyCreate = () => {
           </motion.div>
         )}
 
-        {/* ─── Step 7: Done ─── */}
-        {wizardStep === 7 && generatedCompany && (
+        {/* ─── Step 8: Done ─── */}
+        {wizardStep === 8 && generatedCompany && (
           <motion.div
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
