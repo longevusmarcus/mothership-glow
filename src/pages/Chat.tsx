@@ -15,6 +15,7 @@ import {
   DeployedCard, ApiDocsPaywall, DeployAgentCard, AddAgentToCompanyCard,
   AddingAgentCard, AgentAddedCard, ValidateIdeaCard, BudgetOutcomesCard,
 } from "@/components/chat";
+import { SubdomainCard } from "@/components/chat/SubdomainCard";
 
 // ── Types ──
 
@@ -53,7 +54,7 @@ const Chat = () => {
   const [deployToCompany, setDeployToCompany] = useState<CompanyRef | null>(null);
   const [deployedAgentCount, setDeployedAgentCount] = useState(1);
   const [chosenSubdomain, setChosenSubdomain] = useState<string | null>(null);
-  const [awaitingSubdomain, setAwaitingSubdomain] = useState(false);
+  
   const [awaitingCustomIdea, setAwaitingCustomIdea] = useState(false);
   const [customIdea, setCustomIdea] = useState<string | null>(null);
   const hasAutoTriggered = useRef(false);
@@ -90,15 +91,6 @@ const Chat = () => {
     if (!message.trim()) return;
     addUser(message);
 
-    // Handle subdomain input
-    if (awaitingSubdomain) {
-      setAwaitingSubdomain(false);
-      const sub = message.trim().replace(/\.msx\.dev$/i, "").replace(/[^a-zA-Z0-9-]/g, "").toLowerCase();
-      setChosenSubdomain(sub);
-      setIsLoading(true);
-      setTimeout(() => addAssistant(`Your company is live at **${sub}.msx.dev**. Agents are now ready to be activated and work autonomously — check the dashboard for real-time updates.`, "deployed"), 800);
-      return;
-    }
 
     // Handle custom idea input
     if (awaitingCustomIdea) {
@@ -151,8 +143,13 @@ const Chat = () => {
 
   const handleDeploy = (ids: string[]) => { setDeployedAgentCount(ids.length); const names = ids.map(id => deployableAgents.find(a => a.id === id)?.name || id).join(", "); addUser(`Deploy with: ${names}`); setTimeout(() => addAssistant(`Deploying your company with ${names}. Agents are taking over now...`, "deploying"), 600); };
   const handleDeployDone = () => {
-    setAwaitingSubdomain(true);
-    addAssistant("Your company is ready! Choose a subdomain for your company — type a name like **cara.msx.dev**", "ask_subdomain");
+    addAssistant("Your company is ready! Choose a subdomain for your company.", "ask_subdomain");
+  };
+  const handleSubdomainDone = (sub: string) => {
+    setChosenSubdomain(sub);
+    addUser(`${sub}.msx.dev`);
+    setIsLoading(true);
+    setTimeout(() => addAssistant(`Your company will be live at **${sub}.msx.dev**. Agents are now ready to be activated and work autonomously — check the dashboard for real-time updates.`, "deployed"), 800);
   };
   const handleDeployAgentDone = (names: string, target: string) => { addUser(`Deploy ${names} → ${target}`); setTimeout(() => addAssistant(`Deploying ${names} to ${target}. Agents are spinning up now...`, "deploying"), 600); };
   const handleIntegrate = () => { addUser("I want to integrate my own agent"); setIsLoading(true); setTimeout(() => addAssistant("Here's everything you need to connect your agent via REST API. Unlock full access with the MSX Pro plan.", "show_api_docs"), 800); };
@@ -191,6 +188,7 @@ const Chat = () => {
       case "agent_added": return <AgentAddedCard agentCount={deployedAgentCount} />;
       case "validate_idea": return <ValidateIdeaCard idea={customIdea || ""} onValidated={handleCustomIdeaValidated} />;
       case "ask_budget": return <BudgetOutcomesCard onDone={handleBudgetDone} />;
+      case "ask_subdomain": return <SubdomainCard onDone={handleSubdomainDone} />;
       default: return null;
     }
   };
