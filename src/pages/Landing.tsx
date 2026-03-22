@@ -24,10 +24,8 @@ const Landing = () => {
   const [dark, setDark] = useState(() => document.documentElement.classList.contains("dark"));
 
   useEffect(() => {
-    if (!document.documentElement.classList.contains("dark")) {
-      document.documentElement.classList.add("dark");
-      setDark(true);
-    }
+    document.documentElement.classList.remove("dark");
+    setDark(false);
   }, []);
 
   const toggleDark = () => {
