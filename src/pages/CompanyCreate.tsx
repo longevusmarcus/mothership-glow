@@ -244,6 +244,7 @@ const CompanyCreate = () => {
     setAgentName(createAgents[0].name);
     setSelectedSignals("");
     setSelectedIdea("");
+    setSelectedBudget(null);
     setGeneratedCompany(null);
   };
 
