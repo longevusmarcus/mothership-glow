@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { ease } from "@/data";
 import { ProPlanCard } from "./ProPlanCard";
 
-export function DeployedCard({ agentCount = 1 }: { agentCount?: number }) {
+export function DeployedCard({ agentCount = 1, subdomain }: { agentCount?: number; subdomain?: string | null }) {
   const navigate = useNavigate();
   const [showPlan, setShowPlan] = useState(false);
   const [subscribed, setSubscribed] = useState(false);
@@ -31,6 +31,8 @@ export function DeployedCard({ agentCount = 1 }: { agentCount?: number }) {
           <div>
             <p className="text-[13px] font-semibold">Company pre-deployed successfully</p>
             <p className="text-[11px] text-muted-foreground">
+              {subdomain && <span className="font-mono text-foreground">{subdomain}.msx.dev</span>}
+              {subdomain && " — "}
               {subscribed ? "Subscription confirmed — activate your agents from the Agents page" : "Claim your company, then subscribe to activate"}
             </p>
           </div>
