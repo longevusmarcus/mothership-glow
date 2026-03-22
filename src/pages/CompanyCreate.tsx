@@ -479,7 +479,7 @@ const CompanyCreate = () => {
               <div className="flex items-center gap-2 text-[11px] text-muted-foreground">
                 <Bot className="h-3.5 w-3.5" strokeWidth={1.4} />
                 <span>{agentName}</span>
-                {wizardStep < 6 && (
+                {wizardStep < 7 && (
                   <button onClick={() => setWizardStep(2)} className="text-primary hover:underline ml-1 text-[10px]">
                     Edit
                   </button>
