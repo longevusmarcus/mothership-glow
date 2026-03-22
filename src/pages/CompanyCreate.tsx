@@ -557,15 +557,70 @@ const CompanyCreate = () => {
           </motion.div>
         )}
 
-        {/* ─── Step 5: Review & Deploy ─── */}
-        {wizardStep === 5 && (
+        {/* ─── Step 5: Monthly Budget ─── */}
+        {wizardStep >= 5 && (
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, ease }}
+            className="rounded-2xl border border-border bg-card p-5 space-y-3"
+          >
+            <StepHeader number={5} title="Set monthly budget" done={wizardStep > 5} active={wizardStep === 5} />
+
+            {wizardStep === 5 ? (
+              <>
+                <div className="grid grid-cols-2 gap-2">
+                  {budgetTiers.map(opt => {
+                    const active = selectedBudget === opt.value;
+                    return (
+                      <button key={opt.value} onClick={() => setSelectedBudget(opt.value)}
+                        className={`rounded-xl border p-3 text-left transition-all active:scale-[0.97] ${active ? "border-primary bg-primary/[0.05]" : "border-border bg-background hover:bg-muted/30"}`}>
+                        <div className="flex items-center justify-between">
+                          <span className="text-[12px] font-bold">{opt.label}</span>
+                          {active && <Check className="h-3 w-3 text-primary" strokeWidth={2.2} />}
+                        </div>
+                        <p className="text-[10px] text-muted-foreground mt-0.5">{opt.desc}</p>
+                      </button>
+                    );
+                  })}
+                </div>
+                <p className="text-[10px] text-muted-foreground/60 text-center">You can always change your budget later after deployment</p>
+                <div className="flex justify-end pt-1">
+                  <button
+                    onClick={() => { if (selectedBudget) advanceToStep(6); }}
+                    disabled={!selectedBudget}
+                    className="flex items-center gap-2 px-5 py-2.5 bg-foreground text-background rounded-xl text-[12px] font-semibold hover:opacity-90 transition-all active:scale-[0.97] disabled:opacity-30 disabled:cursor-not-allowed"
+                  >
+                    Continue <ChevronDown className="h-3.5 w-3.5" strokeWidth={2} />
+                  </button>
+                </div>
+              </>
+            ) : (
+              <div className="flex items-center gap-2 text-[11px] text-muted-foreground">
+                <DollarSign className="h-3.5 w-3.5" strokeWidth={1.4} />
+                <span>{budgetTiers.find(b => b.value === selectedBudget)?.label || selectedBudget}</span>
+                {wizardStep < 7 && (
+                  <button
+                    onClick={() => setWizardStep(5)}
+                    className="text-primary hover:underline ml-1 text-[10px] shrink-0"
+                  >
+                    Edit
+                  </button>
+                )}
+              </div>
+            )}
+          </motion.div>
+        )}
+
+        {/* ─── Step 6: Review & Deploy ─── */}
+        {wizardStep === 6 && (
           <motion.div
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4, ease }}
             className="rounded-2xl border border-primary/20 bg-primary/[0.03] p-5 space-y-4"
           >
-            <StepHeader number={5} title="Review & deploy" done={false} active={true} />
+            <StepHeader number={6} title="Review & deploy" done={false} active={true} />
 
             <div className="space-y-2">
               {[
@@ -576,6 +631,7 @@ const CompanyCreate = () => {
                 { label: "CEO Name", value: agentName },
                 { label: "Signal", value: selectedSignals },
                 { label: "Idea", value: selectedIdea },
+                { label: "Budget", value: budgetTiers.find(b => b.value === selectedBudget)?.label || selectedBudget },
                 { label: "Monthly cost", value: `$${calcPrice()}/mo` },
               ].map((row) => (
                 <div key={row.label} className="flex items-start gap-3 text-[11px]">
