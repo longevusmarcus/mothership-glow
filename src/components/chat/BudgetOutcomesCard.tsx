@@ -4,9 +4,9 @@ import { DollarSign, Target, ArrowRight, Check } from "lucide-react";
 import { ease } from "@/data";
 
 const budgetOptions = [
-  { label: "$500/mo", value: "500", desc: "Lean MVP — 2-3 agents" },
-  { label: "$1,000/mo", value: "1000", desc: "Solid start — 4-5 agents" },
-  { label: "$2,000/mo", value: "2000", desc: "Full stack — 6+ agents" },
+  { label: "$50/mo", value: "50", desc: "Solo agent — lean MVP" },
+  { label: "$150/mo", value: "150", desc: "Small team — 2-3 agents" },
+  { label: "$500/mo", value: "500", desc: "Full stack — 5+ agents" },
   { label: "Custom", value: "custom", desc: "Set your own budget" },
 ];
 
