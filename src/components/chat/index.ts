@@ -15,3 +15,4 @@ export { AddingAgentCard } from "./AddingAgentCard";
 export { AgentAddedCard } from "./AgentAddedCard";
 export { ValidateIdeaCard } from "./ValidateIdeaCard";
 export { BudgetOutcomesCard } from "./BudgetOutcomesCard";
+export { SubdomainCard } from "./SubdomainCard";

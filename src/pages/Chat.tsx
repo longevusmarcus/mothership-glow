@@ -143,8 +143,13 @@ const Chat = () => {
 
   const handleDeploy = (ids: string[]) => { setDeployedAgentCount(ids.length); const names = ids.map(id => deployableAgents.find(a => a.id === id)?.name || id).join(", "); addUser(`Deploy with: ${names}`); setTimeout(() => addAssistant(`Deploying your company with ${names}. Agents are taking over now...`, "deploying"), 600); };
   const handleDeployDone = () => {
-    setAwaitingSubdomain(true);
-    addAssistant("Your company is ready! Choose a subdomain for your company — type a name like **cara.msx.dev**", "ask_subdomain");
+    addAssistant("Your company is ready! Choose a subdomain for your company.", "ask_subdomain");
+  };
+  const handleSubdomainDone = (sub: string) => {
+    setChosenSubdomain(sub);
+    addUser(`${sub}.msx.dev`);
+    setIsLoading(true);
+    setTimeout(() => addAssistant(`Your company will be live at **${sub}.msx.dev**. Agents are now ready to be activated and work autonomously — check the dashboard for real-time updates.`, "deployed"), 800);
   };
   const handleDeployAgentDone = (names: string, target: string) => { addUser(`Deploy ${names} → ${target}`); setTimeout(() => addAssistant(`Deploying ${names} to ${target}. Agents are spinning up now...`, "deploying"), 600); };
   const handleIntegrate = () => { addUser("I want to integrate my own agent"); setIsLoading(true); setTimeout(() => addAssistant("Here's everything you need to connect your agent via REST API. Unlock full access with the MSX Pro plan.", "show_api_docs"), 800); };
