@@ -54,7 +54,7 @@ const Chat = () => {
   const [deployToCompany, setDeployToCompany] = useState<CompanyRef | null>(null);
   const [deployedAgentCount, setDeployedAgentCount] = useState(1);
   const [chosenSubdomain, setChosenSubdomain] = useState<string | null>(null);
-  const [awaitingSubdomain, setAwaitingSubdomain] = useState(false);
+  
   const [awaitingCustomIdea, setAwaitingCustomIdea] = useState(false);
   const [customIdea, setCustomIdea] = useState<string | null>(null);
   const hasAutoTriggered = useRef(false);
