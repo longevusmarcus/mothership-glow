@@ -15,6 +15,7 @@ import {
   Lock,
   CreditCard,
   ChevronDown,
+  DollarSign,
 } from "lucide-react";
 import { TextShimmer } from "@/components/ui/text-shimmer";
 import { Link, useNavigate } from "react-router-dom";
@@ -23,7 +24,6 @@ import { useLanguage } from "@/i18n/LanguageContext";
 import { toast } from "sonner";
 import { motion, AnimatePresence } from "framer-motion";
 import { createAgents, companyDeploySteps, ease, CEO_PRICE, EXTRA_AGENT_PRICE } from "@/data";
-import { DollarSign } from "lucide-react";
 import type { CreateAgent } from "@/data";
 import { ProPlanCard, SignalsCard, IdeasCard, ApiDocsPaywall } from "@/components/chat";
 
@@ -141,23 +141,24 @@ function ClaimCompanyPaywall({ onDeployAnother, agentCount }: { onDeployAnother:
   );
 }
 
+const budgetTiers = [
+  { label: "$50/mo", value: "50", desc: "Solo agent — lean MVP" },
+  { label: "$150/mo", value: "150", desc: "Small team — 2-3 agents" },
+  { label: "$500/mo", value: "500", desc: "Full stack — 5+ agents" },
+  { label: "Custom", value: "custom", desc: "Set your own budget" },
+];
+
 const CompanyCreate = () => {
   const { t } = useLanguage();
   const navigate = useNavigate();
 
-  // Wizard state: 1=agents, 2=name, 3=signals, 4=ideas, 5=budget, 6=review, 7=deploying, 8=done
-  const budgetTiers = [
-    { label: "$50/mo", value: "50", desc: "Solo agent — lean MVP" },
-    { label: "$150/mo", value: "150", desc: "Small team — 2-3 agents" },
-    { label: "$500/mo", value: "500", desc: "Full stack — 5+ agents" },
-    { label: "Custom", value: "custom", desc: "Set your own budget" },
-  ];
+  // Wizard steps: 1=signals, 2=ideas, 3=budget, 4=agent template, 5=subdomain, 6=review, 7=deploying, 8=done
   const [wizardStep, setWizardStep] = useState(1);
-  const [selectedAgents, setSelectedAgents] = useState<string[]>([createAgents[0].id]);
-  const [agentName, setAgentName] = useState(createAgents[0].name);
   const [selectedSignals, setSelectedSignals] = useState<string>("");
   const [selectedIdea, setSelectedIdea] = useState<string>("");
   const [selectedBudget, setSelectedBudget] = useState<string | null>(null);
+  const [selectedAgents, setSelectedAgents] = useState<string[]>([createAgents[0].id]);
+  const [chosenSubdomain, setChosenSubdomain] = useState("");
   const [showIntegrate, setShowIntegrate] = useState(false);
   const [currentDeployStep, setCurrentDeployStep] = useState(0);
   const [completedSteps, setCompletedSteps] = useState<number[]>([]);
@@ -206,7 +207,7 @@ const CompanyCreate = () => {
 
   const runStep = (idx: number) => {
     if (idx >= companyDeploySteps.length) {
-      setGeneratedCompany({ name: "NovaPay", type: "SaaS B2B", market: "EU / Global", mrr: "$2,400" });
+      setGeneratedCompany({ name: chosenSubdomain ? chosenSubdomain.charAt(0).toUpperCase() + chosenSubdomain.slice(1) : "NovaPay", type: "SaaS B2B", market: "EU / Global", mrr: "$2,400" });
       setWizardStep(8);
       toast.success("Company pre-deployed successfully!", { duration: 3000 });
       return;
@@ -240,13 +241,15 @@ const CompanyCreate = () => {
 
   const resetAll = () => {
     setWizardStep(1);
-    setSelectedAgents([coreAgentId]);
-    setAgentName(createAgents[0].name);
     setSelectedSignals("");
     setSelectedIdea("");
     setSelectedBudget(null);
+    setSelectedAgents([coreAgentId]);
+    setChosenSubdomain("");
     setGeneratedCompany(null);
   };
+
+  const cleanSubdomain = chosenSubdomain.trim().replace(/[^a-zA-Z0-9-]/g, "").toLowerCase();
 
   return (
     <div className="max-w-3xl mx-auto space-y-6 pb-12">
@@ -283,157 +286,30 @@ const CompanyCreate = () => {
       )}
 
       <div className="space-y-4">
-        {/* ─── Step 1: Select Agents ─── */}
+        {/* ─── Step 1: Pick a market signal ─── */}
         <motion.div
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           className="rounded-2xl border border-border bg-card p-5 space-y-3"
         >
-          <StepHeader number={1} title="Select your agents" done={wizardStep > 1} active={wizardStep === 1} />
+          <StepHeader number={1} title="Pick a market signal" done={wizardStep > 1} active={wizardStep === 1} />
 
           {wizardStep === 1 ? (
-            <>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                {createAgents.map((a) => {
-                  const Icon = a.icon;
-                  const isBusy = a.status === "busy";
-                  const isCore = a.id === coreAgentId;
-                  const selected = selectedAgents.some((id) => id.startsWith(a.id));
-                  const price = isCore ? CEO_PRICE : EXTRA_PRICE;
-                  return (
-                    <div key={a.id} className="relative pb-2">
-                      <button
-                        onClick={() => toggleAgent(a.id)}
-                        className={`relative w-full h-full text-left p-4 rounded-xl border transition-all duration-200 ${
-                          isCore
-                            ? "border-primary/40 bg-primary/[0.04] cursor-default"
-                            : isBusy
-                              ? "border-border/60 bg-muted/30 opacity-70"
-                              : selected
-                                ? "border-primary/40 bg-primary/[0.04]"
-                                : "border-border bg-background hover:border-border/80"
-                        }`}
-                      >
-                        {isCore && (
-                          <div className="absolute top-3 right-3 flex items-center gap-1.5">
-                            <span className="text-[9px] font-semibold text-primary bg-primary/10 px-1.5 py-0.5 rounded-md">
-                              Required
-                            </span>
-                            <Check className="h-3.5 w-3.5 text-primary" strokeWidth={2} />
-                          </div>
-                        )}
-                        {!isCore && selected && !isBusy && (
-                          <Check className="absolute top-3 right-3 h-3.5 w-3.5 text-primary" strokeWidth={2} />
-                        )}
-                        {isBusy && (
-                          <div className="absolute top-3 right-3 flex items-center gap-1">
-                            <span className="relative flex h-2 w-2">
-                              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75" />
-                              <span className="relative inline-flex rounded-full h-2 w-2 bg-amber-500" />
-                            </span>
-                            <span className="text-[9px] font-semibold text-amber-500">Busy</span>
-                          </div>
-                        )}
-                        <div className="flex items-start gap-3">
-                          <div
-                            className="h-9 w-9 rounded-xl flex items-center justify-center shrink-0"
-                            style={{ background: `${a.color}15` }}
-                          >
-                            <Icon className="h-4 w-4" style={{ color: a.color }} strokeWidth={1.6} />
-                          </div>
-                          <div className="min-w-0">
-                            <div className="flex items-center gap-2 flex-wrap">
-                              <span className="text-[12px] font-semibold">{a.name}</span>
-                              <span className="text-[9px] text-muted-foreground bg-muted px-1.5 py-0.5 rounded-md">
-                                {a.role}
-                              </span>
-                            </div>
-                            <p className="text-[10px] text-muted-foreground mt-1 leading-relaxed">{a.desc}</p>
-                            <p className="text-[10px] font-semibold mt-1.5 text-foreground/70">${price}/mo</p>
-                            {isBusy && (
-                              <p className="text-[10px] text-amber-500/80 mt-1 flex items-center gap-1">
-                                <AlertCircle className="h-3 w-3" strokeWidth={1.8} /> Working on {a.busyOn}
-                              </p>
-                            )}
-                          </div>
-                        </div>
-                      </button>
-                      {isBusy && (
-                        <button
-                          onClick={() => spawnNewAgent(a)}
-                          className="absolute -bottom-1 left-1/2 -translate-x-1/2 flex items-center gap-1 px-2.5 py-1 bg-card border border-border rounded-lg text-[9px] font-semibold hover:bg-muted transition-all shadow-sm active:scale-[0.97]"
-                        >
-                          <Plus className="h-2.5 w-2.5" strokeWidth={2} /> Spawn new
-                        </button>
-                      )}
-                    </div>
-                  );
-                })}
-              </div>
-
-              {/* Integrate your own */}
-              <div className="rounded-xl border border-dashed border-border p-4 space-y-3">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2.5">
-                    <Upload className="h-3.5 w-3.5 text-muted-foreground" strokeWidth={1.6} />
-                    <div>
-                      <p className="text-[11px] font-medium">Integrate your own agent</p>
-                      <p className="text-[9px] text-muted-foreground">Connect via API or upload config</p>
-                    </div>
-                  </div>
-                  <button
-                    onClick={() => setShowIntegrate((prev) => !prev)}
-                    className="flex items-center gap-1 px-2.5 py-1.5 rounded-lg border border-border text-[10px] font-semibold hover:bg-muted/60 transition-all active:scale-[0.97]"
-                  >
-                    <Link2 className="h-3 w-3" strokeWidth={2} /> {showIntegrate ? "Hide" : "Connect"}
-                  </button>
-                </div>
-                <AnimatePresence>
-                  {showIntegrate && (
-                    <motion.div
-                      initial={{ opacity: 0, height: 0 }}
-                      animate={{ opacity: 1, height: "auto" }}
-                      exit={{ opacity: 0, height: 0 }}
-                      className="overflow-hidden"
-                    >
-                      <ApiDocsPaywall />
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
-
-              {/* Summary + continue */}
-              <div className="flex items-center justify-between pt-2">
-                <p className="text-[11px] text-muted-foreground">
-                  {selectedAgents.length} agent{selectedAgents.length > 1 ? "s" : ""} ·{" "}
-                  <span className="font-semibold text-foreground">${calcPrice()}/mo</span>
-                </p>
-                <button
-                  onClick={() => advanceToStep(2)}
-                  className="flex items-center gap-2 px-5 py-2.5 bg-foreground text-background rounded-xl text-[12px] font-semibold hover:opacity-90 transition-all active:scale-[0.97]"
-                >
-                  Continue <ChevronDown className="h-3.5 w-3.5" strokeWidth={2} />
-                </button>
-              </div>
-            </>
+            <SignalsCard
+              onSelect={(s) => {
+                setSelectedSignals(s);
+                advanceToStep(2);
+              }}
+            />
           ) : (
             <div className="flex items-center gap-2 text-[11px] text-muted-foreground">
-              <div className="flex -space-x-1.5">
-                {selectedAgentObjects.slice(0, 4).map((a) => (
-                  <div
-                    key={a.id}
-                    className="h-6 w-6 rounded-md flex items-center justify-center border border-background"
-                    style={{ background: `${a.color}20` }}
-                  >
-                    <a.icon className="h-3 w-3" style={{ color: a.color }} strokeWidth={1.6} />
-                  </div>
-                ))}
-              </div>
-              <span>
-                {selectedAgents.length} agents · ${calcPrice()}/mo
-              </span>
+              <Radio className="h-3.5 w-3.5" strokeWidth={1.4} />
+              <span className="truncate">{selectedSignals}</span>
               {wizardStep < 7 && (
-                <button onClick={() => setWizardStep(1)} className="text-primary hover:underline ml-1 text-[10px]">
+                <button
+                  onClick={() => setWizardStep(1)}
+                  className="text-primary hover:underline ml-1 text-[10px] shrink-0"
+                >
                   Edit
                 </button>
               )}
@@ -441,7 +317,7 @@ const CompanyCreate = () => {
           )}
         </motion.div>
 
-        {/* ─── Step 2: Name your agent ─── */}
+        {/* ─── Step 2: Choose an idea ─── */}
         {wizardStep >= 2 && (
           <motion.div
             initial={{ opacity: 0, y: 12 }}
@@ -449,95 +325,13 @@ const CompanyCreate = () => {
             transition={{ duration: 0.4, ease }}
             className="rounded-2xl border border-border bg-card p-5 space-y-3"
           >
-            <StepHeader number={2} title="Name your CEO agent" done={wizardStep > 2} active={wizardStep === 2} />
+            <StepHeader number={2} title="Choose an idea to build" done={wizardStep > 2} active={wizardStep === 2} />
 
             {wizardStep === 2 ? (
-              <>
-                <p className="text-[11px] text-muted-foreground">Choose a custom name for your core coding agent</p>
-                <input
-                  value={agentName}
-                  onChange={(e) => setAgentName(e.target.value)}
-                  placeholder="e.g. Nova, BuildBot, Archon..."
-                  className="w-full px-3.5 py-2.5 bg-background border border-border rounded-xl text-[13px] font-mono placeholder:text-muted-foreground/40 focus:outline-none focus:ring-1 focus:ring-ring/15 transition-all"
-                />
-                <div className="flex justify-end pt-1">
-                  <button
-                    onClick={() => {
-                      if (!agentName.trim()) {
-                        toast.error("Enter a name");
-                        return;
-                      }
-                      advanceToStep(3);
-                    }}
-                    className="flex items-center gap-2 px-5 py-2.5 bg-foreground text-background rounded-xl text-[12px] font-semibold hover:opacity-90 transition-all active:scale-[0.97]"
-                  >
-                    Continue <ChevronDown className="h-3.5 w-3.5" strokeWidth={2} />
-                  </button>
-                </div>
-              </>
-            ) : (
-              <div className="flex items-center gap-2 text-[11px] text-muted-foreground">
-                <Bot className="h-3.5 w-3.5" strokeWidth={1.4} />
-                <span>{agentName}</span>
-                {wizardStep < 7 && (
-                  <button onClick={() => setWizardStep(2)} className="text-primary hover:underline ml-1 text-[10px]">
-                    Edit
-                  </button>
-                )}
-              </div>
-            )}
-          </motion.div>
-        )}
-
-        {/* ─── Step 3: Select signals ─── */}
-        {wizardStep >= 3 && (
-          <motion.div
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4, ease }}
-            className="rounded-2xl border border-border bg-card p-5 space-y-3"
-          >
-            <StepHeader number={3} title="Pick a market signal" done={wizardStep > 3} active={wizardStep === 3} />
-
-            {wizardStep === 3 ? (
-              <SignalsCard
-                onSelect={(s) => {
-                  setSelectedSignals(s);
-                  advanceToStep(4);
-                }}
-              />
-            ) : (
-              <div className="flex items-center gap-2 text-[11px] text-muted-foreground">
-                <Radio className="h-3.5 w-3.5" strokeWidth={1.4} />
-                <span className="truncate">{selectedSignals}</span>
-                {wizardStep < 7 && (
-                  <button
-                    onClick={() => setWizardStep(3)}
-                    className="text-primary hover:underline ml-1 text-[10px] shrink-0"
-                  >
-                    Edit
-                  </button>
-                )}
-              </div>
-            )}
-          </motion.div>
-        )}
-
-        {/* ─── Step 4: Select idea ─── */}
-        {wizardStep >= 4 && (
-          <motion.div
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4, ease }}
-            className="rounded-2xl border border-border bg-card p-5 space-y-3"
-          >
-            <StepHeader number={4} title="Choose an idea to build" done={wizardStep > 4} active={wizardStep === 4} />
-
-            {wizardStep === 4 ? (
               <IdeasCard
                 onSelect={(idea) => {
                   setSelectedIdea(idea);
-                  advanceToStep(5);
+                  advanceToStep(3);
                 }}
               />
             ) : (
@@ -546,7 +340,7 @@ const CompanyCreate = () => {
                 <span className="truncate">{selectedIdea}</span>
                 {wizardStep < 7 && (
                   <button
-                    onClick={() => setWizardStep(4)}
+                    onClick={() => setWizardStep(2)}
                     className="text-primary hover:underline ml-1 text-[10px] shrink-0"
                   >
                     Edit
@@ -557,17 +351,17 @@ const CompanyCreate = () => {
           </motion.div>
         )}
 
-        {/* ─── Step 5: Monthly Budget ─── */}
-        {wizardStep >= 5 && (
+        {/* ─── Step 3: Monthly Budget ─── */}
+        {wizardStep >= 3 && (
           <motion.div
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4, ease }}
             className="rounded-2xl border border-border bg-card p-5 space-y-3"
           >
-            <StepHeader number={5} title="Set monthly budget" done={wizardStep > 5} active={wizardStep === 5} />
+            <StepHeader number={3} title="Set monthly budget" done={wizardStep > 3} active={wizardStep === 3} />
 
-            {wizardStep === 5 ? (
+            {wizardStep === 3 ? (
               <>
                 <div className="grid grid-cols-2 gap-2">
                   {budgetTiers.map(opt => {
@@ -587,7 +381,7 @@ const CompanyCreate = () => {
                 <p className="text-[10px] text-muted-foreground/60 text-center">You can always change your budget later after deployment</p>
                 <div className="flex justify-end pt-1">
                   <button
-                    onClick={() => { if (selectedBudget) advanceToStep(6); }}
+                    onClick={() => { if (selectedBudget) advanceToStep(4); }}
                     disabled={!selectedBudget}
                     className="flex items-center gap-2 px-5 py-2.5 bg-foreground text-background rounded-xl text-[12px] font-semibold hover:opacity-90 transition-all active:scale-[0.97] disabled:opacity-30 disabled:cursor-not-allowed"
                   >
@@ -599,6 +393,228 @@ const CompanyCreate = () => {
               <div className="flex items-center gap-2 text-[11px] text-muted-foreground">
                 <DollarSign className="h-3.5 w-3.5" strokeWidth={1.4} />
                 <span>{budgetTiers.find(b => b.value === selectedBudget)?.label || selectedBudget}</span>
+                {wizardStep < 7 && (
+                  <button
+                    onClick={() => setWizardStep(3)}
+                    className="text-primary hover:underline ml-1 text-[10px] shrink-0"
+                  >
+                    Edit
+                  </button>
+                )}
+              </div>
+            )}
+          </motion.div>
+        )}
+
+        {/* ─── Step 4: Select Agent Template ─── */}
+        {wizardStep >= 4 && (
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, ease }}
+            className="rounded-2xl border border-border bg-card p-5 space-y-3"
+          >
+            <StepHeader number={4} title="Select agent template" done={wizardStep > 4} active={wizardStep === 4} />
+
+            {wizardStep === 4 ? (
+              <>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  {createAgents.map((a) => {
+                    const Icon = a.icon;
+                    const isBusy = a.status === "busy";
+                    const isCore = a.id === coreAgentId;
+                    const selected = selectedAgents.some((id) => id.startsWith(a.id));
+                    const price = isCore ? CEO_PRICE : EXTRA_PRICE;
+                    return (
+                      <div key={a.id} className="relative pb-2">
+                        <button
+                          onClick={() => toggleAgent(a.id)}
+                          className={`relative w-full h-full text-left p-4 rounded-xl border transition-all duration-200 ${
+                            isCore
+                              ? "border-primary/40 bg-primary/[0.04] cursor-default"
+                              : isBusy
+                                ? "border-border/60 bg-muted/30 opacity-70"
+                                : selected
+                                  ? "border-primary/40 bg-primary/[0.04]"
+                                  : "border-border bg-background hover:border-border/80"
+                          }`}
+                        >
+                          {isCore && (
+                            <div className="absolute top-3 right-3 flex items-center gap-1.5">
+                              <span className="text-[9px] font-semibold text-primary bg-primary/10 px-1.5 py-0.5 rounded-md">
+                                Required
+                              </span>
+                              <Check className="h-3.5 w-3.5 text-primary" strokeWidth={2} />
+                            </div>
+                          )}
+                          {!isCore && selected && !isBusy && (
+                            <Check className="absolute top-3 right-3 h-3.5 w-3.5 text-primary" strokeWidth={2} />
+                          )}
+                          {isBusy && (
+                            <div className="absolute top-3 right-3 flex items-center gap-1">
+                              <span className="relative flex h-2 w-2">
+                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75" />
+                                <span className="relative inline-flex rounded-full h-2 w-2 bg-amber-500" />
+                              </span>
+                              <span className="text-[9px] font-semibold text-amber-500">Busy</span>
+                            </div>
+                          )}
+                          <div className="flex items-start gap-3">
+                            <div
+                              className="h-9 w-9 rounded-xl flex items-center justify-center shrink-0"
+                              style={{ background: `${a.color}15` }}
+                            >
+                              <Icon className="h-4 w-4" style={{ color: a.color }} strokeWidth={1.6} />
+                            </div>
+                            <div className="min-w-0">
+                              <div className="flex items-center gap-2 flex-wrap">
+                                <span className="text-[12px] font-semibold">{a.name}</span>
+                                <span className="text-[9px] text-muted-foreground bg-muted px-1.5 py-0.5 rounded-md">
+                                  {a.role}
+                                </span>
+                              </div>
+                              <p className="text-[10px] text-muted-foreground mt-1 leading-relaxed">{a.desc}</p>
+                              <p className="text-[10px] font-semibold mt-1.5 text-foreground/70">${price}/mo</p>
+                              {isBusy && (
+                                <p className="text-[10px] text-amber-500/80 mt-1 flex items-center gap-1">
+                                  <AlertCircle className="h-3 w-3" strokeWidth={1.8} /> Working on {a.busyOn}
+                                </p>
+                              )}
+                            </div>
+                          </div>
+                        </button>
+                        {isBusy && (
+                          <button
+                            onClick={() => spawnNewAgent(a)}
+                            className="absolute -bottom-1 left-1/2 -translate-x-1/2 flex items-center gap-1 px-2.5 py-1 bg-card border border-border rounded-lg text-[9px] font-semibold hover:bg-muted transition-all shadow-sm active:scale-[0.97]"
+                          >
+                            <Plus className="h-2.5 w-2.5" strokeWidth={2} /> Spawn new
+                          </button>
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
+
+                {/* Integrate your own */}
+                <div className="rounded-xl border border-dashed border-border p-4 space-y-3">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2.5">
+                      <Upload className="h-3.5 w-3.5 text-muted-foreground" strokeWidth={1.6} />
+                      <div>
+                        <p className="text-[11px] font-medium">Integrate your own agent</p>
+                        <p className="text-[9px] text-muted-foreground">Connect via API or upload config</p>
+                      </div>
+                    </div>
+                    <button
+                      onClick={() => setShowIntegrate((prev) => !prev)}
+                      className="flex items-center gap-1 px-2.5 py-1.5 rounded-lg border border-border text-[10px] font-semibold hover:bg-muted/60 transition-all active:scale-[0.97]"
+                    >
+                      <Link2 className="h-3 w-3" strokeWidth={2} /> {showIntegrate ? "Hide" : "Connect"}
+                    </button>
+                  </div>
+                  <AnimatePresence>
+                    {showIntegrate && (
+                      <motion.div
+                        initial={{ opacity: 0, height: 0 }}
+                        animate={{ opacity: 1, height: "auto" }}
+                        exit={{ opacity: 0, height: 0 }}
+                        className="overflow-hidden"
+                      >
+                        <ApiDocsPaywall />
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+
+                {/* Summary + continue */}
+                <div className="flex items-center justify-between pt-2">
+                  <p className="text-[11px] text-muted-foreground">
+                    {selectedAgents.length} agent{selectedAgents.length > 1 ? "s" : ""} ·{" "}
+                    <span className="font-semibold text-foreground">${calcPrice()}/mo</span>
+                  </p>
+                  <button
+                    onClick={() => advanceToStep(5)}
+                    className="flex items-center gap-2 px-5 py-2.5 bg-foreground text-background rounded-xl text-[12px] font-semibold hover:opacity-90 transition-all active:scale-[0.97]"
+                  >
+                    Continue <ChevronDown className="h-3.5 w-3.5" strokeWidth={2} />
+                  </button>
+                </div>
+              </>
+            ) : (
+              <div className="flex items-center gap-2 text-[11px] text-muted-foreground">
+                <div className="flex -space-x-1.5">
+                  {selectedAgentObjects.slice(0, 4).map((a) => (
+                    <div
+                      key={a.id}
+                      className="h-6 w-6 rounded-md flex items-center justify-center border border-background"
+                      style={{ background: `${a.color}20` }}
+                    >
+                      <a.icon className="h-3 w-3" style={{ color: a.color }} strokeWidth={1.6} />
+                    </div>
+                  ))}
+                </div>
+                <span>
+                  {selectedAgents.length} agents · ${calcPrice()}/mo
+                </span>
+                {wizardStep < 7 && (
+                  <button onClick={() => setWizardStep(4)} className="text-primary hover:underline ml-1 text-[10px]">
+                    Edit
+                  </button>
+                )}
+              </div>
+            )}
+          </motion.div>
+        )}
+
+        {/* ─── Step 5: Choose subdomain ─── */}
+        {wizardStep >= 5 && (
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, ease }}
+            className="rounded-2xl border border-border bg-card p-5 space-y-3"
+          >
+            <StepHeader number={5} title="Choose your subdomain" done={wizardStep > 5} active={wizardStep === 5} />
+
+            {wizardStep === 5 ? (
+              <>
+                <div className="flex items-center gap-0 rounded-xl border border-border bg-background overflow-hidden">
+                  <div className="flex items-center gap-1.5 pl-3 pr-1 shrink-0">
+                    <Globe className="h-3.5 w-3.5 text-muted-foreground" strokeWidth={1.6} />
+                  </div>
+                  <input
+                    type="text"
+                    value={chosenSubdomain}
+                    onChange={(e) => setChosenSubdomain(e.target.value)}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter" && cleanSubdomain.length >= 2) advanceToStep(6);
+                    }}
+                    placeholder="yourcompany"
+                    autoFocus
+                    className="flex-1 bg-transparent px-2 py-2.5 text-[13px] font-mono placeholder:text-muted-foreground/40 focus:outline-none"
+                  />
+                  <span className="text-[12px] font-mono text-muted-foreground pr-3 shrink-0">.msx.dev</span>
+                </div>
+                {cleanSubdomain && (
+                  <p className="text-[10px] text-muted-foreground">
+                    Your company will be available at <span className="font-mono text-foreground font-semibold">{cleanSubdomain}.msx.dev</span>
+                  </p>
+                )}
+                <div className="flex justify-end pt-1">
+                  <button
+                    onClick={() => { if (cleanSubdomain.length >= 2) advanceToStep(6); }}
+                    disabled={cleanSubdomain.length < 2}
+                    className="flex items-center gap-2 px-5 py-2.5 bg-foreground text-background rounded-xl text-[12px] font-semibold hover:opacity-90 transition-all active:scale-[0.97] disabled:opacity-30 disabled:cursor-not-allowed"
+                  >
+                    Continue <ChevronDown className="h-3.5 w-3.5" strokeWidth={2} />
+                  </button>
+                </div>
+              </>
+            ) : (
+              <div className="flex items-center gap-2 text-[11px] text-muted-foreground">
+                <Globe className="h-3.5 w-3.5" strokeWidth={1.4} />
+                <span className="font-mono">{cleanSubdomain}.msx.dev</span>
                 {wizardStep < 7 && (
                   <button
                     onClick={() => setWizardStep(5)}
@@ -624,14 +640,14 @@ const CompanyCreate = () => {
 
             <div className="space-y-2">
               {[
+                { label: "Signal", value: selectedSignals },
+                { label: "Idea", value: selectedIdea },
+                { label: "Budget", value: budgetTiers.find(b => b.value === selectedBudget)?.label || selectedBudget },
                 {
                   label: "Agents",
                   value: `${selectedAgents.length} agents (${selectedAgentObjects.map((a) => a.name).join(", ")})`,
                 },
-                { label: "CEO Name", value: agentName },
-                { label: "Signal", value: selectedSignals },
-                { label: "Idea", value: selectedIdea },
-                { label: "Budget", value: budgetTiers.find(b => b.value === selectedBudget)?.label || selectedBudget },
+                { label: "Subdomain", value: `${cleanSubdomain}.msx.dev` },
                 { label: "Monthly cost", value: `$${calcPrice()}/mo` },
               ].map((row) => (
                 <div key={row.label} className="flex items-start gap-3 text-[11px]">
@@ -772,9 +788,7 @@ const CompanyCreate = () => {
               <div>
                 <p className="text-[15px] font-semibold">Company pre-deployed successfully</p>
                 <p className="text-[12px] text-muted-foreground mt-0.5">
-                  {selectedAgents.length} agent{selectedAgents.length > 1 ? "s" : ""}{" "}
-                  {selectedAgents.length > 1 ? "are" : "is"} working on one business out of 847 market signals and 750
-                  validated ideas
+                  Your company is live at <span className="font-mono font-semibold text-foreground">{cleanSubdomain}.msx.dev</span> — {selectedAgents.length} agent{selectedAgents.length > 1 ? "s" : ""} ready to activate
                 </p>
               </div>
             </div>
@@ -800,7 +814,7 @@ const CompanyCreate = () => {
             <div className="rounded-2xl border border-border bg-card p-6 space-y-5">
               <div className="flex items-center gap-3">
                 <div className="h-12 w-12 rounded-2xl bg-gradient-to-br from-primary/20 to-primary/5 flex items-center justify-center text-[18px] font-bold text-primary">
-                  N
+                  {generatedCompany.name.charAt(0)}
                 </div>
                 <div>
                   <h2 className="text-[18px] font-mondwest font-semibold">{generatedCompany.name}</h2>

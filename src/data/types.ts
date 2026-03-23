@@ -32,6 +32,11 @@ export interface Signal {
   source: string;
   score: number;
   pain: string;
+  category: string;
+  views: string;
+  trending: boolean;
+  tags: string[];
+  sentiment: number;
 }
 
 export interface Idea {
@@ -40,6 +45,10 @@ export interface Idea {
   tam: string;
   competitors: number;
   confidence: number;
+  category: string;
+  timeToMvp: string;
+  marketGrowth: string;
+  tags: string[];
 }
 
 // ── Deploy Types ──
