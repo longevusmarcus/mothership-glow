@@ -359,7 +359,7 @@ const CompanyCreate = () => {
             {wizardStep === 3 ? (
               <>
                 <div className="grid grid-cols-2 gap-2">
-                  {budgetTiers.map(opt => {
+                  {slotTiers.map(opt => {
                     const active = selectedBudget === opt.value;
                     return (
                       <button key={opt.value} onClick={() => setSelectedBudget(opt.value)}
@@ -387,7 +387,7 @@ const CompanyCreate = () => {
             ) : (
               <div className="flex items-center gap-2 text-[11px] text-muted-foreground">
                 <DollarSign className="h-3.5 w-3.5" strokeWidth={1.4} />
-                <span>{budgetTiers.find(b => b.value === selectedBudget)?.label || selectedBudget}</span>
+                <span>{slotTiers.find(b => b.value === selectedBudget)?.label || selectedBudget}</span>
                 {wizardStep < 7 && (
                   <button
                     onClick={() => setWizardStep(3)}
@@ -634,7 +634,7 @@ const CompanyCreate = () => {
               {[
                 { label: "Signal", value: selectedSignals },
                 { label: "Idea", value: selectedIdea },
-                { label: "Budget", value: budgetTiers.find(b => b.value === selectedBudget)?.label || selectedBudget },
+                { label: "Budget", value: slotTiers.find(b => b.value === selectedBudget)?.label || selectedBudget },
                 {
                   label: "Agents",
                   value: `${selectedAgents.length} agents (${selectedAgentObjects.map((a) => a.name).join(", ")})`,
