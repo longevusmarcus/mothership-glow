@@ -23,7 +23,7 @@ import { useState, useEffect, useRef } from "react";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { toast } from "sonner";
 import { motion, AnimatePresence } from "framer-motion";
-import { createAgents, companyDeploySteps, ease, CEO_PRICE, EXTRA_AGENT_PRICE } from "@/data";
+import { createAgents, companyDeploySteps, ease, CEO_PRICE, EXTRA_AGENT_PRICE, slotTiers } from "@/data";
 import type { CreateAgent } from "@/data";
 import { ProPlanCard, SignalsCard, IdeasCard, ApiDocsPaywall } from "@/components/chat";
 
@@ -141,12 +141,7 @@ function ClaimCompanyPaywall({ onDeployAnother, agentCount }: { onDeployAnother:
   );
 }
 
-const budgetTiers = [
-  { label: "$58/mo", value: "58", desc: "Orbital — 1 agent" },
-  { label: "$88/mo", value: "88", desc: "Orbital +1 — 2 agents" },
-  { label: "$118/mo", value: "118", desc: "Orbital +2 — 3 agents" },
-  { label: "$148/mo", value: "148", desc: "Interstellar — 4 agents" },
-];
+// Budget tiers imported from shared slotTiers
 
 const CompanyCreate = () => {
   const { t } = useLanguage();
