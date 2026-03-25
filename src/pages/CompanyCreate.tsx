@@ -16,6 +16,7 @@ import {
   CreditCard,
   ChevronDown,
   DollarSign,
+  Target,
 } from "lucide-react";
 import { TextShimmer } from "@/components/ui/text-shimmer";
 import { Link, useNavigate } from "react-router-dom";
@@ -141,17 +142,24 @@ function ClaimCompanyPaywall({ onDeployAnother, agentCount }: { onDeployAnother:
   );
 }
 
-// Budget tiers imported from shared slotTiers
+const outcomeOptions = [
+  { label: "Launch MVP", emoji: "🚀" },
+  { label: "First paying customers", emoji: "💰" },
+  { label: "Product-market fit", emoji: "🎯" },
+  { label: "$10K MRR", emoji: "📈" },
+];
 
 const CompanyCreate = () => {
   const { t } = useLanguage();
   const navigate = useNavigate();
 
-  // Wizard steps: 1=signals, 2=ideas, 3=budget, 4=agent template, 5=subdomain, 6=review, 7=deploying, 8=done
+  // Wizard steps (matches chat flow):
+  // 1=signals, 2=ideas, 3=budget+outcomes, 4=agent picker, 5=deploying, 6=subdomain, 7=done
   const [wizardStep, setWizardStep] = useState(1);
   const [selectedSignals, setSelectedSignals] = useState<string>("");
   const [selectedIdea, setSelectedIdea] = useState<string>("");
   const [selectedBudget, setSelectedBudget] = useState<string | null>(null);
+  const [selectedOutcomes, setSelectedOutcomes] = useState<string[]>([]);
   const [selectedAgents, setSelectedAgents] = useState<string[]>([createAgents[0].id]);
   const [chosenSubdomain, setChosenSubdomain] = useState("");
   const [showIntegrate, setShowIntegrate] = useState(false);
@@ -179,32 +187,40 @@ const CompanyCreate = () => {
       toast.error(`${agent.name} is busy on ${agent.busyOn}. Spawn a new instance instead.`);
       return;
     }
-    setSelectedAgents((prev) => (prev.includes(id) ? prev.filter((a) => a !== id) : [...prev, id]));
+    setSelectedAgents((prev) =>
+      prev.some((sid) => sid.startsWith(id)) ? prev.filter((sid) => !sid.startsWith(id)) : [...prev, id],
+    );
   };
 
-  const spawnNewAgent = (a: CreateAgent) => {
-    toast.success(`New ${a.name} instance spawned and selected!`);
-    setSelectedAgents((prev) => [...prev, `${a.id}-new-${Date.now()}`]);
+  const spawnNewAgent = (agent: CreateAgent) => {
+    const spawnId = `${agent.id}-spawn-${Date.now()}`;
+    setSelectedAgents((prev) => [...prev, spawnId]);
+    toast.success(`New instance of ${agent.name} added`);
   };
 
   const calcPrice = () => {
-    const hasCeo = selectedAgents.some((id) => id.startsWith(coreAgentId));
-    const extras = hasCeo ? selectedAgents.length - 1 : selectedAgents.length;
-    return (hasCeo ? CEO_PRICE : 0) + extras * EXTRA_PRICE;
+    const ceoSelected = selectedAgents.some((id) => id.startsWith(coreAgentId));
+    const extras = ceoSelected ? selectedAgents.length - 1 : selectedAgents.length;
+    return (ceoSelected ? CEO_PRICE : 0) + extras * EXTRA_PRICE;
   };
 
+  const toggleOutcome = (label: string) => {
+    setSelectedOutcomes(prev => prev.includes(label) ? prev.filter(o => o !== label) : [...prev, label]);
+  };
+
+  // Deploy starts at step 5 now (after agent picker)
   const startDeploy = () => {
-    setWizardStep(7);
-    setCurrentDeployStep(0);
+    setWizardStep(5);
     setCompletedSteps([]);
+    setCurrentDeployStep(0);
     runStep(0);
   };
 
   const runStep = (idx: number) => {
     if (idx >= companyDeploySteps.length) {
-      setGeneratedCompany({ name: chosenSubdomain ? chosenSubdomain.charAt(0).toUpperCase() + chosenSubdomain.slice(1) : "NovaPay", type: "SaaS B2B", market: "EU / Global", mrr: "$2,400" });
-      setWizardStep(8);
-      toast.success("Company pre-deployed successfully!", { duration: 3000 });
+      // Deploy done → go to subdomain step
+      setWizardStep(6);
+      scrollToBottom();
       return;
     }
     setCurrentDeployStep(idx);
@@ -223,9 +239,9 @@ const CompanyCreate = () => {
 
   const selectedAgentObjects = createAgents.filter((a) => selectedAgents.some((id) => id.startsWith(a.id)));
   const progress =
-    wizardStep === 8
+    wizardStep === 7
       ? 100
-      : wizardStep === 7
+      : wizardStep === 5
         ? Math.round((completedSteps.length / companyDeploySteps.length) * 100)
         : 0;
 
@@ -239,6 +255,7 @@ const CompanyCreate = () => {
     setSelectedSignals("");
     setSelectedIdea("");
     setSelectedBudget(null);
+    setSelectedOutcomes([]);
     setSelectedAgents([coreAgentId]);
     setChosenSubdomain("");
     setGeneratedCompany(null);
@@ -266,10 +283,10 @@ const CompanyCreate = () => {
         </p>
       </div>
 
-      {/* Progress bar */}
-      {wizardStep <= 6 && (
+      {/* Progress bar — 4 wizard steps before deploy */}
+      {wizardStep <= 4 && (
         <div className="flex items-center gap-1.5">
-          {[1, 2, 3, 4, 5, 6].map((s) => (
+          {[1, 2, 3, 4].map((s) => (
             <div
               key={s}
               className={`h-1 flex-1 rounded-full transition-colors duration-300 ${
@@ -300,7 +317,7 @@ const CompanyCreate = () => {
             <div className="flex items-center gap-2 text-[11px] text-muted-foreground">
               <Radio className="h-3.5 w-3.5" strokeWidth={1.4} />
               <span className="truncate">{selectedSignals}</span>
-              {wizardStep < 7 && (
+              {wizardStep < 5 && (
                 <button
                   onClick={() => setWizardStep(1)}
                   className="text-primary hover:underline ml-1 text-[10px] shrink-0"
@@ -333,7 +350,7 @@ const CompanyCreate = () => {
               <div className="flex items-center gap-2 text-[11px] text-muted-foreground">
                 <Lightbulb className="h-3.5 w-3.5" strokeWidth={1.4} />
                 <span className="truncate">{selectedIdea}</span>
-                {wizardStep < 7 && (
+                {wizardStep < 5 && (
                   <button
                     onClick={() => setWizardStep(2)}
                     className="text-primary hover:underline ml-1 text-[10px] shrink-0"
@@ -346,7 +363,7 @@ const CompanyCreate = () => {
           </motion.div>
         )}
 
-        {/* ─── Step 3: Monthly Budget ─── */}
+        {/* ─── Step 3: Budget & Outcomes (same as chat BudgetOutcomesCard) ─── */}
         {wizardStep >= 3 && (
           <motion.div
             initial={{ opacity: 0, y: 12 }}
@@ -354,41 +371,66 @@ const CompanyCreate = () => {
             transition={{ duration: 0.4, ease }}
             className="rounded-2xl border border-border bg-card p-5 space-y-3"
           >
-            <StepHeader number={3} title="Set monthly budget" done={wizardStep > 3} active={wizardStep === 3} />
+            <StepHeader number={3} title="Set budget & outcomes" done={wizardStep > 3} active={wizardStep === 3} />
 
             {wizardStep === 3 ? (
-              <>
-                <div className="grid grid-cols-2 gap-2">
-                  {slotTiers.map(opt => {
-                    const active = selectedBudget === opt.value;
-                    return (
-                      <button key={opt.value} onClick={() => setSelectedBudget(opt.value)}
-                        className={`rounded-xl border p-3 text-left transition-all active:scale-[0.97] ${active ? "border-primary bg-primary/[0.05]" : "border-border bg-background hover:bg-muted/30"}`}>
-                        <div className="flex items-center justify-between">
-                          <span className="text-[12px] font-bold">{opt.label}</span>
-                          {active && <Check className="h-3 w-3 text-primary" strokeWidth={2.2} />}
-                        </div>
-                        <p className="text-[10px] text-muted-foreground mt-0.5">{opt.desc}</p>
-                      </button>
-                    );
-                  })}
+              <div className="space-y-4">
+                {/* Budget tiers */}
+                <div className="space-y-2">
+                  <p className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider">Monthly budget</p>
+                  <div className="grid grid-cols-2 gap-2">
+                    {slotTiers.map(opt => {
+                      const active = selectedBudget === opt.value;
+                      return (
+                        <button key={opt.value} onClick={() => setSelectedBudget(opt.value)}
+                          className={`rounded-xl border p-3 text-left transition-all active:scale-[0.97] ${active ? "border-primary bg-primary/[0.05]" : "border-border bg-background hover:bg-muted/30"}`}>
+                          <div className="flex items-center justify-between">
+                            <span className="text-[12px] font-bold">{opt.label}</span>
+                            {active && <Check className="h-3 w-3 text-primary" strokeWidth={2.2} />}
+                          </div>
+                          <p className="text-[10px] text-muted-foreground mt-0.5">{opt.desc}</p>
+                        </button>
+                      );
+                    })}
+                  </div>
                 </div>
+
+                {/* Outcomes */}
+                <div className="space-y-2">
+                  <p className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider">Desired outcomes</p>
+                  <div className="flex flex-wrap gap-2">
+                    {outcomeOptions.map(opt => {
+                      const active = selectedOutcomes.includes(opt.label);
+                      return (
+                        <button key={opt.label} onClick={() => toggleOutcome(opt.label)}
+                          className={`flex items-center gap-1.5 px-3 py-2 rounded-xl border text-[11px] font-medium transition-all active:scale-[0.97] ${active ? "border-primary bg-primary/[0.05] text-foreground" : "border-border bg-background text-muted-foreground hover:bg-muted/30"}`}>
+                          <span>{opt.emoji}</span> {opt.label}
+                          {active && <Check className="h-3 w-3 text-primary ml-1" strokeWidth={2.2} />}
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+
                 <p className="text-[10px] text-muted-foreground/60 text-center">You can always change your budget later after deployment</p>
                 <div className="flex justify-end pt-1">
                   <button
-                    onClick={() => { if (selectedBudget) advanceToStep(4); }}
-                    disabled={!selectedBudget}
+                    onClick={() => { if (selectedBudget && selectedOutcomes.length > 0) advanceToStep(4); }}
+                    disabled={!selectedBudget || selectedOutcomes.length === 0}
                     className="flex items-center gap-2 px-5 py-2.5 bg-foreground text-background rounded-xl text-[12px] font-semibold hover:opacity-90 transition-all active:scale-[0.97] disabled:opacity-30 disabled:cursor-not-allowed"
                   >
-                    Continue <ChevronDown className="h-3.5 w-3.5" strokeWidth={2} />
+                    Pick your agents <ChevronDown className="h-3.5 w-3.5" strokeWidth={2} />
                   </button>
                 </div>
-              </>
+              </div>
             ) : (
               <div className="flex items-center gap-2 text-[11px] text-muted-foreground">
                 <DollarSign className="h-3.5 w-3.5" strokeWidth={1.4} />
                 <span>{slotTiers.find(b => b.value === selectedBudget)?.label || selectedBudget}</span>
-                {wizardStep < 7 && (
+                <span className="text-muted-foreground/40">·</span>
+                <Target className="h-3 w-3" strokeWidth={1.4} />
+                <span className="truncate">{selectedOutcomes.join(", ")}</span>
+                {wizardStep < 5 && (
                   <button
                     onClick={() => setWizardStep(3)}
                     className="text-primary hover:underline ml-1 text-[10px] shrink-0"
@@ -401,7 +443,7 @@ const CompanyCreate = () => {
           </motion.div>
         )}
 
-        {/* ─── Step 4: Select Agent Template ─── */}
+        {/* ─── Step 4: Select Agent Template (pick_agent in chat) ─── */}
         {wizardStep >= 4 && (
           <motion.div
             initial={{ opacity: 0, y: 12 }}
@@ -409,7 +451,7 @@ const CompanyCreate = () => {
             transition={{ duration: 0.4, ease }}
             className="rounded-2xl border border-border bg-card p-5 space-y-3"
           >
-            <StepHeader number={4} title="Select agent template" done={wizardStep > 4} active={wizardStep === 4} />
+            <StepHeader number={4} title="Pick your agents" done={wizardStep > 4} active={wizardStep === 4} />
 
             {wizardStep === 4 ? (
               <>
@@ -505,31 +547,19 @@ const CompanyCreate = () => {
                       Soon
                     </span>
                   </div>
-                  <AnimatePresence>
-                    {showIntegrate && (
-                      <motion.div
-                        initial={{ opacity: 0, height: 0 }}
-                        animate={{ opacity: 1, height: "auto" }}
-                        exit={{ opacity: 0, height: 0 }}
-                        className="overflow-hidden"
-                      >
-                        <ApiDocsPaywall />
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
                 </div>
 
-                {/* Summary + continue */}
+                {/* Summary + deploy */}
                 <div className="flex items-center justify-between pt-2">
                   <p className="text-[11px] text-muted-foreground">
                     {selectedAgents.length} agent{selectedAgents.length > 1 ? "s" : ""} ·{" "}
                     <span className="font-semibold text-foreground">${calcPrice()}/mo</span>
                   </p>
                   <button
-                    onClick={() => advanceToStep(5)}
-                    className="flex items-center gap-2 px-5 py-2.5 bg-foreground text-background rounded-xl text-[12px] font-semibold hover:opacity-90 transition-all active:scale-[0.97]"
+                    onClick={startDeploy}
+                    className="flex items-center gap-2 px-6 py-2.5 bg-foreground text-background rounded-xl text-[12px] font-semibold hover:opacity-90 transition-all active:scale-[0.97]"
                   >
-                    Continue <ChevronDown className="h-3.5 w-3.5" strokeWidth={2} />
+                    <Rocket className="h-3.5 w-3.5" strokeWidth={1.8} /> Deploy — ${calcPrice()}/mo
                   </button>
                 </div>
               </>
@@ -549,125 +579,13 @@ const CompanyCreate = () => {
                 <span>
                   {selectedAgents.length} agents · ${calcPrice()}/mo
                 </span>
-                {wizardStep < 7 && (
-                  <button onClick={() => setWizardStep(4)} className="text-primary hover:underline ml-1 text-[10px]">
-                    Edit
-                  </button>
-                )}
               </div>
             )}
           </motion.div>
         )}
 
-        {/* ─── Step 5: Choose subdomain ─── */}
-        {wizardStep >= 5 && (
-          <motion.div
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4, ease }}
-            className="rounded-2xl border border-border bg-card p-5 space-y-3"
-          >
-            <StepHeader number={5} title="Choose your subdomain" done={wizardStep > 5} active={wizardStep === 5} />
-
-            {wizardStep === 5 ? (
-              <>
-                <div className="flex items-center gap-0 rounded-xl border border-border bg-background overflow-hidden">
-                  <div className="flex items-center gap-1.5 pl-3 pr-1 shrink-0">
-                    <Globe className="h-3.5 w-3.5 text-muted-foreground" strokeWidth={1.6} />
-                  </div>
-                  <input
-                    type="text"
-                    value={chosenSubdomain}
-                    onChange={(e) => setChosenSubdomain(e.target.value)}
-                    onKeyDown={(e) => {
-                      if (e.key === "Enter" && cleanSubdomain.length >= 2) advanceToStep(6);
-                    }}
-                    placeholder="yourcompany"
-                    autoFocus
-                    className="flex-1 bg-transparent px-2 py-2.5 text-[13px] font-mono placeholder:text-muted-foreground/40 focus:outline-none"
-                  />
-                  <span className="text-[12px] font-mono text-muted-foreground pr-3 shrink-0">.msx.dev</span>
-                </div>
-                {cleanSubdomain && (
-                  <p className="text-[10px] text-muted-foreground">
-                    Your company will be available at <span className="font-mono text-foreground font-semibold">{cleanSubdomain}.msx.dev</span>
-                  </p>
-                )}
-                <div className="flex justify-end pt-1">
-                  <button
-                    onClick={() => { if (cleanSubdomain.length >= 2) advanceToStep(6); }}
-                    disabled={cleanSubdomain.length < 2}
-                    className="flex items-center gap-2 px-5 py-2.5 bg-foreground text-background rounded-xl text-[12px] font-semibold hover:opacity-90 transition-all active:scale-[0.97] disabled:opacity-30 disabled:cursor-not-allowed"
-                  >
-                    Continue <ChevronDown className="h-3.5 w-3.5" strokeWidth={2} />
-                  </button>
-                </div>
-              </>
-            ) : (
-              <div className="flex items-center gap-2 text-[11px] text-muted-foreground">
-                <Globe className="h-3.5 w-3.5" strokeWidth={1.4} />
-                <span className="font-mono">{cleanSubdomain}.msx.dev</span>
-                {wizardStep < 7 && (
-                  <button
-                    onClick={() => setWizardStep(5)}
-                    className="text-primary hover:underline ml-1 text-[10px] shrink-0"
-                  >
-                    Edit
-                  </button>
-                )}
-              </div>
-            )}
-          </motion.div>
-        )}
-
-        {/* ─── Step 6: Review & Deploy ─── */}
-        {wizardStep === 6 && (
-          <motion.div
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4, ease }}
-            className="rounded-2xl border border-primary/20 bg-primary/[0.03] p-5 space-y-4"
-          >
-            <StepHeader number={6} title="Review & deploy" done={false} active={true} />
-
-            <div className="space-y-2">
-              {[
-                { label: "Signal", value: selectedSignals },
-                { label: "Idea", value: selectedIdea },
-                { label: "Budget", value: slotTiers.find(b => b.value === selectedBudget)?.label || selectedBudget },
-                {
-                  label: "Agents",
-                  value: `${selectedAgents.length} agents (${selectedAgentObjects.map((a) => a.name).join(", ")})`,
-                },
-                { label: "Subdomain", value: `${cleanSubdomain}.msx.dev` },
-                { label: "Monthly cost", value: `$${calcPrice()}/mo` },
-              ].map((row) => (
-                <div key={row.label} className="flex items-start gap-3 text-[11px]">
-                  <span className="text-muted-foreground w-20 shrink-0 font-medium">{row.label}</span>
-                  <span className="text-foreground font-medium">{row.value}</span>
-                </div>
-              ))}
-            </div>
-
-            <div className="flex justify-end gap-3 pt-2">
-              <Link
-                to="/companies"
-                className="px-5 py-2.5 border border-border rounded-xl text-[12px] font-medium text-muted-foreground hover:text-foreground transition-all active:scale-[0.97]"
-              >
-                Cancel
-              </Link>
-              <button
-                onClick={startDeploy}
-                className="flex items-center gap-2 px-6 py-2.5 bg-foreground text-background rounded-xl text-[12px] font-semibold hover:opacity-90 transition-all active:scale-[0.97]"
-              >
-                <Rocket className="h-3.5 w-3.5" strokeWidth={1.8} /> Deploy — ${calcPrice()}/mo
-              </button>
-            </div>
-          </motion.div>
-        )}
-
-        {/* ─── Step 7: Deploying ─── */}
-        {wizardStep === 7 && (
+        {/* ─── Step 5: Deploying (same as chat DeployingCard) ─── */}
+        {wizardStep === 5 && (
           <motion.div
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
@@ -690,7 +608,7 @@ const CompanyCreate = () => {
                 <p className="text-[13px] font-semibold">
                   {selectedAgents.length} agent{selectedAgents.length > 1 ? "s" : ""} working on your company
                 </p>
-                <p className="text-[11px] text-muted-foreground">Autonomous pre-deployment in progress...</p>
+                <p className="text-[11px] text-muted-foreground">Deploying agents — activation in progress...</p>
               </div>
               <Loader2 className="h-4 w-4 text-primary animate-spin shrink-0" />
             </div>
@@ -765,8 +683,74 @@ const CompanyCreate = () => {
           </motion.div>
         )}
 
-        {/* ─── Step 8: Done ─── */}
-        {wizardStep === 8 && generatedCompany && (
+        {/* ─── Step 6: Choose subdomain (after deploy, like chat) ─── */}
+        {wizardStep === 6 && (
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, ease }}
+            className="rounded-2xl border border-border bg-card p-5 space-y-3"
+          >
+            <StepHeader number={5} title="Choose your subdomain" done={false} active={true} />
+
+            <p className="text-[11px] text-muted-foreground">Your company is ready! Choose a subdomain to go live.</p>
+
+            <div className="flex items-center gap-0 rounded-xl border border-border bg-background overflow-hidden">
+              <div className="flex items-center gap-1.5 pl-3 pr-1 shrink-0">
+                <Globe className="h-3.5 w-3.5 text-muted-foreground" strokeWidth={1.6} />
+              </div>
+              <input
+                type="text"
+                value={chosenSubdomain}
+                onChange={(e) => setChosenSubdomain(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" && cleanSubdomain.length >= 2) {
+                    setGeneratedCompany({
+                      name: cleanSubdomain.charAt(0).toUpperCase() + cleanSubdomain.slice(1),
+                      type: "SaaS B2B",
+                      market: "EU / Global",
+                      mrr: "$2,400",
+                    });
+                    setWizardStep(7);
+                    toast.success("Company deployed successfully!", { duration: 3000 });
+                  }
+                }}
+                placeholder="yourcompany"
+                autoFocus
+                className="flex-1 bg-transparent px-2 py-2.5 text-[13px] font-mono placeholder:text-muted-foreground/40 focus:outline-none"
+              />
+              <span className="text-[12px] font-mono text-muted-foreground pr-3 shrink-0">.msx.dev</span>
+            </div>
+            {cleanSubdomain && (
+              <p className="text-[10px] text-muted-foreground">
+                Your company will be live at <span className="font-mono text-foreground font-semibold">{cleanSubdomain}.msx.dev</span>
+              </p>
+            )}
+            <div className="flex justify-end pt-1">
+              <button
+                onClick={() => {
+                  if (cleanSubdomain.length >= 2) {
+                    setGeneratedCompany({
+                      name: cleanSubdomain.charAt(0).toUpperCase() + cleanSubdomain.slice(1),
+                      type: "SaaS B2B",
+                      market: "EU / Global",
+                      mrr: "$2,400",
+                    });
+                    setWizardStep(7);
+                    toast.success("Company deployed successfully!", { duration: 3000 });
+                  }
+                }}
+                disabled={cleanSubdomain.length < 2}
+                className="flex items-center gap-2 px-5 py-2.5 bg-foreground text-background rounded-xl text-[12px] font-semibold hover:opacity-90 transition-all active:scale-[0.97] disabled:opacity-30 disabled:cursor-not-allowed"
+              >
+                Go live <Rocket className="h-3.5 w-3.5" strokeWidth={1.8} />
+              </button>
+            </div>
+          </motion.div>
+        )}
+
+        {/* ─── Step 7: Done (deployed) ─── */}
+        {wizardStep === 7 && generatedCompany && (
           <motion.div
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
@@ -778,7 +762,7 @@ const CompanyCreate = () => {
                 <Check className="h-5 w-5 text-primary" strokeWidth={2.2} />
               </div>
               <div>
-                <p className="text-[15px] font-semibold">Company pre-deployed successfully</p>
+                <p className="text-[15px] font-semibold">Company deployed successfully</p>
                 <p className="text-[12px] text-muted-foreground mt-0.5">
                   Your company is live at <span className="font-mono font-semibold text-foreground">{cleanSubdomain}.msx.dev</span> — {selectedAgents.length} agent{selectedAgents.length > 1 ? "s" : ""} ready to activate
                 </p>
@@ -818,9 +802,9 @@ const CompanyCreate = () => {
 
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                 {[
-                  { label: "Status", value: "Pre-deployed", color: "text-primary" },
+                  { label: "Status", value: "Live", color: "text-primary" },
                   { label: "Projected MRR", value: generatedCompany.mrr, color: "text-foreground" },
-                  { label: "Pages pre-deployed", value: "7", color: "text-foreground" },
+                  { label: "Pages deployed", value: "7", color: "text-foreground" },
                   { label: "APIs connected", value: "4", color: "text-foreground" },
                 ].map((m) => (
                   <div key={m.label} className="p-3 rounded-xl bg-muted/40">
