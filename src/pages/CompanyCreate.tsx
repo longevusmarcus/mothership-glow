@@ -506,12 +506,9 @@ const CompanyCreate = () => {
                         <p className="text-[9px] text-muted-foreground">Connect via API or upload config</p>
                       </div>
                     </div>
-                    <button
-                      onClick={() => setShowIntegrate((prev) => !prev)}
-                      className="flex items-center gap-1 px-2.5 py-1.5 rounded-lg border border-border text-[10px] font-semibold hover:bg-muted/60 transition-all active:scale-[0.97]"
-                    >
-                      <Link2 className="h-3 w-3" strokeWidth={2} /> {showIntegrate ? "Hide" : "Connect"}
-                    </button>
+                    <span className="flex items-center gap-1 px-2.5 py-1.5 rounded-lg border border-border text-[10px] font-semibold text-muted-foreground cursor-default">
+                      Soon
+                    </span>
                   </div>
                   <AnimatePresence>
                     {showIntegrate && (
