@@ -1,7 +1,8 @@
 import { Code, TrendingUp, Brain, Database } from "lucide-react";
 import type { AgentDef, CreateAgent } from "./types";
 
-// ── Deployable agents (Chat + CompanyCreate) ──
+// ── Deployable agents / templates (Chat + CompanyCreate) ──
+// Each agent maps to a curated Template from GET /v1/templates
 
 export const deployableAgents: AgentDef[] = [
   {
@@ -11,6 +12,9 @@ export const deployableAgents: AgentDef[] = [
     icon: Code,
     color: "hsl(var(--chart-1))",
     desc: "Builds MVPs end-to-end. Deploys landing pages, backends, and payment flows.",
+    template_id: "ceo-agent",
+    spend_profile: "high",
+    supported_channels: ["api", "telegram"],
   },
   {
     id: "growthpilot",
@@ -19,6 +23,9 @@ export const deployableAgents: AgentDef[] = [
     icon: TrendingUp,
     color: "hsl(var(--chart-2))",
     desc: "Sets up acquisition channels and runs traction experiments.",
+    template_id: "growth-pilot",
+    spend_profile: "medium",
+    supported_channels: ["api", "telegram"],
   },
   {
     id: "visionarch",
@@ -27,6 +34,9 @@ export const deployableAgents: AgentDef[] = [
     icon: Brain,
     color: "hsl(var(--chart-3))",
     desc: "Synthesizes ideas into a coherent product strategy.",
+    template_id: "vision-arch",
+    spend_profile: "low",
+    supported_channels: ["api", "telegram"],
   },
   {
     id: "dataweaver",
@@ -35,6 +45,9 @@ export const deployableAgents: AgentDef[] = [
     icon: Database,
     color: "hsl(var(--chart-4))",
     desc: "Connects APIs and builds automated pipelines.",
+    template_id: "data-weaver",
+    spend_profile: "medium",
+    supported_channels: ["api", "telegram"],
   },
 ];
 

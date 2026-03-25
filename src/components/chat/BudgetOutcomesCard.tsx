@@ -1,14 +1,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { DollarSign, Target, ArrowRight, Check } from "lucide-react";
-import { ease } from "@/data";
-
-const budgetOptions = [
-  { label: "$58/mo", value: "58", desc: "Orbital — 1 agent" },
-  { label: "$88/mo", value: "88", desc: "Orbital +1 — 2 agents" },
-  { label: "$118/mo", value: "118", desc: "Orbital +2 — 3 agents" },
-  { label: "$148/mo", value: "148", desc: "Interstellar — 4 agents" },
-];
+import { Check, ArrowRight } from "lucide-react";
+import { ease, slotTiers } from "@/data";
 
 const outcomeOptions = [
   { label: "Launch MVP", emoji: "🚀" },
@@ -29,11 +22,11 @@ export function BudgetOutcomesCard({ onDone }: { onDone: (budget: string, outcom
 
   return (
     <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, ease }} className="space-y-4 mt-3">
-      {/* Budget */}
+      {/* Budget — slot tiers */}
       <div className="space-y-2">
         <p className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider">Monthly budget</p>
         <div className="grid grid-cols-2 gap-2">
-          {budgetOptions.map(opt => {
+          {slotTiers.map(opt => {
             const active = selectedBudget === opt.value;
             return (
               <button key={opt.value} onClick={() => setSelectedBudget(opt.value)}

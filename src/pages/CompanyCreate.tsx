@@ -23,7 +23,7 @@ import { useState, useEffect, useRef } from "react";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { toast } from "sonner";
 import { motion, AnimatePresence } from "framer-motion";
-import { createAgents, companyDeploySteps, ease, CEO_PRICE, EXTRA_AGENT_PRICE } from "@/data";
+import { createAgents, companyDeploySteps, ease, CEO_PRICE, EXTRA_AGENT_PRICE, slotTiers } from "@/data";
 import type { CreateAgent } from "@/data";
 import { ProPlanCard, SignalsCard, IdeasCard, ApiDocsPaywall } from "@/components/chat";
 
@@ -141,12 +141,7 @@ function ClaimCompanyPaywall({ onDeployAnother, agentCount }: { onDeployAnother:
   );
 }
 
-const budgetTiers = [
-  { label: "$58/mo", value: "58", desc: "Orbital — 1 agent" },
-  { label: "$88/mo", value: "88", desc: "Orbital +1 — 2 agents" },
-  { label: "$118/mo", value: "118", desc: "Orbital +2 — 3 agents" },
-  { label: "$148/mo", value: "148", desc: "Interstellar — 4 agents" },
-];
+// Budget tiers imported from shared slotTiers
 
 const CompanyCreate = () => {
   const { t } = useLanguage();
@@ -364,7 +359,7 @@ const CompanyCreate = () => {
             {wizardStep === 3 ? (
               <>
                 <div className="grid grid-cols-2 gap-2">
-                  {budgetTiers.map(opt => {
+                  {slotTiers.map(opt => {
                     const active = selectedBudget === opt.value;
                     return (
                       <button key={opt.value} onClick={() => setSelectedBudget(opt.value)}
@@ -392,7 +387,7 @@ const CompanyCreate = () => {
             ) : (
               <div className="flex items-center gap-2 text-[11px] text-muted-foreground">
                 <DollarSign className="h-3.5 w-3.5" strokeWidth={1.4} />
-                <span>{budgetTiers.find(b => b.value === selectedBudget)?.label || selectedBudget}</span>
+                <span>{slotTiers.find(b => b.value === selectedBudget)?.label || selectedBudget}</span>
                 {wizardStep < 7 && (
                   <button
                     onClick={() => setWizardStep(3)}
@@ -639,7 +634,7 @@ const CompanyCreate = () => {
               {[
                 { label: "Signal", value: selectedSignals },
                 { label: "Idea", value: selectedIdea },
-                { label: "Budget", value: budgetTiers.find(b => b.value === selectedBudget)?.label || selectedBudget },
+                { label: "Budget", value: slotTiers.find(b => b.value === selectedBudget)?.label || selectedBudget },
                 {
                   label: "Agents",
                   value: `${selectedAgents.length} agents (${selectedAgentObjects.map((a) => a.name).join(", ")})`,
