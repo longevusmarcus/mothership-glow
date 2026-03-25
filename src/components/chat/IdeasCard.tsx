@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronRight, RefreshCw, TrendingUp, Clock, Users, X, Target } from "lucide-react";
+import { Check, ChevronRight, RefreshCw, TrendingUp, Clock, Users, X, Target, ArrowRight } from "lucide-react";
 import { allIdeas, shuffleAndPick, ease } from "@/data";
 import type { Idea } from "@/data/types";
 
@@ -56,20 +56,22 @@ function IdeaDetail({ idea, onClose }: { idea: Idea; onClose: () => void }) {
 }
 
 export function IdeasCard({ onSelect }: { onSelect: (idea: string) => void }) {
-  const [ideas, setIdeas] = useState(() => shuffleAndPick(allIdeas, 4));
+  const [selected, setSelected] = useState<string | null>(null);
   const [expanded, setExpanded] = useState<string | null>(null);
+  const [ideas, setIdeas] = useState(() => shuffleAndPick(allIdeas, 4));
   const [refreshing, setRefreshing] = useState(false);
 
   const refresh = () => {
     setRefreshing(true);
-    setTimeout(() => { setIdeas(shuffleAndPick(allIdeas, 4)); setExpanded(null); setRefreshing(false); }, 400);
+    setTimeout(() => { setIdeas(shuffleAndPick(allIdeas, 4)); setSelected(null); setExpanded(null); setRefreshing(false); }, 400);
   };
 
   const handleClick = (idea: Idea) => {
     if (expanded === idea.title) {
-      onSelect(idea.title);
+      setExpanded(null);
     } else {
       setExpanded(idea.title);
+      setSelected(idea.title);
     }
   };
 
@@ -86,13 +88,15 @@ export function IdeasCard({ onSelect }: { onSelect: (idea: string) => void }) {
           <div key={idea.title} className="space-y-1.5">
             <motion.button initial={{ opacity: 0, x: -8 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: i * 0.06, duration: 0.3 }}
               onClick={() => handleClick(idea)}
-              className={`w-full text-left p-3 rounded-xl border transition-all group ${expanded === idea.title ? "border-primary/40 bg-primary/[0.04]" : "border-border bg-background hover:border-primary/30 hover:bg-primary/[0.02]"}`}>
+              className={`w-full text-left p-3 rounded-xl border transition-all ${selected === idea.title ? "border-primary/40 bg-primary/[0.04]" : "border-border bg-background hover:bg-muted/30"}`}>
               <div className="flex items-center justify-between mb-1">
                 <span className="text-[12px] font-medium">{idea.title}</span>
-                <ChevronRight className={`h-3.5 w-3.5 text-muted-foreground/30 group-hover:text-foreground/50 transition-all ${expanded === idea.title ? "rotate-90 text-primary" : ""}`} />
+                <div className="flex items-center gap-2">
+                  <span className="text-[10px] font-semibold tabular-nums text-primary">{idea.confidence}%</span>
+                  {selected === idea.title && <Check className="h-3 w-3 text-primary" strokeWidth={2.5} />}
+                </div>
               </div>
               <div className="flex items-center gap-3 text-[10px] text-muted-foreground">
-                <span className="font-semibold text-primary">{idea.confidence}% confidence</span>
                 <span>{idea.revenue}</span>
                 <span>TAM {idea.tam}</span>
                 <span>{idea.competitors} competitors</span>
@@ -104,9 +108,13 @@ export function IdeasCard({ onSelect }: { onSelect: (idea: string) => void }) {
           </div>
         ))}
       </div>
-      <p className="text-[10px] text-muted-foreground/60 text-center">
-        {expanded ? "Click the idea again to select it" : "Click an idea to see details"} · You can always change your idea later after deployment
-      </p>
+      {selected && (
+        <motion.button initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} onClick={() => onSelect(selected)}
+          className="w-full h-10 rounded-xl bg-primary text-primary-foreground text-[12px] font-semibold flex items-center justify-center gap-2 hover:opacity-90 transition-all active:scale-[0.97]">
+          <ArrowRight className="h-3.5 w-3.5" strokeWidth={1.8} /> Build this idea
+        </motion.button>
+      )}
+      <p className="text-[10px] text-muted-foreground/60 text-center">You can always change your idea later after deployment</p>
     </motion.div>
   );
 }
