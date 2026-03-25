@@ -142,10 +142,10 @@ function ClaimCompanyPaywall({ onDeployAnother, agentCount }: { onDeployAnother:
 }
 
 const budgetTiers = [
-  { label: "$50/mo", value: "50", desc: "Solo agent — lean MVP" },
-  { label: "$150/mo", value: "150", desc: "Small team — 2-3 agents" },
-  { label: "$500/mo", value: "500", desc: "Full stack — 5+ agents" },
-  { label: "Custom", value: "custom", desc: "Set your own budget" },
+  { label: "$58/mo", value: "58", desc: "Orbital — 1 agent" },
+  { label: "$88/mo", value: "88", desc: "Orbital +1 — 2 agents" },
+  { label: "$118/mo", value: "118", desc: "Orbital +2 — 3 agents" },
+  { label: "$148/mo", value: "148", desc: "Interstellar — 4 agents" },
 ];
 
 const CompanyCreate = () => {
