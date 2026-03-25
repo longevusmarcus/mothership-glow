@@ -1,37 +1,38 @@
 import type { DeployStep } from "./types";
 
-// ── Chat deploy steps ──
+// ── Chat deploy steps (aligned with POST /v1/agents lifecycle) ──
 
 export const chatDeploySteps = [
-  "Analyzing selected signals & ideas...",
-  "Generating business model & pricing...",
-  "Designing tech architecture...",
-  "Building landing page...",
-  "Setting up backend & payments...",
-  "Running pre-launch checks...",
-  "Deploying to production...",
+  "Creating account session...",
+  "Selecting agent template...",
+  "Reserving subdomain on msx.dev...",
+  "Deploying agent (POST /v1/agents)...",
+  "Provisioning office environment...",
+  "Configuring Telegram bot...",
+  "Running activation checks...",
+  "Agent is ready — site is live!",
 ];
 
-// ── Company create deploy steps (detailed) ──
+// ── Company create deploy steps (detailed — maps to API lifecycle stages) ──
 
 export const companyDeploySteps: DeployStep[] = [
-  { label: "Scanning signals database", detail: "Analyzing 847 market signals from last 30 days...", duration: 2200 },
-  { label: "Cross-referencing ideas", detail: "Matching 750 validated ideas with current trends...", duration: 1800 },
-  { label: "Generating business model", detail: "Building revenue model, pricing, and unit economics...", duration: 2400 },
-  { label: "Designing tech architecture", detail: "Selecting stack: React, Supabase, Stripe, Resend...", duration: 1600 },
-  { label: "Creating landing page", detail: "Deploying hero, features, pricing sections...", duration: 2000 },
-  { label: "Setting up backend", detail: "Provisioning database, auth, and API routes...", duration: 1800 },
-  { label: "Configuring payments", detail: "Integrating Stripe checkout and billing portal...", duration: 1400 },
-  { label: "Running pre-launch checks", detail: "Testing flows, performance, and security...", duration: 1200 },
-  { label: "Deploying to production", detail: "Publishing to global CDN with SSL...", duration: 1600 },
+  { label: "Creating slot checkout", detail: "Validating billing and reserving agent slots...", duration: 1800 },
+  { label: "Selecting template", detail: "Loading curated template from /v1/templates...", duration: 1200 },
+  { label: "Reserving subdomain", detail: "Claiming subdomain on msx.dev — status: reserved...", duration: 1600 },
+  { label: "Deploying agent", detail: "POST /v1/agents — template_id + subdomain...", duration: 2200 },
+  { label: "Provisioning office", detail: "Setting up agent workspace — office_status: provisioning...", duration: 2000 },
+  { label: "Configuring Telegram", detail: "Binding bot and setting webhook — connection_status: pending...", duration: 1600 },
+  { label: "Running activation", detail: "Activation checks — lifecycle_stage: activating...", duration: 1400 },
+  { label: "Verifying readiness", detail: "Confirming readiness: ready — site status: live...", duration: 1200 },
+  { label: "Agent deployed", detail: "All systems go — agent is reachable and ready!", duration: 800 },
 ];
 
 // ── Add-agent deploy steps ──
 
 export const addAgentSteps = [
-  "Connecting to company workspace...",
-  "Configuring agent permissions...",
-  "Installing required skills...",
-  "Setting up orchestration layer...",
-  "Running pre-launch checks...",
+  "Checking available slots...",
+  "Selecting agent template...",
+  "Deploying to workspace...",
+  "Configuring permissions & channels...",
+  "Running activation checks...",
 ];
