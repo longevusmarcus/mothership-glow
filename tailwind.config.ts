@@ -18,6 +18,7 @@ export default {
         body: ["'Inter'", "sans-serif"],
         pixel: ["'PPNeueBit'", "monospace"],
         mondwest: ["'PPMondwest'", "Georgia", "serif"],
+        grotesk: ['"Space Grotesk"', "sans-serif"],
       },
       colors: {
         success: {
