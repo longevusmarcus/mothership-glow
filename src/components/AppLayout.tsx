@@ -277,7 +277,7 @@ const AppLayout = ({ children }: AppLayoutProps) => {
         </header>
 
         {/* Desktop content card */}
-        <div className="hidden md:flex md:min-h-0 md:flex-1 md:flex-col md:overflow-hidden md:bg-background">
+        <div className="hidden md:flex md:min-h-0 md:flex-1 md:flex-col md:overflow-hidden md:rounded-[28px] md:border md:border-border md:bg-card">
           <main ref={desktopMainRef} className="min-h-0 flex-1 overflow-auto p-4 sm:p-6 lg:p-10">
             {children}
           </main>
