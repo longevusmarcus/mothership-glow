@@ -5,7 +5,7 @@ export const translationsNav = {
   "nav.arena": { it: "Arena", en: "Arena" },
   "nav.more": { it: "Altro", en: "More" },
   "nav.store": { it: "App Store", en: "App Store" },
-  "nav.companies": { it: "Le tue Aziende", en: "Your Companies" },
+  "nav.companies": { it: "Aziende", en: "Companies" },
   "nav.analytics": { it: "Analytics", en: "Analytics" },
   "nav.settings": { it: "Impostazioni", en: "Settings" },
   "nav.logout": { it: "Esci", en: "Logout" },
